@@ -7,14 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B03C6471CF93312005BFD9B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7B03C6461CF93311005BFD9B /* Podfile */; };
+		7B82B9D11CF9481F00F99468 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B9CF1CF9481F00F99468 /* FBSDKCoreKit.framework */; };
+		7B82B9D21CF9481F00F99468 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B9D01CF9481F00F99468 /* FBSDKLoginKit.framework */; };
 		7BB652B21CF7BC7300D1E65E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652B11CF7BC7300D1E65E /* AppDelegate.swift */; };
 		7BB652B41CF7BC7300D1E65E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652B31CF7BC7300D1E65E /* ViewController.swift */; };
 		7BB652B71CF7BC7300D1E65E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BB652B51CF7BC7300D1E65E /* Main.storyboard */; };
 		7BB652B91CF7BC7300D1E65E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BB652B81CF7BC7300D1E65E /* Assets.xcassets */; };
 		7BB652BC1CF7BC7300D1E65E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BB652BA1CF7BC7300D1E65E /* LaunchScreen.storyboard */; };
+		7BB652C71CF7BD2900D1E65E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652C51CF7BD2900D1E65E /* Bolts.framework */; };
+		7BB652C81CF7BD2900D1E65E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652C61CF7BD2900D1E65E /* Parse.framework */; };
+		7BB652CA1CF7BD6700D1E65E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652C91CF7BD6700D1E65E /* AudioToolbox.framework */; };
+		7BB652CC1CF7BD7000D1E65E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652CB1CF7BD7000D1E65E /* CFNetwork.framework */; };
+		7BB652CE1CF7BD7700D1E65E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652CD1CF7BD7700D1E65E /* CoreGraphics.framework */; };
+		7BB652D01CF7BD7D00D1E65E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652CF1CF7BD7D00D1E65E /* CoreLocation.framework */; };
+		7BB652D21CF7BD8900D1E65E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D11CF7BD8900D1E65E /* QuartzCore.framework */; };
+		7BB652D41CF7BD9000D1E65E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D31CF7BD9000D1E65E /* Security.framework */; };
+		7BB652D61CF7BD9700D1E65E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D51CF7BD9700D1E65E /* StoreKit.framework */; };
+		7BB652D81CF7BDCC00D1E65E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D71CF7BDCC00D1E65E /* SystemConfiguration.framework */; };
+		7BB652DA1CF7BDDF00D1E65E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D91CF7BDDF00D1E65E /* libz.tbd */; };
+		7BB652DC1CF7BDF900D1E65E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652DB1CF7BDF900D1E65E /* libsqlite3.tbd */; };
+		7BB652E11CF7C14500D1E65E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652DF1CF7C14500D1E65E /* Bolts.framework */; };
+		7BB652E21CF7C14500D1E65E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652E01CF7C14500D1E65E /* Parse.framework */; };
+		7BB652EA1CF7CE2900D1E65E /* signInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652E91CF7CE2900D1E65E /* signInVC.swift */; };
+		7BB652EC1CF7CE3500D1E65E /* signUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652EB1CF7CE3500D1E65E /* signUpVC.swift */; };
+		7BB652EE1CF7CE4600D1E65E /* resetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652ED1CF7CE4600D1E65E /* resetPasswordVC.swift */; };
+		7BB652F01CF87C5E00D1E65E /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652EF1CF87C5E00D1E65E /* homeVC.swift */; };
+		7BB652F21CF87C7900D1E65E /* headerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652F11CF87C7900D1E65E /* headerView.swift */; };
+		7BB652F41CF87ED200D1E65E /* pictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652F31CF87ED200D1E65E /* pictureCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B03C6461CF93311005BFD9B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		7B82B9CB1CF93CE000F99468 /* StickerSpread-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StickerSpread-Bridging-Header.h"; sourceTree = "<group>"; };
+		7B82B9CF1CF9481F00F99468 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		7B82B9D01CF9481F00F99468 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		7BB652AE1CF7BC7300D1E65E /* StickerSpread.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickerSpread.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BB652B11CF7BC7300D1E65E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BB652B31CF7BC7300D1E65E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +49,26 @@
 		7BB652B81CF7BC7300D1E65E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BB652BB1CF7BC7300D1E65E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7BB652BD1CF7BC7300D1E65E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7BB652C51CF7BD2900D1E65E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../Downloads/parse-library-1/Bolts.framework"; sourceTree = "<group>"; };
+		7BB652C61CF7BD2900D1E65E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../Downloads/parse-library-1/Parse.framework"; sourceTree = "<group>"; };
+		7BB652C91CF7BD6700D1E65E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		7BB652CB1CF7BD7000D1E65E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		7BB652CD1CF7BD7700D1E65E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7BB652CF1CF7BD7D00D1E65E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		7BB652D11CF7BD8900D1E65E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7BB652D31CF7BD9000D1E65E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7BB652D51CF7BD9700D1E65E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		7BB652D71CF7BDCC00D1E65E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7BB652D91CF7BDDF00D1E65E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		7BB652DB1CF7BDF900D1E65E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		7BB652DF1CF7C14500D1E65E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../Downloads/parse-library-1/Bolts.framework"; sourceTree = "<group>"; };
+		7BB652E01CF7C14500D1E65E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../Downloads/parse-library-1/Parse.framework"; sourceTree = "<group>"; };
+		7BB652E91CF7CE2900D1E65E /* signInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signInVC.swift; sourceTree = "<group>"; };
+		7BB652EB1CF7CE3500D1E65E /* signUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = signUpVC.swift; sourceTree = "<group>"; };
+		7BB652ED1CF7CE4600D1E65E /* resetPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resetPasswordVC.swift; sourceTree = "<group>"; };
+		7BB652EF1CF87C5E00D1E65E /* homeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
+		7BB652F11CF87C7900D1E65E /* headerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = headerView.swift; sourceTree = "<group>"; };
+		7BB652F31CF87ED200D1E65E /* pictureCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pictureCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +76,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB652DC1CF7BDF900D1E65E /* libsqlite3.tbd in Frameworks */,
+				7BB652DA1CF7BDDF00D1E65E /* libz.tbd in Frameworks */,
+				7BB652D81CF7BDCC00D1E65E /* SystemConfiguration.framework in Frameworks */,
+				7BB652D61CF7BD9700D1E65E /* StoreKit.framework in Frameworks */,
+				7BB652D41CF7BD9000D1E65E /* Security.framework in Frameworks */,
+				7BB652D21CF7BD8900D1E65E /* QuartzCore.framework in Frameworks */,
+				7BB652D01CF7BD7D00D1E65E /* CoreLocation.framework in Frameworks */,
+				7BB652E11CF7C14500D1E65E /* Bolts.framework in Frameworks */,
+				7BB652CE1CF7BD7700D1E65E /* CoreGraphics.framework in Frameworks */,
+				7BB652CC1CF7BD7000D1E65E /* CFNetwork.framework in Frameworks */,
+				7B82B9D11CF9481F00F99468 /* FBSDKCoreKit.framework in Frameworks */,
+				7BB652E21CF7C14500D1E65E /* Parse.framework in Frameworks */,
+				7BB652CA1CF7BD6700D1E65E /* AudioToolbox.framework in Frameworks */,
+				7BB652C81CF7BD2900D1E65E /* Parse.framework in Frameworks */,
+				7B82B9D21CF9481F00F99468 /* FBSDKLoginKit.framework in Frameworks */,
+				7BB652C71CF7BD2900D1E65E /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +101,9 @@
 		7BB652A51CF7BC7300D1E65E = {
 			isa = PBXGroup;
 			children = (
+				7B03C6461CF93311005BFD9B /* Podfile */,
+				7BB652DF1CF7C14500D1E65E /* Bolts.framework */,
+				7BB652E01CF7C14500D1E65E /* Parse.framework */,
 				7BB652B01CF7BC7300D1E65E /* StickerSpread */,
 				7BB652AF1CF7BC7300D1E65E /* Products */,
 			);
@@ -54,14 +120,44 @@
 		7BB652B01CF7BC7300D1E65E /* StickerSpread */ = {
 			isa = PBXGroup;
 			children = (
+				7B82B9CF1CF9481F00F99468 /* FBSDKCoreKit.framework */,
+				7B82B9D01CF9481F00F99468 /* FBSDKLoginKit.framework */,
+				7BB652E91CF7CE2900D1E65E /* signInVC.swift */,
+				7BB652EB1CF7CE3500D1E65E /* signUpVC.swift */,
+				7BB652ED1CF7CE4600D1E65E /* resetPasswordVC.swift */,
 				7BB652B11CF7BC7300D1E65E /* AppDelegate.swift */,
 				7BB652B31CF7BC7300D1E65E /* ViewController.swift */,
 				7BB652B51CF7BC7300D1E65E /* Main.storyboard */,
 				7BB652B81CF7BC7300D1E65E /* Assets.xcassets */,
 				7BB652BA1CF7BC7300D1E65E /* LaunchScreen.storyboard */,
 				7BB652BD1CF7BC7300D1E65E /* Info.plist */,
+				7BB652DE1CF7BE2B00D1E65E /* Frameworks */,
+				7BB652EF1CF87C5E00D1E65E /* homeVC.swift */,
+				7BB652F11CF87C7900D1E65E /* headerView.swift */,
+				7BB652F31CF87ED200D1E65E /* pictureCell.swift */,
+				7B82B9CB1CF93CE000F99468 /* StickerSpread-Bridging-Header.h */,
 			);
 			path = StickerSpread;
+			sourceTree = "<group>";
+		};
+		7BB652DE1CF7BE2B00D1E65E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7BB652DB1CF7BDF900D1E65E /* libsqlite3.tbd */,
+				7BB652D91CF7BDDF00D1E65E /* libz.tbd */,
+				7BB652C51CF7BD2900D1E65E /* Bolts.framework */,
+				7BB652C61CF7BD2900D1E65E /* Parse.framework */,
+				7BB652D71CF7BDCC00D1E65E /* SystemConfiguration.framework */,
+				7BB652D51CF7BD9700D1E65E /* StoreKit.framework */,
+				7BB652D31CF7BD9000D1E65E /* Security.framework */,
+				7BB652D11CF7BD8900D1E65E /* QuartzCore.framework */,
+				7BB652CF1CF7BD7D00D1E65E /* CoreLocation.framework */,
+				7BB652CD1CF7BD7700D1E65E /* CoreGraphics.framework */,
+				7BB652CB1CF7BD7000D1E65E /* CFNetwork.framework */,
+				7BB652C91CF7BD6700D1E65E /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +220,7 @@
 			files = (
 				7BB652BC1CF7BC7300D1E65E /* LaunchScreen.storyboard in Resources */,
 				7BB652B91CF7BC7300D1E65E /* Assets.xcassets in Resources */,
+				7B03C6471CF93312005BFD9B /* Podfile in Resources */,
 				7BB652B71CF7BC7300D1E65E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,8 +232,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BB652F41CF87ED200D1E65E /* pictureCell.swift in Sources */,
+				7BB652EC1CF7CE3500D1E65E /* signUpVC.swift in Sources */,
+				7BB652F01CF87C5E00D1E65E /* homeVC.swift in Sources */,
 				7BB652B41CF7BC7300D1E65E /* ViewController.swift in Sources */,
+				7BB652EA1CF7CE2900D1E65E /* signInVC.swift in Sources */,
 				7BB652B21CF7BC7300D1E65E /* AppDelegate.swift in Sources */,
+				7BB652F21CF87C7900D1E65E /* headerView.swift in Sources */,
+				7BB652EE1CF7CE4600D1E65E /* resetPasswordVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,10 +354,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)/StickerSpread",
+				);
 				INFOPLIST_FILE = StickerSpread/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stickerspread.StickerSpread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StickerSpread/StickerSpread-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -262,10 +374,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"<Multiple",
+					"values>",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)/StickerSpread",
+				);
 				INFOPLIST_FILE = StickerSpread/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stickerspread.StickerSpread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StickerSpread/StickerSpread-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -288,6 +408,7 @@
 				7BB652C21CF7BC7300D1E65E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

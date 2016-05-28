@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Parse
+import Bolts
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +19,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        
+        
+        
+        
+        
+        
+        //let configuration = ParseClientConfiguration {
+        //    $0.applicationId = "y7yHA6fQwxhktMAkFntZdnFDvjW6HTGzKnJMEsOl"
+        //    $0.server = "http://N9xwixCfHmxgucpHvFNPUzA48XkynlRDWY8vt7aW:1337/parse"
+        //}
+        Parse.enableLocalDatastore()
+        Parse.setApplicationId("y7yHA6fQwxhktMAkFntZdnFDvjW6HTGzKnJMEsOl",clientKey:"N9xwixCfHmxgucpHvFNPUzA48XkynlRDWY8vt7aW")
+       // Parse.initializeWithConfiguration(configuration)        // Override point for customization after application launch.
+        
+        let testObject = PFObject(className: "TestObject")
+        testObject["foo"] = "bar"
+        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            print("Object has been saved.")
+        }
         return true
+    }
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool{
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     func applicationWillResignActive(application: UIApplication) {
