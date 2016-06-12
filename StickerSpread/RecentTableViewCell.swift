@@ -35,10 +35,10 @@ class RecentTableViewCell: UITableViewCell {
         avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width/2
         avatarImageView.layer.masksToBounds = true
         
-        let avaQuery = PFUser.currentUser()?.objectForKey("picture_file") as! PFFile
-        avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
-            self.avatarImageView.image = UIImage(data:data!)
-        }
+//        let avaQuery = PFUser.currentUser()?.objectForKey("picture_file") as! PFFile
+//        avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
+//            self.avatarImageView.image = UIImage(data:data!)
+//        }
         
         //self.avatarImageView.image = UIImage(named: "avatarPlaceholder")
         
@@ -81,6 +81,12 @@ class RecentTableViewCell: UITableViewCell {
                     let last = (object.objectForKey("last_name") as? String)
 
                     self.nameLable.text = first!+" "+last!
+                    
+                    let avaQuery = object.objectForKey("picture_file") as! PFFile
+                    avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
+                        self.avatarImageView.image = UIImage(data:data!)
+                    }
+                    
                    // self.avatarImageView = object.objectForKey("picture_file") as! PFFile
                     
                 }

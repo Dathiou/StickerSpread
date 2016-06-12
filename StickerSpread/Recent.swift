@@ -65,9 +65,11 @@ func CreateRecent(userId: String, chatRoomID: String, members: [String], withUse
         if snapshot.exists() {
             for recent in snapshot.value!.allValues {
                 
-                //print (recent.value as? String)
+              //  print (recent["userId"])
                 //if we already have recent with passed userId, we dont create a new one
-                if (recent.objectForKey(["userId"]) as! String) == userId {
+                //let a = recent.objectForKey(["userId"]) as? String
+               // if a == userId {
+               if recent["userId"]! as! String == userId {
                     createRecent = false
                 }
             }
@@ -98,56 +100,56 @@ func CreateRecentItem(userId: String, chatRoomID: String, members: [String], wit
     }
 }
 
-////MARK: Update Recent
-//
-//func UpdateRecents(chatRoomID: String, lastMessage: String) {
-//    
-//    firebase.child("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(chatRoomID).observeSingleEventOfType(.Value, withBlock: {
-//        snapshot in
-//        
-//        if snapshot.exists() {
-//            
-//            for recent in snapshot.value!.allValues {
-//                UpdateRecentItem(recent as! NSDictionary, lastMessage: lastMessage)
-//            }
-//        }
-//    })
-//}
-//
-//func UpdateRecentItem(recent: NSDictionary, lastMessage: String) {
-//    let date = dateFormatter().stringFromDate(NSDate())
-//    
-//    var counter = recent["counter"] as! Int
-//    
-//    if recent["userId"] as? String != backendless.userService.currentUser.objectId {        counter += 1
-//    }
-//    
-//    let values = ["lastMessage" : lastMessage, "counter" : counter, "date" : date]
-//    
-//    //change
-//    firebase.child("Recent").child((recent["recentId"] as? String)!).updateChildValues(values as [NSObject : AnyObject], withCompletionBlock: {
-//        (error, ref) -> Void in
-//        
-//        if error != nil {
-//            print("Error couldnt update recent item")
-//        }
-//    })
-//}
-//
-////MARK: Restart Recent Chat
-//
-//func RestartRecentChat(recent: NSDictionary) {
-//    
-//    for userId in recent["members"] as! [String] {
-//        
-//        if userId != backendless.userService.currentUser.objectId {
-//            
-//            CreateRecent(userId, chatRoomID: (recent["chatRoomID"] as? String)!, members: recent["members"] as! [String], withUserUsername: backendless.userService.currentUser.name, withUseruserId: backendless.userService.currentUser.objectId)
-//        }
-//    }
-//}
-//
-//
+//MARK: Update Recent
+
+func UpdateRecents(chatRoomID: String, lastMessage: String) {
+    
+    firebase.child("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(chatRoomID).observeSingleEventOfType(.Value, withBlock: {
+        snapshot in
+        
+        if snapshot.exists() {
+            
+            for recent in snapshot.value!.allValues {
+                UpdateRecentItem(recent as! NSDictionary, lastMessage: lastMessage)
+            }
+        }
+    })
+}
+
+func UpdateRecentItem(recent: NSDictionary, lastMessage: String) {
+    let date = dateFormatter().stringFromDate(NSDate())
+    
+    var counter = recent["counter"] as! Int
+    
+    if recent["userId"] as? String != PFUser.currentUser()!.username {        counter += 1
+    }
+    
+    let values = ["lastMessage" : lastMessage, "counter" : counter, "date" : date]
+    
+    //change
+    firebase.child("Recent").child((recent["recentId"] as? String)!).updateChildValues(values as [NSObject : AnyObject], withCompletionBlock: {
+        (error, ref) -> Void in
+        
+        if error != nil {
+            print("Error couldnt update recent item")
+        }
+    })
+}
+
+//MARK: Restart Recent Chat
+
+func RestartRecentChat(recent: NSDictionary) {
+    
+    for userId in recent["members"] as! [String] {
+        
+        if userId != PFUser.currentUser()!.username {
+            
+            CreateRecent(userId, chatRoomID: (recent["chatRoomID"] as? String)!, members: recent["members"] as! [String], withUserUsername: PFUser.currentUser()!.username! , withUseruserId: PFUser.currentUser()!.username! )
+        }
+    }
+}
+
+
 //MARK: Delete Recent functions
 
 func DeleteRecentItem(recent: NSDictionary) {

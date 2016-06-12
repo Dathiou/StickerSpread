@@ -73,7 +73,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
 //        }
         
         //load firebase messages
-        //loadmessages()
+        loadmessages()
         
         self.inputToolbar?.contentView?.textView?.placeHolder = "New Message"
 
@@ -91,7 +91,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         
         let data = messages[indexPath.row]
         
-        if data.senderId == backendless.userService.currentUser.objectId {
+        if data.senderId == PFUser.currentUser()!.username {
             cell.textView?.textColor = UIColor.whiteColor()
         } else {
             cell.textView?.textColor = UIColor.blackColor()
@@ -116,7 +116,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         
         let data = messages[indexPath.row]
         
-        if data.senderId == backendless.userService.currentUser.objectId {
+        if data.senderId == PFUser.currentUser()?.username {
             return outgoingBubble
         } else {
             return incomingBubble
@@ -176,16 +176,16 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     
     //MARK: JSQMessages Delegate function
     
-//    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-//        
-//        if text != "" {
-//            sendMessage(text, date: date, picture: nil, location: nil)
-//        }
-//        
-//    }
+    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+        
+        if text != "" {
+            sendMessage(text, date: date, picture: nil, location: nil)
+        }
+        
+    }
     
-//    override func didPressAccessoryButton(sender: UIButton!) {
-//        
+    override func didPressAccessoryButton(sender: UIButton!) {
+        
 //        let camera = Camera(delegate_: self)
 //        
 //        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
@@ -216,117 +216,117 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
 //        optionMenu.addAction(cancelAction)
 //        
 //        self.presentViewController(optionMenu, animated: true, completion: nil)
-//    }
+    }
     
     //MARK: Send Message
     
-//    func sendMessage(text: String?, date: NSDate, picture: UIImage?, location: String?) {
-//        
-//        var outgoingMessage = OutgoingMessage?()
-//        
-//        //if text message
-//        if let text = text {
-//            outgoingMessage = OutgoingMessage(message: text, senderId: backendless.userService.currentUser.objectId!, senderName: backendless.userService.currentUser.name!, date: date, status: "Delivered", type: "text")
-//        }
-//        
-//        //send picture message
-//        if let pic = picture {
-//            
-//            let imageData = UIImageJPEGRepresentation(pic, 1.0)
-//            
-//            outgoingMessage = OutgoingMessage(message: "Picture", pictureData: imageData!, senderId: backendless.userService.currentUser.objectId!, senderName: backendless.userService.currentUser.name!, date: date, status: "Delivered", type: "picture")
-//        }
-//        
-//        if let _ = location {
-//
-//            let lat: NSNumber = NSNumber(double: (appDelegate.coordinate?.latitude)!)
-//            let lng: NSNumber = NSNumber(double: (appDelegate.coordinate?.longitude)!)
-//            
-//            outgoingMessage = OutgoingMessage(message: "Location", latitude: lat, longitude: lng, senderId: backendless.userService.currentUser.objectId!, senderName: backendless.userService.currentUser.name!, date: date, status: "Delivered", type: "location")
-//        }
-//        
-//        //play message sent sound
-//        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-//        self.finishSendingMessage()
-//        
-//        
-//        outgoingMessage!.sendMessage(chatRoomId, item: outgoingMessage!.messageDictionary)
-//    }
+    func sendMessage(text: String?, date: NSDate, picture: UIImage?, location: String?) {
+        
+        var outgoingMessage = OutgoingMessage?()
+        
+        //if text message
+        if let text = text {
+            outgoingMessage = OutgoingMessage(message: text, senderId: (PFUser.currentUser()?.username!)!, senderName: (PFUser.currentUser()?.username!)!, date: date, status: "Delivered", type: "text")
+        }
+        
+        //send picture message
+        if let pic = picture {
+            
+            let imageData = UIImageJPEGRepresentation(pic, 1.0)
+            
+            outgoingMessage = OutgoingMessage(message: "Picture", pictureData: imageData!, senderId: (PFUser.currentUser()?.username!)!, senderName: (PFUser.currentUser()?.username!)!, date: date, status: "Delivered", type: "picture")
+        }
+        
+        if let _ = location {
+
+           // let lat: NSNumber = NSNumber(double: (appDelegate.coordinate?.latitude)!)
+           // let lng: NSNumber = NSNumber(double: (appDelegate.coordinate?.longitude)!)
+            
+         //   outgoingMessage = OutgoingMessage(message: "Location", latitude: lat, longitude: lng, senderId: backendless.userService.currentUser.objectId!, senderName: backendless.userService.currentUser.name!, date: date, status: "Delivered", type: "location")
+        }
+        
+        //play message sent sound
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        self.finishSendingMessage()
+        
+        
+        outgoingMessage!.sendMessage(chatRoomId, item: outgoingMessage!.messageDictionary)
+    }
     
     
     //MARK: Load Messages
     
-//    func loadmessages() {
-//    
-//        
-//        ref.child(chatRoomId).observeEventType(.ChildAdded, withBlock: {
-//            snapshot in
-//            
-//            if snapshot.exists() {
-//                let item = (snapshot.value as? NSDictionary)!
-//                
-//                if self.initialLoadComlete {
-//                    let incoming = self.insertMessage(item)
-//                    
-//                    if incoming {
-//                        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
-//                    }
-//                    
-//                    self.finishReceivingMessageAnimated(true)
-//                    
-//                } else {
-//                    self.loaded.append(item)
-//                }
-//            }
-//        })
-//        
-//        
-//        ref.child(chatRoomId).observeEventType(.ChildChanged, withBlock: {
-//            snapshot in
-//            
-//            //updated message
-//        })
-//        
-//        
-//        ref.child(chatRoomId).observeEventType(.ChildRemoved, withBlock: {
-//            snapshot in
-//            
-//            //Deleted message
-//        })
-//        
-//        ref.child(chatRoomId).observeSingleEventOfType(.Value, withBlock:{
-//            snapshot in
-//            
-//            self.insertMessages()
-//            self.finishReceivingMessageAnimated(true)
-//            self.initialLoadComlete = true
-//        })
-//        
-//    }
+    func loadmessages() {
     
-//    func insertMessages() {
-//        
-//        for item in loaded {
-//            //create message
-//            insertMessage(item)
-//        }
-//    }
+        
+        ref.child(chatRoomId).observeEventType(.ChildAdded, withBlock: {
+            snapshot in
+            
+            if snapshot.exists() {
+                let item = (snapshot.value as? NSDictionary)!
+                
+                if self.initialLoadComlete {
+                    let incoming = self.insertMessage(item)
+                    
+                    if incoming {
+                        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+                    }
+                    
+                    self.finishReceivingMessageAnimated(true)
+                    
+                } else {
+                    self.loaded.append(item)
+                }
+            }
+        })
+        
+        
+        ref.child(chatRoomId).observeEventType(.ChildChanged, withBlock: {
+            snapshot in
+            
+            //updated message
+        })
+        
+        
+        ref.child(chatRoomId).observeEventType(.ChildRemoved, withBlock: {
+            snapshot in
+            
+            //Deleted message
+        })
+        
+        ref.child(chatRoomId).observeSingleEventOfType(.Value, withBlock:{
+            snapshot in
+            
+            self.insertMessages()
+            self.finishReceivingMessageAnimated(true)
+            self.initialLoadComlete = true
+        })
+        
+    }
     
-//    func insertMessage(item: NSDictionary) -> Bool {
-//        
-//        let incomingMessage = IncomingMessage(collectionView_: self.collectionView!)
-//        
-//        let message = incomingMessage.createMessage(item)
-//        
-//        objects.append(item)
-//        messages.append(message!)
-//        
-//        return incoming(item)
-//    }
+    func insertMessages() {
+        
+        for item in loaded {
+            //create message
+            insertMessage(item)
+        }
+    }
+    
+    func insertMessage(item: NSDictionary) -> Bool {
+        
+        let incomingMessage = IncomingMessage(collectionView_: self.collectionView!)
+        
+        let message = incomingMessage.createMessage(item)
+        
+        objects.append(item)
+        messages.append(message!)
+        
+        return incoming(item)
+    }
     
     func incoming(item: NSDictionary) -> Bool {
         
-        if backendless.userService.currentUser.objectId == item["senderId"] as! String {
+        if PFUser.currentUser()!.username == item["senderId"] as! String {
             print("have location")
             return false
         } else {
@@ -336,7 +336,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     
     func outgoing(item: NSDictionary) -> Bool {
 
-        if backendless.userService.currentUser.objectId == item["senderId"] as! String {
+        if PFUser.currentUser()!.username == item["senderId"] as! String {
             return true
         } else {
             return false
@@ -346,14 +346,14 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     
     //MARK: Helper functions
     
-//    func haveAccessToLocation() -> Bool {
-//        if let _ = appDelegate.coordinate?.latitude {
-//            return true
-//        } else {
-//            print("no access to location")
-//            return false
-//        }
-//    }
+    func haveAccessToLocation() -> Bool {
+        if let _ = appDelegate.coordinate?.latitude {
+            return true
+        } else {
+            print("no access to location")
+            return false
+        }
+    }
     
 //    func getAvatars() {
 //        
@@ -372,25 +372,63 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
 //        }
 //    }
     
-    func getWithUserFromRecent(recent: NSDictionary, result: (withUser: BackendlessUser) -> Void) {
+    func getWithUserFromRecent(recent: NSDictionary, result: (withUser: PFUser) -> Void) {
         
         let withUserId = recent["withUserUserId"] as? String
+//        
+//        let whereClause = "objectId = '\(withUserId!)'"
+//        let dataQuery = BackendlessDataQuery()
+//        dataQuery.whereClause = whereClause
+//        
+//        let dataStore = backendless.persistenceService.of(BackendlessUser.ofClass())
+//        
+//        dataStore.find(dataQuery, response: { (users : BackendlessCollection!) -> Void in
+//            
+//            let withUser = users.data.first as! BackendlessUser
+//            
+//            result(withUser: withUser)
+//            
+//            }) { (fault : Fault!) -> Void in
+//                print("Server report an error : \(fault)")
+//        }
         
-        let whereClause = "objectId = '\(withUserId!)'"
-        let dataQuery = BackendlessDataQuery()
-        dataQuery.whereClause = whereClause
         
-        let dataStore = backendless.persistenceService.of(BackendlessUser.ofClass())
+        let query = PFQuery(className: "_User")
+        query.whereKey("username", equalTo: withUserId!)
         
-        dataStore.find(dataQuery, response: { (users : BackendlessCollection!) -> Void in
-            
-            let withUser = users.data.first as! BackendlessUser
-            
-            result(withUser: withUser)
-            
-            }) { (fault : Fault!) -> Void in
-                print("Server report an error : \(fault)")
-        }
+        
+        //let query = PFQuery(className: "_User")
+        //query.whereKey("username", containedIn: self.followArray)
+        query.addDescendingOrder("createdAt")
+        query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+            if error == nil {
+                
+                
+                
+                // find related objects in "User" class of Parse
+                for object in objects! {
+                    //                    let first = (object.objectForKey("first_name") as? String)
+                    //                    let last = (object.objectForKey("last_name") as? String)
+                    let withUser = object as! PFUser
+                    
+                    result(withUser: withUser)
+                   // result(object as! PFUser : )
+                    //self.users.append(object as! PFUser)
+                    //
+                    //                    self.usernameArray.append(object.objectForKey("username") as! String)
+                    //                    self.nameArray.append(first!+" "+last!)
+                    //                    self.firstnameArray.append(first!)
+                    //                    self.avaArray.append(object.objectForKey("picture_file") as! PFFile)
+                    //self.tableView.reloadData()
+                }
+            } else {
+                print(error!.localizedDescription)
+            }
+        })
+
+        
+        
+        
     }
     
     func createAvatars(avatars: NSMutableDictionary?) {

@@ -19,7 +19,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
 
         loadRecents()
-        self.tableView.allowsMultipleSelectionDuringEditing = false
+        //self.tableView.allowsMultipleSelectionDuringEditing = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +56,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
         let recent = recents[indexPath.row]
         
         //create recent for user2 users
-       // RestartRecentChat(recent)
+        RestartRecentChat(recent)
         
         
         performSegueWithIdentifier("recentToChatSeg", sender: indexPath)
@@ -68,7 +68,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        if (editingStyle == UITableViewCellEditingStyle.Delete){
+     //   if (editingStyle == UITableViewCellEditingStyle.Delete){
             let recent = recents[indexPath.row]
             
             //remove recent from the array
@@ -78,7 +78,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
             DeleteRecentItem(recent)
             
             tableView.reloadData()
-        }
+    //    }
     }
     
 
@@ -129,9 +129,10 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
     //MARK: Load Recents from firebase
     
     func loadRecents() {
-        firebase.child("Recent").queryOrderedByChild("userId").queryEqualToValue(PFUser.currentUser()?.username).observeEventType(.Value, withBlock: {
+        let userparse = PFUser.currentUser()!.username!
+        firebase.child("Recent").queryOrderedByChild("userId").queryEqualToValue(userparse).observeEventType(.Value, withBlock: {
             snapshot in
-            
+           
             self.recents.removeAll()
             
             if snapshot.exists() {
@@ -143,8 +144,8 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
                     self.recents.append(recent as! NSDictionary)
                     
                     //add functio to have offline access as well, this will download with user recent as well so that we will not create it again
-                    let a = recent.objectForKey(["chatRoomID"]) as? String
-                    firebase.child("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(a).observeEventType(.Value, withBlock: {
+                    //let a = recent["chatRoomID"]! as! String
+                    firebase.child("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(recent["chatRoomID"]! as! String).observeEventType(.Value, withBlock: {
                         snapshot in
                     })
                     

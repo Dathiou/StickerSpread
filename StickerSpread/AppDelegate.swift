@@ -16,7 +16,8 @@ import Firebase
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    
+    var locationManager: CLLocationManager?
+    var coordinate: CLLocationCoordinate2D?
     let APP_ID = "BADDD42C-3E07-A223-FF5F-20C0E7934700"
     let SECRET_KEY = "601848B1-12F3-7D05-FF31-770C359B0800"
     let VERSION_NUM = "v1"
@@ -76,14 +77,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        locationManagerStart()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        locationManagerStop()
     }
     
-    func login(){
-        
+    func login()
+{
         // remember user's login
         let username : String? = PFUser.currentUser()?.username
             //NSUserDefaults.standardUserDefaults().stringForKey("username")
@@ -91,6 +94,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // if loged in
         if let us = PFUser.currentUser() {
+            
+            
+            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+            FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+                // ...
+            }
             
             print("username dispo")
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -103,6 +112,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
     }
+    
+    
+    //MARK:  LocationManger fuctions
+    
+    func locationManagerStart() {
+        
+        if locationManager == nil {
+            print("init locationManager")
+            locationManager = CLLocationManager()
+            locationManager!.delegate = self
+            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager!.requestWhenInUseAuthorization()
+        }
+        
+        print("have location manager")
+        locationManager!.startUpdatingLocation()
+    }
+    
+    func locationManagerStop() {
+        locationManager!.stopUpdatingLocation()
+    }
+
 
 
 }

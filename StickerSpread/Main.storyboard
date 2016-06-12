@@ -897,7 +897,7 @@
         <!--Chats-->
         <scene sceneID="NO6-6h-YOm">
             <objects>
-                <viewController id="zAc-bW-uzk" customClass="RecentViewController" customModule="quickChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zAc-bW-uzk" customClass="RecentViewController" customModule="StickerSpread" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qSP-fc-5IT"/>
                         <viewControllerLayoutGuide type="bottom" id="0I6-Wt-EBl"/>
@@ -911,7 +911,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="hfO-lB-5ao" customClass="RecentTableViewCell" customModule="quickChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="hfO-lB-5ao" customClass="RecentTableViewCell" customModule="StickerSpread" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hfO-lB-5ao" id="TTS-Ee-kLC">
@@ -1041,7 +1041,7 @@
         <!--Choose User View Controller-->
         <scene sceneID="oYI-W4-NSY">
             <objects>
-                <viewController id="ADt-FJ-Mub" customClass="ChooseUserViewController" customModule="quickChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ADt-FJ-Mub" customClass="ChooseUserViewController" customModule="StickerSpread" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NWa-qv-fas"/>
                         <viewControllerLayoutGuide type="bottom" id="Vn7-Mr-js6"/>
@@ -1050,17 +1050,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mYp-lo-KKl">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYp-lo-KKl">
                                 <rect key="frame" x="0.0" y="20" width="600" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jx1-zh-m4b">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jx1-zh-m4b">
                                         <rect key="frame" x="242" y="14" width="117" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="e8u-1k-ktG"/>
+                                            <constraint firstAttribute="width" constant="117" id="hKc-Ew-aIJ"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wH5-w8-xxp">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wH5-w8-xxp">
                                         <rect key="frame" x="519" y="9" width="73" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="73" id="eBF-mH-2vR"/>
+                                            <constraint firstAttribute="width" constant="73" id="fU3-uH-b0b"/>
+                                            <constraint firstAttribute="height" constant="30" id="oO2-6Z-36b"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="uoo-u4-ob2"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Cancel"/>
                                         <connections>
@@ -1069,8 +1079,17 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="wH5-w8-xxp" firstAttribute="top" secondItem="mYp-lo-KKl" secondAttribute="top" constant="9" id="3y1-eW-rwT"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="QvD-jM-4kg"/>
+                                    <constraint firstItem="Jx1-zh-m4b" firstAttribute="top" secondItem="mYp-lo-KKl" secondAttribute="top" constant="14" id="YFl-nH-b9f"/>
+                                    <constraint firstItem="Jx1-zh-m4b" firstAttribute="centerX" secondItem="mYp-lo-KKl" secondAttribute="centerX" id="aNv-rU-IyP"/>
+                                    <constraint firstAttribute="height" constant="50" id="kfm-RT-OCa"/>
+                                    <constraint firstAttribute="trailing" secondItem="wH5-w8-xxp" secondAttribute="trailing" constant="8" id="vfL-Or-MFw"/>
+                                    <constraint firstItem="wH5-w8-xxp" firstAttribute="top" secondItem="mYp-lo-KKl" secondAttribute="top" constant="9" id="xzI-Gu-BGI"/>
+                                </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PSm-xJ-83R">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PSm-xJ-83R">
                                 <rect key="frame" x="0.0" y="78" width="600" height="522"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1099,6 +1118,15 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mYp-lo-KKl" firstAttribute="leading" secondItem="XWl-mz-PSj" secondAttribute="leadingMargin" constant="-20" id="20D-5m-Bg2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PSm-xJ-83R" secondAttribute="trailing" constant="-20" id="D6P-3N-cSM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mYp-lo-KKl" secondAttribute="trailing" constant="-20" id="QX3-HI-VXU"/>
+                            <constraint firstItem="mYp-lo-KKl" firstAttribute="top" secondItem="NWa-qv-fas" secondAttribute="bottom" id="cHV-wf-PZf"/>
+                            <constraint firstItem="PSm-xJ-83R" firstAttribute="leading" secondItem="XWl-mz-PSj" secondAttribute="leadingMargin" constant="-20" id="end-c7-b65"/>
+                            <constraint firstItem="PSm-xJ-83R" firstAttribute="top" secondItem="mYp-lo-KKl" secondAttribute="bottom" constant="8" id="qZU-Tt-4BR"/>
+                            <constraint firstItem="Vn7-Mr-js6" firstAttribute="top" secondItem="PSm-xJ-83R" secondAttribute="bottom" id="rBm-Yh-UNA"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="PSm-xJ-83R" id="aPh-kF-ZRv"/>
@@ -1111,7 +1139,7 @@
         <!--Chat View Controller-->
         <scene sceneID="gKk-gc-qRA">
             <objects>
-                <viewController id="kXs-t7-rYS" customClass="ChatViewController" customModule="quickChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kXs-t7-rYS" customClass="ChatViewController" customModule="StickerSpread" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8Rf-Ah-5Ot"/>
                         <viewControllerLayoutGuide type="bottom" id="BZW-BY-Kb0"/>
