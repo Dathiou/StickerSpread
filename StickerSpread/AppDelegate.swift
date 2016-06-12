@@ -8,22 +8,32 @@
 
 import UIKit
 import Parse
-import Bolts
+//import Bolts
+import Firebase
 
 
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    
+    let APP_ID = "BADDD42C-3E07-A223-FF5F-20C0E7934700"
+    let SECRET_KEY = "601848B1-12F3-7D05-FF31-770C359B0800"
+    let VERSION_NUM = "v1"
+    
+    //var backendless = Backendless.sharedInstance()
 
     var window: UIWindow?
-
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        
-        
+        backendless.initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
+        // If you plan to use Backendless Media Service, uncomment the following line (iOS ONLY!)
+        // backendless.mediaService = MediaService()
+     
         
         
         
@@ -34,13 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //}
         Parse.enableLocalDatastore()
         Parse.setApplicationId("y7yHA6fQwxhktMAkFntZdnFDvjW6HTGzKnJMEsOl",clientKey:"N9xwixCfHmxgucpHvFNPUzA48XkynlRDWY8vt7aW")
+        
+        FIRApp.configure()
+          FIRDatabase.database().persistenceEnabled = true
        // Parse.initializeWithConfiguration(configuration)        // Override point for customization after application launch.
         
-        let testObject = PFObject(className: "TestObject")
-        testObject["foo"] = "bar"
-        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-            print("Object has been saved.")
-        }
+//        let testObject = PFObject(className: "TestObject")
+//        testObject["foo"] = "bar"
+//        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+//            print("Object has been saved.")
+//        }
         return true
     }
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool{
@@ -67,6 +80,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func login(){
+        
+        // remember user's login
+        let username : String? = PFUser.currentUser()?.username
+            //NSUserDefaults.standardUserDefaults().stringForKey("username")
+        
+        
+        // if loged in
+        if let us = PFUser.currentUser() {
+            
+            print("username dispo")
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let myTabBar = storyboard.instantiateViewControllerWithIdentifier("tabBar") as! UITabBarController
+            window?.rootViewController = myTabBar
+            
+    
+        } 
+ 
+        
+        
     }
 
 

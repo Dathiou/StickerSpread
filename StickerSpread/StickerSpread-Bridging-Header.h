@@ -4,3 +4,11 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "SVProgressHUD/SVProgressHUD.h"
+#import <JSQMessagesViewController/JSQMessages.h>
+//#import "JSQMessagesViewController.h"
+#import <Parse/Parse.h>
+#import "Backendless.h"
+
+//#import <Firebase/Firebase.h>
+
