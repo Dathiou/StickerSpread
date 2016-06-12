@@ -27,6 +27,7 @@
 		7B408C4C1D0DC8B7003725B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B408C4B1D0DC8B7003725B7 /* Main.storyboard */; };
 		7B408C4E1D0DF51C003725B7 /* OutgoingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B408C4D1D0DF51B003725B7 /* OutgoingMessage.swift */; };
 		7B408C501D0DF524003725B7 /* IncomingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B408C4F1D0DF524003725B7 /* IncomingMessage.swift */; };
+		7B408C521D0E0A96003725B7 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B408C511D0E0A96003725B7 /* Camera.swift */; };
 		7B6E4A2C1D01DAC8004FCF2A /* uploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E4A2B1D01DAC8004FCF2A /* uploadVC.swift */; };
 		7B6E4A2E1D01EDF5004FCF2A /* pp.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B6E4A2D1D01EDF5004FCF2A /* pp.jpg */; };
 		7B6E4A301D01EDFA004FCF2A /* pbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B6E4A2F1D01EDFA004FCF2A /* pbg.jpg */; };
@@ -100,6 +101,7 @@
 		7B408C4B1D0DC8B7003725B7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7B408C4D1D0DF51B003725B7 /* OutgoingMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessage.swift; sourceTree = "<group>"; };
 		7B408C4F1D0DF524003725B7 /* IncomingMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessage.swift; sourceTree = "<group>"; };
+		7B408C511D0E0A96003725B7 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		7B6E4A2B1D01DAC8004FCF2A /* uploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uploadVC.swift; sourceTree = "<group>"; };
 		7B6E4A2D1D01EDF5004FCF2A /* pp.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pp.jpg; sourceTree = "<group>"; };
 		7B6E4A2F1D01EDFA004FCF2A /* pbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pbg.jpg; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				7B408C451D0CC18F003725B7 /* Recent.swift */,
 				7B408C471D0CC3F6003725B7 /* ChooseUserViewController.swift */,
 				7B408C491D0CC7B0003725B7 /* ChatViewController.swift */,
+				7B408C511D0E0A96003725B7 /* Camera.swift */,
 			);
 			path = StickerSpread;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				7BB652EC1CF7CE3500D1E65E /* signUpVC.swift in Sources */,
 				7B408C501D0DF524003725B7 /* IncomingMessage.swift in Sources */,
 				7B24BC541D0384E1002BB228 /* usersVC.swift in Sources */,
+				7B408C521D0E0A96003725B7 /* Camera.swift in Sources */,
 				7BD326E01D01259400FA91E4 /* SVProgressHUD.m in Sources */,
 				7B408C4E1D0DF51C003725B7 /* OutgoingMessage.swift in Sources */,
 				7BD326E11D01259400FA91E4 /* SVRadialGradientLayer.m in Sources */,

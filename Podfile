@@ -14,6 +14,7 @@ pod 'Firebase'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'JSQMessagesViewController'
+pod 'IDMPhotoBrowser'
 
 
 pod 'Backendless-ios-SDK'

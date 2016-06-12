@@ -29,10 +29,10 @@ class IncomingMessage {
             //create text message
             message = createTextMessage(dictionary)
         }
-        if type == "location" {
-            //create loacation message
-            message = createLocationMessage(dictionary)
-        }
+//        if type == "location" {
+//            //create loacation message
+//            message = createLocationMessage(dictionary)
+//        }
         if type == "picture" {
             //create picture message
             message = createPictureMessage(dictionary)
@@ -58,29 +58,29 @@ class IncomingMessage {
     }
     
 
-    func createLocationMessage(item : NSDictionary) -> JSQMessage {
-        
-        let name = item["senderName"] as? String
-        let userId = item["senderId"] as? String
-        
-        let date = dateFormatter().dateFromString((item["date"] as? String)!)
-
-        let latitude = item["latitude"] as? Double
-        let longitude = item["longitude"] as? Double
-        
-        let mediaItem = JSQLocationMediaItem(location: nil)
-        mediaItem.appliesMediaViewMaskAsOutgoing = returneOutgoingStatusFromUser(userId!)
-        
-        let location = CLLocation(latitude: latitude!, longitude: longitude!)
-        
-        mediaItem.setLocation(location) { () -> Void in
-            // update our collectionView
-            self.collectionView.reloadData()
-        }
-        
-        
-        return JSQMessage(senderId: userId!, senderDisplayName: name!, date: date, media: mediaItem)
-    }
+//    func createLocationMessage(item : NSDictionary) -> JSQMessage {
+//        
+//        let name = item["senderName"] as? String
+//        let userId = item["senderId"] as? String
+//        
+//        let date = dateFormatter().dateFromString((item["date"] as? String)!)
+//
+//        let latitude = item["latitude"] as? Double
+//        let longitude = item["longitude"] as? Double
+//        
+//        let mediaItem = JSQLocationMediaItem(location: nil)
+//        mediaItem.appliesMediaViewMaskAsOutgoing = returneOutgoingStatusFromUser(userId!)
+//        
+//        let location = CLLocation(latitude: latitude!, longitude: longitude!)
+//        
+//        mediaItem.setLocation(location) { () -> Void in
+//            // update our collectionView
+//            self.collectionView.reloadData()
+//        }
+//        
+//        
+//        return JSQMessage(senderId: userId!, senderDisplayName: name!, date: date, media: mediaItem)
+//    }
     
     func returneOutgoingStatusFromUser(senderId: String) -> Bool {
         

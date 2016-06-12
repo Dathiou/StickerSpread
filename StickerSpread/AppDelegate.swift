@@ -14,7 +14,7 @@ import Firebase
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager?
     var coordinate: CLLocationCoordinate2D?

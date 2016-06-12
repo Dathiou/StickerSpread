@@ -9,6 +9,7 @@
 import UIKit
 import JSQMessagesViewController
 import Parse
+import IDMPhotoBrowser
 
 class ChatViewController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -186,36 +187,36 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     
     override func didPressAccessoryButton(sender: UIButton!) {
         
-//        let camera = Camera(delegate_: self)
-//        
-//        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-//        
-//        let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (alert: UIAlertAction!) -> Void in
-//            camera.PresentPhotoCamera(self, canEdit: true)
-//        }
-//        
-//        let sharePhoto = UIAlertAction(title: "Photo Library", style: .Default) { (alert: UIAlertAction!) -> Void in
-//            camera.PresentPhotoLibrary(self, canEdit: true)
-//        }
-//        
+        let camera = Camera(delegate_: self)
+        
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (alert: UIAlertAction!) -> Void in
+            camera.PresentPhotoCamera(self, canEdit: true)
+        }
+        
+        let sharePhoto = UIAlertAction(title: "Photo Library", style: .Default) { (alert: UIAlertAction!) -> Void in
+            camera.PresentPhotoLibrary(self, canEdit: true)
+        }
+        
 //        let shareLoction = UIAlertAction(title: "Share Location", style: .Default) { (alert: UIAlertAction!) -> Void in
 //            
 //            if self.haveAccessToLocation() {
 //                self.sendMessage(nil, date: NSDate(), picture: nil, location: "location")
 //            }
 //        }
-//        
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (alert : UIAlertAction!) -> Void in
-//            
-//            print("Cancel")
-//        }
-//        
-//        optionMenu.addAction(takePhoto)
-//        optionMenu.addAction(sharePhoto)
-//        optionMenu.addAction(shareLoction)
-//        optionMenu.addAction(cancelAction)
-//        
-//        self.presentViewController(optionMenu, animated: true, completion: nil)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (alert : UIAlertAction!) -> Void in
+            
+            print("Cancel")
+        }
+        
+        optionMenu.addAction(takePhoto)
+        optionMenu.addAction(sharePhoto)
+        //optionMenu.addAction(shareLoction)
+        optionMenu.addAction(cancelAction)
+        
+        self.presentViewController(optionMenu, animated: true, completion: nil)
     }
     
     //MARK: Send Message
@@ -239,10 +240,10 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         
         if let _ = location {
 
-           // let lat: NSNumber = NSNumber(double: (appDelegate.coordinate?.latitude)!)
-           // let lng: NSNumber = NSNumber(double: (appDelegate.coordinate?.longitude)!)
+            let lat: NSNumber = NSNumber(double: (appDelegate.coordinate?.latitude)!)
+            let lng: NSNumber = NSNumber(double: (appDelegate.coordinate?.longitude)!)
             
-         //   outgoingMessage = OutgoingMessage(message: "Location", latitude: lat, longitude: lng, senderId: backendless.userService.currentUser.objectId!, senderName: backendless.userService.currentUser.name!, date: date, status: "Delivered", type: "location")
+            outgoingMessage = OutgoingMessage(message: "Location", latitude: lat, longitude: lng, senderId: (PFUser.currentUser()?.username!)!, senderName: (PFUser.currentUser()?.username!)!, date: date, status: "Delivered", type: "location")
         }
         
         //play message sent sound
@@ -479,40 +480,40 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     
     //MARK: JSQDelegate functions
     
-//    override func collectionView(collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAtIndexPath indexPath: NSIndexPath!) {
-//        
-//        let object = objects[indexPath.row]
-//        
-//        if object["type"] as! String == "picture" {
-//            
-//            let message = messages[indexPath.row]
-//            
-//            let mediaItem = message.media as! JSQPhotoMediaItem
-//            
-//            let photos = IDMPhoto.photosWithImages([mediaItem.image])
-//            let browser = IDMPhotoBrowser(photos: photos)
-//            
-//            self.presentViewController(browser, animated: true, completion: nil)
-//        }
-//        
-//        if object["type"] as! String == "location" {
-//            
-//            self.performSegueWithIdentifier("chatToMapSeg", sender: indexPath)
-//        }
-//        
-//    }
+    override func collectionView(collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAtIndexPath indexPath: NSIndexPath!) {
+        
+        let object = objects[indexPath.row]
+        
+        if object["type"] as! String == "picture" {
+            
+            let message = messages[indexPath.row]
+            
+            let mediaItem = message.media as! JSQPhotoMediaItem
+            
+            let photos = IDMPhoto.photosWithImages([mediaItem.image])
+            let browser = IDMPhotoBrowser(photos: photos)
+            
+            self.presentViewController(browser, animated: true, completion: nil)
+        }
+        
+        if object["type"] as! String == "location" {
+            
+            self.performSegueWithIdentifier("chatToMapSeg", sender: indexPath)
+        }
+        
+    }
     
     
     //MARK: UIIMagePickerController functions
     
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-//        
-//        let picture = info[UIImagePickerControllerEditedImage] as! UIImage
-//        
-//        self.sendMessage(nil, date: NSDate(), picture: picture, location: nil)
-//        
-//        picker.dismissViewControllerAnimated(true, completion: nil)
-//    }
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        let picture = info[UIImagePickerControllerEditedImage] as! UIImage
+        
+        self.sendMessage(nil, date: NSDate(), picture: picture, location: nil)
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     //MARK: Navigation
     

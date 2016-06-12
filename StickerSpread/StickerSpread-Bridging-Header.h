@@ -9,6 +9,7 @@
 //#import "JSQMessagesViewController.h"
 #import <Parse/Parse.h>
 #import "Backendless.h"
+#import <IDMPhotoBrowser/IDMPhotoBrowser.h>
 
 //#import <Firebase/Firebase.h>
 
