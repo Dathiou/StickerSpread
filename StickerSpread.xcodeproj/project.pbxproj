@@ -71,6 +71,7 @@
 		7BB652F01CF87C5E00D1E65E /* homeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652EF1CF87C5E00D1E65E /* homeVC.swift */; };
 		7BB652F21CF87C7900D1E65E /* headerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB652F11CF87C7900D1E65E /* headerView.swift */; };
 		7BB959D11CFF2D4A005D0DD5 /* guestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB959D01CFF2D4A005D0DD5 /* guestVC.swift */; };
+		7BC79CC21D139E1900D88B22 /* searchCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC79CC11D139E1800D88B22 /* searchCollCell.swift */; };
 		7BD326DD1D01259400FA91E4 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD326D41D01259400FA91E4 /* SVIndefiniteAnimatedView.m */; };
 		7BD326DE1D01259400FA91E4 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD326D61D01259400FA91E4 /* SVProgressAnimatedView.m */; };
 		7BD326DF1D01259400FA91E4 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7BD326D81D01259400FA91E4 /* SVProgressHUD.bundle */; };
@@ -148,6 +149,7 @@
 		7BB652EF1CF87C5E00D1E65E /* homeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeVC.swift; sourceTree = "<group>"; };
 		7BB652F11CF87C7900D1E65E /* headerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = headerView.swift; sourceTree = "<group>"; };
 		7BB959D01CFF2D4A005D0DD5 /* guestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guestVC.swift; sourceTree = "<group>"; };
+		7BC79CC11D139E1800D88B22 /* searchCollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchCollCell.swift; sourceTree = "<group>"; };
 		7BD326D31D01259400FA91E4 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
 		7BD326D41D01259400FA91E4 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		7BD326D51D01259400FA91E4 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				7B408C471D0CC3F6003725B7 /* ChooseUserViewController.swift */,
 				7B408C491D0CC7B0003725B7 /* ChatViewController.swift */,
 				7B408C511D0E0A96003725B7 /* Camera.swift */,
+				7BC79CC11D139E1800D88B22 /* searchCollCell.swift */,
 			);
 			path = StickerSpread;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				7BD326DE1D01259400FA91E4 /* SVProgressAnimatedView.m in Sources */,
 				7BB652EA1CF7CE2900D1E65E /* signInVC.swift in Sources */,
 				7BB652B21CF7BC7300D1E65E /* AppDelegate.swift in Sources */,
+				7BC79CC21D139E1900D88B22 /* searchCollCell.swift in Sources */,
 				7BA129421CFE7021009A7EBA /* followersCell.swift in Sources */,
 				7B6F89FC1D03090900D9C17C /* tabbarVC.swift in Sources */,
 				7B6E4A341D01F442004FCF2A /* postCell.swift in Sources */,

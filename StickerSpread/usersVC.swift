@@ -28,6 +28,10 @@ class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDeleg
     var uuidArray = [String]()
     var page : Int = 15
     
+    var startingOffset = 0.0
+    var endingOffset = 2.0
+    
+    
     
     // default func
     override func viewDidLoad() {
@@ -144,6 +148,8 @@ class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDeleg
         
         // show cancel button
         searchBar.showsCancelButton = true
+        tableView.scrollEnabled = false
+        collectionView.scrollEnabled = true
     }
     
     
@@ -158,10 +164,10 @@ class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDeleg
         
         // hide cancel button
         searchBar.showsCancelButton = false
-        
+        tableView.scrollEnabled = true
         // reset text
         searchBar.text = ""
-        
+        collectionView.scrollEnabled = false
         // reset shown users
         loadUsers()
     }
@@ -176,7 +182,9 @@ class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDeleg
     
     // cell height
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return self.view.frame.size.width / 4
+        //return self.view.frame.size.width / 4
+        return self.view.frame.size.width
+
     }
     
     // cell config
@@ -226,20 +234,22 @@ class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDeleg
         let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
         // item size
-        layout.itemSize = CGSizeMake(self.view.frame.size.width / 3, self.view.frame.size.width / 3)
+        layout.itemSize = CGSizeMake(self.view.frame.size.width/4 , self.view.frame.size.width/4 )
         
         // direction of scrolling
         layout.scrollDirection = UICollectionViewScrollDirection.Vertical
         
         // define frame of collectionView
         let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
+        //let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*100)
+        //let frame = self.view.bounds
         
         // declare collectionView
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
-        collectionView.backgroundColor = .whiteColor()
+        collectionView.backgroundColor = .redColor()
         self.view.addSubview(collectionView)
         
         // define cell for collectionView
@@ -329,7 +339,25 @@ class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDeleg
         // scroll down for paging
         if scrollView.contentOffset.y >= scrollView.contentSize.height / 6 {
             self.loadMore()
+            print ("loadmore" )
         }
+        
+        if (collectionView.hidden == false) {
+            if (scrollView.contentOffset.x < self.view.bounds.minY || scrollView.contentOffset.x > self.view.bounds.maxY-30) {
+                        scrollView.panGestureRecognizer.enabled = false
+                        scrollView.panGestureRecognizer.enabled = true
+                    }
+        }
+        
+//        if scrollView == self.collectionView {
+//        if (scrollView.contentOffset.x < 10 ||
+//            scrollView.contentOffset.x > 15) {
+//            scrollView.panGestureRecognizer.enabled = false
+//            scrollView.panGestureRecognizer.enabled = true
+//        }
+//        
+//        }
+        
     }
     
     // pagination

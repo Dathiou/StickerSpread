@@ -12,7 +12,8 @@ import Parse
 
 
 
-class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+class feedVC: UITableViewController, UISearchBarDelegate ,UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     
     //@IBOutlet var tableViewSearch: UITableView!
@@ -39,7 +40,7 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
     // page size
     var page : Int = 10
     
-    var tableViewSearch = UITableView()
+    //var tableViewSearch = UITableView()
     
     // collectionView UI
     var collectionView : UICollectionView!
@@ -108,90 +109,21 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
         //                self.refresher.endRefreshing()
         //            }
         
-        
+        collectionViewLaunch()
         loadPosts()
         // usersVC().collectionViewLaunch()
         
-        collectionViewLaunch()
+        
         
         //SearchViewLaunch()
         collectionView.hidden = true
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        var a = 1
-    }
-    
-    func SearchViewLaunch() {
-        
-        // layout of collectionView
-        //let layout : UITableViewLayout = UICollectionViewFlowLayout()
-        //
-        //        // item size
-        //        layout.itemSize = CGSizeMake(self.view.frame.size.width / 3, self.view.frame.size.width / 3)
-        //
-        //        // direction of scrolling
-        //        layout.scrollDirection = UICollectionViewScrollDirection.Vertical
-        
-        // define frame of collectionView
-        //let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
-        
-        // declare collectionView
-        
-        //tableViewSearch = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        //tableViewSearch = UITableView(frame: frame, collectionViewLayout: layout)
-        //tableViewSearch = UITableView(frame: self.view.bounds, style: UITableViewStyle.Plain)
-        tableViewSearch.delegate = self
-        tableViewSearch.dataSource = self
-        tableViewSearch.alwaysBounceVertical = true
-        tableViewSearch.backgroundColor = .whiteColor()
-        tableViewSearch.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(tableViewSearch)
-        
-        // define cell for collectionView
-        //tableViewSearch.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        
-        
-        tableViewSearch.registerClass(searchCell.self, forCellReuseIdentifier: "CellSearch")
-        
-        
-        // call function to load posts
-        //loadPosts()
-        
-        loadUsers()
-    }
+
     
     
-    // SEARCHING CODE
-    // load users function
-    func loadUsers() {
-        
-        let usersQuery = PFQuery(className: "_User")
-        usersQuery.addDescendingOrder("createdAt")
-        usersQuery.limit = 20
-        usersQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-            if error == nil {
-                
-                // clean up
-                self.usernameArraySearch.removeAll(keepCapacity: false)
-                self.avaArraySearch.removeAll(keepCapacity: false)
-                
-                // found related objects
-                for object in objects! {
-                    self.usernameArraySearch.append(object.valueForKey("username") as! String)
-                    self.avaArraySearch.append(object.valueForKey("picture_file") as! PFFile)
-                }
-                
-                // reload
-                self.tableViewSearch.reloadData()
-                
-            } else {
-                print(error!.localizedDescription)
-            }
-        })
-        
-    }
+
     
     
     // search updated
@@ -271,17 +203,16 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
     
     // tapped on the searchBar
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        
-        //        // hide collectionView when started search
-        // tableView.hidden = true
-        //tableViewSearch.hidden = false
+
+        //tableView.hidden = true
         collectionView.hidden = false
+        
         
         // show cancel button
         searchBar.showsCancelButton = true
         
         //SearchViewLaunch()
-        loadPostsforColl()
+        //loadPostsforColl()
     }
     
     
@@ -304,17 +235,17 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
         collectionView.hidden = true
         //tableView.hidden = false
         // reset shown users
-        loadPostsforColl()
+       loadPostsforColl()
         
     }
     
     
     
-    // TABLEVIEW CODE
-    // cell numb
-    //    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //        return usernameArraySearch.count
-    //    }
+//    // TABLEVIEW CODE
+//     //cell numb
+//        override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//            return usernameArraySearch.count
+//        }
     
     // cell height
     //    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -346,29 +277,30 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
     //    }
     
     
-    // selected tableView cell - selected user
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if  (tableView == self.tableViewSearch){
-            // calling cell again to call cell data
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! followersCell
-            
-            // if user tapped on his name go home, else go guest
-            if cell.usernameLbl.text! == PFUser.currentUser()?.username {
-                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
-                self.navigationController?.pushViewController(home, animated: true)
-            } else {
-                guestname.append(cell.usernameLbl.text!)
-                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-                self.navigationController?.pushViewController(guest, animated: true)
-            }
-        }
-    }
+//    // selected tableView cell - selected user
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        if  (tableView == self.tableViewSearch){
+//            // calling cell again to call cell data
+//            let cell = tableView.cellForRowAtIndexPath(indexPath) as! followersCell
+//            
+//            // if user tapped on his name go home, else go guest
+//            if cell.usernameLbl.text! == PFUser.currentUser()?.username {
+//                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+//                self.navigationController?.pushViewController(home, animated: true)
+//            } else {
+//                guestname.append(cell.usernameLbl.text!)
+//                let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+//                self.navigationController?.pushViewController(guest, animated: true)
+//            }
+//        }
+//    }
     
     
     
     // refreshign function after like to update degit
     func refresh() {
         tableView.reloadData()
+        collectionView.reloadData()
     }
     
     
@@ -633,13 +565,13 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
     
     // cell numb
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if  (tableView == self.tableViewSearch){
-            return usernameArraySearch.count
-        } else {
+  //      if  (tableView == self.tableViewSearch){
+   //         return usernameArraySearch.count
+  //      } else {
             objc_sync_enter(self)
             return nameArray.count
-            objc_sync_exit(self)
-        }
+            //objc_sync_exit(self)
+//        }
     }
     
     //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -649,12 +581,16 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
     //    }
     
     
+    
+
+    
+    
     // cell config
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if  (tableView == self.tableViewSearch){
+       // if  (tableView == self.tableViewSearch){
             // define cell
             //let cell1 = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? searchCell
-            let cell1 = tableView.dequeueReusableCellWithIdentifier("CellSearch") as! searchCell
+          //  let cell1 = tableView.dequeueReusableCellWithIdentifier("CellSearch") as! searchCell
             
             
             //            //variable type is inferred
@@ -691,8 +627,8 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
             //                cell1.avaImg.image = UIImage(data: data!)
             //            }
             //        }
-            return cell1
-        } else {
+         //   return cell1
+       // } else {
             
             
             
@@ -775,7 +711,7 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
             cell.moreBtn.layer.setValue(indexPath, forKey: "index")
             
             return cell
-        }
+     //   }
         
         
     }
@@ -946,14 +882,15 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
         let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
         // item size
-        layout.itemSize = CGSizeMake(self.view.frame.size.width / 3, self.view.frame.size.width / 3)
+        layout.itemSize = CGSizeMake(self.view.frame.size.width / 2, self.view.frame.size.width / 2+25)
         
         // direction of scrolling
         layout.scrollDirection = UICollectionViewScrollDirection.Vertical
         
         // define frame of collectionView
-        let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
-        
+        let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+10000)
+        //let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
+
         // declare collectionView
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.delegate = self
@@ -963,7 +900,7 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
         self.view.addSubview(collectionView)
         
         // define cell for collectionView
-        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.registerClass(searchCollCell.self, forCellWithReuseIdentifier: "Cellsearch")
         
         // call function to load posts
         loadPostsforColl()
@@ -985,43 +922,122 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
         return picForColl.count
     }
     
-    // cell config
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath)->UICollectionViewCell
+    {
+        var  cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cellsearch", forIndexPath: indexPath) as! searchCollCell
+        //cell.uuidLbl.text = self.uuidArray[indexPath.row]
+       // cell.titleShop.text="cellText"
         
-        // define cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+        cell.backgroundColor = UIColor.whiteColor()
+        cell.uuid.text = uuidArrayColl[indexPath.row]
+        cell.uuid.hidden = true
         
-        // create picture imageView in cell to show loaded pictures
-        let picImg = UIImageView(frame: CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height))
-        cell.addSubview(picImg)
         
-        // get loaded images from array
-        picForColl[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-            if error == nil {
-                picImg.image = UIImage(data: data!)
+        // manipulate like button depending on did user like it or not
+        let didLike = PFQuery(className: "likes")
+        didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+        didLike.whereKey("to", equalTo: uuidArrayColl[indexPath.row])
+        didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+            // if no any likes are found, else found likes
+            if count == 0 {
+                cell.likeButton.setTitle("unlike", forState: .Normal)
+                cell.likeButton.setImage(UIImage(named: "unlike.png"), forState: .Normal)
+                
             } else {
-                print(error!.localizedDescription)
+                cell.likeButton.setTitle("like", forState: .Normal)
+                cell.likeButton.setImage(UIImage(named: "like.png"), forState: .Normal)
+                 //cell.likeButton.addTarget(self, action: "unlikeTouchedColl:", forControlEvents:.TouchUpInside)
             }
         }
+        
+        let countLikes = PFQuery(className: "likes")
+        countLikes.whereKey("to", equalTo: uuidArrayColl[indexPath.row])
+        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+            cell.likeLabel.text = String(count) //"\(count)"
+        }
+        
+        cell.likeButton.layer.setValue(indexPath, forKey: "index")
+        cell.nameLabel.text = "Two Little Bees"
+       
+        //cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-35-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
+         cell.likeButton.addTarget(self, action: "likeTouchedColl:", forControlEvents:.TouchUpInside)
+        
+        
+                // get loaded images from array
+                picForColl[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+                    if error == nil {
+                        cell.picImg.image = UIImage(data: data!)
+                    } else {
+                        print(error!.localizedDescription)
+                    }
+                }
+        
+
+     
+
+        
+
+
+        
+        //cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-4-[v0]-110-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": like]))
+        
+//        cell.addSubview(nameLabel)
+//        cell.addSubview(like)
+//        cell.addSubview(likeLabel)
+//        cell.addSubview(picImg)
+//        cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-161-[v0(18)]-5-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": like]))
+//        cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-2-[v1(18)]-1-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": likeLabel,"v1": like]))
+//        cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-50-[v2]-1-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v2": nameLabel]))
+//        cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-153-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": likeLabel]))
+//        cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-152-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
+        
+        
+        
+        //let likeImg = UIImageView(frame: CGRectMake(0, 0, 10, 10))
+        //cell.addSubview(likeImg)
         
         return cell
     }
     
+//    // cell config
+//    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+//        
+//        // define cell
+//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath)
+//        
+//        // create picture imageView in cell to show loaded pictures
+//        let picImg = UIImageView(frame: CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height))
+//        cell.addSubview(picImg)
+//        
+//        // get loaded images from array
+//        picForColl[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+//            if error == nil {
+//                picImg.image = UIImage(data: data!)
+//            } else {
+//                print(error!.localizedDescription)
+//            }
+//        }
+//        
+//        return cell
+//    }
+    
     // cell's selected
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
-        // take relevant unique id of post to load post in postVC
-        postuuid.append(uuidArrayColl[indexPath.row])
-        
-        // present postVC programmaticaly
-        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
-        self.navigationController?.pushViewController(post, animated: true)
-    }
+//    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+//        
+//        // take relevant unique id of post to load post in postVC
+//        postuuid.append(uuidArrayColl[indexPath.row])
+//        
+//        // present postVC programmaticaly
+//        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+//        self.navigationController?.pushViewController(post, animated: true)
+//    }
     
     // load posts
     func loadPostsforColl() {
         let query = PFQuery(className: "posts")
         query.limit = page
+        query.addDescendingOrder("createdAt")
         query.findObjectsInBackgroundWithBlock { (objects:[PFObject]?, error:NSError?) -> Void in
             if error == nil {
                 
@@ -1052,45 +1068,231 @@ class feedVC: UITableViewController, UISearchBarDelegate , UICollectionViewDeleg
         }
     }
     
-    // pagination
-    func loadMoreColl() {
+//    // pagination
+//    func loadMoreColl() {
+//        
+//        // if more posts are unloaded, we wanna load them
+//        if page <= picArray.count {
+//            
+//            // increase page size
+//            page = page + 15
+//            
+//            // load additional posts
+//            let query = PFQuery(className: "posts")
+//            query.limit = page
+//            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    
+//                    // clean up
+//                    self.picArray.removeAll(keepCapacity: false)
+//                    self.uuidArray.removeAll(keepCapacity: false)
+//                    
+//                    // find related objects
+//                    for object in objects! {
+//                        self.picArray.append(object.objectForKey("pic") as! PFFile)
+//                        self.uuidArray.append(object.objectForKey("uuid") as! String)
+//                    }
+//                    
+//                    // reload collectionView to present loaded images
+//                    self.collectionView.reloadData()
+//                    
+//                } else {
+//                    print(error!.localizedDescription)
+//                }
+//            })
+//            
+//        }
+//        
+//    }
+    
+    func unlikeTouchedColl(sender: AnyObject){
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        // call cell to call further cell data
+        let cell = collectionView.cellForItemAtIndexPath(i) as! searchCollCell
+        print(cell.uuid.text)
+
         
-        // if more posts are unloaded, we wanna load them
-        if page <= picArray.count {
+        // request existing likes of current user to show post
+        let query = PFQuery(className: "likes")
+        query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+        query.whereKey("to", equalTo: cell.uuid.text!)
+        query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
             
-            // increase page size
-            page = page + 15
-            
-            // load additional posts
-            let query = PFQuery(className: "posts")
-            query.limit = page
-            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    
-                    // clean up
-                    self.picArray.removeAll(keepCapacity: false)
-                    self.uuidArray.removeAll(keepCapacity: false)
-                    
-                    // find related objects
-                    for object in objects! {
-                        self.picArray.append(object.objectForKey("pic") as! PFFile)
-                        self.uuidArray.append(object.objectForKey("uuid") as! String)
+            // find objects - likes
+            for object in objects! {
+                
+                // delete found like(s)
+                object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                    if success {
+                        print("disliked")
+                        //self.likeBtn.setTitle("unlike", forState: .Normal)
+                        cell.likeButton.setImage(UIImage(named: "unlike.png"), forState: .Normal)
+                        
+                        // send notification if we liked to refresh TableView
+                        NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                        
+                        
                     }
+                })
+            }
+        })
+
+
+    }
+    
+    func likeTouchedColl(sender: AnyObject){
+        
+    
+        // call index of button
+        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        // call cell to call further cell data
+        let cell = collectionView.cellForItemAtIndexPath(i) as! searchCollCell
+        print(cell.uuid.text)
+        
+        // declare title of button
+        let title = sender.titleForState(.Normal)
+        
+        
+        // to like
+        if title == "unlike" {
+
+        let object = PFObject(className: "likes")
+        object["by"] = PFUser.currentUser()?.username
+        object["to"] = cell.uuid.text!
+        object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+            if success {
+                print("liked")
+                //self.likeBtn.setTitle("like", forState: .Normal)
+                cell.likeButton.setImage(UIImage(named: "like.png"), forState: .Normal)
+                
+                // send notification if we liked to refresh TableView
+                NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                
+                
+            }
+        })
+        
+         } else {
+            // request existing likes of current user to show post
+            let query = PFQuery(className: "likes")
+            query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+            query.whereKey("to", equalTo: cell.uuid.text!)
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                
+                // find objects - likes
+                for object in objects! {
                     
-                    // reload collectionView to present loaded images
-                    self.collectionView.reloadData()
-                    
-                } else {
-                    print(error!.localizedDescription)
+                    // delete found like(s)
+                    object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                        if success {
+                            print("disliked")
+                            //self.likeBtn.setTitle("unlike", forState: .Normal)
+                            cell.likeButton.setImage(UIImage(named: "unlike.png"), forState: .Normal)
+                            
+                            // send notification if we liked to refresh TableView
+                            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                            
+                            
+                        }
+                    })
                 }
             })
+
             
         }
         
-    }
+            
+        }
+
+        
+        
+        
+        
+               // if user tapped on himself go home, else go guest
+        
+        
+//        if cell.usernameHidden.titleLabel?.text == PFUser.currentUser()?.username {
+//            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+//            self.navigationController?.pushViewController(home, animated: true)
+//        } else {
+//            guestname.append(cell.usernameHidden.titleLabel!.text!)
+//            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+//            self.navigationController?.pushViewController(guest, animated: true)
+//        }
+//    }
     
     
     
+    
+//    func SearchViewLaunch() {
+//        
+//        // layout of collectionView
+//        //let layout : UITableViewLayout = UICollectionViewFlowLayout()
+//        //
+//        //        // item size
+//        //        layout.itemSize = CGSizeMake(self.view.frame.size.width / 3, self.view.frame.size.width / 3)
+//        //
+//        //        // direction of scrolling
+//        //        layout.scrollDirection = UICollectionViewScrollDirection.Vertical
+//        
+//        // define frame of collectionView
+//        //let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
+//        
+//        // declare collectionView
+//        
+//        //tableViewSearch = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+//        //tableViewSearch = UITableView(frame: frame, collectionViewLayout: layout)
+//        //tableViewSearch = UITableView(frame: self.view.bounds, style: UITableViewStyle.Plain)
+//        tableViewSearch.delegate = self
+//        tableViewSearch.dataSource = self
+//        tableViewSearch.alwaysBounceVertical = true
+//        tableViewSearch.backgroundColor = .whiteColor()
+//        tableViewSearch.translatesAutoresizingMaskIntoConstraints = false
+//        self.view.addSubview(tableViewSearch)
+//        
+//        // define cell for collectionView
+//        //tableViewSearch.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+//        
+//        
+//        tableViewSearch.registerClass(searchCell.self, forCellReuseIdentifier: "CellSearch")
+//        
+//        
+//        // call function to load posts
+//        //loadPosts()
+//        
+//        loadUsers()
+//    }
+    
+    
+//    // SEARCHING CODE
+//    // load users function
+//    func loadUsers() {
+//        
+//        let usersQuery = PFQuery(className: "_User")
+//        usersQuery.addDescendingOrder("createdAt")
+//        usersQuery.limit = 20
+//        usersQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+//            if error == nil {
+//                
+//                // clean up
+//                self.usernameArraySearch.removeAll(keepCapacity: false)
+//                self.avaArraySearch.removeAll(keepCapacity: false)
+//                
+//                // found related objects
+//                for object in objects! {
+//                    self.usernameArraySearch.append(object.valueForKey("username") as! String)
+//                    self.avaArraySearch.append(object.valueForKey("picture_file") as! PFFile)
+//                }
+//                
+//                // reload
+//                self.tableViewSearch.reloadData()
+//                
+//            } else {
+//                print(error!.localizedDescription)
+//            }
+//        })
+//        
+//    }
     
     
     
