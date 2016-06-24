@@ -58,7 +58,7 @@ class postVC: UITableViewController {
         // dynamic cell heigth
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 450
-        
+        tableView.registerNib(UINib(nibName: "postSelected", bundle: nil), forCellReuseIdentifier: "idPostSelectedCell")
         // find post
         let postQuery = PFQuery(className: "posts")
         postQuery.whereKey("uuid", equalTo: postuuid.last!)
@@ -141,8 +141,8 @@ class postVC: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         // define cell
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! postCell
-        
+        //let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! postCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("idPostSelectedCell", forIndexPath: indexPath) as! postCellSelected
         // connect objects with our information from arrays
         cell.usernameBtn.setTitle(nameArray[indexPath.row], forState: UIControlState.Normal)
         cell.usernameBtn.sizeToFit()
@@ -211,7 +211,7 @@ class postVC: UITableViewController {
         }
         // asign index
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
-        cell.commentBtn.layer.setValue(indexPath, forKey: "index")
+        //cell.commentBtn.layer.setValue(indexPath, forKey: "index")
         cell.moreBtn.layer.setValue(indexPath, forKey: "index")
         
         return cell
@@ -295,30 +295,30 @@ class postVC: UITableViewController {
                     }
                 }
             })
-            
-            // STEP 3. Delete comments of post from server
-            let commentQuery = PFQuery(className: "comments")
-            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteEventually()
-                    }
-                }
-            })
-            
-            // STEP 4. Delete hashtags of post from server
-            let hashtagQuery = PFQuery(className: "hashtags")
-            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteEventually()
-                    }
-                }
-            })
-        }
-        
+//            
+//            // STEP 3. Delete comments of post from server
+//            let commentQuery = PFQuery(className: "comments")
+//            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+//            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteEventually()
+//                    }
+//                }
+//            })
+//            
+//            // STEP 4. Delete hashtags of post from server
+//            let hashtagQuery = PFQuery(className: "hashtags")
+//            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+//            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteEventually()
+//                    }
+//                }
+//            })
+       }
+       
         
         // COMPLAIN ACTION
         let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in

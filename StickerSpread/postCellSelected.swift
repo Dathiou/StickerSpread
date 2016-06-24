@@ -9,13 +9,19 @@
 import UIKit
 import Parse
 
-protocol segueToPostFromFeed{
-    func goToPost(uuid : String!)
-}
-
-class postCell: UITableViewCell {
-
-
+class postCellSelected: UITableViewCell {
+    
+    @IBOutlet weak var LayoutLbl: UILabel!
+    @IBOutlet weak var monthLbl: UILabel!
+    @IBOutlet weak var FinishLbl: UILabel!
+    @IBOutlet weak var colorLbl1: UILabel!
+    @IBOutlet weak var colorLbl2: UILabel!
+    @IBOutlet weak var colorLbl3: UILabel!
+    
+    @IBOutlet weak var connectBtn: UIButton!
+    @IBAction func connect_click(sender: AnyObject) {
+        print("connnect click")
+    }
     
     
     @IBOutlet weak var avaImg: UIImageView!
@@ -32,8 +38,8 @@ class postCell: UITableViewCell {
     
     @IBOutlet weak var usernameHidden: UIButton!
     
-   @IBOutlet weak var titleLbl: UILabel!
-     var segueDelegate : segueToPostFromFeed!
+    @IBOutlet weak var titleLbl: UILabel!
+    
     //@IBOutlet weak var titleLbl: KILabel!
     @IBOutlet weak var uuidLbl: UILabel!
     
@@ -48,109 +54,23 @@ class postCell: UITableViewCell {
         picImg.userInteractionEnabled = true
         picImg.addGestureRecognizer(likeTap)
         
-        let selectTap = UITapGestureRecognizer(target: self, action: "selectTap")
-        //selectTap.numberOfTapsRequired = 2
-        picImg.userInteractionEnabled = true
-        picImg.addGestureRecognizer(selectTap)
+               let width = UIScreen.mainScreen().bounds.width
         
         
-//        // alignment
-//        let width = UIScreen.mainScreen().bounds.width
-//        
-//        // allow constraints
-//        avaImg.translatesAutoresizingMaskIntoConstraints = false
-//        usernameBtn.translatesAutoresizingMaskIntoConstraints = false
-//        dateLbl.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        picImg.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        likeBtn.translatesAutoresizingMaskIntoConstraints = false
-//        commentBtn.translatesAutoresizingMaskIntoConstraints = false
-//        moreBtn.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        likeLbl.translatesAutoresizingMaskIntoConstraints = false
-//        titleLbl.translatesAutoresizingMaskIntoConstraints = false
-//        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        let pictureWidth = width - 20
-//        
-//        // constraints
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-5-[ava(30)]-10-[pic(\(pictureWidth))]-5-[like(30)]",
-//            options: [], metrics: nil, views: ["ava":avaImg, "pic":picImg, "like":likeBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-10-[username]",
-//            options: [], metrics: nil, views: ["username":usernameBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-10-[comment]",
-//            options: [], metrics: nil, views: ["pic":picImg, "comment":commentBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-10-[date]",
-//            options: [], metrics: nil, views: ["date":dateLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[like]-5-[title]-5-|",
-//            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-5-[more]",
-//            options: [], metrics: nil, views: ["pic":picImg, "more":moreBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-10-[likes]",
-//            options: [], metrics: nil, views: ["pic":picImg, "likes":likeLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-10-[ava(30)]-10-[username]-10-|",
-//            options: [], metrics: nil, views: ["ava":avaImg, "username":usernameBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-10-[pic]-10-|",
-//            options: [], metrics: nil, views: ["pic":picImg]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-15-[like(30)]-10-[likes]-20-[comment]",
-//            options: [], metrics: nil, views: ["like":likeBtn, "likes":likeLbl, "comment":commentBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:[more]-15-|",
-//            options: [], metrics: nil, views: ["more":moreBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-15-[title]-15-|",
-//            options: [], metrics: nil, views: ["title":titleLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|[date]-10-|",
-//            options: [], metrics: nil, views: ["date":dateLbl]))
-//        
-//    
-//        
-//        // round ava
-//        avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
-//        avaImg.clipsToBounds = true
-        
-        // alignment
-        let width = UIScreen.mainScreen().bounds.width
-        
-        
-//       LayoutLbl.translatesAutoresizingMaskIntoConstraints = false
-//        monthLbl.translatesAutoresizingMaskIntoConstraints = false
-//        FinishLbl.translatesAutoresizingMaskIntoConstraints = false
-//       colorLbl1.translatesAutoresizingMaskIntoConstraints = false
-//       colorLbl2.translatesAutoresizingMaskIntoConstraints = false
-//      colorLbl3.translatesAutoresizingMaskIntoConstraints = false
-//        connectBtn.translatesAutoresizingMaskIntoConstraints = false
+               LayoutLbl.translatesAutoresizingMaskIntoConstraints = false
+                monthLbl.translatesAutoresizingMaskIntoConstraints = false
+                FinishLbl.translatesAutoresizingMaskIntoConstraints = false
+               colorLbl1.translatesAutoresizingMaskIntoConstraints = false
+               colorLbl2.translatesAutoresizingMaskIntoConstraints = false
+              colorLbl3.translatesAutoresizingMaskIntoConstraints = false
+                connectBtn.translatesAutoresizingMaskIntoConstraints = false
         
         // allow constraints
         avaImg.translatesAutoresizingMaskIntoConstraints = false
         usernameBtn.translatesAutoresizingMaskIntoConstraints = false
         dateLbl.translatesAutoresizingMaskIntoConstraints = false
         
-    picImg.translatesAutoresizingMaskIntoConstraints = false
+        picImg.translatesAutoresizingMaskIntoConstraints = false
         
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
         //commentBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -171,17 +91,29 @@ class postCell: UITableViewCell {
             "V:|-10-[username]",
             options: [], metrics: nil, views: ["username":usernameBtn]))
         
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-5-[comment(30)]",
-//            options: [], metrics: nil, views: ["pic":picImg, "comment":commentBtn]))
+  
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
             "V:|-15-[date]",
             options: [], metrics: nil, views: ["date":dateLbl]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[like]-5-[title]-5-|",
-            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl]))
+            "V:[like]-5-[layout]-5-[month]-5-[finish]-5-[connect]|",
+            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl, "layout":LayoutLbl, "month": monthLbl, "finish":FinishLbl, "connect": connectBtn]))
+        
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:[like]-5-[colorLbl1]-5-[colorLbl2]-5-[colorLbl3]-5-[connect]|",
+            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl, "colorLbl1":colorLbl1, "colorLbl2": colorLbl2, "colorLbl3":colorLbl3, "connect": connectBtn]))
+        
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|-30-[layout]-20-[colorLbl1]",
+            options: [], metrics: nil, views: [ "layout":LayoutLbl, "colorLbl1":colorLbl1]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|-30-[month]-20-[colorLbl2]",
+            options: [], metrics: nil, views: [ "month": monthLbl, "colorLbl2":colorLbl1]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|-30-[finish]-20-[colorLbl3]",
+            options: [], metrics: nil, views: [ "finish":FinishLbl, "colorLbl3":colorLbl1]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
             "V:[pic]-5-[more(30)]",
@@ -218,8 +150,8 @@ class postCell: UITableViewCell {
         // round ava
         avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
         avaImg.clipsToBounds = true
-
-
+        
+        
         
     }
     
@@ -258,18 +190,18 @@ class postCell: UITableViewCell {
                     NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
                     
                     
-//                    // send notification as like
-//                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
-//                        let newsObj = PFObject(className: "news")
-//                        newsObj["by"] = PFUser.currentUser()?.username
-//                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//                        newsObj["to"] = self.usernameBtn.titleLabel!.text
-//                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
-//                        newsObj["uuid"] = self.uuidLbl.text
-//                        newsObj["type"] = "like"
-//                        newsObj["checked"] = "no"
-//                        newsObj.saveEventually()
-//                    }
+                    //                    // send notification as like
+                    //                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
+                    //                        let newsObj = PFObject(className: "news")
+                    //                        newsObj["by"] = PFUser.currentUser()?.username
+                    //                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+                    //                        newsObj["to"] = self.usernameBtn.titleLabel!.text
+                    //                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
+                    //                        newsObj["uuid"] = self.uuidLbl.text
+                    //                        newsObj["type"] = "like"
+                    //                        newsObj["checked"] = "no"
+                    //                        newsObj.saveEventually()
+                    //                    }
                     
                 }
             })
@@ -278,13 +210,8 @@ class postCell: UITableViewCell {
         
     }
     
-
-    func selectTap(){
-        print(uuidLbl.text!)
-        if let st = uuidLbl.text as String! {
-            segueDelegate.goToPost(st)
-        }
-    }
+    
+    
     @IBAction func likeBtn_clicked(sender: AnyObject) {
         // declare title of button
         let title = sender.titleForState(.Normal)
@@ -304,18 +231,18 @@ class postCell: UITableViewCell {
                     // send notification if we liked to refresh TableView
                     NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
                     
-//                    // send notification as like
-//                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
-//                        let newsObj = PFObject(className: "news")
-//                        newsObj["by"] = PFUser.currentUser()?.username
-//                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//                        newsObj["to"] = self.usernameBtn.titleLabel!.text
-//                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
-//                        newsObj["uuid"] = self.uuidLbl.text
-//                        newsObj["type"] = "like"
-//                        newsObj["checked"] = "no"
-//                        newsObj.saveEventually()
-//                    }
+                    //                    // send notification as like
+                    //                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
+                    //                        let newsObj = PFObject(className: "news")
+                    //                        newsObj["by"] = PFUser.currentUser()?.username
+                    //                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+                    //                        newsObj["to"] = self.usernameBtn.titleLabel!.text
+                    //                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
+                    //                        newsObj["uuid"] = self.uuidLbl.text
+                    //                        newsObj["type"] = "like"
+                    //                        newsObj["checked"] = "no"
+                    //                        newsObj.saveEventually()
+                    //                    }
                     
                 }
             })
@@ -343,19 +270,19 @@ class postCell: UITableViewCell {
                             NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
                             
                             
-//                            // delete like notification
-//                            let newsQuery = PFQuery(className: "news")
-//                            newsQuery.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-//                            newsQuery.whereKey("to", equalTo: self.usernameBtn.titleLabel!.text!)
-//                            newsQuery.whereKey("uuid", equalTo: self.uuidLbl.text!)
-//                            newsQuery.whereKey("type", equalTo: "like")
-//                            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                                if error == nil {
-//                                    for object in objects! {
-//                                        object.deleteEventually()
-//                                    }
-//                                }
-//                            })
+                            //                            // delete like notification
+                            //                            let newsQuery = PFQuery(className: "news")
+                            //                            newsQuery.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+                            //                            newsQuery.whereKey("to", equalTo: self.usernameBtn.titleLabel!.text!)
+                            //                            newsQuery.whereKey("uuid", equalTo: self.uuidLbl.text!)
+                            //                            newsQuery.whereKey("type", equalTo: "like")
+                            //                            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                            //                                if error == nil {
+                            //                                    for object in objects! {
+                            //                                        object.deleteEventually()
+                            //                                    }
+                            //                                }
+                            //                            })
                             
                             
                         }
@@ -365,5 +292,5 @@ class postCell: UITableViewCell {
             
         }
     }
-
+    
 }

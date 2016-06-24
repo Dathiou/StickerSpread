@@ -11,7 +11,24 @@ import Parse
 
 class searchCollCell: UICollectionViewCell {
     
-
+    
+    
+    //@IBOutlet weak var usernameBtn: UIButton!
+    //@IBOutlet weak var dateLbl: UILabel!
+    
+    @IBOutlet weak var picImg1: UIImageView!
+    @IBOutlet weak var likeBtn: UIButton!
+    
+    //@IBOutlet weak var commentBtn: UIButton!
+    //@IBOutlet weak var moreBtn: UIButton!
+    @IBOutlet weak var likeLbl: UILabel!
+    
+    @IBOutlet weak var usernameHidden: UIButton!
+    
+    @IBOutlet weak var titleLbl: UILabel!
+    
+    //@IBOutlet weak var titleLbl: KILabel!
+    @IBOutlet weak var uuidLbl: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,8 +38,47 @@ class searchCollCell: UICollectionViewCell {
         //avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
         //avaImg.clipsToBounds = true
         
+        // clear like button title color
+        likeBtn.setTitleColor(UIColor.clearColor(), forState: .Normal)
+        // double tap to like
+        //let likeTap = UITapGestureRecognizer(target: self, action: "likeTap")
+        //likeTap.numberOfTapsRequired = 2
+        //picImg.userInteractionEnabled = true
+        //picImg.addGestureRecognizer(likeTap)
         
+        //picImg.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
+        
+        self.picImg1.frame = CGRectMake(0,0,32,32)
+        
+        picImg1.translatesAutoresizingMaskIntoConstraints = false
+        
+        likeBtn.translatesAutoresizingMaskIntoConstraints = false
+  
+        
+        likeLbl.translatesAutoresizingMaskIntoConstraints = false
+        titleLbl.translatesAutoresizingMaskIntoConstraints = false
+        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
 
+
+        var lineView = UIView(frame: CGRectMake(25,self.frame.size.height - 2,self.frame.size.width - 50,0.5))
+        lineView.layer.borderWidth = 0.5
+        lineView.layer.borderColor = UIColor.blackColor().CGColor
+        self.addSubview(lineView)
+        //self.addSubview(likeButton)
+        //self.addSubview(nameLabel)
+        //self.addSubview(like)
+        //self.addSubview(likeLabel)
+       // picImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)
+       // self.addSubview(picImg)
+     
+        
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-161-[v0(18)]-5-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": likeBtn]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-2-[v1(18)]-1-[v0]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": likeLbl,"v1": likeBtn]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-50-[v2]-1-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v2": titleLbl]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-153-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": likeLbl]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-152-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": titleLbl]))
+        
+        
         
     }
 
@@ -32,7 +88,7 @@ class searchCollCell: UICollectionViewCell {
         super.init(frame: frame)
         
      
-        setupViews(frame)
+        //setupViews(frame)
     }
     
 //    let uuidLbl: UILabel = {
@@ -131,4 +187,89 @@ class searchCollCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    
+    @IBAction func likeBtn_clicked(sender: AnyObject) {
+        // declare title of button
+        let title = sender.titleForState(.Normal)
+        
+        // to like
+        if title == "unlike" {
+            
+            let object = PFObject(className: "likes")
+            object["by"] = PFUser.currentUser()?.username
+            object["to"] = uuidLbl.text
+            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                if success {
+                    print("liked")
+                    self.likeBtn.setTitle("like", forState: .Normal)
+                    self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+                    
+                    // send notification if we liked to refresh TableView
+                    NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                    
+                    //                    // send notification as like
+                    //                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
+                    //                        let newsObj = PFObject(className: "news")
+                    //                        newsObj["by"] = PFUser.currentUser()?.username
+                    //                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+                    //                        newsObj["to"] = self.usernameBtn.titleLabel!.text
+                    //                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
+                    //                        newsObj["uuid"] = self.uuidLbl.text
+                    //                        newsObj["type"] = "like"
+                    //                        newsObj["checked"] = "no"
+                    //                        newsObj.saveEventually()
+                    //                    }
+                    
+                }
+            })
+            
+            // to dislike
+        } else {
+            
+            // request existing likes of current user to show post
+            let query = PFQuery(className: "likes")
+            query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+            query.whereKey("to", equalTo: uuidLbl.text!)
+            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                
+                // find objects - likes
+                for object in objects! {
+                    
+                    // delete found like(s)
+                    object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+                        if success {
+                            print("disliked")
+                            self.likeBtn.setTitle("unlike", forState: .Normal)
+                            self.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+                            
+                            // send notification if we liked to refresh TableView
+                            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+                            
+                            
+                            //                            // delete like notification
+                            //                            let newsQuery = PFQuery(className: "news")
+                            //                            newsQuery.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+                            //                            newsQuery.whereKey("to", equalTo: self.usernameBtn.titleLabel!.text!)
+                            //                            newsQuery.whereKey("uuid", equalTo: self.uuidLbl.text!)
+                            //                            newsQuery.whereKey("type", equalTo: "like")
+                            //                            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+                            //                                if error == nil {
+                            //                                    for object in objects! {
+                            //                                        object.deleteEventually()
+                            //                                    }
+                            //                                }
+                            //                            })
+                            
+                            
+                        }
+                    })
+                }
+            })
+            
+        }
+    }
+
+    
 }

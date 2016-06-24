@@ -707,7 +707,7 @@ class feedVC: UITableViewController, UISearchBarDelegate ,UICollectionViewDelega
             }
             // asign index
             cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
-            cell.commentBtn.layer.setValue(indexPath, forKey: "index")
+            //cell.commentBtn.layer.setValue(indexPath, forKey: "index")
             cell.moreBtn.layer.setValue(indexPath, forKey: "index")
             
             return cell
