@@ -13,6 +13,7 @@ pod 'FBSDKLoginKit'
 pod 'Firebase'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
+pod 'Firebase/Storage'
 pod 'JSQMessagesViewController'
 pod 'IDMPhotoBrowser'
 

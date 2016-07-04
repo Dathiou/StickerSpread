@@ -24,6 +24,9 @@
                         <rect key="frame" x="48" y="10" width="170" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="usernameBtn"/>
+                        <connections>
+                            <action selector="usernameBtn_click" destination="foE-QG-Wje" eventType="touchUpInside" id="Bz4-Ba-dZh"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dON-0B-Hlt">
                         <rect key="frame" x="268" y="14" width="42" height="21"/>
@@ -53,7 +56,7 @@
                         <rect key="frame" x="10" y="385" width="30" height="30"/>
                         <state key="normal" backgroundImage="unlike.png"/>
                         <connections>
-                            <action selector="likeBtn_clicked:" destination="foE-QG-Wje" eventType="touchUpInside" id="bjg-1A-ZrO"/>
+                            <action selector="likeBtn_clicked:" destination="foE-QG-Wje" eventType="touchUpInside" id="8hg-LQ-Av0"/>
                         </connections>
                     </button>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjR-kP-dN7">
@@ -62,16 +65,15 @@
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gtc-Rk-RZC">
                         <rect key="frame" x="282" y="384" width="30" height="30"/>
-                        <state key="normal" title="more" image="more.png"/>
+                        <state key="normal" title="more" image="Dots_hor.png"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shopname,shopname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tg9-aa-FNA">
                         <rect key="frame" x="48" y="41" width="167" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="1" green="0.89523909310000005" blue="0.93175330769999998" alpha="1" colorSpace="calibratedRGB"/>
             </tableViewCellContentView>
             <connections>
                 <outlet property="avaImg" destination="qG0-kl-tOb" id="99c-kz-kkg"/>
@@ -81,7 +83,7 @@
                 <outlet property="moreBtn" destination="Gtc-Rk-RZC" id="XP7-a1-gbP"/>
                 <outlet property="picImg" destination="w9r-Xr-ntQ" id="CyS-VM-8KH"/>
                 <outlet property="titleLbl" destination="QRQ-TZ-1KI" id="LXg-fj-I8e"/>
-                <outlet property="usernameBtn" destination="ftS-Gn-Zng" id="z33-vr-0j2"/>
+                <outlet property="usernameBtn" destination="ftS-Gn-Zng" id="yGC-2r-HlY"/>
                 <outlet property="usernameHidden" destination="pjR-kP-dN7" id="UWv-Mc-05v"/>
                 <outlet property="uuidLbl" destination="Xhs-5H-PXf" id="YVq-XF-4mZ"/>
             </connections>
@@ -89,7 +91,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="more.png" width="270" height="270"/>
+        <image name="Dots_hor.png" width="800" height="800"/>
         <image name="pbg.jpg" width="200" height="200"/>
         <image name="pp.jpg" width="96" height="96"/>
         <image name="unlike.png" width="270" height="270"/>

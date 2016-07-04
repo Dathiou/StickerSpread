@@ -96,10 +96,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if let us = PFUser.currentUser() {
             
             
-            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
-            FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
-                // ...
-            }
+//            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+//            FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+//                // ...
+//            }
+//            if let user = FIRAuth.auth()?.currentUser {
+//                let name = user.displayName
+//                let email = user.email
+//                let photoUrl = user.photoURL
+//                let uid = user.uid;  // The user's ID, unique to the Firebase project.
+//                // Do NOT use this value to authenticate with
+//                // your backend server, if you have one. Use
+//                // getTokenWithCompletion:completion: instead.
+//            } else {
+//                // No user is signed in.
+//            }
+            
+            
             
             print("username dispo")
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

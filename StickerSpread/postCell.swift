@@ -8,10 +8,17 @@
 
 import UIKit
 import Parse
+import Firebase
 
+//protocol segueToUserFromFeed{
+//    func goToProfile(id : String!)
+//}
 protocol segueToPostFromFeed{
     func goToPost(uuid : String!)
+    func goToProfile(id : String!)
 }
+
+
 
 class postCell: UITableViewCell {
 
@@ -34,6 +41,7 @@ class postCell: UITableViewCell {
     
    @IBOutlet weak var titleLbl: UILabel!
      var segueDelegate : segueToPostFromFeed!
+    //var segueDelegateUser : segueToUserFromFeed!
     //@IBOutlet weak var titleLbl: KILabel!
     @IBOutlet weak var uuidLbl: UILabel!
     
@@ -216,9 +224,10 @@ class postCell: UITableViewCell {
             options: [], metrics: nil, views: ["date":dateLbl]))
         
         // round ava
-        avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
+        avaImg.layer.cornerRadius = 4.0
         avaImg.clipsToBounds = true
-
+        avaImg.layer.borderColor = UIColor.whiteColor().CGColor
+        avaImg.layer.borderWidth = 0.5
 
         
     }
@@ -280,11 +289,19 @@ class postCell: UITableViewCell {
     
 
     func selectTap(){
-        print(uuidLbl.text!)
         if let st = uuidLbl.text as String! {
             segueDelegate.goToPost(st)
+            //segueDelegateUser.goToProfile("aa")
         }
     }
+    
+    @IBAction func usernameBtn_click() {
+        if let id = self.usernameHidden.titleLabel!.text as String!{
+            segueDelegate.goToProfile(id)
+        }
+        
+    }
+    
     @IBAction func likeBtn_clicked(sender: AnyObject) {
         // declare title of button
         let title = sender.titleForState(.Normal)
@@ -292,78 +309,106 @@ class postCell: UITableViewCell {
         // to like
         if title == "unlike" {
             
-            let object = PFObject(className: "likes")
-            object["by"] = PFUser.currentUser()?.username
-            object["to"] = uuidLbl.text
-            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                if success {
-                    print("liked")
-                    self.likeBtn.setTitle("like", forState: .Normal)
-                    self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-                    
-                    // send notification if we liked to refresh TableView
-                    NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
-                    
-//                    // send notification as like
-//                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
-//                        let newsObj = PFObject(className: "news")
-//                        newsObj["by"] = PFUser.currentUser()?.username
-//                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//                        newsObj["to"] = self.usernameBtn.titleLabel!.text
-//                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
-//                        newsObj["uuid"] = self.uuidLbl.text
-//                        newsObj["type"] = "like"
-//                        newsObj["checked"] = "no"
-//                        newsObj.saveEventually()
-//                    }
-                    
-                }
-            })
+            firebase.child("Likes").child(uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
+            firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuidLbl.text!).setValue(true)
+            print("liked")
+            self.likeBtn.setTitle("like", forState: .Normal)
+            //self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            self.likeLbl.text = "\(Int(self.likeLbl.text!)! + 1)"
+            
+            // send notification if we liked to refresh TableView
+            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+            
+            
+            //
+            //            let object = PFObject(className: "likes")
+            //            object["by"] = PFUser.currentUser()?.username
+            //            object["to"] = uuidLbl.text
+            //            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+            //                if success {
+            //                    print("liked")
+            //                    self.likeBtn.setTitle("like", forState: .Normal)
+            //                    self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            //
+            //                    // send notification if we liked to refresh TableView
+            //                    NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+            //
+            //                    //                    // send notification as like
+            //                    //                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
+            //                    //                        let newsObj = PFObject(className: "news")
+            //                    //                        newsObj["by"] = PFUser.currentUser()?.username
+            //                    //                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+            //                    //                        newsObj["to"] = self.usernameBtn.titleLabel!.text
+            //                    //                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
+            //                    //                        newsObj["uuid"] = self.uuidLbl.text
+            //                    //                        newsObj["type"] = "like"
+            //                    //                        newsObj["checked"] = "no"
+            //                    //                        newsObj.saveEventually()
+            //                    //                    }
+            //
+            //                }
+            //            })
             
             // to dislike
         } else {
             
-            // request existing likes of current user to show post
-            let query = PFQuery(className: "likes")
-            query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-            query.whereKey("to", equalTo: uuidLbl.text!)
-            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                
-                // find objects - likes
-                for object in objects! {
-                    
-                    // delete found like(s)
-                    object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                        if success {
-                            print("disliked")
-                            self.likeBtn.setTitle("unlike", forState: .Normal)
-                            self.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
-                            
-                            // send notification if we liked to refresh TableView
-                            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
-                            
-                            
-//                            // delete like notification
-//                            let newsQuery = PFQuery(className: "news")
-//                            newsQuery.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-//                            newsQuery.whereKey("to", equalTo: self.usernameBtn.titleLabel!.text!)
-//                            newsQuery.whereKey("uuid", equalTo: self.uuidLbl.text!)
-//                            newsQuery.whereKey("type", equalTo: "like")
-//                            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                                if error == nil {
-//                                    for object in objects! {
-//                                        object.deleteEventually()
-//                                    }
-//                                }
-//                            })
-                            
-                            
-                        }
-                    })
-                }
-            })
+            firebase.child("Likes").child(uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).removeValue()
+            firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuidLbl.text!).removeValue()
+            print("disliked")
+            self.likeBtn.setTitle("unlike", forState: .Normal)
+            //self.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            
+            // send notification if we liked to refresh TableView
+            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+            self.likeLbl.text = "\(Int(self.likeLbl.text!)! - 1)"
+            
+            
+            
+            //            // request existing likes of current user to show post
+            //            let query = PFQuery(className: "likes")
+            //            query.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+            //            query.whereKey("to", equalTo: uuidLbl.text!)
+            //            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+            //
+            //                // find objects - likes
+            //                for object in objects! {
+            //
+            //                    // delete found like(s)
+            //                    object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+            //                        if success {
+            //                            print("disliked")
+            //                            self.likeBtn.setTitle("unlike", forState: .Normal)
+            //                            self.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            //
+            //                            // send notification if we liked to refresh TableView
+            //                            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+            //
+            //
+            //                            //                            // delete like notification
+            //                            //                            let newsQuery = PFQuery(className: "news")
+            //                            //                            newsQuery.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+            //                            //                            newsQuery.whereKey("to", equalTo: self.usernameBtn.titleLabel!.text!)
+            //                            //                            newsQuery.whereKey("uuid", equalTo: self.uuidLbl.text!)
+            //                            //                            newsQuery.whereKey("type", equalTo: "like")
+            //                            //                            newsQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+            //                            //                                if error == nil {
+            //                            //                                    for object in objects! {
+            //                            //                                        object.deleteEventually()
+            //                            //                                    }
+            //                            //                                }
+            //                            //                            })
+            //                            
+            //                            
+            //                        }
+            //                    })
+            //                }
+            //            })
             
         }
     }
+    
+    
+    
+
 
 }

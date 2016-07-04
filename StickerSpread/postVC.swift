@@ -8,17 +8,23 @@
 
 import UIKit
 import Parse
+import Firebase
 
 var postuuid = [String]()
 
 class postVC: UITableViewController {
-
+    
+    let storage = FIRStorage.storage()
+    let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
+    
     // arrays to hold information from server
-    var avaArray = [PFFile]()
+    //var avaArray = [PFFile]()
+    var avaArray = [UIImage]()
     var usernameArray = [String]()
     var nameArray = [String]()
     var dateArray = [NSDate?]()
-    var picArray = [PFFile]()
+    //var picArray = [PFFile]()
+    var picArray = [UIImage]()
     var uuidArray = [String]()
     var titleArray = [String]()
     
@@ -30,12 +36,12 @@ class postVC: UITableViewController {
         // title label at the top
         self.navigationItem.title = "PHOTO"
         
-//        // new back button
-//        self.navigationItem.hidesBackButton = true
-//        let backBtn = UIBarButtonItem(image: UIImage(named: "back.png"), style: .Plain, target: self, action: "back:")
-//        self.navigationItem.leftBarButtonItem = backBtn
-        
-        
+        //        // new back button
+        //        self.navigationItem.hidesBackButton = true
+        //        let backBtn = UIBarButtonItem(image: UIImage(named: "back.png"), style: .Plain, target: self, action: "back:")
+        //        self.navigationItem.leftBarButtonItem = backBtn
+        //self.tableView.backgroundColor = UIColor.redColor()
+        //self.tableView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         // new back button
         self.navigationItem.hidesBackButton = true
         let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.Plain, target: self, action: "back:")
@@ -49,9 +55,9 @@ class postVC: UITableViewController {
         
         
         // swipe to go back
-//        let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
-//        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
-//        self.view.addGestureRecognizer(backSwipe)
+        //        let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
+        //        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
+        //        self.view.addGestureRecognizer(backSwipe)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "liked", object: nil)
         
@@ -60,70 +66,175 @@ class postVC: UITableViewController {
         tableView.estimatedRowHeight = 450
         tableView.registerNib(UINib(nibName: "postSelected", bundle: nil), forCellReuseIdentifier: "idPostSelectedCell")
         // find post
-        let postQuery = PFQuery(className: "posts")
-        postQuery.whereKey("uuid", equalTo: postuuid.last!)
-        postQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-            if error == nil {
+        
+        //let r = postuuidArray.last!
+        
+        firebase.child("Posts").child(postuuid.last!).queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+            
+            // clean up
+            self.usernameArray.removeAll(keepCapacity: false)
+            self.nameArray.removeAll(keepCapacity: false)
+            self.avaArray.removeAll(keepCapacity: false)
+            self.dateArray.removeAll(keepCapacity: false)
+            self.picArray.removeAll(keepCapacity: false)
+            //self.picArraySearch.removeAll(keepCapacity: false)
+            self.titleArray.removeAll(keepCapacity: false)
+            self.uuidArray.removeAll(keepCapacity: false)
+            
+            if snapshot.exists() {
                 
-                // clean up
-                self.avaArray.removeAll(keepCapacity: false)
-                self.usernameArray.removeAll(keepCapacity: false)
-                self.nameArray.removeAll(keepCapacity: false)
-                self.dateArray.removeAll(keepCapacity: false)
-                self.picArray.removeAll(keepCapacity: false)
-                self.uuidArray.removeAll(keepCapacity: false)
-                self.titleArray.removeAll(keepCapacity: false)
+                //sorted = (snapshot.value!.allValues as NSArray).sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: false)])
+                //for post in snapshot.children{
+                let k = snapshot.key
                 
-                // find related objects
-                for object in objects! {
+                let userID = snapshot.value!.objectForKey("userID") as! String
+                //let datestring = post.value.objectForKey("date") as! String
+                if let datestring = snapshot.value!.objectForKey("date") as? String{
+                    var dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+                    let date = dateFormatter.dateFromString(datestring)
+                    self.dateArray.append(date)
+                    //  }
+                    self.usernameArray.append(userID as! String)
                     
-                    self.avaArray.append(object.valueForKey("ava") as! PFFile)
-                    self.usernameArray.append(object.valueForKey("username") as! String)
-                    self.dateArray.append(object.createdAt)
-                    self.picArray.append(object.valueForKey("pic") as! PFFile)
-                    self.uuidArray.append(object.valueForKey("uuid") as! String)
-                    self.titleArray.append(object.valueForKey("title") as! String)
+                    self.titleArray.append(snapshot.value!.objectForKey("title") as! String)
+                    self.uuidArray.append(snapshot.key as String!)
                     
-                    let usernmae = object.valueForKey("username") as! String
-                    let infoQuery = PFQuery(className: "_User")
-                    infoQuery.whereKey("username", equalTo: usernmae)
-                    infoQuery.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
-                        if error == nil {
+                    
+                    
+                    
+                    firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot1 in
+                        
+                        objc_sync_enter(self.nameArray)
+                        let first = (snapshot1.value!.objectForKey("first_name") as? String)
+                        let last = (snapshot1.value!.objectForKey("last_name") as? String)
+                        
+                        let fullname = first!+" "+last!
+                        self.nameArray.append(fullname)
+                        
+                        let avaURL = (snapshot1.value!.objectForKey("ProfilPicUrl") as! String)
+                        let url = NSURL(string: avaURL)
+                        if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+                            self.avaArray.append(UIImage(data: data) as UIImage!)
+                            objc_sync_exit(self.nameArray)
                             
-                            // shown wrong user
-                            if objects1!.isEmpty {
-                                // call alert
-                                let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
-                                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
-                                    self.navigationController?.popViewControllerAnimated(true)
-                                })
-                                alert.addAction(ok)
-                                self.presentViewController(alert, animated: true, completion: nil)
-                            }
+                            // let i = snapshot.value!.objectForKey("photoUrl") as! String
                             
-                            // find related to user information
-                            for object1 in objects1! {
+                            self.storage.referenceForURL(snapshot.value!.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                                let image = UIImage(data: data!)
                                 
+                                objc_sync_enter(self.usernameArray)
+                                self.picArray.append(image! as! UIImage)
+                                objc_sync_exit(self.usernameArray)
+                                //self.tableView.reloadData()
+                                //self.scrollToBottom()
                                 
-                                
-                                // get users data with connections to columns of PFUser class
-                                let first = (object1.objectForKey("first_name") as? String)
-                                let last = (object1.objectForKey("last_name") as? String)
-                                
-                                let fullname = first!+" "+last!
-                                self.nameArray.append(fullname)
-                                
-                                
-                            }
-                     
-              self.tableView.reloadData()
-                }
-                        })
-           
-            }
-                
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.tableView.reloadData()
+                                    // self.collectionView.reloadData()
+                                    
+                                    //self.refresher.endRefreshing()
+                                });
+                            })
+                            
+                        }
+                        
+                        // self.avaArray.append(snapshot.value!.objectForKey("ava") as! String)
+                        
+                        //self.picArray.append(snapshot.value!.objectForKey("pic") as! String)
+                        //self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
+                        
+                        
+                        //self.comments.append(snapshot)
+                        //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                        }
+                        
+                    ){ (error) in
+                        print(error.localizedDescription)
+                    }
+                    
+                    
+                }}
+            
+            
+            
+            
+            
+            
+            //self.comments.append(snapshot)
+            //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
+        }){ (error) in
+            print(error.localizedDescription)
         }
-        })
+        
+        
+        
+        
+        //
+        //        let postQuery = PFQuery(className: "posts")
+        //        postQuery.whereKey("uuid", equalTo: postuuid.last!)
+        //        postQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+        //            if error == nil {
+        //
+        //                // clean up
+        //                self.avaArray.removeAll(keepCapacity: false)
+        //                self.usernameArray.removeAll(keepCapacity: false)
+        //                self.nameArray.removeAll(keepCapacity: false)
+        //                self.dateArray.removeAll(keepCapacity: false)
+        //                self.picArray.removeAll(keepCapacity: false)
+        //                self.uuidArray.removeAll(keepCapacity: false)
+        //                self.titleArray.removeAll(keepCapacity: false)
+        //
+        //                // find related objects
+        //                for object in objects! {
+        //
+        //                    self.avaArray.append(object.valueForKey("ava") as! PFFile)
+        //                    self.usernameArray.append(object.valueForKey("username") as! String)
+        //                    self.dateArray.append(object.createdAt)
+        //                    self.picArray.append(object.valueForKey("pic") as! PFFile)
+        //                    self.uuidArray.append(object.valueForKey("uuid") as! String)
+        //                    self.titleArray.append(object.valueForKey("title") as! String)
+        //
+        //                    let usernmae = object.valueForKey("username") as! String
+        //                    let infoQuery = PFQuery(className: "_User")
+        //                    infoQuery.whereKey("username", equalTo: usernmae)
+        //                    infoQuery.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
+        //                        if error == nil {
+        //
+        //                            // shown wrong user
+        //                            if objects1!.isEmpty {
+        //                                // call alert
+        //                                let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
+        //                                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+        //                                    self.navigationController?.popViewControllerAnimated(true)
+        //                                })
+        //                                alert.addAction(ok)
+        //                                self.presentViewController(alert, animated: true, completion: nil)
+        //                            }
+        //
+        //                            // find related to user information
+        //                            for object1 in objects1! {
+        //
+        //
+        //
+        //                                // get users data with connections to columns of PFUser class
+        //                                let first = (object1.objectForKey("first_name") as? String)
+        //                                let last = (object1.objectForKey("last_name") as? String)
+        //
+        //                                let fullname = first!+" "+last!
+        //                                self.nameArray.append(fullname)
+        //
+        //
+        //                            }
+        //
+        //              self.tableView.reloadData()
+        //                }
+        //                        })
+        //
+        //            }
+        //
+        //        }
+        //        })
         
     }
     
@@ -143,6 +254,7 @@ class postVC: UITableViewController {
         // define cell
         //let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! postCell
         let cell = tableView.dequeueReusableCellWithIdentifier("idPostSelectedCell", forIndexPath: indexPath) as! postCellSelected
+        cell.backgroundColor = UIColor.clearColor()
         // connect objects with our information from arrays
         cell.usernameBtn.setTitle(nameArray[indexPath.row], forState: UIControlState.Normal)
         cell.usernameBtn.sizeToFit()
@@ -151,15 +263,17 @@ class postVC: UITableViewController {
         cell.titleLbl.sizeToFit()
         cell.usernameHidden.setTitle(usernameArray[indexPath.row], forState: UIControlState.Normal)
         
-        // place profile picture
-        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-            cell.avaImg.image = UIImage(data: data!)
-        }
+        //        // place profile picture
+        //        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+        //            cell.avaImg.image = UIImage(data: data!)
+        //        }
+        cell.avaImg.image = avaArray[indexPath.row]
+        //        // place post picture
+        //        picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+        //            cell.picImg.image = UIImage(data: data!)
+        //        }
+        cell.picImg.image = picArray[indexPath.row]
         
-        // place post picture
-        picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-            cell.picImg.image = UIImage(data: data!)
-        }
         
         // calculate post date
         let from = dateArray[indexPath.row]
@@ -186,29 +300,12 @@ class postVC: UITableViewController {
         if difference.weekOfMonth > 0 {
             cell.dateLbl.text = "\(difference.weekOfMonth)w."
         }
+    
+        
+        getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
+        getLikeCount(cell.uuidLbl.text! , Lbl : cell.likeLbl)
         
         
-        // manipulate like button depending on did user like it or not
-        let didLike = PFQuery(className: "likes")
-        didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-        didLike.whereKey("to", equalTo: cell.uuidLbl.text!)
-        didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-            // if no any likes are found, else found likes
-            if count == 0 {
-                cell.likeBtn.setTitle("unlike", forState: .Normal)
-                cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
-            } else {
-                cell.likeBtn.setTitle("like", forState: .Normal)
-                cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-            }
-        }
-        
-        // count total likes of shown post
-        let countLikes = PFQuery(className: "likes")
-        countLikes.whereKey("to", equalTo: cell.uuidLbl.text!)
-        countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-            cell.likeLbl.text = "\(count)"
-        }
         // asign index
         cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
         //cell.commentBtn.layer.setValue(indexPath, forKey: "index")
@@ -216,9 +313,9 @@ class postVC: UITableViewController {
         
         return cell
     }
-
-
-
+    
+    
+    
     @IBAction func usernameBtn_click(sender: AnyObject) {
         // call index of button
         let i = sender.layer.valueForKey("index") as! NSIndexPath
@@ -229,7 +326,7 @@ class postVC: UITableViewController {
         // if user tapped on himself go home, else go guest
         
         
-        if cell.usernameHidden.titleLabel?.text == PFUser.currentUser()?.username {
+        if cell.usernameHidden.titleLabel?.text == (FIRAuth.auth()?.currentUser!.uid)!{
             let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
             self.navigationController?.pushViewController(home, animated: true)
         } else {
@@ -239,8 +336,8 @@ class postVC: UITableViewController {
         }
         
     }
-
-  
+    
+    
     @IBAction func moreBtn_click(sender: AnyObject) {
         
         // call index of button
@@ -295,30 +392,30 @@ class postVC: UITableViewController {
                     }
                 }
             })
-//            
-//            // STEP 3. Delete comments of post from server
-//            let commentQuery = PFQuery(className: "comments")
-//            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-//            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteEventually()
-//                    }
-//                }
-//            })
-//            
-//            // STEP 4. Delete hashtags of post from server
-//            let hashtagQuery = PFQuery(className: "hashtags")
-//            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-//            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteEventually()
-//                    }
-//                }
-//            })
-       }
-       
+            //
+            //            // STEP 3. Delete comments of post from server
+            //            let commentQuery = PFQuery(className: "comments")
+            //            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+            //            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+            //                if error == nil {
+            //                    for object in objects! {
+            //                        object.deleteEventually()
+            //                    }
+            //                }
+            //            })
+            //
+            //            // STEP 4. Delete hashtags of post from server
+            //            let hashtagQuery = PFQuery(className: "hashtags")
+            //            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+            //            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+            //                if error == nil {
+            //                    for object in objects! {
+            //                        object.deleteEventually()
+            //                    }
+            //                }
+            //            })
+        }
+        
         
         // COMPLAIN ACTION
         let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in
@@ -380,5 +477,5 @@ class postVC: UITableViewController {
         
     }
     
-
-   }
+    
+}

@@ -12,8 +12,8 @@
     
     class CheckBox: UIButton {
         // Images
-        let checkedImage = UIImage(named: "like.png")! as UIImage
-        let uncheckedImage = UIImage(named: "unlike.png")! as UIImage
+        let checkedImage = UIImage(named: "Dash Box 2.png")! as UIImage
+        let uncheckedImage = UIImage(named: "Dash Box 1.png")! as UIImage
         
         // Bool property
         var isChecked: Bool = false {

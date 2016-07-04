@@ -49,18 +49,14 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J57-Us-Zzt">
                         <rect key="frame" x="8" y="387" width="30" height="30"/>
-                        <state key="normal" backgroundImage="unlike.png"/>
+                        <state key="normal" backgroundImage="Heart 1.png"/>
                         <connections>
-                            <action selector="likeBtn_clicked:" destination="6Md-nK-lns" eventType="touchUpInside" id="QRV-co-Qvx"/>
+                            <action selector="likeBtn_clicked:" destination="6Md-nK-lns" eventType="touchUpInside" id="jr5-4k-BXY"/>
                         </connections>
                     </button>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJe-Fu-kDp">
                         <rect key="frame" x="172" y="12" width="46" height="30"/>
                         <state key="normal" title="Button"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhN-2S-J5R">
-                        <rect key="frame" x="280" y="386" width="30" height="30"/>
-                        <state key="normal" title="more" image="more.png"/>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="pbg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="qet-Sg-Ocb">
                         <rect key="frame" x="0.0" y="63" width="320" height="320"/>
@@ -86,7 +82,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shopname, shopname, shopname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kip-KJ-IAR">
                         <rect key="frame" x="48" y="37" width="261" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blue" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhe-MC-uN5">
@@ -114,8 +110,11 @@
                             <action selector="connect_click:" destination="6Md-nK-lns" eventType="touchUpInside" id="gmH-ke-GTq"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GhN-2S-J5R">
+                        <rect key="frame" x="281" y="380" width="30" height="32"/>
+                        <state key="normal" title="more" image="Dots_hor.png"/>
+                    </button>
                 </subviews>
-                <color key="backgroundColor" red="1" green="0.89523909313039318" blue="0.9317533076705008" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="GhN-2S-J5R" firstAttribute="top" secondItem="qet-Sg-Ocb" secondAttribute="bottom" constant="200" id="Hnh-Yp-IpA"/>
                     <constraint firstAttribute="bottomMargin" secondItem="qet-Sg-Ocb" secondAttribute="bottom" constant="174" id="YLq-QO-T3P"/>
@@ -150,9 +149,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="more.png" width="270" height="270"/>
+        <image name="Dots_hor.png" width="800" height="800"/>
+        <image name="Heart 1.png" width="800" height="800"/>
         <image name="pbg.jpg" width="200" height="200"/>
         <image name="pp.jpg" width="96" height="96"/>
-        <image name="unlike.png" width="270" height="270"/>
     </resources>
 </document>

@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Firebase
 
 class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
 
@@ -164,9 +165,20 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
         // dissmiss keyboard
         self.view.endEditing(true)
         
-        // send data to server to "posts" class in Parse
-        let object = PFObject(className: "posts")
-        object["username"] = PFUser.currentUser()!.username
+        
+        // Get a reference to the storage service, using the default Firebase App
+        let storage = FIRStorage.storage()
+        // Create a storage reference from our storage service
+        let storageRef = storage.referenceForURL("gs://stickerspread-4f3a9.appspot.com")
+        
+        
+//        
+//        
+//        // send data to server to "posts" class in Parse
+//        let object = PFObject(className: "posts")
+//        object["username"] = PFUser.currentUser()!.username
+        
+        
         
 //        
 //        let first = (object1.objectForKey("first_name") as? String)
@@ -177,41 +189,90 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
 //        object["fullname"] = PFUser.currentUser()!.username
 //        
         
-        object["ava"] = PFUser.currentUser()!.valueForKey("picture_file") as! PFFile
-        
+//        object["ava"] = PFUser.currentUser()!.valueForKey("picture_file") as! PFFile
+//        
         let uuid = NSUUID().UUIDString
-        object["uuid"] = "\(PFUser.currentUser()!.username!) \(uuid)"
-        
-        if titleTxt.text.isEmpty {
-            object["title"] = ""
-        } else {
-            object["title"] = titleTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        }
+//        object["uuid"] = "\(PFUser.currentUser()!.username!) \(uuid)"
+//        
+//        if titleTxt.text.isEmpty {
+//            object["title"] = ""
+//        } else {
+//            object["title"] = titleTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+//        }
         
         
         // send pic to server after converting to FILE and comprassion
-        let imageData = UIImageJPEGRepresentation(picImg.image!, 0.5)
-        let imageFile = PFFile(name: "post.jpg", data: imageData!)
-        object["pic"] = imageFile
+        let imageData : NSData = UIImageJPEGRepresentation(picImg.image!, 0.5)!
+        
+        
+//        
+//        
+//        let imageFile = PFFile(name: "post.jpg", data: imageData)
+//        object["pic"] = imageFile
+        
+        
+        let userID = FIRAuth.auth()?.currentUser?.uid
+        
+        // Create a reference to the file you want to upload
+        let riversRef = storageRef.child("posts/\(userID) \(uuid).jpg")
+        
+        // Upload the file to the path "images/rivers.jpg"
+        let uploadTask = riversRef.putData(imageData, metadata: nil) { metadata, error in
+            if (error != nil) {
+                // Uh-oh, an error occurred!
+            } else {
+                // Metadata contains file metadata such as size, content-type, and download URL.
+                let downloadURL = metadata?.downloadURL()?.absoluteURL
+                
+                let date = NSDate()
+                var dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+                var dateString = dateFormatter.stringFromDate(date)
+                
+                if let user = FIRAuth.auth()?.currentUser {
+                    let name = user.displayName
+                    let email = user.email
+                    let photoUrl = user.photoURL
+                    let uid = user.uid;
+                    print(downloadURL)
+                    let userDict : [String : AnyObject] = [ "userID" : uid,
+                                     "title"    : "Day Dream Kit" ,
+                                     "layout"   : "vertical",
+                                     "date" : dateString,
+                                     "photoUrl"    : (downloadURL?.absoluteString)!]
+                    firebase.child("Posts").child("\(userID) \(uuid)").setValue(userDict)
+                    firebase.child("PostPerUser").child("\(userID)").setValue(userDict)
+                    
+                } else {
+                    // No user is signed in.
+                }
+            }
+        }
+        
+       
+        
+        
+        
+      
         
     
         
-        
-        // finally save information
-        object.saveInBackgroundWithBlock ({ (success:Bool, error:NSError?) -> Void in
-            if error == nil {
-                
-                // send notification wiht name "uploaded"
-                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
-                
-                // switch to another ViewController at 0 index of tabbar
-                self.tabBarController!.selectedIndex = 0
-                
-                // reset everything
-                self.viewDidLoad()
-                self.titleTxt.text = ""
-            }
-        })
+//        
+//        // finally save information
+//        object.saveInBackgroundWithBlock ({ (success:Bool, error:NSError?) -> Void in
+//            if error == nil {
+//                
+//                // send notification wiht name "uploaded"
+//                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
+//                
+//                // switch to another ViewController at 0 index of tabbar
+//                self.tabBarController!.selectedIndex = 0
+//                
+//                // reset everything
+//                self.viewDidLoad()
+//                self.titleTxt.text = ""
+//            }
+//        })
         
     }
     

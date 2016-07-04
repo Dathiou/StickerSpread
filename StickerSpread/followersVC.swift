@@ -8,9 +8,11 @@
 
 import UIKit
 import Parse
+import Firebase
 
 var show = String()
 var user = String()
+
 
 
 class followersVC: UITableViewController, CustomCellDelegate {
@@ -274,50 +276,66 @@ class followersVC: UITableViewController, CustomCellDelegate {
         
         // to follow
         if title == "FOLLOW" {
-            let object = PFObject(className: "follow")
-            object["follower"] = PFUser.currentUser()?.username
-            object["following"] = self.usernameArray[indexPath.row] //usernameLbl.text
-            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                if success {
-                    cell.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
-                    cell.followBtn.backgroundColor = .greenColor()
-                } else {
-                    print(error?.localizedDescription)
-                }
-            })
+            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(self.usernameArray[indexPath.row]).setValue(true)
+            firebase.child("Followers").child(self.usernameArray[indexPath.row]).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
+            print("folowed")
+            cell.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
+            cell.followBtn.backgroundColor = .greenColor()
+            //self.likeLbl.text = "\(Int(self.likeLbl.text!)! + 1)"
+            
+
+            
+//            let object = PFObject(className: "follow")
+//            object["follower"] = PFUser.currentUser()?.username
+//            object["following"] = self.usernameArray[indexPath.row] //usernameLbl.text
+//            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                if success {
+//                    cell.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
+//                    cell.followBtn.backgroundColor = .greenColor()
+//                } else {
+//                    print(error?.localizedDescription)
+//                }
+//            })
             
             // unfollow
         } else {
-            let query = PFQuery(className: "follow")
-            query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-            query.whereKey("following", equalTo: self.usernameArray[indexPath.row])
-            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    
-                    for object in objects! {
-                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                            if success {
-                                cell.followBtn.setTitle("FOLLOW", forState: UIControlState.Normal)
-                                cell.followBtn.backgroundColor = .lightGrayColor()
-                            } else {
-                                print(error?.localizedDescription)
-                            }
-                        })
-                    }
-                    
-                } else {
-                    print(error?.localizedDescription)
-                }
-            })
+            firebase.child("Followings").child(self.usernameArray[indexPath.row]).child((FIRAuth.auth()?.currentUser!.uid)!).removeValue()
+            firebase.child("Followers").child((FIRAuth.auth()?.currentUser!.uid)!).child(self.usernameArray[indexPath.row]).removeValue()
+            print("unfollowed")
+            cell.followBtn.setTitle("FOLLOW", forState: UIControlState.Normal)
+            cell.followBtn.backgroundColor = .lightGrayColor()
+            
+            // send notification if we liked to refresh TableView
+                       //self.likeLbl.text = "\(Int(self.likeLbl.text!)! - 1)"
+
+//            let query = PFQuery(className: "follow")
+//            query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+//            query.whereKey("following", equalTo: self.usernameArray[indexPath.row])
+//            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    
+//                    for object in objects! {
+//                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                            if success {
+//                                cell.followBtn.setTitle("FOLLOW", forState: UIControlState.Normal)
+//                                cell.followBtn.backgroundColor = .lightGrayColor()
+//                            } else {
+//                                print(error?.localizedDescription)
+//                            }
+//                        })
+//                    }
+//                    
+//                } else {
+//                    print(error?.localizedDescription)
+//                }
+//            })
             
         }
 
-        
-        
-        
-        
-        
     }
+
+    
+    
 
 
     /*
