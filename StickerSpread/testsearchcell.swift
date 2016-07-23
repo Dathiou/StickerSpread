@@ -57,14 +57,14 @@ class testsearchcell: UICollectionViewCell {
         
         //self.picImg1.frame = CGRectMake(0,0,32,32)
         
-        picImg1.translatesAutoresizingMaskIntoConstraints = false
-        
-        likeBtn.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        likeLbl.translatesAutoresizingMaskIntoConstraints = false
-        titleLbl.translatesAutoresizingMaskIntoConstraints = false
-        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
+//        picImg1.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        likeBtn.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        
+//        likeLbl.translatesAutoresizingMaskIntoConstraints = false
+//        titleLbl.translatesAutoresizingMaskIntoConstraints = false
+//        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
         
         //likeLbl.font.fontWithSize(11)
         //titleLbl.font.fontWithSize(12)
@@ -73,28 +73,32 @@ class testsearchcell: UICollectionViewCell {
         //self.picImg1.frame = CGRect(x: 0,y: 0, width: width1, height: width1)
         //self.picImg1.frame = CGRectMake(0,0,self.frame.width/2,self.frame.width/2)
         
-        var lineView = UIView(frame: CGRectMake(25,self.frame.size.height+1,self.frame.size.width - 50,0.5))
-        lineView.layer.borderWidth = 0.5
-        lineView.layer.borderColor = UIColor.blackColor().CGColor
-        self.addSubview(lineView)
+//        var lineView = UIView(frame: CGRectMake(25,self.frame.size.height+1,self.frame.size.width - 50,0.5))
+//        lineView.layer.borderWidth = 0.5
+//        lineView.layer.borderColor = UIColor.blackColor().CGColor
+//        self.addSubview(lineView)
+        
+        
         //self.addSubview(likeButton)
         //self.addSubview(nameLabel)
         //self.addSubview(like)
         //self.addSubview(likeLabel)
         // picImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)
         // self.addSubview(picImg)
-        let width = self.frame.size.width
+        let width = UIScreen.mainScreen().bounds.width/2 - 10
         //print(width)
                // self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pic(\(width))]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pic": picImg1]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[pic(wid)]-0-|", options: NSLayoutFormatOptions(), metrics: ["wid": width], views: ["pic": picImg1]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[pic(wid)]", options: NSLayoutFormatOptions(), metrics: ["wid": width], views: ["pic": picImg1]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[likeBtn(18)]-2-|", options: NSLayoutFormatOptions(), metrics: ["wid": width], views: ["pic": picImg1,"likeBtn": likeBtn]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[likeLbl]-2-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pic": picImg1,"likeLbl": likeLbl]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[titleLbl]-1-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pic": picImg1,"titleLbl": titleLbl]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-4-[likeBtn(18)]-30-[likeLbl]", options: NSLayoutFormatOptions(), metrics: nil, views: ["likeLbl": likeLbl,"likeBtn": likeBtn]))
-
-
-                //self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-160-[v0(18)]-5-|", options: NSLayoutFormatOptions(), metrics: ["wid": width], views: ["v0": likeBtn,"pic": picImg1]))
+//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[pic(wid)]-0-|", options: NSLayoutFormatOptions(), metrics: ["wid": width], views: ["pic": picImg1]))
+//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[pic(wid)]", options: NSLayoutFormatOptions(), metrics: ["wid": width], views: ["pic": picImg1]))
+//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[likeBtn(18)]-2-|", options: NSLayoutFormatOptions(), metrics: ["wid": width], views: ["pic": picImg1,"likeBtn": likeBtn]))
+//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[likeLbl]-2-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pic": picImg1,"likeLbl": likeLbl]))
+//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[titleLbl]-1-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pic": picImg1,"titleLbl": titleLbl]))
+//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-4-[likeBtn(18)]-30-[likeLbl]", options: NSLayoutFormatOptions(), metrics: nil, views: ["likeLbl": likeLbl,"likeBtn": likeBtn]))
+        
+//        picImg1.translatesAutoresizingMaskIntoConstraints = false
+//        let leftConstraint = NSLayoutConstraint(item: self.picImg1, attribute:.Width, relatedBy:.LessThanOrEqual,toItem:nil,attribute:.NotAnAttribute, multiplier:1.0, constant:width);
+//
+//        self.addConstraint(leftConstraint )
         
                 //self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-50-[titleLbl]-1-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["titleLbl": titleLbl]))
         
@@ -229,7 +233,7 @@ class testsearchcell: UICollectionViewCell {
             firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuidLbl.text!).setValue(true)
             print("liked")
             self.likeBtn.setTitle("like", forState: .Normal)
-            //self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            self.likeBtn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
             self.likeLbl.text = "\(Int(self.likeLbl.text!)! + 1)"
             
             // send notification if we liked to refresh TableView
@@ -272,7 +276,7 @@ class testsearchcell: UICollectionViewCell {
             firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuidLbl.text!).removeValue()
             print("disliked")
             self.likeBtn.setTitle("unlike", forState: .Normal)
-            //self.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            self.likeBtn.setBackgroundImage(UIImage(named: "unlHeart 1.png"), forState: .Normal)
             
             // send notification if we liked to refresh TableView
             NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)

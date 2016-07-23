@@ -87,7 +87,7 @@ class SettingsVC: UIViewController {
         firebase.child("Users").child(userID!).child("youtubeURL").setValue(self.youtubeURL.text)
         firebase.child("Users").child(userID!).child("instagramURL").setValue(self.instaURL.text)
         firebase.child("Users").child(userID!).child("etsyURL").setValue(self.ETSYURL.text)
-        firebase.child("Users").child(userID!).child("email").setValue(self.instaURL.text)
+        firebase.child("Users").child(userID!).child("emailDisplay").setValue(self.instaURL.text)
         
     }
     // clicked cancel button
@@ -110,7 +110,7 @@ class SettingsVC: UIViewController {
             self.youtubeURL.text = snapshot.value!.objectForKey("youtubeURL") as! String
             self.instaURL.text = snapshot.value!.objectForKey("instagramURL") as! String
             self.ETSYURL.text = snapshot.value!.objectForKey("etsyURL") as! String
-            self.emailTxt.text = snapshot.value!.objectForKey("email") as! String
+            self.emailTxt.text = snapshot.value!.objectForKey("emailDisplay") as! String
             
             let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
             let url = NSURL(string: avaURL)

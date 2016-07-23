@@ -61,10 +61,11 @@ class postVC: UITableViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "liked", object: nil)
         
-        // dynamic cell heigth
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 450
+
         tableView.registerNib(UINib(nibName: "postSelected", bundle: nil), forCellReuseIdentifier: "idPostSelectedCell")
+        // dynamic cell heigth
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 800
         // find post
         
         //let r = postuuidArray.last!
@@ -242,6 +243,17 @@ class postVC: UITableViewController {
     func refresh() {
         self.tableView.reloadData()
     }
+    
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.view.frame.size.height
+    }
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.view.frame.size.height
+    }
+    
+    
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows

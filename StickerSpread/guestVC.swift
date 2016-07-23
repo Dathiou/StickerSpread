@@ -230,18 +230,18 @@ class guestVC: UICollectionViewController {
                     let first = (object.objectForKey("first_name") as? String)?.uppercaseString
                     let last = (object.objectForKey("last_name") as? String)?.uppercaseString
                     
-                    header.fullnameLbl.text = first!+" "+last!
-                    
-                    if let web = object.objectForKey("web") as? String {
-                        header.webTxt.text = web
-                        header.webTxt.sizeToFit()
-                    }
-                    
-                    if let bio = object.objectForKey("bio") as? String {
-                        header.bioLbl.text = bio
-                        header.bioLbl.sizeToFit()
-                    }
-                    
+//                    header.fullnameLbl.text = first!+" "+last!
+//                    
+//                    if let web = object.objectForKey("web") as? String {
+//                        header.webTxt.text = web
+//                        header.webTxt.sizeToFit()
+//                    }
+//                    
+//                    if let bio = object.objectForKey("bio") as? String {
+//                        header.bioLbl.text = bio
+//                        header.bioLbl.sizeToFit()
+//                    }
+//                    
                     
                     let avaQuery = object.objectForKey("picture_file") as! PFFile
                     avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in

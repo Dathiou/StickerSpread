@@ -23,7 +23,7 @@ func getLikeState(string: String , Btn :UIButton){
         }
     })
     
-
+    
 }
 
 func getLikeCount(string: String , Lbl : UILabel){
@@ -32,9 +32,14 @@ func getLikeCount(string: String , Lbl : UILabel){
             
             Lbl.text =  "\(snapshot.childrenCount)"
             
+        } else {
+            Lbl.text = "0"
         }
     })
 }
+
+var goHome = false
+var userIdToDisplay = "a"
 
 
 class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate ,UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout, segueToPost, segueToPostFromFeed{
@@ -73,13 +78,16 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     var dateArray = [NSDate?]()
     var dateArraySearch = [NSDate?]()
     //var picArray = [PFFile]()
-    //var picArrayF = [UIImage]()
     var picArray = [UIImage]()
+    var picArrayURL = [String]()
     var picArraySearch = [PFFile]()
     var uuidArraySearch = [String]()
     var titleArray = [String]()
     var titleArraySearch = [String]()
     var uuidArray = [String]()
+    
+    var myDictionaryURL = [Int: String]()
+    var myDictionaryImage = [Int: UIImage]()
     
     
     //var tableViewSearch : UITableView!
@@ -124,6 +132,16 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         super.viewDidLoad()
         
         
+        //        // Initialize the Dictionary
+        //        var dict = ["name": "John", "surname": "Doe"]
+        //
+        //        // Add a new key with a value
+        //
+        //        dict["email"] = "john.doe@email.com"
+        //
+        //        print(dict)
+        
+        
         //        // title at the top
         //        self.navigationItem.title = "FEED"
         
@@ -131,14 +149,20 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         //tableViewSearch.delegate = self;
         
         //self.tableView.backgroundView = UIImage(named: "View Changer 1-1.png")
-        view.backgroundColor = UIColor.redColor()//UIColor(patternImage: UIImage(named: "background.jpg")!)
+        //view.backgroundColor = UIColor.redColor()//UIColor(patternImage: UIImage(named: "background.jpg")!)
+        //        let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
         
-
-
+        let adjustForTabbarInsets = UIEdgeInsetsMake(0, 0, CGRectGetHeight(self.tabBarController!.tabBar.frame) + 3, 0);
+        self.tableView.contentInset = adjustForTabbarInsets
+        self.tableView.scrollIndicatorInsets = adjustForTabbarInsets
+        self.collectionView.contentInset = adjustForTabbarInsets
+        self.collectionView.scrollIndicatorInsets = adjustForTabbarInsets
+        
+        
         //newView.release
-//        newView.backgroundColor = UIColor.redColor()
-//        view.addSubview(newView)
-        self.view.backgroundColor = UIColor.redColor()
+        //        newView.backgroundColor = UIColor.redColor()
+        //        view.addSubview(newView)
+        //self.view.backgroundColor = UIColor.redColor()
         //self.tableView.opaque = false
         //self.tableView.backgroundView = nil
         
@@ -185,12 +209,14 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         self.edgesForExtendedLayout = UIRectEdge.None
         
         // automatic row height - dynamic cell
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 450
+        
         
         // pull to refresh
         refresher.addTarget(self, action: "loadPosts", forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refresher)
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 600
         
         // indicator's x(horizontal) center
         indicator.center.x = tableView.center.x
@@ -226,22 +252,23 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         
         tableViewLaunch()
+        //tableView.frame = frame
+        //        let newView = UIImageView(image: UIImage(named: "background.jpg"))
+        //        newView.frame = UIScreen.mainScreen().bounds
+        //        self.tableView.backgroundView = newView
+        //        //self.collectionView.backgroundView = newView
         
-//        let newView = UIImageView(image: UIImage(named: "background.jpg"))
-//        newView.frame = UIScreen.mainScreen().bounds
-//        self.tableView.backgroundView = newView
-//        //self.collectionView.backgroundView = newView
-
         
         //self.tableView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!) //UIColor.redColor()
         collectionViewLaunch()
-         //self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!) //UIColor.redColor()
+        self.collectionView.frame = UIScreen.mainScreen().bounds
+        //self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!) //UIColor.redColor()
         
         //firebase.child("Posts").removeValue()
         
         loadPosts()
         
-        
+        collectionView.registerNib(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
         //
         //        dispatch_async(dispatch_get_main_queue(), {
         //            self.tableView.reloadData()
@@ -262,15 +289,28 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     }
     
     func goToProfile(id : String!){
-        if id == (FIRAuth.auth()?.currentUser!.uid)! {
-        //if id == "aa" {
-            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
-            self.navigationController?.pushViewController(home, animated: true)
-        } else {
-            guestname.append(id)
-            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-            self.navigationController?.pushViewController(guest, animated: true)
-        }
+        print(id)
+                if id == (FIRAuth.auth()?.currentUser!.uid)! {
+                    goHome = true
+                    
+                    
+                }
+                    userIdToDisplay = id
+                    let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC1") as! homeVC1
+        
+                    self.navigationController?.pushViewController(home, animated: true)
+        
+//        if id == (FIRAuth.auth()?.currentUser!.uid)! {
+//            //if id == "aa" {
+//            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+//            
+//            self.navigationController?.pushViewController(home, animated: true)
+//        } else {
+//            guestname.append(id)
+//            goHome = true
+//            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+//            self.navigationController?.pushViewController(guest, animated: true)
+//        }
     }
     
     func goToPost(uuid : String!){
@@ -282,6 +322,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         // present postVC programmaticaly
         let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
         self.navigationController?.pushViewController(post, animated: true)
+        
+        
         
     }
     
@@ -644,7 +686,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             collectionView.hidden = false
             tableView.hidden = true
             btn1.setImage(UIImage(named: "View Changer 2-2.png"), forState: .Normal)
-
+            
             
         } else {
             showColl = false
@@ -652,7 +694,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             collectionView.hidden = true
             tableView.hidden = false
             btn1.setImage(UIImage(named: "View Changer 1-1.png"), forState: .Normal)
-
+            
         }
         alreadyInColl = false
         // dismiss keyboard
@@ -761,7 +803,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     func loadPosts() {
         
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        
+        let picturesGroup = dispatch_group_create()
         
         firebase.child("Posts").queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
             
@@ -770,6 +812,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             self.nameArray.removeAll(keepCapacity: false)
             self.avaArray.removeAll(keepCapacity: false)
             self.dateArray.removeAll(keepCapacity: false)
+            self.picArrayURL.removeAll(keepCapacity: false)
             self.picArray.removeAll(keepCapacity: false)
             //self.picArraySearch.removeAll(keepCapacity: false)
             self.titleArray.removeAll(keepCapacity: false)
@@ -778,51 +821,69 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             if snapshot.exists() {
                 
                 //sorted = (snapshot.value!.allValues as NSArray).sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: false)])
+                
+                
+                var i = 0
+                
                 for post in snapshot.children{
                     // let k = post.key!
-                    
+                    dispatch_group_enter(picturesGroup)
                     
                     let userID = post.value.objectForKey("userID") as! String
                     
                     
-                    self.storage.referenceForURL(post.value.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
-                        let image = UIImage(data: data!)
+                    //                    self.storage.referenceForURL(post.value.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                    //                        let image = UIImage(data: data!)
+                    //
+                    //                        // objc_sync_enter(self.nameArray)
+                    //                        // objc_sync_enter(self.nameArray)
+                    //                        self.picArray.append(image! as! UIImage)
+                    //
+                    //                        //objc_sync_exit(self.nameArray)
+                    //                        //self.tableView.reloadData()
+                    //                        //self.scrollToBottom()
+                    //
+                    //                        // objc_sync_exit(self.nameArray)
+                    //
+                    //                    })
+                    
+                    //self.DLImages()
+                    self.picArrayURL.append(post.value.objectForKey("photoUrl") as! String)
+                    let url = post.value.objectForKey("photoUrl") as! String
+                    //var d = self.myDictionaryURL
+                    self.myDictionaryURL.updateValue(url, forKey: i)
+                    i = i + 1
+                    
+
+                    firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot in
                         
-                        // objc_sync_enter(self.nameArray)
-                        // objc_sync_enter(self.nameArray)
-                        self.picArray.append(image! as! UIImage)
+                        let first = (snapshot.value!.objectForKey("first_name") as? String)
+                        let last = (snapshot.value!.objectForKey("last_name") as? String)
                         
-                        //objc_sync_exit(self.nameArray)
-                        //self.tableView.reloadData()
-                        //self.scrollToBottom()
-                        firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot in
+                        let fullname = first!+" "+last!
+                        self.nameArray.append(fullname)
+                        
+                        //                        self.tableView.reloadData()
+                        //                        self.collectionView.reloadData()
+                        let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
+                        let url = NSURL(string: avaURL)
+                        if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+                            self.avaArray.append(UIImage(data: data) as UIImage!)
                             
-                            let first = (snapshot.value!.objectForKey("first_name") as? String)
-                            let last = (snapshot.value!.objectForKey("last_name") as? String)
-                            
-                            let fullname = first!+" "+last!
-                            self.nameArray.append(fullname)
-                            self.tableView.reloadData()
-                            self.collectionView.reloadData()
-                            let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
-                            let url = NSURL(string: avaURL)
-                            if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                                self.avaArray.append(UIImage(data: data) as UIImage!)
-                                
-                            }
-                            
-                            //self.comments.append(snapshot)
-                            //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
-                            }
-                            
-                            
-                        ){ (error) in
-                            print(error.localizedDescription)
                         }
                         
-                        // objc_sync_exit(self.nameArray)
                         
-                    })
+                        
+                        
+                        //self.comments.append(snapshot)
+                        //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                        }
+                        
+                        
+                    ){ (error) in
+                        print(error.localizedDescription)
+                    }
+                    
                     
                     //let datestring = post.value.objectForKey("date") as! String
                     if let datestring = post.value.objectForKey("date") as? String{
@@ -848,18 +909,55 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     
                     
                 }}
-            self.picArray = self.picArray.reverse()
+            
+            //self.picArray = self.picArray.reverse()
+            self.picArrayURL = self.picArrayURL.reverse()
             self.dateArray = self.dateArray.reverse()
             self.usernameArray = self.usernameArray.reverse()
             self.uuidArray = self.uuidArray.reverse()
-            self.avaArray = self.avaArray.reverse()
-            self.nameArray = self.nameArray.reverse()
+
             self.titleArray = self.titleArray.reverse()
             
+            for (bookid, title) in self.myDictionaryURL {
+                //println("Book ID: \(bookid) Title: \(title)")
+                self.storage.referenceForURL(title).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                    let image = UIImage(data: data!)
+                    self.myDictionaryImage[bookid] = image!
+                    self.avaArray = self.avaArray.reverse()
+                    self.nameArray = self.nameArray.reverse()
+                    //self.picArray.append(image! as! UIImage)
+                    
+                    dispatch_group_leave(picturesGroup)
+                })
+            }
             
             
             
+            //            for url in self.picArrayURL{
+            //                self.storage.referenceForURL(url).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+            //                    let image = UIImage(data: data!)
+            //
+            //
+            //                    self.picArray.append(image! as! UIImage)
+            //
+            //                    dispatch_group_leave(picturesGroup)
+            //                })
+            //            }
             
+            
+            
+            dispatch_group_notify(picturesGroup, dispatch_get_main_queue()) {
+                let imagesSorted = Array(self.myDictionaryImage.keys).sort(>)
+                print(imagesSorted)
+                // let y = sort(imagesSorted)  //{self.myDictionaryImage[$0] < self.myDictionaryImage[$1]}) //self.myDictionaryImage.sorted() { $0.0 < $1.0 }
+                
+                for a in imagesSorted as! [Int] {
+                    self.picArray.append(self.myDictionaryImage[a]!)
+                }
+                //self.picArray.reverse()
+                self.tableView.reloadData()
+                self.collectionView.reloadData()
+            }
             
             
             //self.comments.append(snapshot)
@@ -870,130 +968,39 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         
         
-        //        // STEP 1. Find posts realted to people who we are following
-        //        let followQuery = PFQuery(className: "follow")
-        //        followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-        //        followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-        //            if error == nil {
-        //
-        //                // clean up
-        //                self.followArray.removeAll(keepCapacity: false)
-        //
-        //                // find related objects
-        //                for object in objects! {
-        //                    //objc_sync_enter(self.nameArray)
-        //                    self.followArray.append(object.objectForKey("following") as! String)
-        //                    //objc_sync_exit(self.nameArray)
-        //                }
-        //
-        //                // append current user to see own posts in feed
-        //                self.followArray.append(PFUser.currentUser()!.username!)
-        //
-        //                // STEP 2. Find posts made by people appended to followArray
-        //                let query = PFQuery(className: "posts")
-        //                query.whereKey("username", containedIn: self.followArray)
-        //                query.limit = self.page
-        //                query.addDescendingOrder("createdAt")
-        //
-        //                //                let new_query = PFQuery(className: "_User")
-        //                //                new_query.whereKey("Friend2", matchesQuery: query)
-        //
-        //                query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-        //
-        //                    if error == nil {
-        //
-        //                        // clean up
-        //                        self.usernameArray.removeAll(keepCapacity: false)
-        //                        self.nameArray.removeAll(keepCapacity: false)
-        //                        self.avaArray.removeAll(keepCapacity: false)
-        //                        self.dateArray.removeAll(keepCapacity: false)
-        //                        self.picArray.removeAll(keepCapacity: false)
-        //                        //self.picArraySearch.removeAll(keepCapacity: false)
-        //                        self.titleArray.removeAll(keepCapacity: false)
-        //                        self.uuidArray.removeAll(keepCapacity: false)
-        //
-        //                        // find related objects
-        //                        for object in objects! {
-        //                            let usernmae = object.valueForKey("username") as! String
-        //                            let infoQuery1 = PFQuery(className: "_User")
-        //                            infoQuery1.whereKey("username", equalTo: usernmae)
-        //                            infoQuery1.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
-        //                                if error == nil {
-        //
-        //                                    // shown wrong user
-        //                                    if objects1!.isEmpty {
-        //                                        // call alert
-        //                                        let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
-        //                                        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
-        //                                            self.navigationController?.popViewControllerAnimated(true)
-        //                                        })
-        //                                        alert.addAction(ok)
-        //                                        self.presentViewController(alert, animated: true, completion: nil)
-        //                                    }
-        //
-        //                                    // find related to user information
-        //                                    for object1 in objects1! {
-        //                                        objc_sync_enter(self.nameArray)
-        //                                        // get users data with connections to columns of PFUser class
-        //                                        let first = (object1.objectForKey("first_name") as? String)
-        //                                        let last = (object1.objectForKey("last_name") as? String)
-        //
-        //                                        let fullname = first!+" "+last!
-        //                                        self.nameArray.append(fullname)
-        //                                        objc_sync_exit(self.nameArray)
-        //
-        //                                        dispatch_async(dispatch_get_main_queue(), {
-        //                                            self.collectionView.reloadData()
-        //                                            self.tableView.reloadData()
-        //                                            self.refresher.endRefreshing()
-        //                                        });
-        //
-        //                                    }
-        //
-        //
-        //
-        //                                } else {
-        //                                    print(error!.localizedDescription)
-        //                                }
-        //                            })
-        //
-        //
-        //                            self.usernameArray.append(object.objectForKey("username") as! String)
-        //                            self.avaArray.append(object.objectForKey("ava") as! PFFile)
-        //                            self.dateArray.append(object.createdAt)
-        //                            self.picArray.append(object.objectForKey("pic") as! PFFile)
-        //                            //self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
-        //                            self.titleArray.append(object.objectForKey("title") as! String)
-        //                            self.uuidArray.append(object.objectForKey("uuid") as! String)
-        //
-        //
-        //                            //                            dispatch_async(dispatch_get_main_queue(), {
-        //                            //                                self.tableView.reloadData()
-        //                            //                                self.refresher.endRefreshing()
-        //                            //                            });
-        //
-        //                        }
-        //
-        //                        // reload tableView & end spinning of refresher
-        //                        //                        dispatch_async(dispatch_get_main_queue(), {
-        //                        //                            self.tableView.reloadData()
-        //                        //                            self.refresher.endRefreshing()
-        //                        //                           });
-        //
-        //
-        //                    } else {
-        //                        print(error!.localizedDescription)
-        //                    }
-        //                })
-        //
-        //
-        //            } else {
-        //                print(error!.localizedDescription)
-        //            }
-        //        })
         UIApplication.sharedApplication().endIgnoringInteractionEvents()
         
         
+    }
+    
+    func DLImages(){
+        
+        //        let picturesGroup = dispatch_group_create()
+        
+        self.picArray.removeAll(keepCapacity: false)
+        //objc_sync_enter(self.nameArray)
+        for url in self.picArrayURL{
+            //   dispatch_group_enter(picturesGroup)
+            self.storage.referenceForURL(url).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                let image = UIImage(data: data!)
+                
+                // objc_sync_enter(self.nameArray)
+                
+                self.picArray.append(image! as! UIImage)
+                //cell.picImg1.image = image
+                //objc_sync_exit(self.nameArray)
+                //self.tableView.reloadData()
+                //self.scrollToBottom()
+                
+                
+                // dispatch_group_leave(picturesGroup)
+            })
+        }
+        
+        //        dispatch_group_notify(picturesGroup, dispatch_get_main_queue()) {
+        //            self.picArray//completion(true, attendees: attendees)
+        //        }
+        // objc_sync_exit(self)
     }
     //    // scrolled down
     //    override func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -1233,6 +1240,23 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 cell.avaImg.image = avaArray[indexPath.row]
                 cell.picImg.image = picArray[indexPath.row]
                 
+                //                self.storage.referenceForURL(picArray[indexPath.row]).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                //                    let image = UIImage(data: data!)
+                //
+                //                    // objc_sync_enter(self.nameArray)
+                //                    // objc_sync_enter(self.nameArray)
+                //                    //self.picArray.append(image! as! UIImage)
+                //                    cell.picImg.image = image
+                //                    //objc_sync_exit(self.nameArray)
+                //                    //self.tableView.reloadData()
+                //                    //self.scrollToBottom()
+                //
+                //                    // objc_sync_exit(self.nameArray)
+                //
+                //                })
+                
+                
+                
                 // calculate post date
                 let from = dateArray[indexPath.row]
                 
@@ -1249,66 +1273,66 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 cell.dateLbl.text = "now"
             }
             if difference.second > 0 && difference.minute == 0 {
-                cell.dateLbl.text = "\(difference.second)s."
+                cell.dateLbl.text = "\(difference.second)s"
             }
             if difference.minute > 0 && difference.hour == 0 {
-                cell.dateLbl.text = "\(difference.minute)m."
+                cell.dateLbl.text = "\(difference.minute)m"
             }
             if difference.hour > 0 && difference.day == 0 {
-                cell.dateLbl.text = "\(difference.hour)h."
+                cell.dateLbl.text = "\(difference.hour)h"
             }
             if difference.day > 0 && difference.weekOfMonth == 0 {
-                cell.dateLbl.text = "\(difference.day)d."
+                cell.dateLbl.text = "\(difference.day)d"
             }
             if difference.weekOfMonth > 0 {
-                cell.dateLbl.text = "\(difference.weekOfMonth)w."
+                cell.dateLbl.text = "\(difference.weekOfMonth)w"
             }
             
             
-//            // manipulate like button depending on did user like it or not
-//            let didLike = PFQuery(className: "likes")
-//            didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-//            didLike.whereKey("to", equalTo: cell.uuidLbl.text!)
-//            didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-//                // if no any likes are found, else found likes
-//                if count == 0 {
-//                    cell.likeBtn.setTitle("unlike", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
-//                } else {
-//                    cell.likeBtn.setTitle("like", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-//                }
-//            }
-//            
-//            // count total likes of shown post
-//            let countLikes = PFQuery(className: "likes")
-//            countLikes.whereKey("to", equalTo: cell.uuidLbl.text!)
-//            countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-//                cell.likeLbl.text = "\(count)"
-//            }
+            //            // manipulate like button depending on did user like it or not
+            //            let didLike = PFQuery(className: "likes")
+            //            didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+            //            didLike.whereKey("to", equalTo: cell.uuidLbl.text!)
+            //            didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+            //                // if no any likes are found, else found likes
+            //                if count == 0 {
+            //                    cell.likeBtn.setTitle("unlike", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            //                } else {
+            //                    cell.likeBtn.setTitle("like", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            //                }
+            //            }
+            //
+            //            // count total likes of shown post
+            //            let countLikes = PFQuery(className: "likes")
+            //            countLikes.whereKey("to", equalTo: cell.uuidLbl.text!)
+            //            countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+            //                cell.likeLbl.text = "\(count)"
+            //            }
             
             
-//            firebase.child("Likes").child(cell.uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
-//                print(snapshot.value)
-//                if snapshot.exists() {
-//                    cell.likeBtn.setTitle("like", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-//                } else {
-//                    cell.likeBtn.setTitle("unlike", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
-//                }
-//            })
+            //            firebase.child("Likes").child(cell.uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
+            //                print(snapshot.value)
+            //                if snapshot.exists() {
+            //                    cell.likeBtn.setTitle("like", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            //                } else {
+            //                    cell.likeBtn.setTitle("unlike", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            //                }
+            //            })
             
             
             
             
-//            firebase.child("Likes").child(cell.uuidLbl.text!).observeEventType(.Value, withBlock: { snapshot in
-//                if snapshot.exists() {
-//                    
-//                    cell.likeLbl.text =  "\(snapshot.childrenCount)"
-//                    
-//                }
-//            })
+            //            firebase.child("Likes").child(cell.uuidLbl.text!).observeEventType(.Value, withBlock: { snapshot in
+            //                if snapshot.exists() {
+            //
+            //                    cell.likeLbl.text =  "\(snapshot.childrenCount)"
+            //
+            //                }
+            //            })
             
             getLikeCount(cell.uuidLbl.text! , Lbl : cell.likeLbl)
             getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
@@ -1477,39 +1501,27 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     // COLLECTION VIEW CODE
     func collectionViewLaunch() {
         
-        //        // layout of collectionView
-        //        let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        //                // layout of collectionView
+        //                let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         //
-        //        // item size
-        //        layout.itemSize = CGSizeMake(self.view.frame.size.width / 2, self.view.frame.size.width / 3+25)
+        //                // item size
+        //                layout.itemSize = CGSizeMake(self.view.frame.size.width / 2, self.view.frame.size.width / 3+25)
         //
-        //        // direction of scrolling
-        //        layout.scrollDirection = UICollectionViewScrollDirection.Vertical
+        //                // direction of scrolling
+        //                layout.scrollDirection = UICollectionViewScrollDirection.Vertical
         //
-        //        layout.minimumInteritemSpacing = 0
-        //        layout.minimumLineSpacing = 0
+        //                layout.minimumInteritemSpacing = 0
+        //                layout.minimumLineSpacing = 0
         // define frame of collectionView
         //let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+10000)
         //let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
         
         // declare collectionView
         //collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-        // collectionView.setCollectionViewLayout(layout, animated: true)
+        //  collectionView.setCollectionViewLayout(layout, animated: true)
         //collectionView.siz
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -1570,16 +1582,16 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath)->UICollectionViewCell
-    {
-        var  cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellSearch", forIndexPath: indexPath) as! testsearchcell
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath)->UICollectionViewCell{
+        
+        var  cell = collectionView.dequeueReusableCellWithReuseIdentifier("idCollectionCell", forIndexPath: indexPath) as! testsearchcell
         //cell.uuidLbl.text = self.uuidArray[indexPath.row]
         // cell.titleShop.text="cellText"
         
         
         //cell.picImg1.frame = CGRectMake(0,0,cell.frame.width,cell.frame.width)
         
-       // cell.backgroundColor = UIColor.whiteColor()
+        // cell.backgroundColor = UIColor.whiteColor()
         cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         //cell.uuid.text = uuidArraySearch[indexPath.row]
         // cell.uuid.hidden = true
@@ -1631,58 +1643,75 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             cell.segueDelegate = self
             cell.uuidLbl.text = self.uuidArray[indexPath.row]
             
-//            // manipulate like button depending on did user like it or not
-//            let didLike = PFQuery(className: "likes")
-//            didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-//            didLike.whereKey("to", equalTo: uuidArray[indexPath.row])
-//            didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-//                // if no any likes are found, else found likes
-//                if count == 0 {
-//                    cell.likeBtn.setTitle("unlike", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
-//                } else {
-//                    cell.likeBtn.setTitle("like", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-//                }
-//            }
-//            
-//            let countLikes = PFQuery(className: "likes")
-//            countLikes.whereKey("to", equalTo: uuidArray[indexPath.row])
-//            countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-//                cell.likeLbl.text = "\(count)"
-//            }
+            //            // manipulate like button depending on did user like it or not
+            //            let didLike = PFQuery(className: "likes")
+            //            didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+            //            didLike.whereKey("to", equalTo: uuidArray[indexPath.row])
+            //            didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+            //                // if no any likes are found, else found likes
+            //                if count == 0 {
+            //                    cell.likeBtn.setTitle("unlike", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            //                } else {
+            //                    cell.likeBtn.setTitle("like", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            //                }
+            //            }
+            //
+            //            let countLikes = PFQuery(className: "likes")
+            //            countLikes.whereKey("to", equalTo: uuidArray[indexPath.row])
+            //            countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+            //                cell.likeLbl.text = "\(count)"
+            //            }
             
             
             
-//            firebase.child("Likes").child(cell.uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
-//                print(snapshot.value)
-//                if snapshot.exists() {
-//                    cell.likeBtn.setTitle("like", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-//                } else {
-//                    cell.likeBtn.setTitle("unlike", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
-//                }
-//            })
+            //            firebase.child("Likes").child(cell.uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
+            //                print(snapshot.value)
+            //                if snapshot.exists() {
+            //                    cell.likeBtn.setTitle("like", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            //                } else {
+            //                    cell.likeBtn.setTitle("unlike", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            //                }
+            //            })
             
             getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
-             getLikeCount(cell.uuidLbl.text! , Lbl : cell.likeLbl)
+            getLikeCount(cell.uuidLbl.text! , Lbl : cell.likeLbl)
             
-//            firebase.child("Likes").child(cell.uuidLbl.text!).observeEventType(.Value, withBlock: { snapshot in
-//                if snapshot.exists() {
-//                    
-//                    cell.likeLbl.text =  "\(snapshot.childrenCount)"
-//                    
-//                }
-//            })
-            
-           
+            //            firebase.child("Likes").child(cell.uuidLbl.text!).observeEventType(.Value, withBlock: { snapshot in
+            //                if snapshot.exists() {
+            //
+            //                    cell.likeLbl.text =  "\(snapshot.childrenCount)"
+            //
+            //                }
+            //            })
             
             
             
             
-            
+            //            self.storage.referenceForURL(picArray[indexPath.row]).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+            //                let image = UIImage(data: data!)
+            //
+            //                // objc_sync_enter(self.nameArray)
+            //                // objc_sync_enter(self.nameArray)
+            //                //self.picArray.append(image! as! UIImage)
+            //                cell.picImg1.image = image
+            //                //objc_sync_exit(self.nameArray)
+            //                //self.tableView.reloadData()
+            //                //self.scrollToBottom()
+            //
+            //                // objc_sync_exit(self.nameArray)
+            //
+            //            })
+            //objc_sync_enter(self.picArrayURL)
+            // if picArray[indexPath.row] != nil {
             cell.picImg1.image = picArray[indexPath.row]
+            // }
+            //objc_sync_exit(self.picArrayURL)
+            
+            //cell.picImg1.image = picArray[indexPath.row]
             cell.titleLbl.text = "Two Little Bees"
             
             // get loaded images from array
@@ -1972,8 +2001,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         tableView.dataSource = self
         tableView.alwaysBounceVertical = true
         tableView.backgroundColor = .whiteColor()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        //tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.registerNib(UINib(nibName: "postFeed", bundle: nil), forCellReuseIdentifier: "idPostFeedCell")
+        //tableView.frame = UIScreen.mainScreen().bounds
         self.view.addSubview(tableView)
         
         // define cell for collectionView
@@ -2020,6 +2050,6 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //        
     //    }
     
-
+    
     
 }

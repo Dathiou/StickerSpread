@@ -56,97 +56,100 @@ class postCellSelected: UITableViewCell {
         picImg.addGestureRecognizer(likeTap)
         
                let width = UIScreen.mainScreen().bounds.width
+
+        
+        //picImg.frame = CGRectMake(0, 10, width, width)
         
         
-               LayoutLbl.translatesAutoresizingMaskIntoConstraints = false
-                monthLbl.translatesAutoresizingMaskIntoConstraints = false
-                FinishLbl.translatesAutoresizingMaskIntoConstraints = false
-               colorLbl1.translatesAutoresizingMaskIntoConstraints = false
-               colorLbl2.translatesAutoresizingMaskIntoConstraints = false
-              colorLbl3.translatesAutoresizingMaskIntoConstraints = false
-                connectBtn.translatesAutoresizingMaskIntoConstraints = false
+//               LayoutLbl.translatesAutoresizingMaskIntoConstraints = false
+//                monthLbl.translatesAutoresizingMaskIntoConstraints = false
+//                FinishLbl.translatesAutoresizingMaskIntoConstraints = false
+//               colorLbl1.translatesAutoresizingMaskIntoConstraints = false
+//               colorLbl2.translatesAutoresizingMaskIntoConstraints = false
+//              colorLbl3.translatesAutoresizingMaskIntoConstraints = false
+//                connectBtn.translatesAutoresizingMaskIntoConstraints = false
         
         // allow constraints
-        avaImg.translatesAutoresizingMaskIntoConstraints = false
-        usernameBtn.translatesAutoresizingMaskIntoConstraints = false
-        dateLbl.translatesAutoresizingMaskIntoConstraints = false
-        
-        picImg.translatesAutoresizingMaskIntoConstraints = false
-        
-        likeBtn.translatesAutoresizingMaskIntoConstraints = false
+//        avaImg.translatesAutoresizingMaskIntoConstraints = false
+//        usernameBtn.translatesAutoresizingMaskIntoConstraints = false
+//        dateLbl.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        //picImg.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        likeBtn.translatesAutoresizingMaskIntoConstraints = false
         //commentBtn.translatesAutoresizingMaskIntoConstraints = false
-        moreBtn.translatesAutoresizingMaskIntoConstraints = false
-        
-        likeLbl.translatesAutoresizingMaskIntoConstraints = false
-        titleLbl.translatesAutoresizingMaskIntoConstraints = false
-        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
+//        moreBtn.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        likeLbl.translatesAutoresizingMaskIntoConstraints = false
+//        titleLbl.translatesAutoresizingMaskIntoConstraints = false
+//        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
         
         let pictureWidth = width
         
         // constraints
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-10-[ava(30)]-10-[pic(\(pictureWidth))]-5-[like(30)]",
-            options: [], metrics: nil, views: ["ava":avaImg, "pic":picImg, "like":likeBtn]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "V:|-10-[ava(30)]-10-[pic(\(pictureWidth))]",
+//            options: [], metrics: nil, views: ["ava":avaImg, "pic":picImg, "like":likeBtn]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-10-[username]",
-            options: [], metrics: nil, views: ["username":usernameBtn]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "V:|-10-[username]",
+//            options: [], metrics: nil, views: ["username":usernameBtn]))
+//        
+//  
+//        
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "V:|-15-[date]",
+//            options: [], metrics: nil, views: ["date":dateLbl]))
         
-  
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "V:[like]-5-[layout]-5-[month]-5-[finish]-5-[connect]|",
+//            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl, "layout":LayoutLbl, "month": monthLbl, "finish":FinishLbl, "connect": connectBtn]))
+//        
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "V:[like]-5-[colorLbl1]-5-[colorLbl2]-5-[colorLbl3]-5-[connect]|",
+//            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl, "colorLbl1":colorLbl1, "colorLbl2": colorLbl2, "colorLbl3":colorLbl3, "connect": connectBtn]))
+//        
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:|-30-[layout]-20-[colorLbl1]",
+//            options: [], metrics: nil, views: [ "layout":LayoutLbl, "colorLbl1":colorLbl1]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:|-30-[month]-20-[colorLbl2]",
+//            options: [], metrics: nil, views: [ "month": monthLbl, "colorLbl2":colorLbl1]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:|-30-[finish]-20-[colorLbl3]",
+//            options: [], metrics: nil, views: [ "finish":FinishLbl, "colorLbl3":colorLbl1]))
+//        
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "V:[pic]-5-[more(30)]",
+//            options: [], metrics: nil, views: ["pic":picImg, "more":moreBtn]))
+//
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "V:[pic]-10-[likes(30)]",
+//            options: [], metrics: nil, views: ["pic":picImg, "likes":likeBtn]))
+//
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:|-10-[ava(30)]-10-[username]",
+//            options: [], metrics: nil, views: ["ava":avaImg, "username":usernameBtn]))
+//        
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:|-0-[pic]-0-|",
+//            options: [], metrics: nil, views: ["pic":picImg]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-15-[date]",
-            options: [], metrics: nil, views: ["date":dateLbl]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:|-15-[like(30)]-10-[likes]",
+//            options: [], metrics: nil, views: ["like":likeBtn, "likes":likeLbl]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[like]-5-[layout]-5-[month]-5-[finish]-5-[connect]|",
-            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl, "layout":LayoutLbl, "month": monthLbl, "finish":FinishLbl, "connect": connectBtn]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:[more(30)]-15-|",
+//            options: [], metrics: nil, views: ["more":moreBtn]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[like]-5-[colorLbl1]-5-[colorLbl2]-5-[colorLbl3]-5-[connect]|",
-            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl, "colorLbl1":colorLbl1, "colorLbl2": colorLbl2, "colorLbl3":colorLbl3, "connect": connectBtn]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-30-[layout]-20-[colorLbl1]",
-            options: [], metrics: nil, views: [ "layout":LayoutLbl, "colorLbl1":colorLbl1]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-30-[month]-20-[colorLbl2]",
-            options: [], metrics: nil, views: [ "month": monthLbl, "colorLbl2":colorLbl1]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-30-[finish]-20-[colorLbl3]",
-            options: [], metrics: nil, views: [ "finish":FinishLbl, "colorLbl3":colorLbl1]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[pic]-5-[more(30)]",
-            options: [], metrics: nil, views: ["pic":picImg, "more":moreBtn]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:[pic]-10-[likes]",
-            options: [], metrics: nil, views: ["pic":picImg, "likes":likeLbl]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-10-[ava(30)]-10-[username]",
-            options: [], metrics: nil, views: ["ava":avaImg, "username":usernameBtn]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-0-[pic]-0-|",
-            options: [], metrics: nil, views: ["pic":picImg]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-15-[like(30)]-10-[likes]",
-            options: [], metrics: nil, views: ["like":likeBtn, "likes":likeLbl]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:[more(30)]-15-|",
-            options: [], metrics: nil, views: ["more":moreBtn]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-15-[title]-15-|",
-            options: [], metrics: nil, views: ["title":titleLbl]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|[date]-10-|",
-            options: [], metrics: nil, views: ["date":dateLbl]))
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:|-15-[title]-15-|",
+//            options: [], metrics: nil, views: ["title":titleLbl]))
+//        
+//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+//            "H:|[date]-10-|",
+//            options: [], metrics: nil, views: ["date":dateLbl]))
         
         // round ava
         avaImg.layer.cornerRadius = 4.0

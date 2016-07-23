@@ -16,6 +16,7 @@
 		7B24BC581D038C17002BB228 /* users.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B24BC551D038C17002BB228 /* users.png */; };
 		7B24BC591D038C17002BB228 /* users@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B24BC561D038C17002BB228 /* users@2x.png */; };
 		7B24BC5A1D038C17002BB228 /* users@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B24BC571D038C17002BB228 /* users@3x.png */; };
+		7B3231061D35AD8C00231180 /* collectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B3231051D35AD8C00231180 /* collectionCell.xib */; };
 		7B3ECB311D063306003DC64E /* searchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3ECB301D063305003DC64E /* searchCell.swift */; };
 		7B408C341D0B2175003725B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B408C331D0B2175003725B7 /* GoogleService-Info.plist */; };
 		7B408C361D0B5981003725B7 /* DemoConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B408C351D0B5981003725B7 /* DemoConversation.swift */; };
@@ -29,6 +30,7 @@
 		7B408C4E1D0DF51C003725B7 /* OutgoingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B408C4D1D0DF51B003725B7 /* OutgoingMessage.swift */; };
 		7B408C501D0DF524003725B7 /* IncomingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B408C4F1D0DF524003725B7 /* IncomingMessage.swift */; };
 		7B408C521D0E0A96003725B7 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B408C511D0E0A96003725B7 /* Camera.swift */; };
+		7B57A8F71D418098000F8457 /* homeVC1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B57A8F61D418098000F8457 /* homeVC1.swift */; };
 		7B6E4A2C1D01DAC8004FCF2A /* uploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E4A2B1D01DAC8004FCF2A /* uploadVC.swift */; };
 		7B6E4A2E1D01EDF5004FCF2A /* pp.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B6E4A2D1D01EDF5004FCF2A /* pp.jpg */; };
 		7B6E4A301D01EDFA004FCF2A /* pbg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B6E4A2F1D01EDFA004FCF2A /* pbg.jpg */; };
@@ -131,6 +133,7 @@
 		7B24BC551D038C17002BB228 /* users.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = users.png; sourceTree = "<group>"; };
 		7B24BC561D038C17002BB228 /* users@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "users@2x.png"; sourceTree = "<group>"; };
 		7B24BC571D038C17002BB228 /* users@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "users@3x.png"; sourceTree = "<group>"; };
+		7B3231051D35AD8C00231180 /* collectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = collectionCell.xib; sourceTree = "<group>"; };
 		7B3ECB301D063305003DC64E /* searchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchCell.swift; sourceTree = "<group>"; };
 		7B408C331D0B2175003725B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7B408C351D0B5981003725B7 /* DemoConversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoConversation.swift; sourceTree = "<group>"; };
@@ -144,6 +147,7 @@
 		7B408C4D1D0DF51B003725B7 /* OutgoingMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessage.swift; sourceTree = "<group>"; };
 		7B408C4F1D0DF524003725B7 /* IncomingMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessage.swift; sourceTree = "<group>"; };
 		7B408C511D0E0A96003725B7 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		7B57A8F61D418098000F8457 /* homeVC1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = homeVC1.swift; sourceTree = "<group>"; };
 		7B6E4A2B1D01DAC8004FCF2A /* uploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uploadVC.swift; sourceTree = "<group>"; };
 		7B6E4A2D1D01EDF5004FCF2A /* pp.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pp.jpg; sourceTree = "<group>"; };
 		7B6E4A2F1D01EDFA004FCF2A /* pbg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pbg.jpg; sourceTree = "<group>"; };
@@ -270,6 +274,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B2F67841D40617600C39505 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				7BB652F11CF87C7900D1E65E /* headerView.swift */,
+				7B03C61B1D28991D00730FD6 /* SettingsVC.swift */,
+				7BB652EF1CF87C5E00D1E65E /* homeVC.swift */,
+				7B57A8F61D418098000F8457 /* homeVC1.swift */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
 		7B6F89FD1D030CB400D9C17C /* tabbar items */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,9 +352,7 @@
 				7BB652BD1CF7BC7300D1E65E /* Info.plist */,
 				7BD27B831D1B4CB800705783 /* CellDescriptor.plist */,
 				7BA68CA81CFCB0890077A9CB /* pictureCell.swift */,
-				7BB652EF1CF87C5E00D1E65E /* homeVC.swift */,
-				7B03C61B1D28991D00730FD6 /* SettingsVC.swift */,
-				7BB652F11CF87C7900D1E65E /* headerView.swift */,
+				7B2F67841D40617600C39505 /* Profile */,
 				7B82B9CB1CF93CE000F99468 /* StickerSpread-Bridging-Header.h */,
 				7BB652DE1CF7BE2B00D1E65E /* Frameworks */,
 				7BA1293B1CFD2035009A7EBA /* followersVC.swift */,
@@ -398,6 +411,7 @@
 				7BD27B8C1D1C970C00705783 /* filterButtonCell.xib */,
 				7BD27B8E1D1DABC900705783 /* postFeed.xib */,
 				7BD27B901D1DAEC100705783 /* postSelected.xib */,
+				7B3231051D35AD8C00231180 /* collectionCell.xib */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -563,6 +577,7 @@
 				7B24BC4F1D036EB0002BB228 /* feed@2x.png in Resources */,
 				7BD27B801D1ADF5B00705783 /* moreSearchCropped.png in Resources */,
 				7BA9A9CD1D29951400CB8DEA /* background.jpg in Resources */,
+				7B3231061D35AD8C00231180 /* collectionCell.xib in Resources */,
 				7BD27B911D1DAEC100705783 /* postSelected.xib in Resources */,
 				7B6E4A301D01EDFA004FCF2A /* pbg.jpg in Resources */,
 				7B6F89F71D03055F00D9C17C /* more.png in Resources */,
@@ -663,6 +678,7 @@
 				7BD326E01D01259400FA91E4 /* SVProgressHUD.m in Sources */,
 				7B408C4E1D0DF51C003725B7 /* OutgoingMessage.swift in Sources */,
 				7BD326E11D01259400FA91E4 /* SVRadialGradientLayer.m in Sources */,
+				7B57A8F71D418098000F8457 /* homeVC1.swift in Sources */,
 				7BB652F01CF87C5E00D1E65E /* homeVC.swift in Sources */,
 				7BA1293C1CFD2035009A7EBA /* followersVC.swift in Sources */,
 				7B408C381D0B5A66003725B7 /* Conversation.swift in Sources */,

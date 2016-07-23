@@ -211,7 +211,10 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
 //        object["pic"] = imageFile
         
         
-        let userID = FIRAuth.auth()?.currentUser?.uid
+        if let user = FIRAuth.auth()?.currentUser {
+            let userID = user.uid;
+        print(userID)
+        
         
         // Create a reference to the file you want to upload
         let riversRef = storageRef.child("posts/\(userID) \(uuid).jpg")
@@ -229,7 +232,7 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
                 var dateString = dateFormatter.stringFromDate(date)
                 
-                if let user = FIRAuth.auth()?.currentUser {
+                
                     let name = user.displayName
                     let email = user.email
                     let photoUrl = user.photoURL
@@ -240,15 +243,17 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
                                      "layout"   : "vertical",
                                      "date" : dateString,
                                      "photoUrl"    : (downloadURL?.absoluteString)!]
-                    firebase.child("Posts").child("\(userID) \(uuid)").setValue(userDict)
-                    firebase.child("PostPerUser").child("\(userID)").setValue(userDict)
+                    let postID = "\(userID) \(uuid)"
+                    firebase.child("Posts").child(postID).setValue(userDict)
+                    firebase.child("PostPerUser").child("\(userID)").child(postID).setValue(true)
                     
-                } else {
-                    // No user is signed in.
-                }
+                
             }
+            
         }
-        
+        } else {
+            // No user is signed in.
+        }
        
         
         

@@ -389,7 +389,14 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                                                     "last_name"   : userLastName,
                                                     "date" : dateString,
                                                     "birthday": userBirthday,
-                                                    "ProfilPicUrl"  : pictureURL]
+                                                    "ProfilPicUrl"  : pictureURL,
+                                                    "youtubeURL" : "",
+                                                    "instagramURL": "",
+                                                    "etsyURL": "",
+                                                    "emailDisplay":""
+                                                    
+                                            ]
+                                            
                                             firebase.child("Users").child("\(user.uid)").setValue(userDict)
                                             
                                         } else {

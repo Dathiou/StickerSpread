@@ -15,10 +15,45 @@ import Firebase
 
 
 
-class homeVC: UICollectionViewController {
+class homeVC: UIViewController /*, UITableViewDelegate, UITableViewDataSource */,UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout {
     
     let storage = FIRStorage.storage()
     let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
+    
+    
+    @IBOutlet weak var firstConstr: NSLayoutConstraint!
+    @IBOutlet weak var secondConstr: NSLayoutConstraint!
+    @IBOutlet weak var thirdConstr: NSLayoutConstraint!
+    @IBOutlet weak var fourthConstr: NSLayoutConstraint!
+    
+    @IBOutlet weak var avaImg: UIImageView!
+    
+    @IBOutlet weak var instaImage: UIImageView!
+    
+    
+    
+    
+    @IBOutlet weak var first_Lbl: UILabel!
+    @IBOutlet weak var second_Lbl: UILabel!
+    @IBOutlet weak var third_Lbl: UILabel!
+    @IBOutlet weak var fourth_Lbl: UILabel!
+    
+    @IBOutlet weak var posts: UILabel!
+    @IBOutlet weak var followers: UILabel!
+    @IBOutlet weak var followings: UILabel!
+    
+    @IBOutlet weak var postsTitle: UILabel!
+    @IBOutlet weak var followersTitle: UILabel!
+    @IBOutlet weak var followingsTitle: UILabel!
+    
+    @IBOutlet weak var button: UIButton!
+    
+    
+    var youtube = false
+    var email = false
+    var instagram = false
+    var etsy = false
+    
     
     // refresher variable
     var refresher : UIRefreshControl!
@@ -45,22 +80,31 @@ class homeVC: UICollectionViewController {
     var picArraySearch = [PFFile]()
     var uuidArraySearch = [String]()
     var titleArray = [String]()
-    var titleArraySearch = [String]()
+    var urls = [String]()
     //var uuidArray = [String]()
     
+    @IBOutlet weak var collectionView: UICollectionView!
     
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+   
+        loadData()
+collectionViewLaunch()
+        collectionView.registerNib(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
+        loadPosts()
+        
+        
+        
         // always vertical scroll
-        self.collectionView?.alwaysBounceVertical = true
+        collectionView?.alwaysBounceVertical = true
 //background
         collectionView?.backgroundColor = .whiteColor()
         
-        //title at the top
-        self.navigationItem.title=(PFUser.currentUser()!.objectForKey("first_name") as? String)?.uppercaseString
+ 
 
         
         // pull to refresh
@@ -72,7 +116,7 @@ class homeVC: UICollectionViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
         
         // load posts func
-        loadPosts()
+        
     }
     
     
@@ -168,10 +212,20 @@ class homeVC: UICollectionViewController {
     
     
     
+    
+    
+    
     // load posts
     func loadPosts() {
 
-        firebase.child("PostPerUser").child((FIRAuth.auth()?.currentUser?.uid)!).queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+        firebase.child("PostPerUser").child((FIRAuth.auth()?.currentUser?.uid)!).observeEventType(.Value, withBlock: { snapshot1 in
+            
+            if snapshot1.exists() {
+                print(snapshot1)
+                for postperUser in snapshot1.children{
+                    let postID = postperUser.key()
+                    print (postID)
+        firebase.child("Posts").child(postID as! String).queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
             
             // clean up
             self.usernameArray.removeAll(keepCapacity: false)
@@ -184,12 +238,16 @@ class homeVC: UICollectionViewController {
             self.uuidArray.removeAll(keepCapacity: false)
             
             if snapshot.exists() {
-                for post in snapshot.children{
-                    let userID = post.value.objectForKey("userID") as! String
-                    self.storage.referenceForURL(post.value.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                let post = snapshot
+                print(post)
+                
+                    print(post)
+                    let userID = post.value!.objectForKey("userID") as! String
+                    self.storage.referenceForURL(post.value!.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
                         let image = UIImage(data: data!)
   
                         self.picArray.append(image! as! UIImage)
+                        self.uuidArray.append(post.key as String!)
                         
                         //objc_sync_exit(self.nameArray)
                         //self.tableView.reloadData()
@@ -201,8 +259,8 @@ class homeVC: UICollectionViewController {
                             
                             let fullname = first!+" "+last!
                             self.nameArray.append(fullname)
-                           // self.tableView.reloadData()
-                           // self.collectionView.reloadData()
+                           //self.tableView.reloadData()
+                           self.collectionView.reloadData()
                             let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
                             let url = NSURL(string: avaURL)
                             if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
@@ -224,7 +282,7 @@ class homeVC: UICollectionViewController {
                     })
                     
                     //let datestring = post.value.objectForKey("date") as! String
-                    if let datestring = post.value.objectForKey("date") as? String{
+                    if let datestring = post.value!.objectForKey("date") as? String{
                         var dateFormatter = NSDateFormatter()
                         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
                         let date = dateFormatter.dateFromString(datestring)
@@ -232,8 +290,8 @@ class homeVC: UICollectionViewController {
                     }
                     self.usernameArray.append(userID as! String)
                     
-                    self.titleArray.append(post.value.objectForKey("title") as! String)
-                    self.uuidArray.append(post.key! as String!)
+                    self.titleArray.append(post.value!.objectForKey("title") as! String)
+                    
                     
                     
                     
@@ -246,15 +304,13 @@ class homeVC: UICollectionViewController {
                     
                     
                     
-                }}
-            
-            
-            
-            
-            
+                }
+
             
             //self.comments.append(snapshot)
             //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
+                })}
+            }
         }){ (error) in
             print(error.localizedDescription)
         }
@@ -264,22 +320,33 @@ class homeVC: UICollectionViewController {
     
     
     // cell numb
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return picArray.count
     }
     
     // cell size
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let size = CGSize(width: self.view.frame.size.width / 3, height: self.view.frame.size.width / 3)
+        let size = CGSize(width: UIScreen.mainScreen().bounds.width/2 , height: UIScreen.mainScreen().bounds.width/2 + 35)//self.view.frame.size.width / 2, height: self.view.frame.size.width / 2)
         return size
     }
     
     // cell config
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         // define cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! testsearchcell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("idCollectionCell", forIndexPath: indexPath) as! testsearchcell
+        cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         
+        
+        getLikeState(uuidArray[indexPath.row] , Btn: cell.likeBtn)
+        getLikeCount(uuidArray[indexPath.row] , Lbl : cell.likeLbl)
+        
+        cell.uuidLbl.text = uuidArray[indexPath.row]
+        
+        
+        
+        //let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellSearch", forIndexPath: indexPath) as! testsearchcell
+       // cell.frame.size.width = UIScreen.mainScreen().bounds.width/2 - 20
 //        // get picture from the picArray
 //        picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
 //            if error == nil {
@@ -288,145 +355,318 @@ class homeVC: UICollectionViewController {
 //                print(error!.localizedDescription)
 //            }
         
+        
             cell.picImg1.image = picArray[indexPath.row]
        // }
         
         return cell
     }
     
-    
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        //define header
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", forIndexPath: indexPath) as! headerView
-        
-       
-            //let image = UIImage(data: data!)
+    func loadData(){
+        firebase.child("Users").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
             
-            // objc_sync_enter(self.nameArray)
-            // objc_sync_enter(self.nameArray)
-           // self.picArray.append(image! as! UIImage)
+            let first = (snapshot.value!.objectForKey("first_name") as? String)
+            let last = (snapshot.value!.objectForKey("last_name") as? String)
             
-            //objc_sync_exit(self.nameArray)
-            //self.tableView.reloadData()
-            //self.scrollToBottom()
-            firebase.child("Users").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
+            //title at the top
+            self.navigationItem.title = first!+" "+last!
+            let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
+            let url = NSURL(string: avaURL)
+            if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+                self.avaImg.image = UIImage(data: data)
+                self.avaImg.layer.cornerRadius = 4.0
+                self.avaImg.clipsToBounds = true
+                self.avaImg.layer.borderColor = UIColor.whiteColor().CGColor
+                self.avaImg.layer.borderWidth = 0.5
                 
-                let first = (snapshot.value!.objectForKey("first_name") as? String)
-                let last = (snapshot.value!.objectForKey("last_name") as? String)
-                
-                header.fullnameLbl.text  = first!+" "+last!
-         
-                let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
-                let url = NSURL(string: avaURL)
-                if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                    header.avaImg.image = UIImage(data: data)
-                    
-                }
-
-                }
-                
-                
-            ){ (error) in
-                print(error.localizedDescription)
             }
-       
-        
-        
-
-        
-        if let web = PFUser.currentUser()?.objectForKey("web") as? String {
-            header.webTxt.text = web
-            header.webTxt.sizeToFit()
-        }
-        
-        if let bio = PFUser.currentUser()?.objectForKey("bio") as? String {
-            header.bioLbl.text = bio
-            header.bioLbl.sizeToFit()
-        }
-     
-        
-        let avaQuery = PFUser.currentUser()?.objectForKey("picture_file") as! PFFile
-        avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
-            header.avaImg.image = UIImage(data:data!)
-        }
-        header.button.setTitle("edit profile", forState: UIControlState.Normal)
-
-        
-        // STEP 2. Count statistics
-        // count total posts
-//        let posts = PFQuery(className: "posts")
-//        posts.whereKey("username", equalTo: PFUser.currentUser()!.username!)
-//        posts.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
-//            if error == nil {
-//                header.posts.text = "\(count)"
+            
+            let q = snapshot.value!.objectForKey("youtubeURL") as? String
+            let w = snapshot.value!.objectForKey("instagramURL") as? String
+            let e = snapshot.value!.objectForKey("etsyURL") as? String
+            let r = snapshot.value!.objectForKey("emailDisplay") as? String
+            var display = 0
+            if q != "" {
+                self.youtube = true
+                display += 1
+                self.urls.append(q!)
+            }
+            if w != "" {
+                self.instagram = true
+                display += 1
+                self.urls.append(w!)
+            }
+            if e != "" {
+                self.etsy = true
+                display += 1
+                self.urls.append(e!)
+            }
+            if r != "" {
+                self.email = true
+                display += 1
+                self.urls.append(r!)
+            }
+            if display == 0 {
+                                    self.first_Lbl.text = ""
+                                    self.instaImage.image = nil
+                
+            } else if display == 1 {
+                self.firstConstr.priority = 750
+                self.first_Lbl.text = self.urls[0]
+            } else if display == 2{
+                self.secondConstr.priority = 750
+                self.first_Lbl.text = self.urls[0]
+                self.second_Lbl.text = self.urls[1]
+            } else if display == 3{
+                self.thirdConstr.priority = 750
+                self.first_Lbl.text = self.urls[0]
+                self.second_Lbl.text = self.urls[1]
+                self.third_Lbl.text = self.urls[2]
+            } else if display == 4{
+                self.fourthConstr.priority = 750
+                self.first_Lbl.text = self.urls[0]
+                self.second_Lbl.text = self.urls[1]
+                self.third_Lbl.text = self.urls[2]
+                self.fourth_Lbl.text = self.urls[3]
+            }
+            
+//            self.instaLbl.text = snapshot.value!.objectForKey("instagramURL") as! String
+//            self.youtubeLbl.text = snapshot.value!.objectForKey("youtubeURL") as? String
+//            self.etsyLbl.text = snapshot.value!.objectForKey("etsyURL") as! String
+//            self.emailLbl.text = snapshot.value!.objectForKey("email") as! String
+            
+//            if let a = snapshot.value!.objectForKey("instagramURL") {
+//                if a as! String == "" {
+//                    self.instaLbl = nil
+//                    self.instaImage.image = nil
+//                    
+//                   // self.headerConstr.secondItem = self.youtubeLbl
+//                }
 //            }
-//        })
+            
+//            var imageViewObject :UIImageView
+//            imageViewObject = UIImageView(frame:CGRectMake(0, 0, 30, 30));
+//            imageViewObject.image = UIImage(named:"Heart 2.png")
+//            self.view.addSubview(imageViewObject)
+            
+            
+            
+            
+            
+            
+            
+            
+            }
+            
+            
+        ){ (error) in
+            print(error.localizedDescription)
+        }
         
+//                let url = NSURL(string: avaURL)
+//        if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+//            //self.avaArray.append(UIImage(data: data) as UIImage!)
+//            avaImg.image = UIImage(data: data) as UIImage!
+//            
+//        }
         
+//        let avaQuery = PFUser.currentUser()?.objectForKey("picture_file") as! PFFile
+//        avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
+//            avaImg.image = UIImage(data:data!)
+//        }
         
-        firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
+
+        //self.button.setTitle("edit profile", forState: UIControlState.Normal)
+
+        firebase.child("PostPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 
-                header.posts.text =  "\(snapshot.childrenCount)"
+                self.posts.text =  "\(snapshot.childrenCount)"
                 
             }
         })
         
-        
-        // count total followers
-//        let followers = PFQuery(className: "follow")
-//        followers.whereKey("following", equalTo: PFUser.currentUser()!.username!)
-//        followers.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
-//            if error == nil {
-//                header.followers.text = "\(count)"
-//            }
-//        })
+
         
         firebase.child("Followers").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
-                header.followers.text =  "\(snapshot.childrenCount)"
+                self.followers.text =  "\(snapshot.childrenCount)"
             }
         })
-        
-        
-        
-        // count total followings
-//        let followings = PFQuery(className: "follow")
-//        followings.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-//        followings.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
-//            if error == nil {
-//                header.followings.text = "\(count)"
-//            }
-//        })
         
         firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
-                header.followings.text =  "\(snapshot.childrenCount)"
+                self.followings.text =  "\(snapshot.childrenCount)"
             }
         })
-
+        
         // STEP 3. Implement tap gestures
         // tap posts
         let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
         postsTap.numberOfTapsRequired = 1
-        header.posts.userInteractionEnabled = true
-        header.posts.addGestureRecognizer(postsTap)
+        posts!.userInteractionEnabled = true
+        posts!.addGestureRecognizer(postsTap)
         
         // tap followers
         let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
         followersTap.numberOfTapsRequired = 1
-        header.followers.userInteractionEnabled = true
-        header.followers.addGestureRecognizer(followersTap)
+        followers.userInteractionEnabled = true
+        followers.addGestureRecognizer(followersTap)
         
         // tap followings
         let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
         followingsTap.numberOfTapsRequired = 1
-        header.followings.userInteractionEnabled = true
-        header.followings.addGestureRecognizer(followingsTap)
-        
-        
-        return header
+        followings.userInteractionEnabled = true
+        followings.addGestureRecognizer(followingsTap)
     }
+    
+    // cell line spasing
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    
+    // cell inter spasing
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+//    }
+    
+    
+//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+//        //define header
+//        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", forIndexPath: indexPath) as! headerView
+//        
+//       
+//            //let image = UIImage(data: data!)
+//            
+//            // objc_sync_enter(self.nameArray)
+//            // objc_sync_enter(self.nameArray)
+//           // self.picArray.append(image! as! UIImage)
+//            
+//            //objc_sync_exit(self.nameArray)
+//            //self.tableView.reloadData()
+//            //self.scrollToBottom()
+//            firebase.child("Users").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
+//                
+//                let first = (snapshot.value!.objectForKey("first_name") as? String)
+//                let last = (snapshot.value!.objectForKey("last_name") as? String)
+//                
+//                //header.fullnameLbl.text  = first!+" "+last!
+//         
+//                let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
+//                let url = NSURL(string: avaURL)
+//                if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+//                    header.avaImg.image = UIImage(data: data)
+//                    
+//                }
+//
+//                }
+//                
+//                
+//            ){ (error) in
+//                print(error.localizedDescription)
+//            }
+//       
+//        
+//        
+//
+//        
+////        if let web = PFUser.currentUser()?.objectForKey("web") as? String {
+////            header.webTxt.text = web
+////            header.webTxt.sizeToFit()
+////        }
+////        
+////        if let bio = PFUser.currentUser()?.objectForKey("bio") as? String {
+////            header.bioLbl.text = bio
+////            header.bioLbl.sizeToFit()
+////        }
+//     
+//        
+//        let avaQuery = PFUser.currentUser()?.objectForKey("picture_file") as! PFFile
+//        avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
+//            header.avaImg.image = UIImage(data:data!)
+//        }
+//        header.button.setTitle("edit profile", forState: UIControlState.Normal)
+//
+//        
+//        // STEP 2. Count statistics
+//        // count total posts
+////        let posts = PFQuery(className: "posts")
+////        posts.whereKey("username", equalTo: PFUser.currentUser()!.username!)
+////        posts.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
+////            if error == nil {
+////                header.posts.text = "\(count)"
+////            }
+////        })
+//        
+//        
+//        
+//        firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
+//            if snapshot.exists() {
+//                
+//                self.posts.text =  "\(snapshot.childrenCount)"
+//                
+//            }
+//        })
+//        
+//        
+//        // count total followers
+////        let followers = PFQuery(className: "follow")
+////        followers.whereKey("following", equalTo: PFUser.currentUser()!.username!)
+////        followers.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
+////            if error == nil {
+////                header.followers.text = "\(count)"
+////            }
+////        })
+//        
+//        firebase.child("Followers").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
+//            if snapshot.exists() {
+//                header.followers.text =  "\(snapshot.childrenCount)"
+//            }
+//        })
+//        
+//        
+//        
+//        // count total followings
+////        let followings = PFQuery(className: "follow")
+////        followings.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+////        followings.countObjectsInBackgroundWithBlock ({ (count:Int32, error:NSError?) -> Void in
+////            if error == nil {
+////                header.followings.text = "\(count)"
+////            }
+////        })
+//        
+//        firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
+//            if snapshot.exists() {
+//                header.followings.text =  "\(snapshot.childrenCount)"
+//            }
+//        })
+//
+//        // STEP 3. Implement tap gestures
+//        // tap posts
+//        let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
+//        postsTap.numberOfTapsRequired = 1
+//        header.posts.userInteractionEnabled = true
+//        header.posts.addGestureRecognizer(postsTap)
+//        
+//        // tap followers
+//        let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
+//        followersTap.numberOfTapsRequired = 1
+//        header.followers.userInteractionEnabled = true
+//        header.followers.addGestureRecognizer(followersTap)
+//        
+//        // tap followings
+//        let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
+//        followingsTap.numberOfTapsRequired = 1
+//        header.followings.userInteractionEnabled = true
+//        header.followings.addGestureRecognizer(followingsTap)
+//        
+//        
+//        return header
+//    }
     
     
     // taped posts label
@@ -496,7 +736,7 @@ class homeVC: UICollectionViewController {
     
     
     // go post
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         // send post uuid to "postuuid" variable
         postuuid.append(uuidArray[indexPath.row])
@@ -509,6 +749,47 @@ class homeVC: UICollectionViewController {
     @IBAction func settingsBtn_clicked(sender: AnyObject) {
         
         
+    }
+    
+    
+    // COLLECTION VIEW CODE
+    func collectionViewLaunch() {
+        
+//                // layout of collectionView
+//                let layout : UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+//        
+//                // item size
+//                layout.estimatedItemSize = CGSizeMake(UIScreen.mainScreen().bounds.width / 2, self.view.frame.size.width)
+//          collectionView.setCollectionViewLayout(layout, animated: true)
+        //
+        //        // direction of scrolling
+        //        layout.scrollDirection = UICollectionViewScrollDirection.Vertical
+        //
+        //        layout.minimumInteritemSpacing = 0
+        //        layout.minimumLineSpacing = 0
+        // define frame of collectionView
+        //let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height+10000)
+        //let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
+        
+        // declare collectionView
+        //collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+       
+        //collectionView.siz
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.alwaysBounceVertical = true
+        collectionView.backgroundColor = .whiteColor()
+        //collectionView.frame = CGRectMake(0, 0, 320, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
+        //collectionView.la
+        //collectionView.contentSize = CGSizeMake(self.view.frame.size.width / 2, self.view.frame.size.width / 2+25)
+        //collectionView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
+        self.view.addSubview(collectionView)
+        
+        // define cell for collectionView
+        //collectionView.registerClass(searchCollCell.self, forCellWithReuseIdentifier: "Cellsearch")
+        
+        // call function to load posts
+        //loadPostsforColl()
     }
    
   
