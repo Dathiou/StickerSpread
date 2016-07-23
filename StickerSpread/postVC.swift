@@ -342,9 +342,9 @@ class postVC: UITableViewController {
             let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
             self.navigationController?.pushViewController(home, animated: true)
         } else {
-            guestname.append(cell.usernameHidden.titleLabel!.text!)
-            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-            self.navigationController?.pushViewController(guest, animated: true)
+//            guestname.append(cell.usernameHidden.titleLabel!.text!)
+//            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+//            self.navigationController?.pushViewController(guest, animated: true)
         }
         
     }

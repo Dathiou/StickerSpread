@@ -219,9 +219,9 @@ class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDeleg
             let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
             self.navigationController?.pushViewController(home, animated: true)
         } else {
-            guestname.append(cell.usernameLbl.text!)
-            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-            self.navigationController?.pushViewController(guest, animated: true)
+//            guestname.append(cell.usernameLbl.text!)
+//            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+//            self.navigationController?.pushViewController(guest, animated: true)
         }
     }
     

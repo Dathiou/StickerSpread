@@ -234,10 +234,10 @@ class testsearchcell: UICollectionViewCell {
             print("liked")
             self.likeBtn.setTitle("like", forState: .Normal)
             self.likeBtn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
-            self.likeLbl.text = "\(Int(self.likeLbl.text!)! + 1)"
+           //// self.likeLbl.text = "\(Int(self.likeLbl.text!)! + 1)"
             
             // send notification if we liked to refresh TableView
-            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+          //  NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
             
             
             //
@@ -279,8 +279,8 @@ class testsearchcell: UICollectionViewCell {
             self.likeBtn.setBackgroundImage(UIImage(named: "unlHeart 1.png"), forState: .Normal)
             
             // send notification if we liked to refresh TableView
-            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
-            self.likeLbl.text = "\(Int(self.likeLbl.text!)! - 1)"
+          //  NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+         //   self.likeLbl.text = "\(Int(self.likeLbl.text!)! - 1)"
             
             
             

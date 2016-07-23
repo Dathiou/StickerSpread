@@ -38,12 +38,11 @@ func getLikeCount(string: String , Lbl : UILabel){
     })
 }
 
-var goHome = false
-var userIdToDisplay = "a"
+
 
 
 class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate ,UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout, segueToPost, segueToPostFromFeed{
-    
+    var modeSelf = false
     let storage = FIRStorage.storage()
     let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
     
@@ -291,15 +290,16 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     func goToProfile(id : String!){
         print(id)
                 if id == (FIRAuth.auth()?.currentUser!.uid)! {
-                    goHome = true
+                    modeSelf = true
                     
                     
                 }
-                    userIdToDisplay = id
+                    
                     let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC1") as! homeVC1
-        
-                    self.navigationController?.pushViewController(home, animated: true)
-        
+                home.userIdToDisplay = id
+                home.goHome = modeSelf
+                self.navigationController?.pushViewController(home, animated: true)
+                modeSelf = false
 //        if id == (FIRAuth.auth()?.currentUser!.uid)! {
 //            //if id == "aa" {
 //            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
@@ -518,122 +518,122 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     // search updated
     //func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
     
-    func searchBar( searchBar: UISearchBar,
-                    textDidChange searchText: String) {
-        
-        if searchText.isEmpty == true {
-            //loadPostsforColl()
-            shouldShowSearchResults = false
-            self.collectionView.reloadData()
-            self.tableView.reloadData()
-        } else {
-            
-            shouldShowSearchResults = true
-            // find by username
-            let usernameQuery = PFQuery(className: "posts")
-            usernameQuery.whereKey("title", matchesRegex: "(?i)" + searchText)
-            usernameQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    
-                    
-                    // clean up
-                    self.picArraySearch.removeAll(keepCapacity: false)
-                    self.uuidArraySearch.removeAll(keepCapacity: false)
-                    //self.usernameArraySearch.removeAll(keepCapacity: false)
-                    //self.avaArraySearch.removeAll(keepCapacity: false)
-                    self.usernameArraySearch.removeAll(keepCapacity: false)
-                    self.nameArraySearch.removeAll(keepCapacity: false)
-                    self.avaArraySearch.removeAll(keepCapacity: false)
-                    self.dateArraySearch.removeAll(keepCapacity: false)
-                    
-                    self.titleArraySearch.removeAll(keepCapacity: false)
-                    
-                    for object in objects! {
-                        let usernmae = object.valueForKey("username") as! String
-                        let infoQuery1 = PFQuery(className: "_User")
-                        infoQuery1.whereKey("username", equalTo: usernmae)
-                        infoQuery1.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
-                            if error == nil {
-                                
-                                // shown wrong user
-                                if objects1!.isEmpty {
-                                    // call alert
-                                    let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
-                                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
-                                        self.navigationController?.popViewControllerAnimated(true)
-                                    })
-                                    alert.addAction(ok)
-                                    self.presentViewController(alert, animated: true, completion: nil)
-                                }
-                                
-                                // find related to user information
-                                for object1 in objects1! {
-                                    objc_sync_enter(self.nameArraySearch)
-                                    // get users data with connections to columns of PFUser class
-                                    let first = (object1.objectForKey("first_name") as? String)
-                                    let last = (object1.objectForKey("last_name") as? String)
-                                    
-                                    let fullname = first!+" "+last!
-                                    self.nameArraySearch.append(fullname)
-                                    objc_sync_exit(self.nameArraySearch)
-                                    
-                                    dispatch_async(dispatch_get_main_queue(), {
-                                        self.tableView.reloadData()
-                                        self.collectionView.reloadData()
-                                        
-                                        self.refresher.endRefreshing()
-                                    });
-                                    
-                                }
-                                
-                                
-                                
-                                
-                                
-                            } else {
-                                print(error!.localizedDescription)
-                            }
-                        })
-                        
-                        
-                        self.usernameArraySearch.append(object.objectForKey("username") as! String)
-                        self.avaArraySearch.append(object.objectForKey("ava") as! PFFile)
-                        self.dateArraySearch.append(object.createdAt)
-                        self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
-                        //self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
-                        self.titleArraySearch.append(object.objectForKey("title") as! String)
-                        self.uuidArraySearch.append(object.objectForKey("uuid") as! String)
-                        
-                        
-                        //                            dispatch_async(dispatch_get_main_queue(), {
-                        //                                self.tableView.reloadData()
-                        //                                self.refresher.endRefreshing()
-                        //                            });
-                        
-                        
-                        
-                    }
-                    
-                    //                    // found related objects
-                    //                    for object in objects! {
-                    //                        let desc = object.objectForKey("title") as! String
-                    //                        print(desc)
-                    //
-                    //                        self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
-                    //                        self.uuidArraySearch.append(object.objectForKey("uuid") as! String)
-                    //                        //self.usernameArraySearch.append(object.objectForKey("username") as! String)
-                    //                        //self.avaArraySearch.append(object.objectForKey("picture_file") as! PFFile)
-                    //                    }
-                    //
-                    //                    // reload
-                    //                    self.collectionView.reloadData()
-                    
-                }
-            })
-        }
-        
-        // return true
-    }
+//    func searchBar( searchBar: UISearchBar,
+//                    textDidChange searchText: String) {
+//        
+//        if searchText.isEmpty == true {
+//            //loadPostsforColl()
+//            shouldShowSearchResults = false
+//            self.collectionView.reloadData()
+//            self.tableView.reloadData()
+//        } else {
+//            
+//            shouldShowSearchResults = true
+//            // find by username
+//            let usernameQuery = PFQuery(className: "posts")
+//            usernameQuery.whereKey("title", matchesRegex: "(?i)" + searchText)
+//            usernameQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    
+//                    
+//                    // clean up
+//                    self.picArraySearch.removeAll(keepCapacity: false)
+//                    self.uuidArraySearch.removeAll(keepCapacity: false)
+//                    //self.usernameArraySearch.removeAll(keepCapacity: false)
+//                    //self.avaArraySearch.removeAll(keepCapacity: false)
+//                    self.usernameArraySearch.removeAll(keepCapacity: false)
+//                    self.nameArraySearch.removeAll(keepCapacity: false)
+//                    self.avaArraySearch.removeAll(keepCapacity: false)
+//                    self.dateArraySearch.removeAll(keepCapacity: false)
+//                    
+//                    self.titleArraySearch.removeAll(keepCapacity: false)
+//                    
+//                    for object in objects! {
+//                        let usernmae = object.valueForKey("username") as! String
+//                        let infoQuery1 = PFQuery(className: "_User")
+//                        infoQuery1.whereKey("username", equalTo: usernmae)
+//                        infoQuery1.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
+//                            if error == nil {
+//                                
+//                                // shown wrong user
+//                                if objects1!.isEmpty {
+//                                    // call alert
+//                                    let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
+//                                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+//                                        self.navigationController?.popViewControllerAnimated(true)
+//                                    })
+//                                    alert.addAction(ok)
+//                                    self.presentViewController(alert, animated: true, completion: nil)
+//                                }
+//                                
+//                                // find related to user information
+//                                for object1 in objects1! {
+//                                    objc_sync_enter(self.nameArraySearch)
+//                                    // get users data with connections to columns of PFUser class
+//                                    let first = (object1.objectForKey("first_name") as? String)
+//                                    let last = (object1.objectForKey("last_name") as? String)
+//                                    
+//                                    let fullname = first!+" "+last!
+//                                    self.nameArraySearch.append(fullname)
+//                                    objc_sync_exit(self.nameArraySearch)
+//                                    
+//                                    dispatch_async(dispatch_get_main_queue(), {
+//                                        self.tableView.reloadData()
+//                                        self.collectionView.reloadData()
+//                                        
+//                                        self.refresher.endRefreshing()
+//                                    });
+//                                    
+//                                }
+//                                
+//                                
+//                                
+//                                
+//                                
+//                            } else {
+//                                print(error!.localizedDescription)
+//                            }
+//                        })
+//                        
+//                        
+//                        self.usernameArraySearch.append(object.objectForKey("username") as! String)
+//                        self.avaArraySearch.append(object.objectForKey("ava") as! PFFile)
+//                        self.dateArraySearch.append(object.createdAt)
+//                        self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
+//                        //self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
+//                        self.titleArraySearch.append(object.objectForKey("title") as! String)
+//                        self.uuidArraySearch.append(object.objectForKey("uuid") as! String)
+//                        
+//                        
+//                        //                            dispatch_async(dispatch_get_main_queue(), {
+//                        //                                self.tableView.reloadData()
+//                        //                                self.refresher.endRefreshing()
+//                        //                            });
+//                        
+//                        
+//                        
+//                    }
+//                    
+//                    //                    // found related objects
+//                    //                    for object in objects! {
+//                    //                        let desc = object.objectForKey("title") as! String
+//                    //                        print(desc)
+//                    //
+//                    //                        self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
+//                    //                        self.uuidArraySearch.append(object.objectForKey("uuid") as! String)
+//                    //                        //self.usernameArraySearch.append(object.objectForKey("username") as! String)
+//                    //                        //self.avaArraySearch.append(object.objectForKey("picture_file") as! PFFile)
+//                    //                    }
+//                    //
+//                    //                    // reload
+//                    //                    self.collectionView.reloadData()
+//                    
+//                }
+//            })
+//        }
+//        
+//        // return true
+//    }
     
     //    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
     //        self.searchBar.showsCancelButton = false
@@ -911,12 +911,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 }}
             
             //self.picArray = self.picArray.reverse()
-            self.picArrayURL = self.picArrayURL.reverse()
-            self.dateArray = self.dateArray.reverse()
-            self.usernameArray = self.usernameArray.reverse()
-            self.uuidArray = self.uuidArray.reverse()
 
-            self.titleArray = self.titleArray.reverse()
             
             for (bookid, title) in self.myDictionaryURL {
                 //println("Book ID: \(bookid) Title: \(title)")
@@ -925,6 +920,13 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     self.myDictionaryImage[bookid] = image!
                     self.avaArray = self.avaArray.reverse()
                     self.nameArray = self.nameArray.reverse()
+                    self.picArrayURL = self.picArrayURL.reverse()
+                    self.dateArray = self.dateArray.reverse()
+                    self.usernameArray = self.usernameArray.reverse()
+                    self.uuidArray = self.uuidArray.reverse()
+                    
+                    
+                    self.titleArray = self.titleArray.reverse()
                     //self.picArray.append(image! as! UIImage)
                     
                     dispatch_group_leave(picturesGroup)
@@ -1009,116 +1011,116 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //        }
     //    }
     
-    // pagination
-    func loadMore() {
-        
-        // if posts on the server are more than shown
-        if page <= uuidArray.count {
-            
-            // start animating indicator
-            indicator.startAnimating()
-            
-            // increase page size to load +10 posts
-            page = page + 10
-            
-            // STEP 1. Find posts realted to people who we are following
-            let followQuery = PFQuery(className: "follow")
-            followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-            followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    
-                    // clean up
-                    self.followArray.removeAll(keepCapacity: false)
-                    
-                    // find related objects
-                    for object in objects! {
-                        self.followArray.append(object.objectForKey("following") as! String)
-                    }
-                    
-                    // append current user to see own posts in feed
-                    self.followArray.append(PFUser.currentUser()!.username!)
-                    
-                    // STEP 2. Find posts made by people appended to followArray
-                    let query = PFQuery(className: "posts")
-                    query.whereKey("username", containedIn: self.followArray)
-                    query.limit = self.page
-                    query.addDescendingOrder("createdAt")
-                    query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                        if error == nil {
-                            
-                            // clean up
-                            self.usernameArray.removeAll(keepCapacity: false)
-                            self.nameArray.removeAll(keepCapacity: false)
-                            self.avaArray.removeAll(keepCapacity: false)
-                            self.dateArray.removeAll(keepCapacity: false)
-                            self.picArray.removeAll(keepCapacity: false)
-                            self.titleArray.removeAll(keepCapacity: false)
-                            self.uuidArray.removeAll(keepCapacity: false)
-                            
-                            // find related objects
-                            for object in objects! {
-                                self.usernameArray.append(object.objectForKey("username") as! String)
-                                //self.avaArray.append(object.objectForKey("ava") as! PFFile)
-                                self.dateArray.append(object.createdAt)
-                                // self.picArray.append(object.objectForKey("pic") as! PFFile)
-                                self.titleArray.append(object.objectForKey("title") as! String)
-                                self.uuidArray.append(object.objectForKey("uuid") as! String)
-                                
-                                
-                                let usernmae = object.valueForKey("username") as! String
-                                let infoQuery = PFQuery(className: "_User")
-                                infoQuery.whereKey("username", equalTo: usernmae)
-                                infoQuery.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
-                                    if error == nil {
-                                        
-                                        // shown wrong user
-                                        if objects1!.isEmpty {
-                                            // call alert
-                                            let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
-                                            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
-                                                self.navigationController?.popViewControllerAnimated(true)
-                                            })
-                                            alert.addAction(ok)
-                                            self.presentViewController(alert, animated: true, completion: nil)
-                                        }
-                                        
-                                        // find related to user information
-                                        for object1 in objects1! {
-                                            
-                                            
-                                            
-                                            // get users data with connections to columns of PFUser class
-                                            let first = (object1.valueForKey("first_name") as? String)
-                                            let last = (object1.valueForKey("last_name") as? String)
-                                            
-                                            let fullname = first!+" "+last!
-                                            self.nameArray.append(fullname)
-                                            //self.tableView.reloadData()
-                                            //self.refresher.endRefreshing()
-                                            
-                                        }
-                                        
-                                        
-                                    }
-                                })
-                            }
-                            
-                            //                            // reload tableView & end spinning of refresher
-                            //                             self.tableView.reloadData()
-                            //                            self.refresher.endRefreshing()
-                            
-                        } else {
-                            print(error!.localizedDescription)
-                        }
-                    })
-                } else {
-                    print(error!.localizedDescription)
-                }
-            })
-            
-        }
-        
-    }
+//    // pagination
+//    func loadMore() {
+//        
+//        // if posts on the server are more than shown
+//        if page <= uuidArray.count {
+//            
+//            // start animating indicator
+//            indicator.startAnimating()
+//            
+//            // increase page size to load +10 posts
+//            page = page + 10
+//            
+//            // STEP 1. Find posts realted to people who we are following
+//            let followQuery = PFQuery(className: "follow")
+//            followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+//            followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    
+//                    // clean up
+//                    self.followArray.removeAll(keepCapacity: false)
+//                    
+//                    // find related objects
+//                    for object in objects! {
+//                        self.followArray.append(object.objectForKey("following") as! String)
+//                    }
+//                    
+//                    // append current user to see own posts in feed
+//                    self.followArray.append(PFUser.currentUser()!.username!)
+//                    
+//                    // STEP 2. Find posts made by people appended to followArray
+//                    let query = PFQuery(className: "posts")
+//                    query.whereKey("username", containedIn: self.followArray)
+//                    query.limit = self.page
+//                    query.addDescendingOrder("createdAt")
+//                    query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                        if error == nil {
+//                            
+//                            // clean up
+//                            self.usernameArray.removeAll(keepCapacity: false)
+//                            self.nameArray.removeAll(keepCapacity: false)
+//                            self.avaArray.removeAll(keepCapacity: false)
+//                            self.dateArray.removeAll(keepCapacity: false)
+//                            self.picArray.removeAll(keepCapacity: false)
+//                            self.titleArray.removeAll(keepCapacity: false)
+//                            self.uuidArray.removeAll(keepCapacity: false)
+//                            
+//                            // find related objects
+//                            for object in objects! {
+//                                self.usernameArray.append(object.objectForKey("username") as! String)
+//                                //self.avaArray.append(object.objectForKey("ava") as! PFFile)
+//                                self.dateArray.append(object.createdAt)
+//                                // self.picArray.append(object.objectForKey("pic") as! PFFile)
+//                                self.titleArray.append(object.objectForKey("title") as! String)
+//                                self.uuidArray.append(object.objectForKey("uuid") as! String)
+//                                
+//                                
+//                                let usernmae = object.valueForKey("username") as! String
+//                                let infoQuery = PFQuery(className: "_User")
+//                                infoQuery.whereKey("username", equalTo: usernmae)
+//                                infoQuery.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
+//                                    if error == nil {
+//                                        
+//                                        // shown wrong user
+//                                        if objects1!.isEmpty {
+//                                            // call alert
+//                                            let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
+//                                            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+//                                                self.navigationController?.popViewControllerAnimated(true)
+//                                            })
+//                                            alert.addAction(ok)
+//                                            self.presentViewController(alert, animated: true, completion: nil)
+//                                        }
+//                                        
+//                                        // find related to user information
+//                                        for object1 in objects1! {
+//                                            
+//                                            
+//                                            
+//                                            // get users data with connections to columns of PFUser class
+//                                            let first = (object1.valueForKey("first_name") as? String)
+//                                            let last = (object1.valueForKey("last_name") as? String)
+//                                            
+//                                            let fullname = first!+" "+last!
+//                                            self.nameArray.append(fullname)
+//                                            //self.tableView.reloadData()
+//                                            //self.refresher.endRefreshing()
+//                                            
+//                                        }
+//                                        
+//                                        
+//                                    }
+//                                })
+//                            }
+//                            
+//                            //                            // reload tableView & end spinning of refresher
+//                            //                             self.tableView.reloadData()
+//                            //                            self.refresher.endRefreshing()
+//                            
+//                        } else {
+//                            print(error!.localizedDescription)
+//                        }
+//                    })
+//                } else {
+//                    print(error!.localizedDescription)
+//                }
+//            })
+//            
+//        }
+//        
+//    }
     
     // cell numb
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -1364,9 +1366,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
             self.navigationController?.pushViewController(home, animated: true)
         } else {
-            guestname.append(cell.usernameHidden.titleLabel!.text!)
-            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-            self.navigationController?.pushViewController(guest, animated: true)
+//            guestname.append(cell.usernameHidden.titleLabel!.text!)
+//            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+//            self.navigationController?.pushViewController(guest, animated: true)
         }
         
         
@@ -1818,7 +1820,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // scroll down for paging
         if scrollView.contentOffset.y >= scrollView.contentSize.height / 6 {
-            self.loadMore()
+           // self.loadMore()
         }
     }
     

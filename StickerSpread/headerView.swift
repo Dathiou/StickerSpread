@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Firebase
 
 
 class headerView: UICollectionReusableView{
@@ -38,8 +39,12 @@ class headerView: UICollectionReusableView{
     @IBOutlet weak var followersTitle: UILabel!
     @IBOutlet weak var followingsTitle: UILabel!
     
-    @IBOutlet weak var button: UIButton!
+    var username = String()
+    
+    @IBOutlet weak var followButton: UIButton!
+
    
+    @IBOutlet weak var Settingsbutton: UIButton!
     
     // default func
     override func awakeFromNib() {
@@ -99,45 +104,55 @@ class headerView: UICollectionReusableView{
     
     @IBAction func followBtn_click(sender: AnyObject) {
         //let title = followBtn.titleForState(.Normal)
-        let title = button.titleForState(.Normal)
+        let title = followButton.titleForState(.Normal)
         
         // to follow
         if title == "FOLLOW" {
-            let object = PFObject(className: "follow")
-            object["follower"] = PFUser.currentUser()?.username
-            object["following"] = guestname.last! //usernameLbl.text
-            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                if success {
-                    self.button.setTitle("FOLLOWING", forState: UIControlState.Normal)
-                    self.button.backgroundColor = .greenColor()
-                } else {
-                    print(error?.localizedDescription)
-                }
-            })
+            
+            self.followButton.setTitle("FOLLOWING", forState: UIControlState.Normal)
+            self.followButton.backgroundColor = .greenColor()
+            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(username).setValue(true)
+            firebase.child("Followers").child(username).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
+//            let object = PFObject(className: "follow")
+//            object["follower"] = PFUser.currentUser()?.username
+//            object["following"] = guestname.last! //usernameLbl.text
+//            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                if success {
+//                    self.button.setTitle("FOLLOWING", forState: UIControlState.Normal)
+//                    self.button.backgroundColor = .greenColor()
+//                } else {
+//                    print(error?.localizedDescription)
+//                }
+//            })
             
             // unfollow
         } else {
-            let query = PFQuery(className: "follow")
-            query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-            query.whereKey("following", equalTo: guestname.last!)
-            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    
-                    for object in objects! {
-                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                            if success {
-                                self.button.setTitle("FOLLOW", forState: UIControlState.Normal)
-                                self.button.backgroundColor = .lightGrayColor()
-                            } else {
-                                print(error?.localizedDescription)
-                            }
-                        })
-                    }
-                    
-                } else {
-                    print(error?.localizedDescription)
-                }
-            })
+            
+            self.followButton.setTitle("FOLLOW", forState: UIControlState.Normal)
+            self.followButton.backgroundColor = .lightGrayColor()
+            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(username).removeValue()
+            firebase.child("Followers").child(username).child((FIRAuth.auth()?.currentUser!.uid)!).removeValue()
+//            let query = PFQuery(className: "follow")
+//            query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+//            query.whereKey("following", equalTo: guestname.last!)
+//            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    
+//                    for object in objects! {
+//                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                            if success {
+//                                self.button.setTitle("FOLLOW", forState: UIControlState.Normal)
+//                                self.button.backgroundColor = .lightGrayColor()
+//                            } else {
+//                                print(error?.localizedDescription)
+//                            }
+//                        })
+//                    }
+//                    
+//                } else {
+//                    print(error?.localizedDescription)
+//                }
+//            })
             
         }
 

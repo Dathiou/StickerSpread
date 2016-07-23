@@ -248,10 +248,10 @@ class followersVC: UITableViewController, CustomCellDelegate {
             let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
             self.navigationController?.pushViewController(home, animated: true)
         } else {
-            guestname.append(self.usernameArray[indexPath.row])
-            guestfirstname.append(self.firstnameArray[indexPath.row])
-            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-            self.navigationController?.pushViewController(guest, animated: true)
+//            guestname.append(self.usernameArray[indexPath.row])
+//            guestfirstname.append(self.firstnameArray[indexPath.row])
+//            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+//            self.navigationController?.pushViewController(guest, animated: true)
         }
     }
     

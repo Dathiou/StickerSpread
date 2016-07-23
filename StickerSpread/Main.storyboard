@@ -240,6 +240,18 @@
                                         <constraint firstAttribute="width" constant="25" id="mxo-c5-VgN"/>
                                     </constraints>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UgS-Bu-t81">
+                                    <rect key="frame" x="150" y="92" width="412" height="28"/>
+                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                    <state key="normal" title="edit profile">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="followBtn_click:" destination="WPU-7D-1sj" eventType="touchUpInside" id="nb5-ly-sHQ"/>
+                                    </connections>
+                                </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Heart 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="s9C-8a-Aqw">
                                     <rect key="frame" x="12" y="149" width="25" height="25"/>
                                     <constraints>
@@ -249,10 +261,12 @@
                                 </imageView>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="UgS-Bu-t81" firstAttribute="leading" secondItem="d7u-mo-EOO" secondAttribute="leading" id="08V-GB-cxX"/>
                                 <constraint firstItem="7KF-WT-HlN" firstAttribute="leading" secondItem="d7u-mo-EOO" secondAttribute="leading" id="12C-9b-Hp7"/>
                                 <constraint firstItem="UJv-CG-N5M" firstAttribute="leading" secondItem="s9C-8a-Aqw" secondAttribute="trailing" constant="8" id="3Eb-J0-hyd"/>
                                 <constraint firstItem="lbY-5j-34E" firstAttribute="top" secondItem="ld8-w1-DDC" secondAttribute="bottom" id="4KL-iT-hza"/>
                                 <constraint firstItem="xIa-ya-5Ai" firstAttribute="leading" secondItem="ld8-w1-DDC" secondAttribute="trailing" constant="8" id="4Zr-uu-onl"/>
+                                <constraint firstItem="UgS-Bu-t81" firstAttribute="height" secondItem="d7u-mo-EOO" secondAttribute="height" id="4vq-Rm-a8e"/>
                                 <constraint firstItem="s9C-8a-Aqw" firstAttribute="top" secondItem="7KF-WT-HlN" secondAttribute="bottom" id="6Ko-P6-fTL"/>
                                 <constraint firstItem="s9C-8a-Aqw" firstAttribute="leading" secondItem="d7u-mo-EOO" secondAttribute="leading" id="9Wq-ye-kPd"/>
                                 <constraint firstItem="0DX-aK-WgS" firstAttribute="top" secondItem="Y4g-mg-Rsc" secondAttribute="top" id="ABi-MC-vhe"/>
@@ -262,6 +276,7 @@
                                 <constraint firstItem="0DX-aK-WgS" firstAttribute="centerX" secondItem="yPV-1I-b4W" secondAttribute="centerX" id="Fod-ER-YFS"/>
                                 <constraint firstItem="Y4g-mg-Rsc" firstAttribute="leading" secondItem="WPU-7D-1sj" secondAttribute="leading" constant="12" id="HUj-kd-ypG"/>
                                 <constraint firstAttribute="bottomMargin" secondItem="lbY-5j-34E" secondAttribute="bottom" priority="500" id="IKr-ig-d0A"/>
+                                <constraint firstItem="UgS-Bu-t81" firstAttribute="width" secondItem="d7u-mo-EOO" secondAttribute="width" id="KhH-FM-VuP"/>
                                 <constraint firstItem="d7u-mo-EOO" firstAttribute="bottom" secondItem="Y4g-mg-Rsc" secondAttribute="bottom" id="KiO-ED-XL1"/>
                                 <constraint firstItem="E6W-Ko-chi" firstAttribute="top" secondItem="PVy-De-6MG" secondAttribute="bottom" id="NQf-vT-Bni"/>
                                 <constraint firstItem="lbY-5j-34E" firstAttribute="leading" secondItem="Y4g-mg-Rsc" secondAttribute="leading" id="NXw-Qp-RMd"/>
@@ -273,6 +288,7 @@
                                 <constraint firstItem="lbY-5j-34E" firstAttribute="leading" secondItem="d7u-mo-EOO" secondAttribute="leading" id="T7F-wP-BId"/>
                                 <constraint firstAttribute="bottomMargin" secondItem="s9C-8a-Aqw" secondAttribute="bottom" priority="500" id="Try-yj-am2"/>
                                 <constraint firstItem="MAZ-eT-JLf" firstAttribute="centerY" secondItem="7KF-WT-HlN" secondAttribute="centerY" id="f8K-WE-71R"/>
+                                <constraint firstItem="UgS-Bu-t81" firstAttribute="top" secondItem="d7u-mo-EOO" secondAttribute="top" id="gBS-1z-uKz"/>
                                 <constraint firstItem="Lee-CM-CXf" firstAttribute="centerY" secondItem="lbY-5j-34E" secondAttribute="centerY" id="gm6-ff-ncw"/>
                                 <constraint firstItem="7KF-WT-HlN" firstAttribute="leading" secondItem="Y4g-mg-Rsc" secondAttribute="leading" id="haC-QZ-4b2"/>
                                 <constraint firstItem="MAZ-eT-JLf" firstAttribute="leading" secondItem="7KF-WT-HlN" secondAttribute="trailing" constant="8" id="hiQ-DV-EQx"/>
@@ -301,9 +317,11 @@
                                 </mask>
                             </variation>
                             <connections>
+                                <outlet property="Settingsbutton" destination="d7u-mo-EOO" id="7DC-xP-NBU"/>
                                 <outlet property="avaImg" destination="Y4g-mg-Rsc" id="DQO-zg-U7L"/>
                                 <outlet property="firstConstr" destination="SWi-Ii-fMd" id="Ybh-ma-c7d"/>
                                 <outlet property="first_Lbl" destination="MAZ-eT-JLf" id="HZC-Gm-9kD"/>
+                                <outlet property="followButton" destination="UgS-Bu-t81" id="h56-rs-AAh"/>
                                 <outlet property="followers" destination="PVy-De-6MG" id="Pqz-5l-Ts9"/>
                                 <outlet property="followersTitle" destination="E6W-Ko-chi" id="9Zn-bw-f1y"/>
                                 <outlet property="followings" destination="Ip9-qn-y8B" id="WaN-ZN-Moa"/>
@@ -351,7 +369,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Csp-JO-fvP">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Csp-JO-fvP">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNp-7i-izs">
@@ -1042,7 +1060,6 @@
                         <segue destination="UR1-xp-XXG" kind="relationship" relationship="viewControllers" id="swV-jj-1d2"/>
                         <segue destination="oR8-uP-uEJ" kind="relationship" relationship="viewControllers" id="HqY-Fm-oUJ"/>
                         <segue destination="fKE-pv-1Vd" kind="relationship" relationship="viewControllers" id="e1g-3e-wXC"/>
-                        <segue destination="gEa-kA-Xsh" kind="relationship" relationship="viewControllers" id="1Hy-VA-SPI"/>
                         <segue destination="icj-aH-iZ4" kind="relationship" relationship="viewControllers" id="BH1-Lt-3oy"/>
                     </connections>
                 </tabBarController>

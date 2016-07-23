@@ -16,7 +16,10 @@ import Firebase
 
 class homeVC1: UICollectionViewController {
     
-   
+    var goHome = false
+    var userIdToDisplay = "a"
+    
+    
     let storage = FIRStorage.storage()
     let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
     
@@ -52,7 +55,9 @@ class homeVC1: UICollectionViewController {
     var titleArray = [String]()
     var urls = [String]()
     //var uuidArray = [String]()
-     var bottomheader = CGFloat()
+    var bottomheader = CGFloat()
+    
+    var username = String()
     
     
     override func viewDidLoad() {
@@ -78,15 +83,15 @@ class homeVC1: UICollectionViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
         collectionView!.registerNib(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
         
-//        self.collectionView.header.setNeedsUpdateConstraints()
-//        self.collectionView.updateConstraintsIfNeeded()
-//        self.collectionView.setNeedsLayout()
-//        self.collectionView.layoutIfNeeded()
-//        let newHeight = self.collectionView.sec.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
-//        //newFrame.size.height = newSize.height
-//        self.collectionView.frame.size.height = 1000
+        //        self.collectionView.header.setNeedsUpdateConstraints()
+        //        self.collectionView.updateConstraintsIfNeeded()
+        //        self.collectionView.setNeedsLayout()
+        //        self.collectionView.layoutIfNeeded()
+        //        let newHeight = self.collectionView.sec.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+        //        //newFrame.size.height = newSize.height
+        //        self.collectionView.frame.size.height = 1000
         //self.collectionView.header
-
+        
         
         
         // load posts func
@@ -151,19 +156,7 @@ class homeVC1: UICollectionViewController {
     
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
-//        // that -16 is because I have 8px for left and right spacing constraints for the label.
-//        let label:UILabel = UILabel(frame: CGRectMake(0, 0, collectionView.frame.width - 16, CGFloat.max))
-//        label.numberOfLines = 0
-//        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
-//        //here, be sure you set the font type and size that matches the one set in the storyboard label
-//        label.font = UIFont(name: "Helvetica", size: 17.0)
-//        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
-//        label.sizeToFit()
-       
-        // Set some extra pixels for height due to the margins of the header section.
-        //This value should be the sum of the vertical spacing you set in the autolayout constraints for the label. + 16 worked for me as I have 8px for top and bottom constraints.
-        //return CGSize(width: collectionView.frame.width, height: label.frame.height + 32)
+
         return CGSize(width: collectionView.frame.width, height: max(20,bottomheader + 5))//self.bottomheader)
     }
     
@@ -178,11 +171,13 @@ class homeVC1: UICollectionViewController {
         let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", forIndexPath: indexPath) as! headerView
         //header.frame.size.height = 100
         // get users data with connections to columns of PFUser class
+        
         firebase.child("Users").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
             
             let first = (snapshot.value!.objectForKey("first_name") as? String)
             let last = (snapshot.value!.objectForKey("last_name") as? String)
-            
+            print ( snapshot.key)
+            self.username = snapshot.key
             //title at the top
             self.navigationItem.title = first!+" "+last!
             let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
@@ -195,6 +190,9 @@ class homeVC1: UICollectionViewController {
                 header.avaImg.layer.borderWidth = 0.5
                 
             }
+            
+            
+            
             
             let q = snapshot.value!.objectForKey("youtubeURL") as? String
             let w = snapshot.value!.objectForKey("instagramURL") as? String
@@ -238,13 +236,13 @@ class homeVC1: UICollectionViewController {
                 header.second_Lbl.text = self.urls[1]
                 self.bottomheader =  header.ic2.frame.maxY
             } else if display == 3{
-               header.thirdConstr.priority = 750
+                header.thirdConstr.priority = 750
                 header.first_Lbl.text = self.urls[0]
                 header.second_Lbl.text = self.urls[1]
                 header.third_Lbl.text = self.urls[2]
                 self.bottomheader =  header.ic3.frame.maxY
             } else if display == 4{
-               header.fourthConstr.priority = 750
+                header.fourthConstr.priority = 750
                 header.first_Lbl.text = self.urls[0]
                 header.second_Lbl.text = self.urls[1]
                 header.third_Lbl.text = self.urls[2]
@@ -252,26 +250,47 @@ class homeVC1: UICollectionViewController {
                 self.bottomheader =  header.ic4.frame.maxY
             }
             
-     
             
             }
-            
             
             
         ){ (error) in
             print(error.localizedDescription)
         }
         
-//        header.setNeedsLayout()
-//        header.layoutIfNeeded()
-//        let height = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
-//        let a = header.ic1.frame.minY
-//        let b = header.ic1.frame.maxY
-//        print(b)
+        header.username = self.userIdToDisplay
+        
+        //        header.setNeedsLayout()
+        //        header.layoutIfNeeded()
+        //        let height = header.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+        //        let a = header.ic1.frame.minY
+        //        let b = header.ic1.frame.maxY
+        //        print(b)
         header.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         header.frame.size.height = bottomheader + 5
         
         //self.button.setTitle("edit profile", forState: UIControlState.Normal)
+        
+        if self.goHome == false {
+            header.Settingsbutton.hidden = true
+            // STEP 2. Show do current user follow guest or do not
+            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(self.userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
+                if snapshot.exists() {
+                    header.followButton.setTitle("FOLLOWING", forState: UIControlState.Normal)
+                    header.followButton.backgroundColor = .greenColor()
+                }
+                else {
+                    header.followButton.setTitle("FOLLOW", forState: .Normal)
+                    header.followButton.backgroundColor = .lightGrayColor()
+                }
+                
+                
+                
+            })
+            
+        } else if self.goHome == true {
+            header.followButton.hidden = true
+        }
         
         firebase.child("PostPerUser").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
@@ -280,18 +299,24 @@ class homeVC1: UICollectionViewController {
                 
             }
         })
-
+        
         firebase.child("Followers").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 header.followers.text =  "\(snapshot.childrenCount)"
+            } else {
+                header.followers.text = "0"
             }
         })
         
         firebase.child("Followings").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 header.followings.text =  "\(snapshot.childrenCount)"
+            } else {
+                header.followings.text =  "0"
             }
         })
+        
+        
         
         // STEP 3. Implement tap gestures
         // tap posts
@@ -402,7 +427,7 @@ class homeVC1: UICollectionViewController {
     func loadPosts() {
         
         firebase.child("PostPerUser").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot1 in
-            
+            print(snapshot1)
             if snapshot1.exists() {
                 print(snapshot1)
                 for postperUser1 in snapshot1.children{
