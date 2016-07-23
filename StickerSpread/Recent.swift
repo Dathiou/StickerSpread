@@ -20,7 +20,7 @@ public let kFIRSTRUN = "firstRun"
 
 //let firebase = Firebase(url: "https://quickchataplication.firebaseio.com/")
 var firebase = FIRDatabase.database().reference()
-let backendless = Backendless.sharedInstance()
+//let backendless = Backendless.sharedInstance()
 
 
 //MARK: Create Chatroom

@@ -18,7 +18,6 @@ pod 'JSQMessagesViewController'
 pod 'IDMPhotoBrowser'
 
 
-pod 'Backendless-ios-SDK'
 
 target 'StickerSpread'
 #end

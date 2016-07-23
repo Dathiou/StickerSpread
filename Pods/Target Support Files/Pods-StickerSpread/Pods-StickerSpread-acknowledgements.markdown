@@ -1,10 +1,6 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## Backendless-ios-SDK
-
-Copyright (c) 2012-2016 by Backendless.com
-
 ## Bolts
 
 BSD License
@@ -112,11 +108,11 @@ Copyright 2016 Google Inc.
 
 ## FirebaseAnalytics
 
-Copyright 2016 Google Inc.
+Copyright 2016 Google
 
 ## FirebaseAuth
 
-Copyright 2016 Google Inc. All Rights Reserved.
+Copyright 2016 Google
 
 ## FirebaseDatabase
 
@@ -135,6 +131,10 @@ Copyright 2016 Google Inc.
 Copyright 2015 Google Inc.
 
 ## GoogleNetworkingUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleParsingUtilities
 
 Copyright 2015 Google Inc.
 

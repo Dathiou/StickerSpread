@@ -11,7 +11,7 @@ import Parse
 
 class RecentTableViewCell: UITableViewCell {
     
-    let backendless = Backendless.sharedInstance()
+   // let backendless = Backendless.sharedInstance()
     @IBOutlet weak var nameLable: UILabel!
     @IBOutlet weak var lastMessageLable: UILabel!
     @IBOutlet weak var counterLabel: UILabel!

@@ -431,31 +431,31 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         
         
     }
-    
-    func createAvatars(avatars: NSMutableDictionary?) {
-        
-        var currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(named: "avatarPlaceholder"), diameter: 70)
-        var withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(named: "avatarPlaceholder"), diameter: 70)
-        
-        
-        if let avat = avatars {
-            if let currentUserAvatarImage = avat.objectForKey(backendless.userService.currentUser.objectId) {
-                
-                currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(data: currentUserAvatarImage as! NSData), diameter: 70)
-                self.collectionView?.reloadData()
-            }
-        }
-        
-        if let avat = avatars {
-            if let withUserAvatarImage = avat.objectForKey(withUser!.objectId!) {
-                
-                withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(data: withUserAvatarImage as! NSData), diameter: 70)
-                self.collectionView?.reloadData()
-            }
-        }
-        
-        avatarDictionary = [backendless.userService.currentUser.objectId! : currentUserAvatar, withUser!.objectId! : withUserAvatar] 
-    }
+//    
+//    func createAvatars(avatars: NSMutableDictionary?) {
+//        
+//        var currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(named: "avatarPlaceholder"), diameter: 70)
+//        var withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(named: "avatarPlaceholder"), diameter: 70)
+//        
+//        
+//        if let avat = avatars {
+//            if let currentUserAvatarImage = avat.objectForKey(backendless.userService.currentUser.objectId) {
+//                
+//                currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(data: currentUserAvatarImage as! NSData), diameter: 70)
+//                self.collectionView?.reloadData()
+//            }
+//        }
+//        
+//        if let avat = avatars {
+//            if let withUserAvatarImage = avat.objectForKey(withUser!.objectId!) {
+//                
+//                withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(data: withUserAvatarImage as! NSData), diameter: 70)
+//                self.collectionView?.reloadData()
+//            }
+//        }
+//        
+//        avatarDictionary = [backendless.userService.currentUser.objectId! : currentUserAvatar, withUser!.objectId! : withUserAvatar] 
+//    }
     
 //    func avatarImageFromBackendlessUser(user: BackendlessUser) {
 //        

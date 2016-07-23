@@ -405,8 +405,9 @@ class homeVC1: UICollectionViewController {
             
             if snapshot1.exists() {
                 print(snapshot1)
-                for postperUser in snapshot1.children{
-                    let postID = postperUser.key()
+                for postperUser1 in snapshot1.children{
+                    let postperUser = postperUser1 as! FIRDataSnapshot
+                    let postID = postperUser.key
                     print (postID)
                     firebase.child("Posts").child(postID as! String).queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
                         
