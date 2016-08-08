@@ -964,7 +964,7 @@
                                                 <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="buttonTapped:" destination="s5d-Bt-vKm" eventType="touchUpInside" id="3ME-WU-v2r"/>
+                                                <action selector="followBtn_click:" destination="s5d-Bt-vKm" eventType="touchUpInside" id="80S-BM-p0E"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGK-GF-70j">
@@ -1003,39 +1003,95 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="plb-U6-Ei1">
-                                <rect key="frame" x="93" y="79" width="215" height="70"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pbg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="1Cn-5W-n3M">
-                                <rect key="frame" x="15" y="79" width="70" height="70"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10E-Iw-HNu">
-                                <rect key="frame" x="15" y="147" width="70" height="20"/>
-                                <state key="normal" title="remove"/>
-                                <connections>
-                                    <action selector="removeBtn_clicked:" destination="6I9-5P-rce" eventType="touchUpInside" id="xnW-hT-rAH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLe-Ed-uZb">
-                                <rect key="frame" x="-5" y="299" width="320" height="40"/>
-                                <color key="backgroundColor" red="0.66230366490000003" green="0.09621391379321316" blue="0.51882503387241652" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="PUBLISH">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="publishBtn_clicked:" destination="6I9-5P-rce" eventType="touchUpInside" id="BF2-re-8Ot"/>
-                                </connections>
-                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRg-NN-OJj">
+                                <rect key="frame" x="5" y="64" width="600" height="600"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="plb-U6-Ei1">
+                                        <rect key="frame" x="270" y="21" width="152" height="62"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="pbg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="1Cn-5W-n3M">
+                                        <rect key="frame" x="436" y="29" width="123" height="122"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="1Cn-5W-n3M" secondAttribute="height" multiplier="1:1" id="QOj-C5-sle"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhj-5m-F6M">
+                                        <rect key="frame" x="88" y="78" width="73" height="23"/>
+                                        <state key="normal" title="Stickers"/>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="What are you posting?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gdO-W0-rn3">
+                                        <rect key="frame" x="32" y="21" width="200" height="49"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLe-Ed-uZb">
+                                        <rect key="frame" x="323" y="190" width="256" height="37"/>
+                                        <color key="backgroundColor" red="0.66230366490000003" green="0.09621391379321316" blue="0.51882503387241652" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="SHARE!">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="publishBtn_clicked:" destination="6I9-5P-rce" eventType="touchUpInside" id="BF2-re-8Ot"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unO-Qx-8Rs">
+                                        <rect key="frame" x="70" y="106" width="125" height="35"/>
+                                        <state key="normal" title="Annoucement"/>
+                                    </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sqa-82-E8Y">
+                                        <rect key="frame" x="122" y="235" width="470" height="228"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="228" id="H82-3V-xQa"/>
+                                        </constraints>
+                                    </tableView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Perfect for sharing new releases, reopenings, giveaways and sales!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cDA-xW-7Wh">
+                                        <rect key="frame" x="15" y="155" width="349" height="48"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10E-Iw-HNu">
+                                        <rect key="frame" x="465" y="159" width="51" height="23"/>
+                                        <state key="normal" title="remove"/>
+                                        <connections>
+                                            <action selector="removeBtn_clicked:" destination="6I9-5P-rce" eventType="touchUpInside" id="xnW-hT-rAH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.66230366490000003" green="0.096213913789999994" blue="0.51882503390000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="unO-Qx-8Rs" firstAttribute="top" secondItem="Lhj-5m-F6M" secondAttribute="bottom" constant="5" id="3gi-Ys-iTj"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Cn-5W-n3M" secondAttribute="trailing" constant="41" id="4Qk-AZ-dHh"/>
+                                    <constraint firstItem="10E-Iw-HNu" firstAttribute="top" secondItem="1Cn-5W-n3M" secondAttribute="bottom" constant="8" id="540-Gy-LNI"/>
+                                    <constraint firstItem="cDA-xW-7Wh" firstAttribute="leading" secondItem="KRg-NN-OJj" secondAttribute="leading" constant="15" id="7Sw-ts-G1d"/>
+                                    <constraint firstItem="gdO-W0-rn3" firstAttribute="leading" secondItem="KRg-NN-OJj" secondAttribute="leading" constant="32" id="8rS-YP-S6e"/>
+                                    <constraint firstItem="1Cn-5W-n3M" firstAttribute="top" secondItem="KRg-NN-OJj" secondAttribute="top" constant="29" id="BMT-Uz-z4p"/>
+                                    <constraint firstItem="Sqa-82-E8Y" firstAttribute="width" secondItem="KRg-NN-OJj" secondAttribute="width" id="FQe-G6-89j"/>
+                                    <constraint firstItem="gdO-W0-rn3" firstAttribute="top" secondItem="KRg-NN-OJj" secondAttribute="top" constant="21" id="Rji-XL-FKc"/>
+                                    <constraint firstItem="Lhj-5m-F6M" firstAttribute="top" secondItem="gdO-W0-rn3" secondAttribute="bottom" constant="8" id="nAo-SV-dSw"/>
+                                    <constraint firstItem="cDA-xW-7Wh" firstAttribute="top" secondItem="unO-Qx-8Rs" secondAttribute="bottom" constant="14" id="wK2-WL-S8v"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KRg-NN-OJj" firstAttribute="leading" secondItem="QKV-rL-8dM" secondAttribute="leading" id="02u-iH-X9L"/>
+                            <constraint firstItem="KRg-NN-OJj" firstAttribute="width" secondItem="QKV-rL-8dM" secondAttribute="width" id="Nra-hb-15s"/>
+                            <constraint firstItem="KRg-NN-OJj" firstAttribute="top" secondItem="lGT-xV-hgs" secondAttribute="bottom" id="Yu6-We-g4C"/>
+                            <constraint firstItem="KRg-NN-OJj" firstAttribute="height" secondItem="QKV-rL-8dM" secondAttribute="height" id="gX8-30-HoQ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dCE-WY-fbK"/>
                     <connections>
+                        <outlet property="filterViewHeightConstraints" destination="H82-3V-xQa" id="haG-PK-AOg"/>
                         <outlet property="picImg" destination="1Cn-5W-n3M" id="Dfb-cQ-t28"/>
+                        <outlet property="postStickersTable" destination="Sqa-82-E8Y" id="Oog-x5-lXO"/>
                         <outlet property="publishBtn" destination="NLe-Ed-uZb" id="1Ku-51-mvy"/>
                         <outlet property="removeBtn" destination="10E-Iw-HNu" id="v7n-B3-RFB"/>
                         <outlet property="titleTxt" destination="plb-U6-Ei1" id="Lc5-94-HgI"/>
@@ -1043,7 +1099,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8QJ-iy-XF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3986.25" y="1133.450704225352"/>
+            <point key="canvasLocation" x="3932" y="1133"/>
         </scene>
         <!--TabbarVC-->
         <scene sceneID="INP-Ow-5HD">
@@ -2346,7 +2402,7 @@
         <scene sceneID="Sht-fz-Vz5">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="icj-aH-iZ4" customClass="navVC" customModule="StickerSpread" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="home1" id="dUO-My-6kv"/>
+                    <tabBarItem key="tabBarItem" tag="5" title="home1" id="dUO-My-6kv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AmV-1k-jaD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -8,40 +8,19 @@
 
 import UIKit
 //import Parse
+import Firebase
 
-protocol CustomCellDelegate {
-    func cellButtonTapped(cell: followersCell)
-}
+
 
 class followersCell: UITableViewCell {
 
-    var delegate: CustomCellDelegate?
-    
-    
-//    @IBAction func buttonTapped(sender: AnyObject) {
-//        delegate?.cellButtonTapped(self)
-//    }
-    
-  
-    
-    
-    
-    //var delegate: CustomCellDelegate?
-    var tapped: ((followersCell) -> Void)?
-    
-//    @IBAction func buttonTapped(sender: AnyObject) {
-//        tapped?(self)
-//    }
-    
-    
-    
     @IBOutlet weak var avaImg: UIImageView!
     
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var followBtn: UIButton!
 
     
-    
+    var username = String()
     
     
     // default func
@@ -57,59 +36,47 @@ class followersCell: UITableViewCell {
         followBtn.layer.cornerRadius = followBtn.frame.size.width / 20
         
         // round ava
-        avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
+        avaImg.layer.cornerRadius = 4.0
         avaImg.clipsToBounds = true
+        avaImg.layer.borderColor = UIColor.whiteColor().CGColor
+        avaImg.layer.borderWidth = 0.5
+        
+
     }
 
     
    
     
-//    @IBAction func followBtn_click(sender: AnyObject) {
-//       // let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
-//        
-//        let title = followBtn.titleForState(.Normal)
-//        
-//        // to follow
-//        if title == "FOLLOW" {
-//            let object = PFObject(className: "follow")
-//            object["follower"] = PFUser.currentUser()?.username
-//            object["following"] = self.usernameArray[indexPath.row] //usernameLbl.text
-//            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-//                if success {
-//                    self.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
-//                    self.followBtn.backgroundColor = .greenColor()
-//                } else {
-//                    print(error?.localizedDescription)
-//                }
-//            })
-//            
-//            // unfollow
-//        } else {
-//            let query = PFQuery(className: "follow")
-//            query.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-//            query.whereKey("following", equalTo: usernameLbl.text!)
-//            query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    
-//                    for object in objects! {
-//                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-//                            if success {
-//                                self.followBtn.setTitle("FOLLOW", forState: UIControlState.Normal)
-//                                self.followBtn.backgroundColor = .lightGrayColor()
-//                            } else {
-//                                print(error?.localizedDescription)
-//                            }
-//                        })
-//                    }
-//                    
-//                } else {
-//                    print(error?.localizedDescription)
-//                }
-//            })
-//            
-//        }
-//        
-//    }
+    @IBAction func followBtn_click(sender: AnyObject) {
+       // let indexPath = self.tableView.indexPathForRowAtPoint(cell.center)!
+        
+        let title = followBtn.titleForState(.Normal)
+        
+        // to follow
+        if title == "FOLLOW" {
+            
+            let date = NSDate()
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+            let dateString = dateFormatter.stringFromDate(date)
+            
+            
+            self.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
+            self.followBtn.backgroundColor = .greenColor()
+            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(username).setValue(["date": dateString])
+            firebase.child("Followers").child(username).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(["date": dateString])
+
+            
+            // unfollow
+        } else {
+            
+            self.followBtn.setTitle("FOLLOW", forState: UIControlState.Normal)
+            self.followBtn.backgroundColor = .lightGrayColor()
+            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(username).removeValue()
+            firebase.child("Followers").child(username).child((FIRAuth.auth()?.currentUser!.uid)!).removeValue()
+            
+        }
+    }
     
     
 

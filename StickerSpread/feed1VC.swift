@@ -7,27 +7,39 @@
 //
 
 import UIKit
-import Parse
+//import Parse
 import Firebase
 
 
 func getLikeState(string: String , Btn :UIButton){
-    firebase.child("Likes").child(string).child((FIRAuth.auth()?.currentUser!.uid)!).observeEventType(.Value, withBlock: { snapshot in
-        print(snapshot.value)
+
+    firebase.child("Likes").child(string).child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEventOfType(.Value, withBlock: { snapshot in//observeEventType(.Value, withBlock: { snapshot in
+        //print(snapshot.value)
         if snapshot.exists() {
+
             Btn.setTitle("like", forState: .Normal)
             Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
         } else {
+
+            var exists = false
             Btn.setTitle("unlike", forState: .Normal)
             Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
         }
     })
     
+//    if exists {
+//        Btn.setTitle("like", forState: .Normal)
+//        Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
+//    }else {
+//        Btn.setTitle("unlike", forState: .Normal)
+//        Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
+//    }
+    
     
 }
 
 func getLikeCount(string: String , Lbl : UILabel){
-    firebase.child("Likes").child(string).observeEventType(.Value, withBlock: { snapshot in
+    firebase.child("Likes").child(string).observeSingleEventOfType(.Value, withBlock: { snapshot in
         if snapshot.exists() {
             
             Lbl.text =  "\(snapshot.childrenCount)"
@@ -71,7 +83,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //var avaArray = [PFFile]()
     //var avaArrayF = [UIImage]()
     var avaArray = [UIImage]()
-    var postpicArraySearch = [PFFile]()
+    //var postpicArraySearch = [PFFile]()
     var nameArray = [String]()
     var nameArraySearch = [String]()
     var dateArray = [NSDate?]()
@@ -79,7 +91,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //var picArray = [PFFile]()
     var picArray = [UIImage]()
     var picArrayURL = [String]()
-    var picArraySearch = [PFFile]()
+   //var picArraySearch = [PFFile]()
     var uuidArraySearch = [String]()
     var titleArray = [String]()
     var titleArraySearch = [String]()
@@ -112,7 +124,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     // tableView arrays to hold information from server
     var usernameArraySearch = [String]()
-    var avaArraySearch = [PFFile]()
+    //var avaArraySearch = [PFFile]()
     
     
     var shouldShowSearchResults = false
@@ -291,11 +303,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         print(id)
                 if id == (FIRAuth.auth()?.currentUser!.uid)! {
                     modeSelf = true
-                    
-                    
                 }
                     
-                    let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC1") as! homeVC1
+                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC1") as! homeVC1
                 home.userIdToDisplay = id
                 home.goHome = modeSelf
                 self.navigationController?.pushViewController(home, animated: true)
@@ -446,7 +456,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     func loadCellDescriptors() {
-        if let path = NSBundle.mainBundle().pathForResource("CellDescriptor", ofType: "plist") {
+        if let path = NSBundle.mainBundle().pathForResource("FilterCellDescriptor", ofType: "plist") {
             cellDescriptors = NSMutableArray(contentsOfFile: path)
             getIndicesOfVisibleRows()
             
@@ -1197,29 +1207,29 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             // define cell
             if shouldShowSearchResults{
                 
-                
-                // connect objects with our information from arrays
-                //objc_sync_enter(self.nameArray)
-                cell.usernameBtn.setTitle(nameArraySearch[indexPath.row], forState: UIControlState.Normal)
-                cell.usernameBtn.sizeToFit()
-                //objc_sync_exit(self.nameArray)
-                cell.uuidLbl.text = self.uuidArraySearch[indexPath.row]
-                cell.titleLbl.text = self.titleArraySearch[indexPath.row]
-                cell.titleLbl.sizeToFit()
-                cell.usernameHidden.setTitle(usernameArraySearch[indexPath.row], forState: UIControlState.Normal)
-                
-                // place profile picture
-                avaArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-                    cell.avaImg.image = UIImage(data: data!)
-                }
-                
-                // place post picture
-                picArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-                    cell.picImg.image = UIImage(data: data!)
-                }
-                
-                // calculate post date
-                let from = dateArraySearch[indexPath.row]
+//                
+//                // connect objects with our information from arrays
+//                //objc_sync_enter(self.nameArray)
+//                cell.usernameBtn.setTitle(nameArraySearch[indexPath.row], forState: UIControlState.Normal)
+//                cell.usernameBtn.sizeToFit()
+//                //objc_sync_exit(self.nameArray)
+//                cell.uuidLbl.text = self.uuidArraySearch[indexPath.row]
+//                cell.titleLbl.text = self.titleArraySearch[indexPath.row]
+//                cell.titleLbl.sizeToFit()
+//                cell.usernameHidden.setTitle(usernameArraySearch[indexPath.row], forState: UIControlState.Normal)
+//                
+//                // place profile picture
+//                avaArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+//                    cell.avaImg.image = UIImage(data: data!)
+//                }
+//                
+//                // place post picture
+//                picArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+//                    cell.picImg.image = UIImage(data: data!)
+//                }
+//                
+//                // calculate post date
+//                let from = dateArraySearch[indexPath.row]
             } else {
                 let u = indexPath.row
                 cell.usernameBtn.setTitle(nameArray[indexPath.row], forState: UIControlState.Normal)
@@ -1363,7 +1373,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         
         if cell.usernameHidden.titleLabel?.text == (FIRAuth.auth()?.currentUser!.uid)! {
-            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC1
             self.navigationController?.pushViewController(home, animated: true)
         } else {
 //            guestname.append(cell.usernameHidden.titleLabel!.text!)
@@ -1377,122 +1387,122 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
     }
     
-    @IBAction func moreBtn_click(sender: AnyObject) {
-        
-        // call index of button
-        let i = sender.layer.valueForKey("index") as! NSIndexPath
-        
-        // call cell to call further cell date
-        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
-        
-        
-        // DELET ACTION
-        let delete = UIAlertAction(title: "Delete", style: .Default) { (UIAlertAction) -> Void in
-            
-            // STEP 1. Delete row from tableView
-            self.usernameArray.removeAtIndex(i.row)
-            self.avaArray.removeAtIndex(i.row)
-            self.dateArray.removeAtIndex(i.row)
-            self.picArray.removeAtIndex(i.row)
-            self.titleArray.removeAtIndex(i.row)
-            self.uuidArray.removeAtIndex(i.row)
-            
-            // STEP 2. Delete post from server
-            let postQuery = PFQuery(className: "posts")
-            postQuery.whereKey("uuid", equalTo: cell.uuidLbl.text!)
-            postQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                            if success {
-                                
-                                // send notification to rootViewController to update shown posts
-                                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
-                                
-                                // push back
-                                self.navigationController?.popViewControllerAnimated(true)
-                            } else {
-                                print(error!.localizedDescription)
-                            }
-                        })
-                    }
-                } else {
-                    print(error?.localizedDescription)
-                }
-            })
-            
-            // STEP 2. Delete likes of post from server
-            let likeQuery = PFQuery(className: "likes")
-            likeQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-            likeQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteEventually()
-                    }
-                }
-            })
-            
-            // STEP 3. Delete comments of post from server
-            let commentQuery = PFQuery(className: "comments")
-            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteEventually()
-                    }
-                }
-            })
-            
-            // STEP 4. Delete hashtags of post from server
-            let hashtagQuery = PFQuery(className: "hashtags")
-            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteEventually()
-                    }
-                }
-            })
-        }
-        
-        
-        // COMPLAIN ACTION
-        let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in
-            
-            // send complain to server
-            let complainObj = PFObject(className: "complain")
-            complainObj["by"] = PFUser.currentUser()?.username
-            complainObj["to"] = cell.uuidLbl.text
-            complainObj["owner"] = cell.usernameBtn.titleLabel?.text
-            complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                if success {
-                    self.alert("Complain has been made successfully", message: "Thank You! We will consider your complain")
-                } else {
-                    self.alert("ERROR", message: error!.localizedDescription)
-                }
-            })
-        }
-        
-        // CANCEL ACTION
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        
-        // create menu controller
-        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .ActionSheet)
-        
-        
-        // if post belongs to user, he can delete post, else he can't
-        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
-            menu.addAction(delete)
-            menu.addAction(cancel)
-        } else {
-            menu.addAction(complain)
-            menu.addAction(cancel)
-        }
-        
-        // show menu
-        self.presentViewController(menu, animated: true, completion: nil)
-    }
+//    @IBAction func moreBtn_click(sender: AnyObject) {
+//        
+//        // call index of button
+//        let i = sender.layer.valueForKey("index") as! NSIndexPath
+//        
+//        // call cell to call further cell date
+//        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+//        
+//        
+//        // DELET ACTION
+//        let delete = UIAlertAction(title: "Delete", style: .Default) { (UIAlertAction) -> Void in
+//            
+//            // STEP 1. Delete row from tableView
+//            self.usernameArray.removeAtIndex(i.row)
+//            self.avaArray.removeAtIndex(i.row)
+//            self.dateArray.removeAtIndex(i.row)
+//            self.picArray.removeAtIndex(i.row)
+//            self.titleArray.removeAtIndex(i.row)
+//            self.uuidArray.removeAtIndex(i.row)
+//            
+//            // STEP 2. Delete post from server
+//            let postQuery = PFQuery(className: "posts")
+//            postQuery.whereKey("uuid", equalTo: cell.uuidLbl.text!)
+//            postQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                            if success {
+//                                
+//                                // send notification to rootViewController to update shown posts
+//                                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
+//                                
+//                                // push back
+//                                self.navigationController?.popViewControllerAnimated(true)
+//                            } else {
+//                                print(error!.localizedDescription)
+//                            }
+//                        })
+//                    }
+//                } else {
+//                    print(error?.localizedDescription)
+//                }
+//            })
+//            
+//            // STEP 2. Delete likes of post from server
+//            let likeQuery = PFQuery(className: "likes")
+//            likeQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+//            likeQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteEventually()
+//                    }
+//                }
+//            })
+//            
+//            // STEP 3. Delete comments of post from server
+//            let commentQuery = PFQuery(className: "comments")
+//            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+//            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteEventually()
+//                    }
+//                }
+//            })
+//            
+//            // STEP 4. Delete hashtags of post from server
+//            let hashtagQuery = PFQuery(className: "hashtags")
+//            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+//            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteEventually()
+//                    }
+//                }
+//            })
+//        }
+//        
+//        
+//        // COMPLAIN ACTION
+//        let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in
+//            
+//            // send complain to server
+//            let complainObj = PFObject(className: "complain")
+//            complainObj["by"] = PFUser.currentUser()?.username
+//            complainObj["to"] = cell.uuidLbl.text
+//            complainObj["owner"] = cell.usernameBtn.titleLabel?.text
+//            complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                if success {
+//                    self.alert("Complain has been made successfully", message: "Thank You! We will consider your complain")
+//                } else {
+//                    self.alert("ERROR", message: error!.localizedDescription)
+//                }
+//            })
+//        }
+//        
+//        // CANCEL ACTION
+//        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+//        
+//        
+//        // create menu controller
+//        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .ActionSheet)
+//        
+//        
+//        // if post belongs to user, he can delete post, else he can't
+//        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+//            menu.addAction(delete)
+//            menu.addAction(cancel)
+//        } else {
+//            menu.addAction(complain)
+//            menu.addAction(cancel)
+//        }
+//        
+//        // show menu
+//        self.presentViewController(menu, animated: true, completion: nil)
+//    }
     
     // alert action
     func alert (title: String, message : String) {
@@ -1599,47 +1609,47 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         // cell.uuid.hidden = true
         
         if shouldShowSearchResults {
-            cell.segueDelegate = self
-            //print(indexPath.row)
-            cell.uuidLbl.text = self.uuidArraySearch[indexPath.row]
-            
-            // manipulate like button depending on did user like it or not
-            let didLike = PFQuery(className: "likes")
-            didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-            didLike.whereKey("to", equalTo: uuidArraySearch[indexPath.row])
-            didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-                // if no any likes are found, else found likes
-                if count == 0 {
-                    cell.likeBtn.setTitle("unlike", forState: .Normal)
-                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
-                } else {
-                    cell.likeBtn.setTitle("like", forState: .Normal)
-                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-                }
-            }
-            
-            let countLikes = PFQuery(className: "likes")
-            countLikes.whereKey("to", equalTo: uuidArraySearch[indexPath.row])
-            countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-                cell.likeLbl.text = "\(count)"
-            }
-            
-            //cell.likeLbl.font.fontWithSize(13)
-            //cell.likeButton.layer.setValue(indexPath, forKey: "index")
-            //cell.nameLabel.text = "Two Little Bees"
-            cell.titleLbl.text = "Two Little Bees" //self.titleArray[indexPath.row]
-            //cell.titleLbl.sizeToFit()
-            //cell.titleLbl.font.fontWithSize(13)
-            //cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-35-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
-            //cell.likeButton.addTarget(self, action: "likeTouchedColl:", forControlEvents:.TouchUpInside)
-            
-            
-            // get loaded images from array
-            picArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-                if error == nil {
-                    cell.picImg1.image = UIImage(data: data!)
-                }
-            }
+//            cell.segueDelegate = self
+//            //print(indexPath.row)
+//            cell.uuidLbl.text = self.uuidArraySearch[indexPath.row]
+//            
+//            // manipulate like button depending on did user like it or not
+//            let didLike = PFQuery(className: "likes")
+//            didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+//            didLike.whereKey("to", equalTo: uuidArraySearch[indexPath.row])
+//            didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+//                // if no any likes are found, else found likes
+//                if count == 0 {
+//                    cell.likeBtn.setTitle("unlike", forState: .Normal)
+//                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+//                } else {
+//                    cell.likeBtn.setTitle("like", forState: .Normal)
+//                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+//                }
+//            }
+//            
+//            let countLikes = PFQuery(className: "likes")
+//            countLikes.whereKey("to", equalTo: uuidArraySearch[indexPath.row])
+//            countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+//                cell.likeLbl.text = "\(count)"
+//            }
+//            
+//            //cell.likeLbl.font.fontWithSize(13)
+//            //cell.likeButton.layer.setValue(indexPath, forKey: "index")
+//            //cell.nameLabel.text = "Two Little Bees"
+//            cell.titleLbl.text = "Two Little Bees" //self.titleArray[indexPath.row]
+//            //cell.titleLbl.sizeToFit()
+//            //cell.titleLbl.font.fontWithSize(13)
+//            //cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-35-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
+//            //cell.likeButton.addTarget(self, action: "likeTouchedColl:", forControlEvents:.TouchUpInside)
+//            
+//            
+//            // get loaded images from array
+//            picArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+//                if error == nil {
+//                    cell.picImg1.image = UIImage(data: data!)
+//                }
+//            }
             
         } else {
             cell.segueDelegate = self

@@ -21,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     let APP_ID = "BADDD42C-3E07-A223-FF5F-20C0E7934700"
     let SECRET_KEY = "601848B1-12F3-7D05-FF31-770C359B0800"
     let VERSION_NUM = "v1"
-    
-    //var backendless = Backendless.sharedInstance()
 
     var window: UIWindow?
     

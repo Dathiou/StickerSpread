@@ -100,10 +100,7 @@ class postVC: UITableViewController {
                     
                     self.titleArray.append(snapshot.value!.objectForKey("title") as! String)
                     self.uuidArray.append(snapshot.key as String!)
-                    
-                    
-                    
-                    
+
                     firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot1 in
                         
                         objc_sync_enter(self.nameArray)
@@ -339,7 +336,7 @@ class postVC: UITableViewController {
         
         
         if cell.usernameHidden.titleLabel?.text == (FIRAuth.auth()?.currentUser!.uid)!{
-            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC1
             self.navigationController?.pushViewController(home, animated: true)
         } else {
 //            guestname.append(cell.usernameHidden.titleLabel!.text!)

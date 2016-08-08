@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/AppDelegate.swift"
-            timestampString = "487459055.571026"
+            timestampString = "491005695.720842"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -714,11 +714,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/postVC.swift"
-            timestampString = "489472524.365059"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525">
+            startingLineNumber = "522"
+            endingLineNumber = "522">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -760,11 +760,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2011"
-            endingLineNumber = "2011"
+            startingLineNumber = "2021"
+            endingLineNumber = "2021"
             landmarkName = "tableViewLaunch()"
             landmarkType = "5">
          </BreakpointContent>
@@ -776,11 +776,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "704"
-            endingLineNumber = "704"
+            startingLineNumber = "714"
+            endingLineNumber = "714"
             landmarkName = "searchBarCancelButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -792,11 +792,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "659"
-            endingLineNumber = "659"
+            startingLineNumber = "669"
+            endingLineNumber = "669"
             landmarkName = "searchBarTextDidBeginEditing(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -808,11 +808,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1584"
-            endingLineNumber = "1584"
+            startingLineNumber = "1594"
+            endingLineNumber = "1594"
             landmarkName = "feed1VC"
             landmarkType = "3">
          </BreakpointContent>
@@ -824,11 +824,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1569"
-            endingLineNumber = "1569"
+            startingLineNumber = "1579"
+            endingLineNumber = "1579"
             landmarkName = "feed1VC"
             landmarkType = "3">
          </BreakpointContent>
@@ -840,11 +840,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/testsearchcell.swift"
-            timestampString = "490066288.008394"
+            timestampString = "490978408.283526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "awakeFromNib()"
             landmarkType = "5">
          </BreakpointContent>
@@ -856,11 +856,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "652"
-            endingLineNumber = "652"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
             landmarkName = "searchBarTextDidBeginEditing(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -872,27 +872,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1641"
-            endingLineNumber = "1641"
-            landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "803"
-            endingLineNumber = "803"
+            startingLineNumber = "813"
+            endingLineNumber = "813"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -904,11 +888,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "972"
-            endingLineNumber = "972"
+            startingLineNumber = "982"
+            endingLineNumber = "982"
             landmarkName = "loadPosts()"
             landmarkType = "5">
             <Locations>
@@ -952,11 +936,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "806"
-            endingLineNumber = "806"
+            startingLineNumber = "816"
+            endingLineNumber = "816"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -968,11 +952,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "973"
-            endingLineNumber = "973"
+            startingLineNumber = "983"
+            endingLineNumber = "983"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -984,39 +968,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "481"
-            endingLineNumber = "481"
-            landmarkName = "switchView()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "483"
-            endingLineNumber = "483"
-            landmarkName = "switchView()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "491"
@@ -1032,23 +984,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
-            landmarkName = "switchView()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "493"
@@ -1064,11 +1000,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1197"
-            endingLineNumber = "1197"
+            startingLineNumber = "501"
+            endingLineNumber = "501"
+            landmarkName = "switchView()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/feed1VC.swift"
+            timestampString = "491004799.036295"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
+            landmarkName = "switchView()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/feed1VC.swift"
+            timestampString = "491004799.036295"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
+            landmarkName = "switchView()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/feed1VC.swift"
+            timestampString = "491004799.036295"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1207"
+            endingLineNumber = "1207"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1080,11 +1064,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1224"
-            endingLineNumber = "1224"
+            startingLineNumber = "1234"
+            endingLineNumber = "1234"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1096,27 +1080,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1202"
-            endingLineNumber = "1202"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1133"
-            endingLineNumber = "1133"
+            startingLineNumber = "1143"
+            endingLineNumber = "1143"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1128,11 +1096,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1137"
-            endingLineNumber = "1137"
+            startingLineNumber = "1147"
+            endingLineNumber = "1147"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1144,11 +1112,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1599"
-            endingLineNumber = "1599"
+            startingLineNumber = "1609"
+            endingLineNumber = "1609"
             landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1160,11 +1128,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1559"
-            endingLineNumber = "1559"
+            startingLineNumber = "1569"
+            endingLineNumber = "1569"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1176,11 +1144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1555"
-            endingLineNumber = "1555"
+            startingLineNumber = "1565"
+            endingLineNumber = "1565"
             landmarkName = "feed1VC"
             landmarkType = "3">
          </BreakpointContent>
@@ -1192,11 +1160,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "683"
-            endingLineNumber = "683"
+            startingLineNumber = "693"
+            endingLineNumber = "693"
             landmarkName = "searchBarCancelButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1208,11 +1176,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "675"
-            endingLineNumber = "675"
+            startingLineNumber = "685"
+            endingLineNumber = "685"
             landmarkName = "searchBarCancelButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1224,11 +1192,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "462"
-            endingLineNumber = "462"
+            startingLineNumber = "472"
+            endingLineNumber = "472"
             landmarkName = "getIndicesOfVisibleRows()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1240,11 +1208,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
             landmarkName = "filterView()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1256,11 +1224,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "470"
-            endingLineNumber = "470"
+            startingLineNumber = "480"
+            endingLineNumber = "480"
             landmarkName = "getIndicesOfVisibleRows()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1272,11 +1240,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "469"
-            endingLineNumber = "469"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
             landmarkName = "getIndicesOfVisibleRows()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1288,11 +1256,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
+            startingLineNumber = "474"
+            endingLineNumber = "474"
             landmarkName = "getIndicesOfVisibleRows()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1304,11 +1272,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "466"
-            endingLineNumber = "466"
+            startingLineNumber = "476"
+            endingLineNumber = "476"
             landmarkName = "getIndicesOfVisibleRows()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1320,11 +1288,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1128"
-            endingLineNumber = "1128"
+            startingLineNumber = "1138"
+            endingLineNumber = "1138"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1336,11 +1304,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "471"
-            endingLineNumber = "471"
+            startingLineNumber = "481"
+            endingLineNumber = "481"
             landmarkName = "getIndicesOfVisibleRows()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1352,11 +1320,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1161"
-            endingLineNumber = "1161"
+            startingLineNumber = "1171"
+            endingLineNumber = "1171"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1368,11 +1336,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938366.640591"
+            timestampString = "490998094.649683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1400,11 +1368,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
+            startingLineNumber = "464"
+            endingLineNumber = "464"
             landmarkName = "loadCellDescriptors()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1416,11 +1384,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
+            startingLineNumber = "429"
+            endingLineNumber = "429"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1432,11 +1400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "adjustHeightOfTableview()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1448,11 +1416,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "441"
-            endingLineNumber = "441"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
             landmarkName = "adjustHeightOfTableview()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1464,11 +1432,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "adjustHeightOfTableview()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1480,11 +1448,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "436"
-            endingLineNumber = "436"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
             landmarkName = "adjustHeightOfTableview()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1496,11 +1464,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1512,11 +1480,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
+            startingLineNumber = "393"
+            endingLineNumber = "393"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1528,11 +1496,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1160"
-            endingLineNumber = "1160"
+            startingLineNumber = "1170"
+            endingLineNumber = "1170"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1544,11 +1512,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1186"
-            endingLineNumber = "1186"
+            startingLineNumber = "1196"
+            endingLineNumber = "1196"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1560,11 +1528,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1185"
-            endingLineNumber = "1185"
+            startingLineNumber = "1195"
+            endingLineNumber = "1195"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1576,11 +1544,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1178"
-            endingLineNumber = "1178"
+            startingLineNumber = "1188"
+            endingLineNumber = "1188"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1592,11 +1560,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1656,11 +1624,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/testsearchcell.swift"
-            timestampString = "490066288.008394"
+            timestampString = "490978408.283526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
             landmarkName = "selectTap()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1672,11 +1640,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/testsearchcell.swift"
-            timestampString = "490066288.008394"
+            timestampString = "490978408.283526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
             landmarkName = "selectTap()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1688,11 +1656,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "goToPost(_:)"
             landmarkType = "5">
             <Locations>
@@ -1736,11 +1704,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "goToPost(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1752,11 +1720,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1189"
-            endingLineNumber = "1189"
+            startingLineNumber = "1199"
+            endingLineNumber = "1199"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1848,11 +1816,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/AppDelegate.swift"
-            timestampString = "488565555.316677"
+            timestampString = "491005695.720842"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "login()"
             landmarkType = "5">
             <Locations>
@@ -1912,11 +1880,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC.swift"
-            timestampString = "490118989.691051"
+            timestampString = "492290929.882183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "publishBtn_clicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1928,11 +1896,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC.swift"
-            timestampString = "490118989.691051"
+            timestampString = "492290929.882183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "publishBtn_clicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1944,11 +1912,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC.swift"
-            timestampString = "490118989.691051"
+            timestampString = "492290929.882183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "publishBtn_clicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1960,11 +1928,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC.swift"
-            timestampString = "490118989.691051"
+            timestampString = "492290929.882183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "publishBtn_clicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2088,11 +2056,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC.swift"
-            timestampString = "490118989.691051"
+            timestampString = "492290929.882183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "publishBtn_clicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2104,11 +2072,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "810"
-            endingLineNumber = "810"
+            startingLineNumber = "820"
+            endingLineNumber = "820"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2136,11 +2104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "822"
-            endingLineNumber = "822"
+            startingLineNumber = "832"
+            endingLineNumber = "832"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2152,11 +2120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "808"
-            endingLineNumber = "808"
+            startingLineNumber = "818"
+            endingLineNumber = "818"
             landmarkName = "loadPosts()"
             landmarkType = "5">
             <Locations>
@@ -2200,11 +2168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "898"
-            endingLineNumber = "898"
+            startingLineNumber = "908"
+            endingLineNumber = "908"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2216,11 +2184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "897"
-            endingLineNumber = "897"
+            startingLineNumber = "907"
+            endingLineNumber = "907"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2232,11 +2200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938366.640591"
+            timestampString = "490998094.649683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2248,11 +2216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "899"
-            endingLineNumber = "899"
+            startingLineNumber = "909"
+            endingLineNumber = "909"
             landmarkName = "loadPosts()"
             landmarkType = "5">
             <Locations>
@@ -2440,11 +2408,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/postVC.swift"
-            timestampString = "489472524.365059"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
             <Locations>
@@ -2488,11 +2456,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/postVC.swift"
-            timestampString = "489472524.365059"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2504,11 +2472,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC.swift"
-            timestampString = "490118989.691051"
+            timestampString = "492290929.882183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "publishBtn_clicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2520,11 +2488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938366.640591"
+            timestampString = "490998094.649683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2536,11 +2504,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938366.640591"
+            timestampString = "490998094.649683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2552,11 +2520,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "903"
-            endingLineNumber = "903"
+            startingLineNumber = "913"
+            endingLineNumber = "913"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2568,11 +2536,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1260"
-            endingLineNumber = "1260"
+            startingLineNumber = "1270"
+            endingLineNumber = "1270"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2792,11 +2760,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1329"
-            endingLineNumber = "1329"
+            startingLineNumber = "1339"
+            endingLineNumber = "1339"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2808,11 +2776,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "488737539.59626"
+            timestampString = "490980882.971672"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
             landmarkName = "getLikeState(_:Btn:)"
             landmarkType = "7">
             <Locations>
@@ -2820,31 +2788,31 @@
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.likeGlobalAction (Swift.String, Btn : __ObjC.UIButton) -&gt; ()"
+                  symbolName = "StickerSpread.getLikeState (Swift.String, Btn : __ObjC.UIButton, str : Swift.String) -&gt; ()"
                   moduleName = "StickerSpread"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/feed1VC.swift"
-                  timestampString = "488737623.809067"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/feed1VC.swift"
+                  timestampString = "490981103.801892"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "42">
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "43">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.(likeGlobalAction (Swift.String, Btn : __ObjC.UIButton) -&gt; ()).(closure #1)"
+                  symbolName = "StickerSpread.(getLikeState (Swift.String, Btn : __ObjC.UIButton, str : Swift.String) -&gt; ()).(closure #1)"
                   moduleName = "StickerSpread"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/feed1VC.swift"
-                  timestampString = "488737623.809231"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/feed1VC.swift"
+                  timestampString = "490981103.802035"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "35">
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "31">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -2856,11 +2824,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "895"
-            endingLineNumber = "895"
+            startingLineNumber = "905"
+            endingLineNumber = "905"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2872,11 +2840,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1228"
-            endingLineNumber = "1228"
+            startingLineNumber = "1238"
+            endingLineNumber = "1238"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2904,11 +2872,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2058"
-            endingLineNumber = "2058">
+            startingLineNumber = "2068"
+            endingLineNumber = "2068">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2950,11 +2918,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938366.640591"
+            timestampString = "490998094.649683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2966,11 +2934,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1682"
-            endingLineNumber = "1682"
+            startingLineNumber = "1692"
+            endingLineNumber = "1692"
             landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2982,11 +2950,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "967"
-            endingLineNumber = "967"
+            startingLineNumber = "977"
+            endingLineNumber = "977"
             landmarkName = "loadPosts()"
             landmarkType = "5">
             <Locations>
@@ -3045,11 +3013,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1005"
-            endingLineNumber = "1005"
+            startingLineNumber = "1015"
+            endingLineNumber = "1015"
             landmarkName = "DLImages()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3061,11 +3029,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1712"
-            endingLineNumber = "1712"
+            startingLineNumber = "1722"
+            endingLineNumber = "1722"
             landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3077,11 +3045,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "960"
-            endingLineNumber = "960"
+            startingLineNumber = "970"
+            endingLineNumber = "970"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3093,11 +3061,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "858"
-            endingLineNumber = "858"
+            startingLineNumber = "868"
+            endingLineNumber = "868"
             landmarkName = "loadPosts()"
             landmarkType = "5">
             <Locations>
@@ -3141,11 +3109,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "851"
-            endingLineNumber = "851"
+            startingLineNumber = "861"
+            endingLineNumber = "861"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3157,11 +3125,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "982"
-            endingLineNumber = "982"
+            startingLineNumber = "992"
+            endingLineNumber = "992"
             landmarkName = "DLImages()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3173,11 +3141,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "952"
-            endingLineNumber = "952"
+            startingLineNumber = "962"
+            endingLineNumber = "962"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3189,11 +3157,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490934637.119956"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "853"
-            endingLineNumber = "853"
+            startingLineNumber = "863"
+            endingLineNumber = "863"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3205,11 +3173,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "949"
-            endingLineNumber = "949"
+            startingLineNumber = "959"
+            endingLineNumber = "959"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3221,11 +3189,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "916"
-            endingLineNumber = "916"
+            startingLineNumber = "926"
+            endingLineNumber = "926"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3237,11 +3205,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "920"
-            endingLineNumber = "920"
+            startingLineNumber = "930"
+            endingLineNumber = "930"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3253,11 +3221,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "956"
-            endingLineNumber = "956"
+            startingLineNumber = "966"
+            endingLineNumber = "966"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3269,11 +3237,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/postVC.swift"
-            timestampString = "489472524.365059"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3301,282 +3269,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/postVC.swift"
-            timestampString = "489472524.365059"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490112347.072851"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.loadPosts () -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490055339.690526"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "286"
-                  endingLineNumber = "286"
-                  offsetFromSymbolStart = "733">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.(loadPosts () -&gt; ()).(closure #1)"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490055339.690681"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "286"
-                  endingLineNumber = "286"
-                  offsetFromSymbolStart = "7326">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.(loadPosts () -&gt; ()).(closure #2)"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490055339.69082"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "287"
-                  endingLineNumber = "287"
-                  offsetFromSymbolStart = "19">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490112347.072851"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "349"
-            endingLineNumber = "349"
-            landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
-            landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490112347.072851"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3588,11 +3285,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/testsearchcell.swift"
-            timestampString = "490066288.008394"
+            timestampString = "490978408.283526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "awakeFromNib()"
             landmarkType = "5">
          </BreakpointContent>
@@ -3603,28 +3300,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
-            landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490072823.392225"
+            timestampString = "490998094.649683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
             landmarkName = "getLikeState(_:Btn:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3635,268 +3316,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "414"
-            endingLineNumber = "414"
-            landmarkName = "loadData()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
-            landmarkName = "loadData()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
-            landmarkName = "loadData()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410"
-            landmarkName = "loadData()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490118172.636458"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490118284.148273"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490122093.27611"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.loadPosts () -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490122243.993351"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "221"
-                  endingLineNumber = "221"
-                  offsetFromSymbolStart = "15">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.(loadPosts () -&gt; ()).(closure #1)"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490122243.993497"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "223"
-                  endingLineNumber = "223"
-                  offsetFromSymbolStart = "19">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "loadPosts()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "715"
-            endingLineNumber = "715"
-            landmarkName = "logout(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.logout (Swift.AnyObject) -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490124372.308736"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "713"
-                  endingLineNumber = "713"
-                  offsetFromSymbolStart = "611">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.logout (Swift.AnyObject) -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490124372.308905"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "713"
-                  endingLineNumber = "713"
-                  offsetFromSymbolStart = "1436">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938366.640591"
+            timestampString = "490998094.649683"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "goToProfile(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3955,75 +3380,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC.swift"
-            timestampString = "490934637.119956"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "480"
-            endingLineNumber = "480"
-            landmarkName = "loadData()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.loadData () -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490241617.741594"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "481"
-                  endingLineNumber = "481"
-                  offsetFromSymbolStart = "1120">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.loadData () -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490241617.741733"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "481"
-                  endingLineNumber = "481"
-                  offsetFromSymbolStart = "5150">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.homeVC.(loadData () -&gt; ()).(closure #3)"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadT/StickerSpread/homeVC.swift"
-                  timestampString = "490241617.741872"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "482"
-                  endingLineNumber = "482"
-                  offsetFromSymbolStart = "19">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942519.508287"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4035,11 +3397,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490941684.565164"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4051,11 +3413,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4067,7 +3429,71 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
+            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "251"
@@ -4082,76 +3508,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
-            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
-            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "919"
-            endingLineNumber = "919"
+            startingLineNumber = "929"
+            endingLineNumber = "929"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4163,11 +3525,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "918"
-            endingLineNumber = "918"
+            startingLineNumber = "928"
+            endingLineNumber = "928"
             landmarkName = "loadPosts()"
             landmarkType = "5">
             <Locations>
@@ -4211,11 +3573,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938902.4698"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "968"
-            endingLineNumber = "968"
+            startingLineNumber = "978"
+            endingLineNumber = "978"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4227,11 +3589,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490941684.565164"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "collectionView(_:layout:referenceSizeForHeaderInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4243,11 +3605,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4259,11 +3621,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4275,11 +3637,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490941684.565164"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4291,11 +3653,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490941684.565164"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4307,11 +3669,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490941684.565164"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4339,11 +3701,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4355,11 +3717,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "postsTap()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4371,11 +3733,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490941684.565164"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4387,11 +3749,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "452"
-            endingLineNumber = "452"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4403,11 +3765,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "441"
-            endingLineNumber = "441"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "loadPosts()"
             landmarkType = "5">
             <Locations>
@@ -4451,11 +3813,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4467,11 +3829,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "444"
-            endingLineNumber = "444"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4483,11 +3845,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
             landmarkName = "loadPosts()"
             landmarkType = "5">
          </BreakpointContent>
@@ -4499,11 +3861,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938315.02635"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "goToProfile(_:)"
             landmarkType = "5">
             <Locations>
@@ -4547,11 +3909,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/feed1VC.swift"
-            timestampString = "490938511.463434"
+            timestampString = "491004799.036295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "goToProfile(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4563,11 +3925,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942519.508287"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4657,11 +4019,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/headerView.swift"
-            timestampString = "490940787.268487"
+            timestampString = "490999242.026523"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "followBtn_click(_:)"
             landmarkType = "5">
             <Locations>
@@ -4721,11 +4083,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "317"
-            endingLineNumber = "317"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4737,11 +4099,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490942671.78345"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
             landmarkType = "5">
             <Locations>
@@ -4800,11 +4162,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/homeVC1.swift"
-            timestampString = "490943133.475757"
+            timestampString = "492289137.961282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4816,12 +4178,613 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/testsearchcell.swift"
-            timestampString = "490943145.232383"
+            timestampString = "490978408.283526"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "likeBtn_clicked(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/testsearchcell.swift"
+            timestampString = "490978408.283526"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "likeBtn_clicked(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/testsearchcell.swift"
+            timestampString = "490978617.586595"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "awakeFromNib()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/feed1VC.swift"
+            timestampString = "490980882.971672"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "getLikeState(_:Btn:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/feed1VC.swift"
+            timestampString = "490981103.312904"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "getLikeState(_:Btn:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/testsearchcell.swift"
+            timestampString = "490997739.729934"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "likeBtn_clicked(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/testsearchcell.swift"
+            timestampString = "490980143.314369"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "likeBtn_clicked(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/feed1VC.swift"
+            timestampString = "490981063.159039"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "getLikeState(_:Btn:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.getLikeState (Swift.String, Btn : __ObjC.UIButton, str : Swift.String) -&gt; ()"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/feed1VC.swift"
+                  timestampString = "490981103.806383"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "43">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.(getLikeState (Swift.String, Btn : __ObjC.UIButton, str : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/feed1VC.swift"
+                  timestampString = "490981103.806591"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/followersVC.swift"
+            timestampString = "491005695.720842"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/followersVC.swift"
+            timestampString = "491005695.720842"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/tabbarVC.swift"
+            timestampString = "491009368.417998"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "tabBar(_:didSelectItem:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/tabbarVC.swift"
+            timestampString = "491009371.986351"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "tabbarVC"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "homeVC1"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.storage.getter : __ObjC.FIRStorage"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "492274080.658813"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "35">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.init (collectionViewLayout : __ObjC.UICollectionViewLayout) -&gt; StickerSpread.homeVC1"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "492274080.658953"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; StickerSpread.homeVC1"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "492274080.659095"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "154">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;StickerSpread.homeVC1&gt;"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "492274080.659233"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "96">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/homeVC1.swift"
+            timestampString = "492289137.961282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "homeVC1"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.userIdToDisplay.getter : Swift.String"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "491010056.571467"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "53">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.userIdToDisplay.setter : Swift.String"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "491010056.571724"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "95">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.init (collectionViewLayout : __ObjC.UICollectionViewLayout) -&gt; StickerSpread.homeVC1"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "491010056.571887"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "30">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; StickerSpread.homeVC1"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "491010056.572051"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.homeVC1.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;StickerSpread.homeVC1&gt;"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/homeVC1.swift"
+                  timestampString = "491010056.572211"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "30">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/feed1VC.swift"
+            timestampString = "492288811.077683"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "feed1VC"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.feed1VC.filterViewHeightConstraints.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSLayoutConstraint&gt;"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/feed1VC.swift"
+                  timestampString = "492289142.80467"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.feed1VC.filterViewHeightConstraints.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSLayoutConstraint&gt;"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/feed1VC.swift"
+                  timestampString = "492289142.804869"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "42">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.feed1VC.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; StickerSpread.feed1VC"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/feed1VC.swift"
+                  timestampString = "492289142.805064"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "411">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.feed1VC.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;StickerSpread.feed1VC&gt;"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/studentimac/Desktop/StickerSpreadBackCurrent/StickerSpread/feed1VC.swift"
+                  timestampString = "492289142.805257"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "306">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC.swift"
+            timestampString = "492291338.149639"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
+            landmarkName = "getCellDescriptorForIndexPath(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC.swift"
+            timestampString = "492290929.882183"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC.swift"
+            timestampString = "492290929.882183"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC.swift"
+            timestampString = "492290929.882183"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC.swift"
+            timestampString = "492290929.882183"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "349"
+            endingLineNumber = "349"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC.swift"
+            timestampString = "492291138.762179"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
+            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

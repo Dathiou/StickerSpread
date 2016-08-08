@@ -10,16 +10,23 @@ import UIKit
 import Parse
 import Firebase
 
-class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var picImg: UIImageView!
     
     @IBOutlet weak var titleTxt: UITextView!
     
+    @IBOutlet weak var postStickersTable: UITableView!
     
     @IBOutlet weak var publishBtn: UIButton!
     
     @IBOutlet weak var removeBtn: UIButton!
+    
+    @IBOutlet weak var filterViewHeightConstraints: NSLayoutConstraint!
+    
+    var cellDescriptors: NSMutableArray!
+    
+    var visibleRows = [Int]()
     
     
     // default func
@@ -51,7 +58,31 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         picTap.numberOfTapsRequired = 1
         picImg.userInteractionEnabled = true
         picImg.addGestureRecognizer(picTap)
+        
+        hideTap.cancelsTouchesInView = false
+        picTap.cancelsTouchesInView = false
+        
+        configureTableView()
+        loadCellDescriptors()
     }
+    
+    func configureTableView() {
+        postStickersTable.delegate = self
+        postStickersTable.dataSource = self
+        postStickersTable.tableFooterView = UIView(frame: CGRectZero)
+        postStickersTable.sizeToFit()
+        postStickersTable.superview!.bringSubviewToFront(postStickersTable)
+        postStickersTable.bounces = false
+        
+        postStickersTable.registerNib(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "idCellNormal")
+        postStickersTable.registerNib(UINib(nibName: "childCell", bundle: nil), forCellReuseIdentifier: "idChildCell")
+        postStickersTable.registerNib(UINib(nibName: "filterButtonCell", bundle: nil), forCellReuseIdentifier: "idFilterButtonCell")
+        //        ExpListFilters.registerNib(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "idCellSwitch")
+        //        ExpListFilters.registerNib(UINib(nibName: "ValuePickerCell", bundle: nil), forCellReuseIdentifier: "idCellValuePicker")
+        //        ExpListFilters.registerNib(UINib(nibName: "SliderCell", bundle: nil), forCellReuseIdentifier: "idCellSlider")
+        //postStickersTable.hidden = true
+    }
+    
     
     
     // preload func
@@ -280,6 +311,121 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
 //        })
         
     }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+            print(visibleRows.count)
+            return visibleRows.count
+        }
+    
+    // cell config
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+            let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier(currentCellDescriptor["cellIdentifier"] as! String, forIndexPath: indexPath) as! CustomCell
+            
+            if currentCellDescriptor["cellIdentifier"] as! String == "idCellNormal" {
+                if let primaryTitle = currentCellDescriptor["primaryTitle"] {
+                    //cell.textLabel?.text = primaryTitle as? String
+                }
+                
+                
+                if let secondaryTitle = currentCellDescriptor["secondaryTitle"] {
+                    //cell.detailTextLabel?.text = secondaryTitle as? String
+                    cell.textLabel?.text = secondaryTitle as? String
+                }
+            }
+            else if currentCellDescriptor["cellIdentifier"] as! String == "idChildCell" {
+                //cell.textField.placeholder = currentCellDescriptor["primaryTitle"] as? String
+                cell.TxtCell.text = currentCellDescriptor["primaryTitle"] as? String
+            } else if currentCellDescriptor["cellIdentifier"] as! String == "idFilterButtonCell" {
+                //cell.textField.placeholder = currentCellDescriptor["primaryTitle"] as? String
+                cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width)
+            }
+            
+            
+            //cell.delegate = self
+            
+            
+            return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+       
+            
+            let indexOfTappedRow = visibleRows[indexPath.row]
+            
+            if cellDescriptors[indexOfTappedRow].objectForKey("isExpandable") as! Bool == true {
+                var shouldExpandAndShowSubRows = false
+                if cellDescriptors[indexOfTappedRow].objectForKey("isExpanded") as! Bool == false {
+                    // In this case the cell should expand.
+                    shouldExpandAndShowSubRows = true
+                }
+                
+                cellDescriptors[indexOfTappedRow].setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
+                
+                for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (cellDescriptors[indexOfTappedRow].objectForKey("additionalRows") as! Int)) {
+                    cellDescriptors[i].setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
+                }
+            }
+        getIndicesOfVisibleRows()
+        postStickersTable.reloadData()
+        adjustHeightOfTableview()
+    }
+    
+    
+    func getCellDescriptorForIndexPath(indexPath: NSIndexPath) -> [String: AnyObject] {
+        let indexOfVisibleRow = visibleRows[indexPath.row]
+        let cellDescriptor = cellDescriptors[indexOfVisibleRow] as! [String: AnyObject]
+        return cellDescriptor
+    }
+    
+    func loadCellDescriptors() {
+        if let path = NSBundle.mainBundle().pathForResource("StickersUploadCellDescriptor", ofType: "plist") {
+            cellDescriptors = NSMutableArray(contentsOfFile: path)
+            getIndicesOfVisibleRows()
+            
+            postStickersTable.reloadData()
+            adjustHeightOfTableview()
+            
+        }
+    }
+    
+    func adjustHeightOfTableview(){
+        var height : CGFloat = self.postStickersTable.contentSize.height;
+        let maxHeight : CGFloat = self.postStickersTable.superview!.frame.size.height - self.postStickersTable.frame.origin.y;
+//        if (height > maxHeight){
+//            height = maxHeight;
+//        }
+        //        let frame : CGRect = self.ExpListFilters.frame;
+        //        frame.size.height = height;
+        //        self.ExpListFilters.frame = frame;
+        UIView.animateWithDuration(0.9, animations: {
+            self.filterViewHeightConstraints.constant = height
+            self.postStickersTable.setNeedsUpdateConstraints()
+        })
+    }
+    
+    func getIndicesOfVisibleRows() {
+        visibleRows.removeAll()
+        
+        //for Cells in cellDescriptors {
+        //var visibleRows = [Int]()
+        // let y = (Cells as! [String: AnyObject]).count - 1
+        
+        for row in 0...((cellDescriptors as! [[String: AnyObject]]).count - 1) {
+            
+            
+            if cellDescriptors[row].objectForKey("isVisible") as! Bool == true {
+                visibleRows.append(row)
+                print (cellDescriptors[row])
+            }
+        }
+        
+        
+        //  }
+    }
+    
+
     
 
    //clicked remove button

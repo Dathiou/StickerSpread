@@ -18,7 +18,7 @@ protocol segueToPost{
 
 class testsearchcell: UICollectionViewCell {
     
-    
+    var uuid = String()
     
     //@IBOutlet weak var usernameBtn: UIButton!
     //@IBOutlet weak var dateLbl: UILabel!
@@ -39,6 +39,9 @@ class testsearchcell: UICollectionViewCell {
     var segueDelegate : segueToPost!
     override func awakeFromNib() {
         super.awakeFromNib()
+        //print(uuid)
+        //getLikeState(uuid , Btn: self.likeBtn)
+        //getLikeCount(uuid, Lbl : self.likeLbl)
         
         //cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-2-[v1(20)]-1-[v0]-5-[v2]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": likeLbl,"v1": like,"v2": titleShop]))
         // round ava
@@ -232,8 +235,11 @@ class testsearchcell: UICollectionViewCell {
             firebase.child("Likes").child(uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
             firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuidLbl.text!).setValue(true)
             print("liked")
-            self.likeBtn.setTitle("like", forState: .Normal)
-            self.likeBtn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
+            //self.likeBtn.setTitle("like", forState: .Normal)
+            //self.likeBtn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
+            
+            getLikeState(uuid , Btn: self.likeBtn)
+            getLikeCount(uuid, Lbl : self.likeLbl)
            //// self.likeLbl.text = "\(Int(self.likeLbl.text!)! + 1)"
             
             // send notification if we liked to refresh TableView
@@ -275,8 +281,11 @@ class testsearchcell: UICollectionViewCell {
             firebase.child("Likes").child(uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).removeValue()
             firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuidLbl.text!).removeValue()
             print("disliked")
-            self.likeBtn.setTitle("unlike", forState: .Normal)
-            self.likeBtn.setBackgroundImage(UIImage(named: "unlHeart 1.png"), forState: .Normal)
+            //self.likeBtn.setTitle("unlike", forState: .Normal)
+            //self.likeBtn.setBackgroundImage(UIImage(named: "unlHeart 1.png"), forState: .Normal)
+            
+            getLikeState(uuid , Btn: self.likeBtn)
+            getLikeCount(uuid, Lbl : self.likeLbl)
             
             // send notification if we liked to refresh TableView
           //  NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)

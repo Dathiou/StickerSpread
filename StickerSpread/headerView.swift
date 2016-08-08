@@ -109,10 +109,16 @@ class headerView: UICollectionReusableView{
         // to follow
         if title == "FOLLOW" {
             
+            let date = NSDate()
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+            let dateString = dateFormatter.stringFromDate(date)
+
+            
             self.followButton.setTitle("FOLLOWING", forState: UIControlState.Normal)
             self.followButton.backgroundColor = .greenColor()
-            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(username).setValue(true)
-            firebase.child("Followers").child(username).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
+            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(username).setValue(["date": dateString])
+            firebase.child("Followers").child(username).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(["date": dateString])
 //            let object = PFObject(className: "follow")
 //            object["follower"] = PFUser.currentUser()?.username
 //            object["following"] = guestname.last! //usernameLbl.text

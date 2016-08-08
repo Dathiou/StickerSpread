@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+
+var userfromTabbar = String()
 
 class tabbarVC: UITabBarController {
 
@@ -22,6 +25,16 @@ class tabbarVC: UITabBarController {
         // disable translucent
         self.tabBar.translucent = true
     }
+    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if item.tag == 5 {
+//            var VC2: UIViewController = vcArray.objectAtIndex(1) as UIViewController
+//            var nextVC = VC2 as HomeVC1
+            userfromTabbar = (FIRAuth.auth()?.currentUser!.uid)!
+        }
+    }
+    
+
 
 
 }

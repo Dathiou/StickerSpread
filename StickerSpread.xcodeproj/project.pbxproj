@@ -80,7 +80,7 @@
 		7BC79CC21D139E1900D88B22 /* searchCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC79CC11D139E1800D88B22 /* searchCollCell.swift */; };
 		7BD27B801D1ADF5B00705783 /* moreSearchCropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD27B7F1D1ADF5B00705783 /* moreSearchCropped.png */; };
 		7BD27B821D1B4A0800705783 /* NormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD27B811D1B4A0800705783 /* NormalCell.xib */; };
-		7BD27B841D1B4CB800705783 /* CellDescriptor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD27B831D1B4CB800705783 /* CellDescriptor.plist */; };
+		7BD27B841D1B4CB800705783 /* FilterCellDescriptor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD27B831D1B4CB800705783 /* FilterCellDescriptor.plist */; };
 		7BD27B861D1B56C900705783 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD27B851D1B56C900705783 /* CustomCell.swift */; };
 		7BD27B891D1C254300705783 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD27B881D1C254200705783 /* CheckBox.swift */; };
 		7BD27B8B1D1C87A600705783 /* childCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD27B8A1D1C87A600705783 /* childCell.xib */; };
@@ -119,6 +119,7 @@
 		7BD430101D23665F000A12DC /* Dots.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD4300A1D23665F000A12DC /* Dots.png */; };
 		7BD430141D236B79000A12DC /* Dots_hor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BD430131D236B79000A12DC /* Dots_hor.png */; };
 		7BE82F501D1787C50033AFA4 /* feed1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE82F4F1D1787C40033AFA4 /* feed1VC.swift */; };
+		7BEC95EA1D57B78A0036A644 /* StickersUploadCellDescriptor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BEC95E91D57B78A0036A644 /* StickersUploadCellDescriptor.plist */; };
 		D2143CEB466DC19790229008 /* Pods_StickerSpread.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 354B28545CCBF3EAD29FC81E /* Pods_StickerSpread.framework */; };
 /* End PBXBuildFile section */
 
@@ -200,7 +201,7 @@
 		7BC79CC11D139E1800D88B22 /* searchCollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchCollCell.swift; sourceTree = "<group>"; };
 		7BD27B7F1D1ADF5B00705783 /* moreSearchCropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moreSearchCropped.png; sourceTree = "<group>"; };
 		7BD27B811D1B4A0800705783 /* NormalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NormalCell.xib; sourceTree = "<group>"; };
-		7BD27B831D1B4CB800705783 /* CellDescriptor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CellDescriptor.plist; sourceTree = "<group>"; };
+		7BD27B831D1B4CB800705783 /* FilterCellDescriptor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FilterCellDescriptor.plist; sourceTree = "<group>"; };
 		7BD27B851D1B56C900705783 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		7BD27B881D1C254200705783 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		7BD27B8A1D1C87A600705783 /* childCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = childCell.xib; sourceTree = "<group>"; };
@@ -244,6 +245,7 @@
 		7BD4300A1D23665F000A12DC /* Dots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dots.png; sourceTree = "<group>"; };
 		7BD430131D236B79000A12DC /* Dots_hor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dots_hor.png; sourceTree = "<group>"; };
 		7BE82F4F1D1787C40033AFA4 /* feed1VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = feed1VC.swift; sourceTree = "<group>"; };
+		7BEC95E91D57B78A0036A644 /* StickersUploadCellDescriptor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StickersUploadCellDescriptor.plist; sourceTree = "<group>"; };
 		973C27C7ABB03F210A298124 /* Pods-StickerSpread.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickerSpread.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StickerSpread/Pods-StickerSpread.debug.xcconfig"; sourceTree = "<group>"; };
 		E0EDA0A20F9690ABA5C1D0FA /* Pods-StickerSpread.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickerSpread.release.xcconfig"; path = "Pods/Target Support Files/Pods-StickerSpread/Pods-StickerSpread.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -350,7 +352,8 @@
 				7BB652B81CF7BC7300D1E65E /* Assets.xcassets */,
 				7BB652BA1CF7BC7300D1E65E /* LaunchScreen.storyboard */,
 				7BB652BD1CF7BC7300D1E65E /* Info.plist */,
-				7BD27B831D1B4CB800705783 /* CellDescriptor.plist */,
+				7BD27B831D1B4CB800705783 /* FilterCellDescriptor.plist */,
+				7BEC95E91D57B78A0036A644 /* StickersUploadCellDescriptor.plist */,
 				7BA68CA81CFCB0890077A9CB /* pictureCell.swift */,
 				7B2F67841D40617600C39505 /* Profile */,
 				7B82B9CB1CF93CE000F99468 /* StickerSpread-Bridging-Header.h */,
@@ -406,9 +409,7 @@
 		7BD27B871D1B642000705783 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				7BD27B811D1B4A0800705783 /* NormalCell.xib */,
-				7BD27B8A1D1C87A600705783 /* childCell.xib */,
-				7BD27B8C1D1C970C00705783 /* filterButtonCell.xib */,
+				7BEC95EB1D57BB0F0036A644 /* FilterCell */,
 				7BD27B8E1D1DABC900705783 /* postFeed.xib */,
 				7BD27B901D1DAEC100705783 /* postSelected.xib */,
 				7B3231051D35AD8C00231180 /* collectionCell.xib */,
@@ -465,6 +466,16 @@
 				7BD42FF21D2364ED000A12DC /* Shop.png */,
 			);
 			path = icons;
+			sourceTree = "<group>";
+		};
+		7BEC95EB1D57BB0F0036A644 /* FilterCell */ = {
+			isa = PBXGroup;
+			children = (
+				7BD27B811D1B4A0800705783 /* NormalCell.xib */,
+				7BD27B8A1D1C87A600705783 /* childCell.xib */,
+				7BD27B8C1D1C970C00705783 /* filterButtonCell.xib */,
+			);
+			name = FilterCell;
 			sourceTree = "<group>";
 		};
 		DA2883D77776469B21674533 /* Pods */ = {
@@ -563,7 +574,7 @@
 				7BD42FFA1D2364ED000A12DC /* Flash 2.png in Resources */,
 				7B408C4C1D0DC8B7003725B7 /* Main.storyboard in Resources */,
 				7BD42FFF1D2364ED000A12DC /* Person 1.png in Resources */,
-				7BD27B841D1B4CB800705783 /* CellDescriptor.plist in Resources */,
+				7BD27B841D1B4CB800705783 /* FilterCellDescriptor.plist in Resources */,
 				7B6F8A051D030D6600D9C17C /* upload.png in Resources */,
 				7BD42FF81D2364ED000A12DC /* Dash Box 2.png in Resources */,
 				7BB652BC1CF7BC7300D1E65E /* LaunchScreen.storyboard in Resources */,
@@ -595,6 +606,7 @@
 				7B408C341D0B2175003725B7 /* GoogleService-Info.plist in Resources */,
 				7BD42FFC1D2364ED000A12DC /* Flip Cam.png in Resources */,
 				7BD4300E1D23665F000A12DC /* Home.png in Resources */,
+				7BEC95EA1D57B78A0036A644 /* StickersUploadCellDescriptor.plist in Resources */,
 				7BD4300B1D23665F000A12DC /* View Changer 2-2.png in Resources */,
 				7BD4300F1D23665F000A12DC /* Down Arrow 1.png in Resources */,
 				7B24BC5A1D038C17002BB228 /* users@3x.png in Resources */,

@@ -216,7 +216,7 @@ class usersVC: UITableViewController, UISearchBarDelegate, UICollectionViewDeleg
         
         // if user tapped on his name go home, else go guest
         if cell.usernameLbl.text! == PFUser.currentUser()?.username {
-            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC1
             self.navigationController?.pushViewController(home, animated: true)
         } else {
 //            guestname.append(cell.usernameLbl.text!)

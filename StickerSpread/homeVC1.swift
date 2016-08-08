@@ -12,14 +12,11 @@ import FBSDKLoginKit
 import FirebaseAuth
 import Firebase
 
-
-
 class homeVC1: UICollectionViewController {
     
     var goHome = false
     var userIdToDisplay = "a"
-    
-    
+
     let storage = FIRStorage.storage()
     let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
     
@@ -58,22 +55,17 @@ class homeVC1: UICollectionViewController {
     var bottomheader = CGFloat()
     
     var username = String()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+       userIdToDisplay = userfromTabbar
         
         // always vertical scroll
         self.collectionView?.alwaysBounceVertical = true
         //background
         collectionView?.backgroundColor = .whiteColor()
-        
-        //title at the top
-        //self.navigationItem.title=(PFUser.currentUser()!.objectForKey("first_name") as? String)?.uppercaseString
-        
-        
+
         // pull to refresh
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -144,7 +136,7 @@ class homeVC1: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("idCollectionCell", forIndexPath: indexPath) as! testsearchcell
         cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         
-        
+        cell.uuid = uuidArray[indexPath.row]
         getLikeState(uuidArray[indexPath.row] , Btn: cell.likeBtn)
         getLikeCount(uuidArray[indexPath.row] , Lbl : cell.likeLbl)
         
@@ -159,12 +151,6 @@ class homeVC1: UICollectionViewController {
 
         return CGSize(width: collectionView.frame.width, height: max(20,bottomheader + 5))//self.bottomheader)
     }
-    
-    
-    
-    
-    
-    
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         //define header
@@ -190,9 +176,6 @@ class homeVC1: UICollectionViewController {
                 header.avaImg.layer.borderWidth = 0.5
                 
             }
-            
-            
-            
             
             let q = snapshot.value!.objectForKey("youtubeURL") as? String
             let w = snapshot.value!.objectForKey("instagramURL") as? String
@@ -316,8 +299,6 @@ class homeVC1: UICollectionViewController {
             }
         })
         
-        
-        
         // STEP 3. Implement tap gestures
         // tap posts
         let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
@@ -354,9 +335,8 @@ class homeVC1: UICollectionViewController {
     
     // tapped followers label
     func followersTap() {
-        
-        user = PFUser.currentUser()!.username!
-        show = "followers"
+        user = userIdToDisplay
+        show = "Followers"
         
         // make references to followersVC
         let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
@@ -368,8 +348,8 @@ class homeVC1: UICollectionViewController {
     // tapped followings label
     func followingsTap() {
         
-        user = PFUser.currentUser()!.username!
-        show = "followings"
+        user = userIdToDisplay
+        show = "Followings"
         
         // make reference to followersVC
         let followings = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
