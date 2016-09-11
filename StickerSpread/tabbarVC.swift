@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 var userfromTabbar = String()
+var TriggeredFromTab = false
 
 class tabbarVC: UITabBarController {
 
@@ -30,6 +31,10 @@ class tabbarVC: UITabBarController {
         if item.tag == 5 {
 //            var VC2: UIViewController = vcArray.objectAtIndex(1) as UIViewController
 //            var nextVC = VC2 as HomeVC1
+            
+            //make sure this is called before
+            TriggeredFromTab = true
+            
             userfromTabbar = (FIRAuth.auth()?.currentUser!.uid)!
         }
     }

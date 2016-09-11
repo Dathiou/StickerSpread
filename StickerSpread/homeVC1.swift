@@ -12,7 +12,7 @@ import FBSDKLoginKit
 import FirebaseAuth
 import Firebase
 
-class homeVC1: UICollectionViewController {
+class homeVC1: UICollectionViewController,SegueColl {
     
     var goHome = false
     var userIdToDisplay = "a"
@@ -59,13 +59,21 @@ class homeVC1: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       userIdToDisplay = userfromTabbar
+        if TriggeredFromTab == true {
+            userIdToDisplay = userfromTabbar
+            TriggeredFromTab = false
+            self.goHome = true
+        }
+
+       
         
         // always vertical scroll
         self.collectionView?.alwaysBounceVertical = true
         //background
         collectionView?.backgroundColor = .whiteColor()
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshLikes:", name: "likedFromHome", object: nil)
+        
         // pull to refresh
         refresher = UIRefreshControl()
         refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -73,6 +81,7 @@ class homeVC1: UICollectionViewController {
         
         //receive notification from uploadVC
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
+        
         collectionView!.registerNib(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
         
         //        self.collectionView.header.setNeedsUpdateConstraints()
@@ -91,12 +100,24 @@ class homeVC1: UICollectionViewController {
     }
     
     
+    
+    func refreshLikes(notification: NSNotification) {
+
+        if let row = notification.object as? Int {
+            
+            let indexPath = NSIndexPath(forRow: row, inSection: 0)
+            self.collectionView!.reloadItemsAtIndexPaths([indexPath])
+        }
+        
+    }
+    
+    
     // refreshing func
     func refresh() {
         
         // reload posts
         //loadPosts()
-        collectionView?.reloadData()
+        collectionView!.reloadData()
         
         // stop refresher animating
         refresher.endRefreshing()
@@ -104,6 +125,32 @@ class homeVC1: UICollectionViewController {
     
     func uploaded(notification: NSNotification){
         loadPosts()
+    }
+    
+    func goToPost(uuid : String!){
+        // take relevant unique id of post to load post in postVC
+        
+        //print (uuid)
+        postuuid.append(uuid)
+        
+        // present postVC programmaticaly
+        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+        self.navigationController?.pushViewController(post, animated: true)
+        
+        
+        
+    }
+    
+    func displayLikes(uuid: String!){
+        
+        user = uuid
+        show = "Likes"
+        
+        // make references to followersVC
+        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        
+        // present
+        self.navigationController?.pushViewController(followers, animated: true)
     }
     
     
@@ -135,10 +182,10 @@ class homeVC1: UICollectionViewController {
         // define cell
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("idCollectionCell", forIndexPath: indexPath) as! testsearchcell
         cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
-        
+        cell.origin = "Home"
         cell.uuid = uuidArray[indexPath.row]
         getLikeState(uuidArray[indexPath.row] , Btn: cell.likeBtn)
-        getLikeCount(uuidArray[indexPath.row] , Lbl : cell.likeLbl)
+        getLikeCount(uuidArray[indexPath.row] , Lbl : cell.LikeLbl)
         
         cell.uuidLbl.text = uuidArray[indexPath.row]
         cell.picImg1.image = picArray[indexPath.row]
@@ -176,6 +223,9 @@ class homeVC1: UICollectionViewController {
                 header.avaImg.layer.borderWidth = 0.5
                 
             }
+//            if self.goHome == true {
+//            header.followButton.hidden = true
+//            }
             
             let q = snapshot.value!.objectForKey("youtubeURL") as? String
             let w = snapshot.value!.objectForKey("instagramURL") as? String
@@ -256,6 +306,7 @@ class homeVC1: UICollectionViewController {
         
         if self.goHome == false {
             header.Settingsbutton.hidden = true
+            header.followButton.hidden = false
             // STEP 2. Show do current user follow guest or do not
             firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(self.userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
                 if snapshot.exists() {
@@ -273,6 +324,7 @@ class homeVC1: UICollectionViewController {
             
         } else if self.goHome == true {
             header.followButton.hidden = true
+            header.Settingsbutton.hidden = false
         }
         
         firebase.child("PostPerUser").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
@@ -443,11 +495,11 @@ class homeVC1: UICollectionViewController {
                                 //self.scrollToBottom()
                                 firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot in
                                     
-                                    let first = (snapshot.value!.objectForKey("first_name") as? String)
-                                    let last = (snapshot.value!.objectForKey("last_name") as? String)
-                                    
-                                    let fullname = first!+" "+last!
-                                    self.nameArray.append(fullname)
+//                                    let first = (snapshot.value!.objectForKey("first_name") as? String)
+//                                    let last = (snapshot.value!.objectForKey("last_name") as? String)
+//                                    
+//                                    let fullname = first!+" "+last!
+//                                    self.nameArray.append(fullname)
                                     //self.tableView.reloadData()
                                     self.collectionView!.reloadData()
                                     let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)

@@ -42,7 +42,10 @@ class followersVC: UITableViewController {
     
     // loading followers
     func loadFollowers(type: String) {
-        firebase.child(type).child(user).observeEventType(.Value, withBlock: { snapshot in
+        
+        let picturesGroup = dispatch_group_create()
+        //.queryOrderedByChild("date")
+        firebase.child(type).child(user).queryOrderedByChild("Date").observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 //sorted = (snapshot.value!.allValues as NSArray).sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: false)])
                 self.usernameArray.removeAll(keepCapacity: false)
@@ -50,6 +53,7 @@ class followersVC: UITableViewController {
                 self.avaArray.removeAll(keepCapacity: false)
 
                 for post1 in snapshot.children{
+                     dispatch_group_enter(picturesGroup)
                     // let k = post.key!
                     //dispatch_group_enter(picturesGroup)
                     let post = post1 as! FIRDataSnapshot
@@ -97,10 +101,12 @@ class followersVC: UITableViewController {
                             self.avaArray = self.avaArray.reverse()
                             self.nameArray = self.nameArray.reverse()
                             
-                            self.tableView.reloadData()
+                            //self.tableView.reloadData()
+                        }
+                        dispatch_group_leave(picturesGroup)
                         }
                         
-                        }
+                        
                         
                         
                     ){ (error) in
@@ -115,7 +121,15 @@ class followersVC: UITableViewController {
                     //                        let date = dateFormatter.dateFromString(datestring)
                     //                        self.dateArray.append(date)
                     //                    }
-                    self.usernameArray.append(userID as! String)
+                    
+                    
+                    dispatch_group_notify(picturesGroup, dispatch_get_main_queue()) {
+                        self.usernameArray.append(userID as! String)
+                        self.usernameArray = self.usernameArray.reverse()
+                        
+                                                self.tableView.reloadData()
+
+                    }
                     
                     //                    self.titleArray.append(post.value.objectForKey("title") as! String)
                     //                    self.uuidArray.append(post.key! as String!)
@@ -318,14 +332,8 @@ class followersVC: UITableViewController {
         home.goHome = modeSelf
         self.navigationController?.pushViewController(home, animated: true)
         modeSelf = false
-        
-        
-        
     }
-    
-    
-    
-    
+
     //    private var selectedItems = [String]()
     //
     //    func cellButtonTapped(cell: followersCell) {

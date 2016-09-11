@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -21,24 +21,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.2k" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMg-yD-PVn">
-                        <rect key="frame" x="35" y="313" width="18" height="11"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hBO-lM-8Y5">
                         <rect key="frame" x="0.0" y="0.0" width="301" height="301"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="hBO-lM-8Y5" secondAttribute="height" multiplier="1:1" id="NKc-Af-MXy"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day Dream Kit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-cP-pwu">
-                        <rect key="frame" x="57" y="310" width="93" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XzD-NS-pFr">
                         <rect key="frame" x="3" y="303" width="30" height="30"/>
                         <constraints>
@@ -50,34 +38,45 @@
                             <action selector="likeBtn_clicked:" destination="Gbp-rJ-5cO" eventType="touchUpInside" id="uHs-Dg-aCL"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBx-h7-W42">
+                        <rect key="frame" x="24" y="303" width="30" height="30"/>
+                        <state key="normal" title="9"/>
+                        <connections>
+                            <action selector="likeLblBtn_click" destination="Gbp-rJ-5cO" eventType="touchUpInside" id="vh1-uJ-lci"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day Dream Kit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-cP-pwu">
+                        <rect key="frame" x="77" y="310" width="93" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
             <constraints>
-                <constraint firstItem="XzD-NS-pFr" firstAttribute="leading" secondItem="Gbp-rJ-5cO" secondAttribute="leading" constant="3" id="4lk-D6-x5U"/>
-                <constraint firstItem="Maz-cP-pwu" firstAttribute="centerY" secondItem="XzD-NS-pFr" secondAttribute="centerY" id="AIa-0K-BGY"/>
+                <constraint firstItem="lBx-h7-W42" firstAttribute="centerY" secondItem="XzD-NS-pFr" secondAttribute="centerY" id="4Vz-Z8-elE"/>
+                <constraint firstItem="Maz-cP-pwu" firstAttribute="leading" secondItem="lBx-h7-W42" secondAttribute="trailing" constant="23" id="4qj-Rf-Fgj"/>
                 <constraint firstItem="hBO-lM-8Y5" firstAttribute="leading" secondItem="Gbp-rJ-5cO" secondAttribute="leading" id="BaF-Ng-Mfc"/>
                 <constraint firstItem="hBO-lM-8Y5" firstAttribute="width" secondItem="Gbp-rJ-5cO" secondAttribute="width" id="FFr-Wy-Dgc"/>
-                <constraint firstItem="Maz-cP-pwu" firstAttribute="leading" secondItem="TMg-yD-PVn" secondAttribute="trailing" constant="4" id="PPF-HN-sS2"/>
                 <constraint firstAttribute="trailing" secondItem="hBO-lM-8Y5" secondAttribute="trailing" id="Uuo-rk-Wrf"/>
                 <constraint firstItem="hBO-lM-8Y5" firstAttribute="top" secondItem="Gbp-rJ-5cO" secondAttribute="top" id="XNc-iP-DaA"/>
-                <constraint firstItem="TMg-yD-PVn" firstAttribute="centerY" secondItem="XzD-NS-pFr" secondAttribute="centerY" id="acD-OJ-53O"/>
-                <constraint firstItem="Maz-cP-pwu" firstAttribute="trailing" secondItem="hBO-lM-8Y5" secondAttribute="trailing" id="iT5-YD-oVr"/>
-                <constraint firstItem="XzD-NS-pFr" firstAttribute="leading" secondItem="hBO-lM-8Y5" secondAttribute="leading" id="oaD-AL-Lvt"/>
-                <constraint firstItem="TMg-yD-PVn" firstAttribute="leading" secondItem="XzD-NS-pFr" secondAttribute="trailing" constant="2" id="oy7-aq-04P"/>
+                <constraint firstItem="Maz-cP-pwu" firstAttribute="leading" secondItem="lBx-h7-W42" secondAttribute="trailing" constant="-16" id="ZXI-ub-Ecl"/>
+                <constraint firstItem="Maz-cP-pwu" firstAttribute="centerY" secondItem="lBx-h7-W42" secondAttribute="centerY" id="cGb-mP-Cpe"/>
                 <constraint firstItem="XzD-NS-pFr" firstAttribute="top" secondItem="hBO-lM-8Y5" secondAttribute="bottom" constant="2" id="tVj-2Q-NkR"/>
+                <constraint firstItem="lBx-h7-W42" firstAttribute="leading" secondItem="XzD-NS-pFr" secondAttribute="trailing" constant="-9" id="tov-Bf-h7O"/>
+                <constraint firstItem="XzD-NS-pFr" firstAttribute="leading" secondItem="Gbp-rJ-5cO" secondAttribute="leading" constant="3" id="zgm-lV-b4Q"/>
             </constraints>
             <size key="customSize" width="796" height="870"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="oaD-AL-Lvt"/>
-                    <exclude reference="iT5-YD-oVr"/>
+                    <exclude reference="ZXI-ub-Ecl"/>
                 </mask>
             </variation>
             <connections>
+                <outlet property="LikeLbl" destination="lBx-h7-W42" id="ayF-41-wgz"/>
                 <outlet property="likeBtn" destination="XzD-NS-pFr" id="HJs-Nu-Elh"/>
-                <outlet property="likeLbl" destination="TMg-yD-PVn" id="OCc-lG-BfO"/>
                 <outlet property="picImg1" destination="hBO-lM-8Y5" id="B6H-Yu-yk8"/>
                 <outlet property="titleLbl" destination="Maz-cP-pwu" id="8nM-fC-YTY"/>
                 <outlet property="uuidLbl" destination="vQe-mL-Ig5" id="sTz-V2-Kup"/>

@@ -14,6 +14,8 @@ var postuuid = [String]()
 
 class postVC: UITableViewController {
     
+    var refresher = UIRefreshControl()
+    
     let storage = FIRStorage.storage()
     let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
     
@@ -43,6 +45,13 @@ class postVC: UITableViewController {
         //self.tableView.backgroundColor = UIColor.redColor()
         //self.tableView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         // new back button
+        
+        
+        // pull to refresh
+        refresher.addTarget(self, action: "loadPostInfo", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.addSubview(refresher)
+        
+        
         self.navigationItem.hidesBackButton = true
         let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.Plain, target: self, action: "back:")
         self.navigationItem.leftBarButtonItem = backBtn
@@ -59,7 +68,7 @@ class postVC: UITableViewController {
         //        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
         //        self.view.addGestureRecognizer(backSwipe)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "liked", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "likedFromPost", object: nil)
         
 
         tableView.registerNib(UINib(nibName: "postSelected", bundle: nil), forCellReuseIdentifier: "idPostSelectedCell")
@@ -70,6 +79,11 @@ class postVC: UITableViewController {
         
         //let r = postuuidArray.last!
         
+        loadPostInfo()
+        
+    }
+    
+    func loadPostInfo(){
         firebase.child("Posts").child(postuuid.last!).queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
             
             // clean up
@@ -100,7 +114,7 @@ class postVC: UITableViewController {
                     
                     self.titleArray.append(snapshot.value!.objectForKey("title") as! String)
                     self.uuidArray.append(snapshot.key as String!)
-
+                    
                     firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot1 in
                         
                         objc_sync_enter(self.nameArray)
@@ -131,7 +145,7 @@ class postVC: UITableViewController {
                                     self.tableView.reloadData()
                                     // self.collectionView.reloadData()
                                     
-                                    //self.refresher.endRefreshing()
+                                    self.refresher.endRefreshing()
                                 });
                             })
                             
@@ -233,7 +247,7 @@ class postVC: UITableViewController {
         //
         //        }
         //        })
-        
+
     }
     
     // refreshing function
@@ -263,7 +277,8 @@ class postVC: UITableViewController {
         // define cell
         //let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! postCell
         let cell = tableView.dequeueReusableCellWithIdentifier("idPostSelectedCell", forIndexPath: indexPath) as! postCellSelected
-        cell.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
+        //cell.backgroundColor = UIColor.clearColor()
         // connect objects with our information from arrays
         cell.usernameBtn.setTitle(nameArray[indexPath.row], forState: UIControlState.Normal)
         cell.usernameBtn.sizeToFit()
@@ -312,7 +327,7 @@ class postVC: UITableViewController {
     
         
         getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
-        getLikeCount(cell.uuidLbl.text! , Lbl : cell.likeLbl)
+        getLikeCount(cell.uuidLbl.text! , Lbl : cell.LikeLbl)
         
         
         // asign index

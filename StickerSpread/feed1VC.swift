@@ -11,49 +11,60 @@ import UIKit
 import Firebase
 
 
-func getLikeState(string: String , Btn :UIButton){
 
+
+func getLikeState(string: String , Btn :UIButton){
+    
     firebase.child("Likes").child(string).child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEventOfType(.Value, withBlock: { snapshot in//observeEventType(.Value, withBlock: { snapshot in
         //print(snapshot.value)
         if snapshot.exists() {
-
+            
             Btn.setTitle("like", forState: .Normal)
             Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
         } else {
-
+            
             var exists = false
             Btn.setTitle("unlike", forState: .Normal)
             Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
         }
     })
     
-//    if exists {
-//        Btn.setTitle("like", forState: .Normal)
-//        Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
-//    }else {
-//        Btn.setTitle("unlike", forState: .Normal)
-//        Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
-//    }
+    //    if exists {
+    //        Btn.setTitle("like", forState: .Normal)
+    //        Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
+    //    }else {
+    //        Btn.setTitle("unlike", forState: .Normal)
+    //        Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
+    //    }
     
     
 }
 
-func getLikeCount(string: String , Lbl : UILabel){
+func getLikeCount(string: String , Lbl :UIButton){
+    
+    var num = "r"
     firebase.child("Likes").child(string).observeSingleEventOfType(.Value, withBlock: { snapshot in
         if snapshot.exists() {
-            
-            Lbl.text =  "\(snapshot.childrenCount)"
+            num = "\(snapshot.childrenCount)"
+            //Lbl.setTitle("\(snapshot.childrenCount)", forState: UIControlState.Normal)
+            //Lbl.text =  "\(snapshot.childrenCount)"
+            Lbl.setTitle(num, forState: .Normal)
             
         } else {
-            Lbl.text = "0"
+            num = "0"
+            //Lbl.setTitle("0", forState: .Normal)
+            Lbl.setTitle(num, forState: .Normal)
         }
     })
+    
+    
+    
 }
 
 
 
 
-class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate ,UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout, segueToPost, segueToPostFromFeed{
+class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate ,UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout, SegueColl, segueToPostFromFeed{
     var modeSelf = false
     let storage = FIRStorage.storage()
     let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
@@ -91,7 +102,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //var picArray = [PFFile]()
     var picArray = [UIImage]()
     var picArrayURL = [String]()
-   //var picArraySearch = [PFFile]()
+    //var picArraySearch = [PFFile]()
     var uuidArraySearch = [String]()
     var titleArray = [String]()
     var titleArraySearch = [String]()
@@ -134,6 +145,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     let btn1 = UIButton()
     
     let btn2 = UIButton()
+    
+    //var likeArray = [String]()
     
     //var customSearchController: CustomSearchController!
     
@@ -219,8 +232,6 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         self.navigationItem.rightBarButtonItems = [negativeSpace,item3 , searchItem]
         self.edgesForExtendedLayout = UIRectEdge.None
         
-        // automatic row height - dynamic cell
-        
         
         // pull to refresh
         refresher.addTarget(self, action: "loadPosts", forControlEvents: UIControlEvents.ValueChanged)
@@ -233,7 +244,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         indicator.center.x = tableView.center.x
         
         // receive notification from postsCell if picture is liked, to update tableView
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "liked", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshLikes:", name: "likedFromFeed", object: nil)
         
         // receive notification from uploadVC
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
@@ -301,26 +312,27 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     func goToProfile(id : String!){
         print(id)
-                if id == (FIRAuth.auth()?.currentUser!.uid)! {
-                    modeSelf = true
-                }
-                    
-                let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC1") as! homeVC1
-                home.userIdToDisplay = id
-                home.goHome = modeSelf
-                self.navigationController?.pushViewController(home, animated: true)
-                modeSelf = false
-//        if id == (FIRAuth.auth()?.currentUser!.uid)! {
-//            //if id == "aa" {
-//            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
-//            
-//            self.navigationController?.pushViewController(home, animated: true)
-//        } else {
-//            guestname.append(id)
-//            goHome = true
-//            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-//            self.navigationController?.pushViewController(guest, animated: true)
-//        }
+        modeSelf = false
+        if id == (FIRAuth.auth()?.currentUser!.uid)! {
+            modeSelf = true
+        }
+        
+        let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC1") as! homeVC1
+        home.userIdToDisplay = id
+        home.goHome = modeSelf
+        self.navigationController?.pushViewController(home, animated: true)
+        
+        //        if id == (FIRAuth.auth()?.currentUser!.uid)! {
+        //            //if id == "aa" {
+        //            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+        //
+        //            self.navigationController?.pushViewController(home, animated: true)
+        //        } else {
+        //            guestname.append(id)
+        //            goHome = true
+        //            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+        //            self.navigationController?.pushViewController(guest, animated: true)
+        //        }
     }
     
     func goToPost(uuid : String!){
@@ -335,6 +347,18 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         
         
+    }
+    
+    func displayLikes(uuid: String!){
+        
+        user = uuid
+        show = "Likes"
+        
+        // make references to followersVC
+        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        
+        // present
+        self.navigationController?.pushViewController(followers, animated: true)
     }
     
     //    override func viewWillAppear(animated: Bool) {
@@ -528,122 +552,122 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     // search updated
     //func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
     
-//    func searchBar( searchBar: UISearchBar,
-//                    textDidChange searchText: String) {
-//        
-//        if searchText.isEmpty == true {
-//            //loadPostsforColl()
-//            shouldShowSearchResults = false
-//            self.collectionView.reloadData()
-//            self.tableView.reloadData()
-//        } else {
-//            
-//            shouldShowSearchResults = true
-//            // find by username
-//            let usernameQuery = PFQuery(className: "posts")
-//            usernameQuery.whereKey("title", matchesRegex: "(?i)" + searchText)
-//            usernameQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    
-//                    
-//                    // clean up
-//                    self.picArraySearch.removeAll(keepCapacity: false)
-//                    self.uuidArraySearch.removeAll(keepCapacity: false)
-//                    //self.usernameArraySearch.removeAll(keepCapacity: false)
-//                    //self.avaArraySearch.removeAll(keepCapacity: false)
-//                    self.usernameArraySearch.removeAll(keepCapacity: false)
-//                    self.nameArraySearch.removeAll(keepCapacity: false)
-//                    self.avaArraySearch.removeAll(keepCapacity: false)
-//                    self.dateArraySearch.removeAll(keepCapacity: false)
-//                    
-//                    self.titleArraySearch.removeAll(keepCapacity: false)
-//                    
-//                    for object in objects! {
-//                        let usernmae = object.valueForKey("username") as! String
-//                        let infoQuery1 = PFQuery(className: "_User")
-//                        infoQuery1.whereKey("username", equalTo: usernmae)
-//                        infoQuery1.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
-//                            if error == nil {
-//                                
-//                                // shown wrong user
-//                                if objects1!.isEmpty {
-//                                    // call alert
-//                                    let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
-//                                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
-//                                        self.navigationController?.popViewControllerAnimated(true)
-//                                    })
-//                                    alert.addAction(ok)
-//                                    self.presentViewController(alert, animated: true, completion: nil)
-//                                }
-//                                
-//                                // find related to user information
-//                                for object1 in objects1! {
-//                                    objc_sync_enter(self.nameArraySearch)
-//                                    // get users data with connections to columns of PFUser class
-//                                    let first = (object1.objectForKey("first_name") as? String)
-//                                    let last = (object1.objectForKey("last_name") as? String)
-//                                    
-//                                    let fullname = first!+" "+last!
-//                                    self.nameArraySearch.append(fullname)
-//                                    objc_sync_exit(self.nameArraySearch)
-//                                    
-//                                    dispatch_async(dispatch_get_main_queue(), {
-//                                        self.tableView.reloadData()
-//                                        self.collectionView.reloadData()
-//                                        
-//                                        self.refresher.endRefreshing()
-//                                    });
-//                                    
-//                                }
-//                                
-//                                
-//                                
-//                                
-//                                
-//                            } else {
-//                                print(error!.localizedDescription)
-//                            }
-//                        })
-//                        
-//                        
-//                        self.usernameArraySearch.append(object.objectForKey("username") as! String)
-//                        self.avaArraySearch.append(object.objectForKey("ava") as! PFFile)
-//                        self.dateArraySearch.append(object.createdAt)
-//                        self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
-//                        //self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
-//                        self.titleArraySearch.append(object.objectForKey("title") as! String)
-//                        self.uuidArraySearch.append(object.objectForKey("uuid") as! String)
-//                        
-//                        
-//                        //                            dispatch_async(dispatch_get_main_queue(), {
-//                        //                                self.tableView.reloadData()
-//                        //                                self.refresher.endRefreshing()
-//                        //                            });
-//                        
-//                        
-//                        
-//                    }
-//                    
-//                    //                    // found related objects
-//                    //                    for object in objects! {
-//                    //                        let desc = object.objectForKey("title") as! String
-//                    //                        print(desc)
-//                    //
-//                    //                        self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
-//                    //                        self.uuidArraySearch.append(object.objectForKey("uuid") as! String)
-//                    //                        //self.usernameArraySearch.append(object.objectForKey("username") as! String)
-//                    //                        //self.avaArraySearch.append(object.objectForKey("picture_file") as! PFFile)
-//                    //                    }
-//                    //
-//                    //                    // reload
-//                    //                    self.collectionView.reloadData()
-//                    
-//                }
-//            })
-//        }
-//        
-//        // return true
-//    }
+    //    func searchBar( searchBar: UISearchBar,
+    //                    textDidChange searchText: String) {
+    //
+    //        if searchText.isEmpty == true {
+    //            //loadPostsforColl()
+    //            shouldShowSearchResults = false
+    //            self.collectionView.reloadData()
+    //            self.tableView.reloadData()
+    //        } else {
+    //
+    //            shouldShowSearchResults = true
+    //            // find by username
+    //            let usernameQuery = PFQuery(className: "posts")
+    //            usernameQuery.whereKey("title", matchesRegex: "(?i)" + searchText)
+    //            usernameQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+    //                if error == nil {
+    //
+    //
+    //                    // clean up
+    //                    self.picArraySearch.removeAll(keepCapacity: false)
+    //                    self.uuidArraySearch.removeAll(keepCapacity: false)
+    //                    //self.usernameArraySearch.removeAll(keepCapacity: false)
+    //                    //self.avaArraySearch.removeAll(keepCapacity: false)
+    //                    self.usernameArraySearch.removeAll(keepCapacity: false)
+    //                    self.nameArraySearch.removeAll(keepCapacity: false)
+    //                    self.avaArraySearch.removeAll(keepCapacity: false)
+    //                    self.dateArraySearch.removeAll(keepCapacity: false)
+    //
+    //                    self.titleArraySearch.removeAll(keepCapacity: false)
+    //
+    //                    for object in objects! {
+    //                        let usernmae = object.valueForKey("username") as! String
+    //                        let infoQuery1 = PFQuery(className: "_User")
+    //                        infoQuery1.whereKey("username", equalTo: usernmae)
+    //                        infoQuery1.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
+    //                            if error == nil {
+    //
+    //                                // shown wrong user
+    //                                if objects1!.isEmpty {
+    //                                    // call alert
+    //                                    let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
+    //                                    let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+    //                                        self.navigationController?.popViewControllerAnimated(true)
+    //                                    })
+    //                                    alert.addAction(ok)
+    //                                    self.presentViewController(alert, animated: true, completion: nil)
+    //                                }
+    //
+    //                                // find related to user information
+    //                                for object1 in objects1! {
+    //                                    objc_sync_enter(self.nameArraySearch)
+    //                                    // get users data with connections to columns of PFUser class
+    //                                    let first = (object1.objectForKey("first_name") as? String)
+    //                                    let last = (object1.objectForKey("last_name") as? String)
+    //
+    //                                    let fullname = first!+" "+last!
+    //                                    self.nameArraySearch.append(fullname)
+    //                                    objc_sync_exit(self.nameArraySearch)
+    //
+    //                                    dispatch_async(dispatch_get_main_queue(), {
+    //                                        self.tableView.reloadData()
+    //                                        self.collectionView.reloadData()
+    //
+    //                                        self.refresher.endRefreshing()
+    //                                    });
+    //
+    //                                }
+    //
+    //
+    //
+    //
+    //
+    //                            } else {
+    //                                print(error!.localizedDescription)
+    //                            }
+    //                        })
+    //
+    //
+    //                        self.usernameArraySearch.append(object.objectForKey("username") as! String)
+    //                        self.avaArraySearch.append(object.objectForKey("ava") as! PFFile)
+    //                        self.dateArraySearch.append(object.createdAt)
+    //                        self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
+    //                        //self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
+    //                        self.titleArraySearch.append(object.objectForKey("title") as! String)
+    //                        self.uuidArraySearch.append(object.objectForKey("uuid") as! String)
+    //
+    //
+    //                        //                            dispatch_async(dispatch_get_main_queue(), {
+    //                        //                                self.tableView.reloadData()
+    //                        //                                self.refresher.endRefreshing()
+    //                        //                            });
+    //
+    //
+    //
+    //                    }
+    //
+    //                    //                    // found related objects
+    //                    //                    for object in objects! {
+    //                    //                        let desc = object.objectForKey("title") as! String
+    //                    //                        print(desc)
+    //                    //
+    //                    //                        self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
+    //                    //                        self.uuidArraySearch.append(object.objectForKey("uuid") as! String)
+    //                    //                        //self.usernameArraySearch.append(object.objectForKey("username") as! String)
+    //                    //                        //self.avaArraySearch.append(object.objectForKey("picture_file") as! PFFile)
+    //                    //                    }
+    //                    //
+    //                    //                    // reload
+    //                    //                    self.collectionView.reloadData()
+    //
+    //                }
+    //            })
+    //        }
+    //
+    //        // return true
+    //    }
     
     //    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
     //        self.searchBar.showsCancelButton = false
@@ -791,9 +815,128 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     // refreshign function after like to update degit
-    func refresh() {
-        // tableView.reloadData()
-        // collectionView.reloadData()
+//    
+//    func getLikesArrayW(){
+//        let picturesGroup1 = dispatch_group_create()
+//        
+//        
+//        firebase.child("Posts").queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+//            
+//            if snapshot.exists() {
+//                self.likeArray.removeAll(keepCapacity: false)
+//                for post in snapshot.children{
+//                    dispatch_group_enter(picturesGroup1)
+//                    // let k = post.key!
+//                    //dispatch_group_enter(picturesGroup1)
+//                    let uuid = post.key as String!
+//                    
+//                    firebase.child("Likes").child(uuid).observeSingleEventOfType(.Value, withBlock: { snapshot in
+//                        if snapshot.exists() {
+//                            //num = "\(snapshot.childrenCount)"
+//                            //Lbl.setTitle("\(snapshot.childrenCount)", forState: UIControlState.Normal)
+//                            //Lbl.text =  "\(snapshot.childrenCount)"
+//                            //Lbl.setTitle(num, forState: .Normal)
+//                            self.likeArray.append("\(snapshot.childrenCount)")
+//                             dispatch_group_leave(picturesGroup1)
+//                            
+//                        } else {
+//                            //num = "0"
+//                            self.likeArray.append("0")
+//                            //dispatch_group_leave(picturesGroup1)
+//                            //Lbl.setTitle("0", forState: .Normal)
+//                            //Lbl.setTitle(num, forState: .Normal)
+//                             dispatch_group_leave(picturesGroup1)
+//                        }
+//                    }) { (error) in
+//                        print(error.localizedDescription)
+//                    }
+//                   
+//                }
+//            }
+//            dispatch_group_notify(picturesGroup1, dispatch_get_main_queue()) {
+//                //self.likeArray = self.likeArray.reverse()
+//                print(self.likeArray)
+//                //self.tableView.reloadData()
+//                self.collectionView.reloadData()
+//            }
+//            
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
+//        
+//        
+//        
+//        
+//    }
+//    func getLikesArrayWO(){
+//       
+//        
+//        
+//        firebase.child("Posts").queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+//            
+//            if snapshot.exists() {
+//                self.likeArray.removeAll(keepCapacity: false)
+//                for post in snapshot.children{
+//
+//                    let uuid = post.key as String!
+//                    
+//                    firebase.child("Likes").child(uuid).observeSingleEventOfType(.Value, withBlock: { snapshot in
+//                        if snapshot.exists() {
+//                            //num = "\(snapshot.childrenCount)"
+//                            //Lbl.setTitle("\(snapshot.childrenCount)", forState: UIControlState.Normal)
+//                            //Lbl.text =  "\(snapshot.childrenCount)"
+//                            //Lbl.setTitle(num, forState: .Normal)
+//                            self.likeArray.append("\(snapshot.childrenCount)")
+//                            
+//                            
+//                        } else {
+//                            //num = "0"
+//                            self.likeArray.append("0")
+//                            //dispatch_group_leave(picturesGroup1)
+//                            //Lbl.setTitle("0", forState: .Normal)
+//                            //Lbl.setTitle(num, forState: .Normal)
+//                            
+//                        }
+//                    }) { (error) in
+//                        print(error.localizedDescription)
+//                    }
+//                   
+//                }
+//            }
+//
+//            
+//        }) { (error) in
+//            print(error.localizedDescription)
+//        }
+//        
+//        
+//        
+//        
+//    }
+    func refreshLikes(notification: NSNotification) {
+        
+        
+        
+            if let row = notification.object as? Int {
+
+                
+                let indexPath = NSIndexPath(forRow: row, inSection: 0)
+                self.collectionView.reloadItemsAtIndexPaths([indexPath])
+                self.tableView.reloadRowsAtIndexPaths([indexPath],withRowAnimation: .None)
+            }
+        
+        
+        //dispatch_group_leave(picturesGroup1)
+        
+        //let picturesGroup1 = dispatch_group_create()
+        
+       // self.getLikesArrayW()
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -814,7 +957,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
         let picturesGroup = dispatch_group_create()
-        
+        //getLikesArrayWO()
         firebase.child("Posts").queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
             
             // clean up
@@ -864,7 +1007,33 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     self.myDictionaryURL.updateValue(url, forKey: i)
                     i = i + 1
                     
-
+                    
+                    
+                    let uuid = post.key as String!
+                    
+//                    firebase.child("Likes").child(uuid).observeSingleEventOfType(.Value, withBlock: { snapshot in
+//                        if snapshot.exists() {
+//                            //num = "\(snapshot.childrenCount)"
+//                            //Lbl.setTitle("\(snapshot.childrenCount)", forState: UIControlState.Normal)
+//                            //Lbl.text =  "\(snapshot.childrenCount)"
+//                            //Lbl.setTitle(num, forState: .Normal)
+//                            self.likeArray.append("\(snapshot.childrenCount)")
+//                            
+//                            
+//                        } else {
+//                            //num = "0"
+//                            self.likeArray.append("0")
+//                            //dispatch_group_leave(picturesGroup1)
+//                            //Lbl.setTitle("0", forState: .Normal)
+//                            //Lbl.setTitle(num, forState: .Normal)
+//                            
+//                        }
+//                    }) { (error) in
+//                        print(error.localizedDescription)
+//                    }
+                    
+                    
+                    
                     firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot in
                         
                         let first = (snapshot.value!.objectForKey("first_name") as? String)
@@ -921,7 +1090,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 }}
             
             //self.picArray = self.picArray.reverse()
-
+            
             
             for (bookid, title) in self.myDictionaryURL {
                 //println("Book ID: \(bookid) Title: \(title)")
@@ -1021,116 +1190,116 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //        }
     //    }
     
-//    // pagination
-//    func loadMore() {
-//        
-//        // if posts on the server are more than shown
-//        if page <= uuidArray.count {
-//            
-//            // start animating indicator
-//            indicator.startAnimating()
-//            
-//            // increase page size to load +10 posts
-//            page = page + 10
-//            
-//            // STEP 1. Find posts realted to people who we are following
-//            let followQuery = PFQuery(className: "follow")
-//            followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
-//            followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    
-//                    // clean up
-//                    self.followArray.removeAll(keepCapacity: false)
-//                    
-//                    // find related objects
-//                    for object in objects! {
-//                        self.followArray.append(object.objectForKey("following") as! String)
-//                    }
-//                    
-//                    // append current user to see own posts in feed
-//                    self.followArray.append(PFUser.currentUser()!.username!)
-//                    
-//                    // STEP 2. Find posts made by people appended to followArray
-//                    let query = PFQuery(className: "posts")
-//                    query.whereKey("username", containedIn: self.followArray)
-//                    query.limit = self.page
-//                    query.addDescendingOrder("createdAt")
-//                    query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                        if error == nil {
-//                            
-//                            // clean up
-//                            self.usernameArray.removeAll(keepCapacity: false)
-//                            self.nameArray.removeAll(keepCapacity: false)
-//                            self.avaArray.removeAll(keepCapacity: false)
-//                            self.dateArray.removeAll(keepCapacity: false)
-//                            self.picArray.removeAll(keepCapacity: false)
-//                            self.titleArray.removeAll(keepCapacity: false)
-//                            self.uuidArray.removeAll(keepCapacity: false)
-//                            
-//                            // find related objects
-//                            for object in objects! {
-//                                self.usernameArray.append(object.objectForKey("username") as! String)
-//                                //self.avaArray.append(object.objectForKey("ava") as! PFFile)
-//                                self.dateArray.append(object.createdAt)
-//                                // self.picArray.append(object.objectForKey("pic") as! PFFile)
-//                                self.titleArray.append(object.objectForKey("title") as! String)
-//                                self.uuidArray.append(object.objectForKey("uuid") as! String)
-//                                
-//                                
-//                                let usernmae = object.valueForKey("username") as! String
-//                                let infoQuery = PFQuery(className: "_User")
-//                                infoQuery.whereKey("username", equalTo: usernmae)
-//                                infoQuery.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
-//                                    if error == nil {
-//                                        
-//                                        // shown wrong user
-//                                        if objects1!.isEmpty {
-//                                            // call alert
-//                                            let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
-//                                            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
-//                                                self.navigationController?.popViewControllerAnimated(true)
-//                                            })
-//                                            alert.addAction(ok)
-//                                            self.presentViewController(alert, animated: true, completion: nil)
-//                                        }
-//                                        
-//                                        // find related to user information
-//                                        for object1 in objects1! {
-//                                            
-//                                            
-//                                            
-//                                            // get users data with connections to columns of PFUser class
-//                                            let first = (object1.valueForKey("first_name") as? String)
-//                                            let last = (object1.valueForKey("last_name") as? String)
-//                                            
-//                                            let fullname = first!+" "+last!
-//                                            self.nameArray.append(fullname)
-//                                            //self.tableView.reloadData()
-//                                            //self.refresher.endRefreshing()
-//                                            
-//                                        }
-//                                        
-//                                        
-//                                    }
-//                                })
-//                            }
-//                            
-//                            //                            // reload tableView & end spinning of refresher
-//                            //                             self.tableView.reloadData()
-//                            //                            self.refresher.endRefreshing()
-//                            
-//                        } else {
-//                            print(error!.localizedDescription)
-//                        }
-//                    })
-//                } else {
-//                    print(error!.localizedDescription)
-//                }
-//            })
-//            
-//        }
-//        
-//    }
+    //    // pagination
+    //    func loadMore() {
+    //
+    //        // if posts on the server are more than shown
+    //        if page <= uuidArray.count {
+    //
+    //            // start animating indicator
+    //            indicator.startAnimating()
+    //
+    //            // increase page size to load +10 posts
+    //            page = page + 10
+    //
+    //            // STEP 1. Find posts realted to people who we are following
+    //            let followQuery = PFQuery(className: "follow")
+    //            followQuery.whereKey("follower", equalTo: PFUser.currentUser()!.username!)
+    //            followQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
+    //                if error == nil {
+    //
+    //                    // clean up
+    //                    self.followArray.removeAll(keepCapacity: false)
+    //
+    //                    // find related objects
+    //                    for object in objects! {
+    //                        self.followArray.append(object.objectForKey("following") as! String)
+    //                    }
+    //
+    //                    // append current user to see own posts in feed
+    //                    self.followArray.append(PFUser.currentUser()!.username!)
+    //
+    //                    // STEP 2. Find posts made by people appended to followArray
+    //                    let query = PFQuery(className: "posts")
+    //                    query.whereKey("username", containedIn: self.followArray)
+    //                    query.limit = self.page
+    //                    query.addDescendingOrder("createdAt")
+    //                    query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+    //                        if error == nil {
+    //
+    //                            // clean up
+    //                            self.usernameArray.removeAll(keepCapacity: false)
+    //                            self.nameArray.removeAll(keepCapacity: false)
+    //                            self.avaArray.removeAll(keepCapacity: false)
+    //                            self.dateArray.removeAll(keepCapacity: false)
+    //                            self.picArray.removeAll(keepCapacity: false)
+    //                            self.titleArray.removeAll(keepCapacity: false)
+    //                            self.uuidArray.removeAll(keepCapacity: false)
+    //
+    //                            // find related objects
+    //                            for object in objects! {
+    //                                self.usernameArray.append(object.objectForKey("username") as! String)
+    //                                //self.avaArray.append(object.objectForKey("ava") as! PFFile)
+    //                                self.dateArray.append(object.createdAt)
+    //                                // self.picArray.append(object.objectForKey("pic") as! PFFile)
+    //                                self.titleArray.append(object.objectForKey("title") as! String)
+    //                                self.uuidArray.append(object.objectForKey("uuid") as! String)
+    //
+    //
+    //                                let usernmae = object.valueForKey("username") as! String
+    //                                let infoQuery = PFQuery(className: "_User")
+    //                                infoQuery.whereKey("username", equalTo: usernmae)
+    //                                infoQuery.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
+    //                                    if error == nil {
+    //
+    //                                        // shown wrong user
+    //                                        if objects1!.isEmpty {
+    //                                            // call alert
+    //                                            let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
+    //                                            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
+    //                                                self.navigationController?.popViewControllerAnimated(true)
+    //                                            })
+    //                                            alert.addAction(ok)
+    //                                            self.presentViewController(alert, animated: true, completion: nil)
+    //                                        }
+    //
+    //                                        // find related to user information
+    //                                        for object1 in objects1! {
+    //
+    //
+    //
+    //                                            // get users data with connections to columns of PFUser class
+    //                                            let first = (object1.valueForKey("first_name") as? String)
+    //                                            let last = (object1.valueForKey("last_name") as? String)
+    //
+    //                                            let fullname = first!+" "+last!
+    //                                            self.nameArray.append(fullname)
+    //                                            //self.tableView.reloadData()
+    //                                            //self.refresher.endRefreshing()
+    //
+    //                                        }
+    //
+    //
+    //                                    }
+    //                                })
+    //                            }
+    //
+    //                            //                            // reload tableView & end spinning of refresher
+    //                            //                             self.tableView.reloadData()
+    //                            //                            self.refresher.endRefreshing()
+    //
+    //                        } else {
+    //                            print(error!.localizedDescription)
+    //                        }
+    //                    })
+    //                } else {
+    //                    print(error!.localizedDescription)
+    //                }
+    //            })
+    //
+    //        }
+    //
+    //    }
     
     // cell numb
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -1198,7 +1367,10 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         } else {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("idPostFeedCell", forIndexPath: indexPath) as! postCell
+            cell.origin = "Feed"
             //cell.backgroundColor = UIColor.clearColor()
+            
+            cell.likeBtn.tag = indexPath.row
             
             cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
             //let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! postCell
@@ -1207,29 +1379,29 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             // define cell
             if shouldShowSearchResults{
                 
-//                
-//                // connect objects with our information from arrays
-//                //objc_sync_enter(self.nameArray)
-//                cell.usernameBtn.setTitle(nameArraySearch[indexPath.row], forState: UIControlState.Normal)
-//                cell.usernameBtn.sizeToFit()
-//                //objc_sync_exit(self.nameArray)
-//                cell.uuidLbl.text = self.uuidArraySearch[indexPath.row]
-//                cell.titleLbl.text = self.titleArraySearch[indexPath.row]
-//                cell.titleLbl.sizeToFit()
-//                cell.usernameHidden.setTitle(usernameArraySearch[indexPath.row], forState: UIControlState.Normal)
-//                
-//                // place profile picture
-//                avaArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-//                    cell.avaImg.image = UIImage(data: data!)
-//                }
-//                
-//                // place post picture
-//                picArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-//                    cell.picImg.image = UIImage(data: data!)
-//                }
-//                
-//                // calculate post date
-//                let from = dateArraySearch[indexPath.row]
+                //
+                //                // connect objects with our information from arrays
+                //                //objc_sync_enter(self.nameArray)
+                //                cell.usernameBtn.setTitle(nameArraySearch[indexPath.row], forState: UIControlState.Normal)
+                //                cell.usernameBtn.sizeToFit()
+                //                //objc_sync_exit(self.nameArray)
+                //                cell.uuidLbl.text = self.uuidArraySearch[indexPath.row]
+                //                cell.titleLbl.text = self.titleArraySearch[indexPath.row]
+                //                cell.titleLbl.sizeToFit()
+                //                cell.usernameHidden.setTitle(usernameArraySearch[indexPath.row], forState: UIControlState.Normal)
+                //
+                //                // place profile picture
+                //                avaArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+                //                    cell.avaImg.image = UIImage(data: data!)
+                //                }
+                //
+                //                // place post picture
+                //                picArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+                //                    cell.picImg.image = UIImage(data: data!)
+                //                }
+                //
+                //                // calculate post date
+                //                let from = dateArraySearch[indexPath.row]
             } else {
                 let u = indexPath.row
                 cell.usernameBtn.setTitle(nameArray[indexPath.row], forState: UIControlState.Normal)
@@ -1346,14 +1518,14 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             //                }
             //            })
             
-            getLikeCount(cell.uuidLbl.text! , Lbl : cell.likeLbl)
+            getLikeCount(cell.uuidLbl.text! , Lbl : cell.LikeLbl)
             getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
             
             
             // asign index
             cell.usernameBtn.layer.setValue(indexPath, forKey: "index")
             //cell.commentBtn.layer.setValue(indexPath, forKey: "index")
-            cell.moreBtn.layer.setValue(indexPath, forKey: "index")
+            //cell.moreBtn.layer.setValue(indexPath, forKey: "index")
             return cell
         }
         
@@ -1376,9 +1548,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC1
             self.navigationController?.pushViewController(home, animated: true)
         } else {
-//            guestname.append(cell.usernameHidden.titleLabel!.text!)
-//            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
-//            self.navigationController?.pushViewController(guest, animated: true)
+            //            guestname.append(cell.usernameHidden.titleLabel!.text!)
+            //            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+            //            self.navigationController?.pushViewController(guest, animated: true)
         }
         
         
@@ -1387,122 +1559,122 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
     }
     
-//    @IBAction func moreBtn_click(sender: AnyObject) {
-//        
-//        // call index of button
-//        let i = sender.layer.valueForKey("index") as! NSIndexPath
-//        
-//        // call cell to call further cell date
-//        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
-//        
-//        
-//        // DELET ACTION
-//        let delete = UIAlertAction(title: "Delete", style: .Default) { (UIAlertAction) -> Void in
-//            
-//            // STEP 1. Delete row from tableView
-//            self.usernameArray.removeAtIndex(i.row)
-//            self.avaArray.removeAtIndex(i.row)
-//            self.dateArray.removeAtIndex(i.row)
-//            self.picArray.removeAtIndex(i.row)
-//            self.titleArray.removeAtIndex(i.row)
-//            self.uuidArray.removeAtIndex(i.row)
-//            
-//            // STEP 2. Delete post from server
-//            let postQuery = PFQuery(className: "posts")
-//            postQuery.whereKey("uuid", equalTo: cell.uuidLbl.text!)
-//            postQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-//                            if success {
-//                                
-//                                // send notification to rootViewController to update shown posts
-//                                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
-//                                
-//                                // push back
-//                                self.navigationController?.popViewControllerAnimated(true)
-//                            } else {
-//                                print(error!.localizedDescription)
-//                            }
-//                        })
-//                    }
-//                } else {
-//                    print(error?.localizedDescription)
-//                }
-//            })
-//            
-//            // STEP 2. Delete likes of post from server
-//            let likeQuery = PFQuery(className: "likes")
-//            likeQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-//            likeQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteEventually()
-//                    }
-//                }
-//            })
-//            
-//            // STEP 3. Delete comments of post from server
-//            let commentQuery = PFQuery(className: "comments")
-//            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-//            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteEventually()
-//                    }
-//                }
-//            })
-//            
-//            // STEP 4. Delete hashtags of post from server
-//            let hashtagQuery = PFQuery(className: "hashtags")
-//            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-//            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//                if error == nil {
-//                    for object in objects! {
-//                        object.deleteEventually()
-//                    }
-//                }
-//            })
-//        }
-//        
-//        
-//        // COMPLAIN ACTION
-//        let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in
-//            
-//            // send complain to server
-//            let complainObj = PFObject(className: "complain")
-//            complainObj["by"] = PFUser.currentUser()?.username
-//            complainObj["to"] = cell.uuidLbl.text
-//            complainObj["owner"] = cell.usernameBtn.titleLabel?.text
-//            complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-//                if success {
-//                    self.alert("Complain has been made successfully", message: "Thank You! We will consider your complain")
-//                } else {
-//                    self.alert("ERROR", message: error!.localizedDescription)
-//                }
-//            })
-//        }
-//        
-//        // CANCEL ACTION
-//        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-//        
-//        
-//        // create menu controller
-//        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .ActionSheet)
-//        
-//        
-//        // if post belongs to user, he can delete post, else he can't
-//        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
-//            menu.addAction(delete)
-//            menu.addAction(cancel)
-//        } else {
-//            menu.addAction(complain)
-//            menu.addAction(cancel)
-//        }
-//        
-//        // show menu
-//        self.presentViewController(menu, animated: true, completion: nil)
-//    }
+    //    @IBAction func moreBtn_click(sender: AnyObject) {
+    //
+    //        // call index of button
+    //        let i = sender.layer.valueForKey("index") as! NSIndexPath
+    //
+    //        // call cell to call further cell date
+    //        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+    //
+    //
+    //        // DELET ACTION
+    //        let delete = UIAlertAction(title: "Delete", style: .Default) { (UIAlertAction) -> Void in
+    //
+    //            // STEP 1. Delete row from tableView
+    //            self.usernameArray.removeAtIndex(i.row)
+    //            self.avaArray.removeAtIndex(i.row)
+    //            self.dateArray.removeAtIndex(i.row)
+    //            self.picArray.removeAtIndex(i.row)
+    //            self.titleArray.removeAtIndex(i.row)
+    //            self.uuidArray.removeAtIndex(i.row)
+    //
+    //            // STEP 2. Delete post from server
+    //            let postQuery = PFQuery(className: "posts")
+    //            postQuery.whereKey("uuid", equalTo: cell.uuidLbl.text!)
+    //            postQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+    //                if error == nil {
+    //                    for object in objects! {
+    //                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+    //                            if success {
+    //
+    //                                // send notification to rootViewController to update shown posts
+    //                                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
+    //
+    //                                // push back
+    //                                self.navigationController?.popViewControllerAnimated(true)
+    //                            } else {
+    //                                print(error!.localizedDescription)
+    //                            }
+    //                        })
+    //                    }
+    //                } else {
+    //                    print(error?.localizedDescription)
+    //                }
+    //            })
+    //
+    //            // STEP 2. Delete likes of post from server
+    //            let likeQuery = PFQuery(className: "likes")
+    //            likeQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+    //            likeQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+    //                if error == nil {
+    //                    for object in objects! {
+    //                        object.deleteEventually()
+    //                    }
+    //                }
+    //            })
+    //
+    //            // STEP 3. Delete comments of post from server
+    //            let commentQuery = PFQuery(className: "comments")
+    //            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+    //            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+    //                if error == nil {
+    //                    for object in objects! {
+    //                        object.deleteEventually()
+    //                    }
+    //                }
+    //            })
+    //
+    //            // STEP 4. Delete hashtags of post from server
+    //            let hashtagQuery = PFQuery(className: "hashtags")
+    //            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+    //            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+    //                if error == nil {
+    //                    for object in objects! {
+    //                        object.deleteEventually()
+    //                    }
+    //                }
+    //            })
+    //        }
+    //
+    //
+    //        // COMPLAIN ACTION
+    //        let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in
+    //
+    //            // send complain to server
+    //            let complainObj = PFObject(className: "complain")
+    //            complainObj["by"] = PFUser.currentUser()?.username
+    //            complainObj["to"] = cell.uuidLbl.text
+    //            complainObj["owner"] = cell.usernameBtn.titleLabel?.text
+    //            complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+    //                if success {
+    //                    self.alert("Complain has been made successfully", message: "Thank You! We will consider your complain")
+    //                } else {
+    //                    self.alert("ERROR", message: error!.localizedDescription)
+    //                }
+    //            })
+    //        }
+    //
+    //        // CANCEL ACTION
+    //        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    //
+    //
+    //        // create menu controller
+    //        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .ActionSheet)
+    //
+    //
+    //        // if post belongs to user, he can delete post, else he can't
+    //        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+    //            menu.addAction(delete)
+    //            menu.addAction(cancel)
+    //        } else {
+    //            menu.addAction(complain)
+    //            menu.addAction(cancel)
+    //        }
+    //
+    //        // show menu
+    //        self.presentViewController(menu, animated: true, completion: nil)
+    //    }
     
     // alert action
     func alert (title: String, message : String) {
@@ -1599,7 +1771,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         var  cell = collectionView.dequeueReusableCellWithReuseIdentifier("idCollectionCell", forIndexPath: indexPath) as! testsearchcell
         //cell.uuidLbl.text = self.uuidArray[indexPath.row]
         // cell.titleShop.text="cellText"
-        
+        cell.likeBtn.tag = indexPath.row
+        cell.origin = "Feed"
         
         //cell.picImg1.frame = CGRectMake(0,0,cell.frame.width,cell.frame.width)
         
@@ -1609,50 +1782,50 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         // cell.uuid.hidden = true
         
         if shouldShowSearchResults {
-//            cell.segueDelegate = self
-//            //print(indexPath.row)
-//            cell.uuidLbl.text = self.uuidArraySearch[indexPath.row]
-//            
-//            // manipulate like button depending on did user like it or not
-//            let didLike = PFQuery(className: "likes")
-//            didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
-//            didLike.whereKey("to", equalTo: uuidArraySearch[indexPath.row])
-//            didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-//                // if no any likes are found, else found likes
-//                if count == 0 {
-//                    cell.likeBtn.setTitle("unlike", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
-//                } else {
-//                    cell.likeBtn.setTitle("like", forState: .Normal)
-//                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-//                }
-//            }
-//            
-//            let countLikes = PFQuery(className: "likes")
-//            countLikes.whereKey("to", equalTo: uuidArraySearch[indexPath.row])
-//            countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
-//                cell.likeLbl.text = "\(count)"
-//            }
-//            
-//            //cell.likeLbl.font.fontWithSize(13)
-//            //cell.likeButton.layer.setValue(indexPath, forKey: "index")
-//            //cell.nameLabel.text = "Two Little Bees"
-//            cell.titleLbl.text = "Two Little Bees" //self.titleArray[indexPath.row]
-//            //cell.titleLbl.sizeToFit()
-//            //cell.titleLbl.font.fontWithSize(13)
-//            //cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-35-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
-//            //cell.likeButton.addTarget(self, action: "likeTouchedColl:", forControlEvents:.TouchUpInside)
-//            
-//            
-//            // get loaded images from array
-//            picArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-//                if error == nil {
-//                    cell.picImg1.image = UIImage(data: data!)
-//                }
-//            }
+            //            cell.segueDelegate = self
+            //            //print(indexPath.row)
+            //            cell.uuidLbl.text = self.uuidArraySearch[indexPath.row]
+            //
+            //            // manipulate like button depending on did user like it or not
+            //            let didLike = PFQuery(className: "likes")
+            //            didLike.whereKey("by", equalTo: PFUser.currentUser()!.username!)
+            //            didLike.whereKey("to", equalTo: uuidArraySearch[indexPath.row])
+            //            didLike.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+            //                // if no any likes are found, else found likes
+            //                if count == 0 {
+            //                    cell.likeBtn.setTitle("unlike", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "unlike.png"), forState: .Normal)
+            //                } else {
+            //                    cell.likeBtn.setTitle("like", forState: .Normal)
+            //                    cell.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            //                }
+            //            }
+            //
+            //            let countLikes = PFQuery(className: "likes")
+            //            countLikes.whereKey("to", equalTo: uuidArraySearch[indexPath.row])
+            //            countLikes.countObjectsInBackgroundWithBlock { (count:Int32, error:NSError?) -> Void in
+            //                cell.likeLbl.text = "\(count)"
+            //            }
+            //
+            //            //cell.likeLbl.font.fontWithSize(13)
+            //            //cell.likeButton.layer.setValue(indexPath, forKey: "index")
+            //            //cell.nameLabel.text = "Two Little Bees"
+            //            cell.titleLbl.text = "Two Little Bees" //self.titleArray[indexPath.row]
+            //            //cell.titleLbl.sizeToFit()
+            //            //cell.titleLbl.font.fontWithSize(13)
+            //            //cell.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-35-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": nameLabel]))
+            //            //cell.likeButton.addTarget(self, action: "likeTouchedColl:", forControlEvents:.TouchUpInside)
+            //
+            //
+            //            // get loaded images from array
+            //            picArraySearch[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
+            //                if error == nil {
+            //                    cell.picImg1.image = UIImage(data: data!)
+            //                }
+            //            }
             
         } else {
-            cell.segueDelegate = self
+            cell.mySeg = self
             cell.uuidLbl.text = self.uuidArray[indexPath.row]
             
             //            // manipulate like button depending on did user like it or not
@@ -1690,7 +1863,10 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             //            })
             
             getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
-            getLikeCount(cell.uuidLbl.text! , Lbl : cell.likeLbl)
+            getLikeCount(cell.uuidLbl.text! , Lbl : cell.LikeLbl)
+            
+            //cell.LikeLbl.setTitle(self.likeArray[indexPath.row], forState: .Normal)
+            
             
             //            firebase.child("Likes").child(cell.uuidLbl.text!).observeEventType(.Value, withBlock: { snapshot in
             //                if snapshot.exists() {
@@ -1830,7 +2006,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // scroll down for paging
         if scrollView.contentOffset.y >= scrollView.contentSize.height / 6 {
-           // self.loadMore()
+            // self.loadMore()
         }
     }
     

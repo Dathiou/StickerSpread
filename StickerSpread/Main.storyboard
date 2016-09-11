@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Xwe-lf-Q8n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Xwe-lf-Q8n">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -240,8 +240,15 @@
                                         <constraint firstAttribute="width" constant="25" id="mxo-c5-VgN"/>
                                     </constraints>
                                 </imageView>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UgS-Bu-t81">
-                                    <rect key="frame" x="150" y="92" width="412" height="28"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Heart 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="s9C-8a-Aqw">
+                                    <rect key="frame" x="12" y="149" width="25" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="25" id="C3I-sW-tFr"/>
+                                        <constraint firstAttribute="width" constant="25" id="I8L-Yk-yjq"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UgS-Bu-t81">
+                                    <rect key="frame" x="173" y="62" width="412" height="28"/>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                                     <state key="normal" title="edit profile">
@@ -252,13 +259,6 @@
                                         <action selector="followBtn_click:" destination="WPU-7D-1sj" eventType="touchUpInside" id="nb5-ly-sHQ"/>
                                     </connections>
                                 </button>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Heart 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="s9C-8a-Aqw">
-                                    <rect key="frame" x="12" y="149" width="25" height="25"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="C3I-sW-tFr"/>
-                                        <constraint firstAttribute="width" constant="25" id="I8L-Yk-yjq"/>
-                                    </constraints>
-                                </imageView>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="UgS-Bu-t81" firstAttribute="leading" secondItem="d7u-mo-EOO" secondAttribute="leading" id="08V-GB-cxX"/>
@@ -1006,30 +1006,37 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRg-NN-OJj">
                                 <rect key="frame" x="5" y="64" width="600" height="600"/>
                                 <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sqa-82-E8Y">
+                                        <rect key="frame" x="122" y="235" width="470" height="228"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="228" id="H82-3V-xQa"/>
+                                        </constraints>
+                                    </tableView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="plb-U6-Ei1">
-                                        <rect key="frame" x="270" y="21" width="152" height="62"/>
+                                        <rect key="frame" x="263" y="21" width="152" height="62"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="pbg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="1Cn-5W-n3M">
-                                        <rect key="frame" x="436" y="29" width="123" height="122"/>
+                                        <rect key="frame" x="429" y="29" width="123" height="122"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="1Cn-5W-n3M" secondAttribute="height" multiplier="1:1" id="QOj-C5-sle"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhj-5m-F6M">
-                                        <rect key="frame" x="88" y="78" width="73" height="23"/>
+                                        <rect key="frame" x="81" y="78" width="73" height="23"/>
                                         <state key="normal" title="Stickers"/>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="What are you posting?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gdO-W0-rn3">
-                                        <rect key="frame" x="32" y="21" width="200" height="49"/>
+                                        <rect key="frame" x="25" y="21" width="200" height="49"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLe-Ed-uZb">
-                                        <rect key="frame" x="323" y="190" width="256" height="37"/>
+                                        <rect key="frame" x="316" y="190" width="256" height="37"/>
                                         <color key="backgroundColor" red="0.66230366490000003" green="0.09621391379321316" blue="0.51882503387241652" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="SHARE!">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1040,24 +1047,17 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unO-Qx-8Rs">
-                                        <rect key="frame" x="70" y="106" width="125" height="35"/>
+                                        <rect key="frame" x="63" y="106" width="125" height="35"/>
                                         <state key="normal" title="Annoucement"/>
                                     </button>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Sqa-82-E8Y">
-                                        <rect key="frame" x="122" y="235" width="470" height="228"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="228" id="H82-3V-xQa"/>
-                                        </constraints>
-                                    </tableView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Perfect for sharing new releases, reopenings, giveaways and sales!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cDA-xW-7Wh">
-                                        <rect key="frame" x="15" y="155" width="349" height="48"/>
+                                        <rect key="frame" x="8" y="155" width="349" height="48"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10E-Iw-HNu">
-                                        <rect key="frame" x="465" y="159" width="51" height="23"/>
+                                        <rect key="frame" x="458" y="159" width="51" height="23"/>
                                         <state key="normal" title="remove"/>
                                         <connections>
                                             <action selector="removeBtn_clicked:" destination="6I9-5P-rce" eventType="touchUpInside" id="xnW-hT-rAH"/>
@@ -1099,7 +1099,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8QJ-iy-XF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3932" y="1133"/>
+            <point key="canvasLocation" x="5634" y="1125"/>
         </scene>
         <!--TabbarVC-->
         <scene sceneID="INP-Ow-5HD">
@@ -1114,33 +1114,14 @@
                     </tabBar>
                     <connections>
                         <segue destination="UR1-xp-XXG" kind="relationship" relationship="viewControllers" id="swV-jj-1d2"/>
-                        <segue destination="oR8-uP-uEJ" kind="relationship" relationship="viewControllers" id="HqY-Fm-oUJ"/>
                         <segue destination="fKE-pv-1Vd" kind="relationship" relationship="viewControllers" id="e1g-3e-wXC"/>
                         <segue destination="icj-aH-iZ4" kind="relationship" relationship="viewControllers" id="BH1-Lt-3oy"/>
+                        <segue destination="fyL-U1-qPd" kind="relationship" relationship="viewControllers" id="vhq-al-OOq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y92-Dq-WMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2403.75" y="341.19718309859155"/>
-        </scene>
-        <!--upload-->
-        <scene sceneID="sGG-j0-X2V">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oR8-uP-uEJ" customClass="navVC" customModule="StickerSpread" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="upload" id="3PR-JD-63x"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pgk-ej-BMI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="6I9-5P-rce" kind="relationship" relationship="rootViewController" id="GiS-x9-6gS"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ykG-n8-9Fo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3245.625" y="1133.450704225352"/>
         </scene>
         <!--FeedVC-->
         <scene sceneID="8Qm-NA-rPn">
@@ -2416,6 +2397,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbY-YG-twA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3097" y="-365"/>
+        </scene>
+        <!--UploadVC1-->
+        <scene sceneID="JCK-nY-LfB">
+            <objects>
+                <tableViewController id="Wzv-2u-mhi" customClass="uploadVC1" customModule="StickerSpread" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nvA-99-KDk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="162" id="qpH-au-eei">
+                                <rect key="frame" x="0.0" y="92" width="600" height="162"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qpH-au-eei" id="ySN-PS-t2n">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="161"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Wzv-2u-mhi" id="2Zs-fq-N67"/>
+                            <outlet property="delegate" destination="Wzv-2u-mhi" id="0zc-3Q-vgH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Qv4-IS-Vzd"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tKA-1b-IOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3874" y="1051"/>
+        </scene>
+        <!--Upload-->
+        <scene sceneID="ZJc-pg-u2W">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fyL-U1-qPd" customClass="navVC" customModule="StickerSpread" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Upload" id="8jb-zG-Ofc"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZEE-ip-6Cz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Wzv-2u-mhi" kind="relationship" relationship="rootViewController" id="Q2t-i7-c1v"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qdg-m5-Pdv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3162" y="1051"/>
         </scene>
     </scenes>
     <resources>

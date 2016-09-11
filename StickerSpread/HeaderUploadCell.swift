@@ -1,0 +1,64 @@
+//
+//  HeaderUploadCellTableViewCell.swift
+//  StickerSpread
+//
+//  Created by Student on 9/10/16.
+//  Copyright © 2016 Student iMac. All rights reserved.
+//
+
+import UIKit
+
+class HeaderUploadCell: UITableViewCell {
+
+    
+    @IBOutlet weak var removeBtn: UIButton!
+    @IBOutlet weak var picImg: UIImageView!
+    
+    var delegate : ImagePickerDelegate?
+    
+    func selectImg(sender: AnyObject) {
+        
+        delegate?.pickImage()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+                picImg.image = UIImage(named: "pbg.jpg")
+        
+        
+        // hide kyeboard tap
+        let hideTap = UITapGestureRecognizer(target: self, action: "hideKeyboardTap")
+        hideTap.numberOfTapsRequired = 1
+        self.userInteractionEnabled = true
+        self.addGestureRecognizer(hideTap)
+        
+        // select image tap
+        let picTap = UITapGestureRecognizer(target: self, action: "selectImg:")
+        picTap.numberOfTapsRequired = 1
+        picImg.userInteractionEnabled = true
+        picImg.addGestureRecognizer(picTap)
+        
+        hideTap.cancelsTouchesInView = false
+        picTap.cancelsTouchesInView = false
+        
+        
+        
+        // Initialization code
+    }
+
+
+    
+    
+
+    
+    
+
+    
+    // zooming in / out function
+    func zoomImg1() {
+        delegate?.zoomImg(picImg, removeBtn: removeBtn)
+    }
+    
+
+}

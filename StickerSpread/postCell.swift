@@ -16,8 +16,55 @@ import Firebase
 protocol segueToPostFromFeed{
     func goToPost(uuid : String!)
     func goToProfile(id : String!)
+    func displayLikes(uuid : String!)
 }
 
+func SetLike(title: String!, uuid: String! , Btn: UIButton, Lbl:UIButton, CellPos : Int, Origin: String){
+    if title == "unlike" {
+        let date = NSDate()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        let dateString = dateFormatter.stringFromDate(date)
+        
+        firebase.child("Likes").child(uuid).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(["Date" : dateString])
+        firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuid).setValue(["Date" : dateString])
+        print("liked")
+        
+        if Origin == "Feed" {
+            NSNotificationCenter.defaultCenter().postNotificationName("likedFromFeed", object: CellPos)
+        } else if Origin == "Home" {
+            NSNotificationCenter.defaultCenter().postNotificationName("likedFromHome", object: CellPos)
+        } else if Origin == "Post" {
+            NSNotificationCenter.defaultCenter().postNotificationName("likedFromPost", object: CellPos)
+        }
+        
+        Btn.setTitle("like", forState: .Normal)
+        Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
+        print(Lbl.currentTitle)
+        //Lbl.setTitle("\(Int(Lbl.currentTitle!)! + 1)", forState: .Normal)
+        
+    } else {
+        
+        firebase.child("Likes").child(uuid).child((FIRAuth.auth()?.currentUser!.uid)!).removeValue()
+        firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuid).removeValue()
+        print("disliked")
+        if Origin == "Feed" {
+            NSNotificationCenter.defaultCenter().postNotificationName("likedFromFeed", object: CellPos)
+        } else if Origin == "Home" {
+            NSNotificationCenter.defaultCenter().postNotificationName("likedFromHome", object: CellPos)
+        } else if Origin == "Post" {
+            NSNotificationCenter.defaultCenter().postNotificationName("likedFromPost", object: CellPos)
+        }
+        Btn.setTitle("unlike", forState: .Normal)
+        Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
+        
+        //Lbl.setTitle("\(Int(Lbl.currentTitle!)! + 1)", forState: .Normal)
+        
+        
+        
+    }
+
+}
 
 
 class postCell: UITableViewCell {
@@ -33,10 +80,12 @@ class postCell: UITableViewCell {
     @IBOutlet weak var picImg: UIImageView!
     @IBOutlet weak var likeBtn: UIButton!
     
+    @IBOutlet weak var likelblbt: UILabel!
     //@IBOutlet weak var commentBtn: UIButton!
     @IBOutlet weak var moreBtn: UIButton!
-    @IBOutlet weak var likeLbl: UILabel!
+//    @IBOutlet weak var likeLbl: UILabel!
     
+    @IBOutlet weak var LikeLbl: UIButton!
     @IBOutlet weak var usernameHidden: UIButton!
     
    @IBOutlet weak var titleLbl: UILabel!
@@ -44,6 +93,7 @@ class postCell: UITableViewCell {
     //var segueDelegateUser : segueToUserFromFeed!
     //@IBOutlet weak var titleLbl: KILabel!
     @IBOutlet weak var uuidLbl: UILabel!
+    var origin = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -287,6 +337,8 @@ class postCell: UITableViewCell {
         
     }
     
+    
+    
 
     func selectTap(){
         if let st = uuidLbl.text as String! {
@@ -302,40 +354,21 @@ class postCell: UITableViewCell {
         
     }
     
+    @IBAction func likeLblBtn_click() {
+        if let id = self.uuidLbl.text as String!{
+            segueDelegate.displayLikes(id)
+        }
+        
+    }
+    
+    
+    
     @IBAction func likeBtn_clicked(sender: AnyObject) {
         // declare title of button
         let title = sender.titleForState(.Normal)
-        
-        // to like
-        if title == "unlike" {
-            
-            firebase.child("Likes").child(uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
-            firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuidLbl.text!).setValue(true)
-            print("liked")
-            self.likeBtn.setTitle("like", forState: .Normal)
-            self.likeBtn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
-           // self.likeLbl.text = "\(Int(self.likeLbl.text!)! + 1)"
-            
-            // send notification if we liked to refresh TableView
-           // NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
-            
-            
-            // to dislike
-        } else {
-            
-            firebase.child("Likes").child(uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).removeValue()
-            firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuidLbl.text!).removeValue()
-            print("disliked")
-            self.likeBtn.setTitle("unlike", forState: .Normal)
-            self.likeBtn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
-            
-            // send notification if we liked to refresh TableView
-           // NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
-           // self.likeLbl.text = "\(Int(self.likeLbl.text!)! - 1)"
-            
+        let buttonRow = sender.tag
+        SetLike(title,uuid: uuidLbl.text!,Btn: self.likeBtn, Lbl: self.LikeLbl, CellPos : buttonRow, Origin: self.origin)
 
-            
-        }
     }
     
     
