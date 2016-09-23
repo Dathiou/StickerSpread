@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" selectionStyle="default" indentationWidth="10" reuseIdentifier="idHeaderUpload" id="2GJ-rC-vUp" customClass="HeaderUploadCell" customModule="StickerSpread" customModuleProvider="target">
+        <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" selectionStyle="none" indentationWidth="8" reuseIdentifier="idHeaderUpload" id="2GJ-rC-vUp" customClass="HeaderUploadCell" customModule="StickerSpread" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="379" height="140"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2GJ-rC-vUp" id="wqc-FW-cVa">
@@ -23,6 +23,9 @@
                             <constraint firstAttribute="height" constant="25" id="pIj-J8-YUD"/>
                         </constraints>
                         <state key="normal" title="Annoucement"/>
+                        <connections>
+                            <action selector="AnoucementClick:" destination="2GJ-rC-vUp" eventType="touchUpInside" id="MNB-bS-IH1"/>
+                        </connections>
                     </button>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="950" verticalHuggingPriority="900" verticalCompressionResistancePriority="100" scrollEnabled="NO" editable="NO" text="What are you posting?" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aqk-D3-uBJ">
                         <rect key="frame" x="0.0" y="5" width="155" height="27"/>
@@ -39,6 +42,9 @@
                             <constraint firstAttribute="height" constant="31" id="HQ1-UR-oGv"/>
                         </constraints>
                         <state key="normal" title="Stickers"/>
+                        <connections>
+                            <action selector="StickersClick:" destination="2GJ-rC-vUp" eventType="touchUpInside" id="6wC-55-ApC"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1N8-iy-XwW">
                         <rect key="frame" x="304" y="84" width="45" height="17"/>
@@ -82,11 +88,12 @@
                     <constraint firstItem="rGU-KH-wrQ" firstAttribute="top" secondItem="QXP-Vm-EE9" secondAttribute="bottom" id="xNk-md-QDK"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
                 <outlet property="picImg" destination="C3T-pC-yL6" id="kK8-qy-rxw"/>
                 <outlet property="removeBtn" destination="1N8-iy-XwW" id="Qaj-nF-xmd"/>
             </connections>
-            <point key="canvasLocation" x="384.5" y="17"/>
+            <point key="canvasLocation" x="39.5" y="15"/>
         </tableViewCell>
     </objects>
     <resources>

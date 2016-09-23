@@ -40,8 +40,11 @@
 		3F89D47D1D84CFA100F01B06 /* View Changer 1-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F89D45E1D84CFA100F01B06 /* View Changer 1-1.png */; };
 		3F89D47E1D84CFA100F01B06 /* View Changer 2-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F89D45F1D84CFA100F01B06 /* View Changer 2-2.png */; };
 		3F89D4801D84D21A00F01B06 /* Background_Blue_Joint.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F89D47F1D84D21A00F01B06 /* Background_Blue_Joint.jpg */; };
+		3F89D4821D84E60D00F01B06 /* FieldUpload.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F89D4811D84E60D00F01B06 /* FieldUpload.xib */; };
+		3F89D4841D84F2A400F01B06 /* FieldUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F89D4831D84F2A400F01B06 /* FieldUploadCell.swift */; };
 		3FCF7C9E1D849D49006DE2E9 /* HeaderUpload.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FCF7C9D1D849D49006DE2E9 /* HeaderUpload.xib */; };
 		3FCF7CA01D84A1D0006DE2E9 /* HeaderUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF7C9F1D84A1D0006DE2E9 /* HeaderUploadCell.swift */; };
+		3FF5ADA51D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FF5ADA41D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist */; };
 		7B03C61C1D28991D00730FD6 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B03C61B1D28991D00730FD6 /* SettingsVC.swift */; };
 		7B03C6471CF93312005BFD9B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7B03C6461CF93311005BFD9B /* Podfile */; };
 		7B24BC4E1D036EB0002BB228 /* feed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B24BC4B1D036EB0002BB228 /* feed.png */; };
@@ -166,8 +169,11 @@
 		3F89D45E1D84CFA100F01B06 /* View Changer 1-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "View Changer 1-1.png"; sourceTree = "<group>"; };
 		3F89D45F1D84CFA100F01B06 /* View Changer 2-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "View Changer 2-2.png"; sourceTree = "<group>"; };
 		3F89D47F1D84D21A00F01B06 /* Background_Blue_Joint.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Background_Blue_Joint.jpg; sourceTree = "<group>"; };
+		3F89D4811D84E60D00F01B06 /* FieldUpload.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FieldUpload.xib; sourceTree = "<group>"; };
+		3F89D4831D84F2A400F01B06 /* FieldUploadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldUploadCell.swift; sourceTree = "<group>"; };
 		3FCF7C9D1D849D49006DE2E9 /* HeaderUpload.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderUpload.xib; sourceTree = "<group>"; };
 		3FCF7C9F1D84A1D0006DE2E9 /* HeaderUploadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderUploadCell.swift; sourceTree = "<group>"; };
+		3FF5ADA41D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AnnoucementUploadCellDescriptor.plist; sourceTree = "<group>"; };
 		7B03C61B1D28991D00730FD6 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		7B03C6461CF93311005BFD9B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		7B24BC4B1D036EB0002BB228 /* feed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = feed.png; sourceTree = "<group>"; };
@@ -385,6 +391,7 @@
 				7BB652BD1CF7BC7300D1E65E /* Info.plist */,
 				7BD27B831D1B4CB800705783 /* FilterCellDescriptor.plist */,
 				7BEC95E91D57B78A0036A644 /* StickersUploadCellDescriptor.plist */,
+				3FF5ADA41D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist */,
 				7BA68CA81CFCB0890077A9CB /* pictureCell.swift */,
 				7B2F67841D40617600C39505 /* Profile */,
 				7B82B9CB1CF93CE000F99468 /* StickerSpread-Bridging-Header.h */,
@@ -435,6 +442,8 @@
 				7BEC95EB1D57BB0F0036A644 /* FilterCell */,
 				7BD27B8E1D1DABC900705783 /* postFeed.xib */,
 				3FCF7C9D1D849D49006DE2E9 /* HeaderUpload.xib */,
+				3F89D4811D84E60D00F01B06 /* FieldUpload.xib */,
+				3F89D4831D84F2A400F01B06 /* FieldUploadCell.swift */,
 				7BD27B901D1DAEC100705783 /* postSelected.xib */,
 				7B3231051D35AD8C00231180 /* collectionCell.xib */,
 				3FCF7C9F1D84A1D0006DE2E9 /* HeaderUploadCell.swift */,
@@ -631,6 +640,7 @@
 				7BD27B911D1DAEC100705783 /* postSelected.xib in Resources */,
 				7B6E4A301D01EDFA004FCF2A /* pbg.jpg in Resources */,
 				3F89D4761D84CFA100F01B06 /* Home.png in Resources */,
+				3FF5ADA51D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist in Resources */,
 				3F89D4791D84CFA100F01B06 /* Plus.png in Resources */,
 				7B6F89F71D03055F00D9C17C /* more.png in Resources */,
 				3F89D4671D84CFA100F01B06 /* Dash Box 2.png in Resources */,
@@ -644,6 +654,7 @@
 				3F89D4681D84CFA100F01B06 /* Dots.png in Resources */,
 				7B6F8A021D030D6600D9C17C /* home.png in Resources */,
 				3F89D4641D84CFA100F01B06 /* Dash Box 1-1.png in Resources */,
+				3F89D4821D84E60D00F01B06 /* FieldUpload.xib in Resources */,
 				7B03C6471CF93312005BFD9B /* Podfile in Resources */,
 				3F89D4751D84CFA100F01B06 /* Heart 2.png in Resources */,
 				7B6F89F81D03055F00D9C17C /* unlike.png in Resources */,
@@ -740,6 +751,7 @@
 				7BB652B41CF7BC7300D1E65E /* ViewController.swift in Sources */,
 				7BD326DE1D01259400FA91E4 /* SVProgressAnimatedView.m in Sources */,
 				7BB652EA1CF7CE2900D1E65E /* signInVC.swift in Sources */,
+				3F89D4841D84F2A400F01B06 /* FieldUploadCell.swift in Sources */,
 				7BB652B21CF7BC7300D1E65E /* AppDelegate.swift in Sources */,
 				7BC79CC21D139E1900D88B22 /* searchCollCell.swift in Sources */,
 				7BA129421CFE7021009A7EBA /* followersCell.swift in Sources */,

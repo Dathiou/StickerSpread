@@ -2402,18 +2402,49 @@
         <scene sceneID="JCK-nY-LfB">
             <objects>
                 <tableViewController id="Wzv-2u-mhi" customClass="uploadVC1" customModule="StickerSpread" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nvA-99-KDk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="43" sectionHeaderHeight="28" sectionFooterHeight="28" id="nvA-99-KDk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="162" id="qpH-au-eei">
-                                <rect key="frame" x="0.0" y="92" width="600" height="162"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="idField" selectionStyle="default" indentationWidth="10" reuseIdentifier="idField" rowHeight="43" id="qpH-au-eei" customClass="FieldUploadCell" customModule="StickerSpread" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qpH-au-eei" id="ySN-PS-t2n">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="161"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="42"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title*" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jmI-bC-43d">
+                                            <rect key="frame" x="18" y="6" width="420" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                        </textField>
+                                        <button contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQv-zf-jsm">
+                                            <rect key="frame" x="567" y="11" width="20" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="bQv-zf-jsm" secondAttribute="height" multiplier="1:1" id="fDA-VE-yue"/>
+                                                <constraint firstAttribute="width" constant="20" id="gu6-rB-ale"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <state key="normal" title="Btn" image="Plus.png"/>
+                                            <connections>
+                                                <action selector="AddShop:" destination="qpH-au-eei" eventType="touchUpInside" id="gtB-sk-P0U"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bQv-zf-jsm" firstAttribute="centerY" secondItem="jmI-bC-43d" secondAttribute="centerY" id="APk-ub-68b"/>
+                                        <constraint firstItem="jmI-bC-43d" firstAttribute="top" secondItem="ySN-PS-t2n" secondAttribute="topMargin" constant="-2" id="L9y-SS-Wvj"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bQv-zf-jsm" secondAttribute="trailing" constant="5" id="N3n-qz-tUv"/>
+                                        <constraint firstItem="jmI-bC-43d" firstAttribute="leading" secondItem="ySN-PS-t2n" secondAttribute="leadingMargin" constant="10" id="Oxn-G6-uLk"/>
+                                        <constraint firstItem="jmI-bC-43d" firstAttribute="width" secondItem="ySN-PS-t2n" secondAttribute="width" multiplier="0.7" id="aWQ-f9-K5K"/>
+                                        <constraint firstItem="jmI-bC-43d" firstAttribute="centerY" secondItem="ySN-PS-t2n" secondAttribute="centerY" id="ifH-7V-sj5"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="Field" destination="jmI-bC-43d" id="7ky-wH-t5C"/>
+                                    <outlet property="addBtn" destination="bQv-zf-jsm" id="bx0-zn-51Q"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -2449,6 +2480,7 @@
     </scenes>
     <resources>
         <image name="Heart 1.png" width="800" height="800"/>
+        <image name="Plus.png" width="800" height="800"/>
         <image name="View Changer 1-1.png" width="800" height="800"/>
         <image name="comment.png" width="270" height="270"/>
         <image name="feed.png" width="25" height="25"/>
@@ -2460,6 +2492,6 @@
         <image name="users.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lQJ-cZ-EBG"/>
+        <segue reference="bh3-14-Ro0"/>
     </inferredMetricsTieBreakers>
 </document>

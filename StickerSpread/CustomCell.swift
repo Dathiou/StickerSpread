@@ -22,10 +22,15 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
 
     // MARK: IBOutlet Properties
     
+    @IBOutlet weak var ParentMainTxt: UILabel!
+    @IBOutlet weak var SelectedOverview: UILabel!
     
     @IBOutlet weak var TxtCell: UILabel!
     
     @IBOutlet weak var checkBoxButton: CheckBox!
+    
+    @IBOutlet weak var LastButton: UIButton!
+    
     
     @IBOutlet weak var textField: UITextField!
     
@@ -51,7 +56,7 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
     
     // MARK: Variables
     
-    //var delegate: CustomCellDelegate!
+    var delegate: UploadInput!
     
     
     override func awakeFromNib() {
@@ -83,6 +88,8 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
             slExperienceLevel.value = 0.0
         }
     }
+    
+    
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -90,6 +97,10 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
         // Configure the view for the selected state
     }
 
+//    @IBAction func CheckBoxClicked(sender: AnyObject) {
+//    
+//        delegate.checkBoxClicked()
+//    }
     
     // MARK: IBAction Functions
     

@@ -16,7 +16,7 @@ class HeaderUploadCell: UITableViewCell {
     
     var delegate : ImagePickerDelegate?
     
-    func selectImg(sender: AnyObject) {
+    func selectImg() {
         
         delegate?.pickImage()
     }
@@ -27,19 +27,20 @@ class HeaderUploadCell: UITableViewCell {
                 picImg.image = UIImage(named: "pbg.jpg")
         
         
-        // hide kyeboard tap
-        let hideTap = UITapGestureRecognizer(target: self, action: "hideKeyboardTap")
-        hideTap.numberOfTapsRequired = 1
-        self.userInteractionEnabled = true
-        self.addGestureRecognizer(hideTap)
+//        // hide kyeboard tap
+//        let hideTap = UITapGestureRecognizer(target: self, action: "hideKeyboardTap")
+//        hideTap.numberOfTapsRequired = 1
+//        self.userInteractionEnabled = true
+//        self.addGestureRecognizer(hideTap)
+
         
         // select image tap
-        let picTap = UITapGestureRecognizer(target: self, action: "selectImg:")
+        let picTap = UITapGestureRecognizer(target: self, action: "selectImg")
         picTap.numberOfTapsRequired = 1
         picImg.userInteractionEnabled = true
         picImg.addGestureRecognizer(picTap)
         
-        hideTap.cancelsTouchesInView = false
+//        hideTap.cancelsTouchesInView = false
         picTap.cancelsTouchesInView = false
         
         
@@ -49,16 +50,23 @@ class HeaderUploadCell: UITableViewCell {
 
 
     
-    
+    @IBAction func AnoucementClick(sender: AnyObject) {
+    delegate?.loadAnnoucementForm()
+    }
+
+
+    @IBAction func StickersClick(sender: AnyObject) {
+    delegate?.loadStickerForm()
+    }
 
     
     
 
     
     // zooming in / out function
-    func zoomImg1() {
-        delegate?.zoomImg(picImg, removeBtn: removeBtn)
-    }
+//    func zoomImg1() {
+//        delegate?.zoomImg(picImg, removeBtn: removeBtn)
+//    }
     
 
 }

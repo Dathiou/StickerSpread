@@ -488,18 +488,19 @@
 		<key>additionalRows</key>
 		<integer>0</integer>
 	</dict>
-    <dict>
-        <key>isExpandable</key>
-        <false/>
-        <key>isExpanded</key>
-        <false/>
-        <key>isVisible</key>
-        <true/>
-        <key>cellIdentifier</key>
-        <string>idFilterButtonCell</string>
-        <key>additionalRows</key>
-        <integer>0</integer>
-    </dict>
-    
+	<dict>
+		<key>Title</key>
+		<string>Filter!</string>
+		<key>isExpandable</key>
+		<false/>
+		<key>isExpanded</key>
+		<false/>
+		<key>isVisible</key>
+		<true/>
+		<key>cellIdentifier</key>
+		<string>idFilterButtonCell</string>
+		<key>additionalRows</key>
+		<integer>0</integer>
+	</dict>
 </array>
 </plist>

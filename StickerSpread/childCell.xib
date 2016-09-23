@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -7,18 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="idChildCell" id="G9y-wU-J5M" customClass="CustomCell" customModule="StickerSpread" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="idChildCell" id="G9y-wU-J5M" customClass="CustomCell" customModule="StickerSpread" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G9y-wU-J5M" id="hD2-cC-J80">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSa-w9-a4p">
-                        <rect key="frame" x="16" y="7" width="288" height="30"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqf-5h-Pfj" customClass="CheckBox" customModule="StickerSpread" customModuleProvider="target">
                         <rect key="frame" x="245" y="7" width="30" height="30"/>
                         <state key="normal" title="Button"/>
@@ -26,21 +21,14 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Layout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQb-xy-GZ7">
                         <rect key="frame" x="51" y="11" width="143" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="fSa-w9-a4p" firstAttribute="leading" secondItem="hD2-cC-J80" secondAttribute="leading" constant="16" id="D8e-dg-hsm"/>
-                    <constraint firstAttribute="bottom" secondItem="fSa-w9-a4p" secondAttribute="bottom" constant="6" id="Vnq-fI-LsT"/>
-                    <constraint firstAttribute="trailing" secondItem="fSa-w9-a4p" secondAttribute="trailing" constant="16" id="s7k-V8-iTd"/>
-                    <constraint firstItem="fSa-w9-a4p" firstAttribute="top" secondItem="hD2-cC-J80" secondAttribute="top" constant="7" id="uhy-FF-yKp"/>
-                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="TxtCell" destination="IQb-xy-GZ7" id="7MH-fF-oJy"/>
-                <outlet property="checkBoxButton" destination="jqf-5h-Pfj" id="eLa-Fi-4S1"/>
-                <outlet property="textField" destination="fSa-w9-a4p" id="nBn-NK-b3M"/>
+                <outlet property="checkBoxButton" destination="jqf-5h-Pfj" id="knd-sV-45a"/>
             </connections>
             <point key="canvasLocation" x="221" y="413"/>
         </tableViewCell>

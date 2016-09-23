@@ -20,6 +20,7 @@
             didSet{
                 if isChecked == true {
                     self.setImage(checkedImage, forState: .Normal)
+                    
                 } else {
                     self.setImage(uncheckedImage, forState: .Normal)
                 }

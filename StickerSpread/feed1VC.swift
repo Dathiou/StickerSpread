@@ -13,6 +13,8 @@ import Firebase
 
 
 
+
+
 func getLikeState(string: String , Btn :UIButton){
     
     firebase.child("Likes").child(string).child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEventOfType(.Value, withBlock: { snapshot in//observeEventType(.Value, withBlock: { snapshot in
@@ -61,7 +63,11 @@ func getLikeCount(string: String , Lbl :UIButton){
     
 }
 
-
+//protocol ExpandDelegate {
+//    func loadCellDescriptors(fileName : String!)
+//    func getIndicesOfVisibleRows()
+//    func getCellDescriptorForIndexPath(indexPath: NSIndexPath) -> [String: AnyObject]
+//}
 
 
 class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate ,UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout, SegueColl, segueToPostFromFeed{
@@ -306,7 +312,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         configureTableView()
         
-        loadCellDescriptors()
+        loadCellDescriptors("FilterCellDescriptor")
         
     }
     
@@ -479,8 +485,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     
-    func loadCellDescriptors() {
-        if let path = NSBundle.mainBundle().pathForResource("FilterCellDescriptor", ofType: "plist") {
+    func loadCellDescriptors(fileName : String!) {
+        if let path = NSBundle.mainBundle().pathForResource(fileName, ofType: "plist") {
             cellDescriptors = NSMutableArray(contentsOfFile: path)
             getIndicesOfVisibleRows()
             
@@ -502,7 +508,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             
             if cellDescriptors[row].objectForKey("isVisible") as! Bool == true {
                 visibleRows.append(row)
-                print (cellDescriptors[row])
+                //print (cellDescriptors[row])
             }
         }
         
@@ -1129,7 +1135,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             
             dispatch_group_notify(picturesGroup, dispatch_get_main_queue()) {
                 let imagesSorted = Array(self.myDictionaryImage.keys).sort(>)
-                print(imagesSorted)
+                //print(imagesSorted)
                 // let y = sort(imagesSorted)  //{self.myDictionaryImage[$0] < self.myDictionaryImage[$1]}) //self.myDictionaryImage.sorted() { $0.0 < $1.0 }
                 
                 for a in imagesSorted as! [Int] {
@@ -1304,7 +1310,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     // cell numb
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == ExpListFilters {
-            print(visibleRows.count)
+            //print(visibleRows.count)
             return visibleRows.count
         } else {
             if shouldShowSearchResults {
@@ -1355,6 +1361,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 cell.TxtCell.text = currentCellDescriptor["primaryTitle"] as? String
             } else if currentCellDescriptor["cellIdentifier"] as! String == "idFilterButtonCell" {
                 //cell.textField.placeholder = currentCellDescriptor["primaryTitle"] as? String
+                cell.LastButton.setTitle(currentCellDescriptor["Title"] as? String, forState: .Normal) 
                 cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width)
             }
             
@@ -1754,7 +1761,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         //print(UIScreen.mainScreen().bounds.width)
-        print (self.view.frame.width)
+        //print (self.view.frame.width)
         return CGSize(width: UIScreen.mainScreen().bounds.width/2, height: self.view.frame.width/2 + 25);
         
     }
