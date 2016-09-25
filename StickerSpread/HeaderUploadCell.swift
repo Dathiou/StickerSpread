@@ -35,9 +35,9 @@ class HeaderUploadCell: UITableViewCell {
 
         
         // select image tap
-        let picTap = UITapGestureRecognizer(target: self, action: "selectImg")
+        let picTap = UITapGestureRecognizer(target: self, action: #selector(HeaderUploadCell.selectImg))
         picTap.numberOfTapsRequired = 1
-        picImg.userInteractionEnabled = true
+        picImg.isUserInteractionEnabled = true
         picImg.addGestureRecognizer(picTap)
         
 //        hideTap.cancelsTouchesInView = false

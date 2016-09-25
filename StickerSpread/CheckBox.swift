@@ -19,16 +19,16 @@
         var isChecked: Bool = false {
             didSet{
                 if isChecked == true {
-                    self.setImage(checkedImage, forState: .Normal)
+                    self.setImage(checkedImage, for: .normal)
                     
                 } else {
-                    self.setImage(uncheckedImage, forState: .Normal)
+                    self.setImage(uncheckedImage, for: .normal)
                 }
             }
         }
         
         override func awakeFromNib() {
-            self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+            self.addTarget(self, action: "buttonClicked:", for: UIControlEvents.touchUpInside)
             self.isChecked = false
         }
         

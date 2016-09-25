@@ -44,6 +44,7 @@
 		3F89D4841D84F2A400F01B06 /* FieldUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F89D4831D84F2A400F01B06 /* FieldUploadCell.swift */; };
 		3FCF7C9E1D849D49006DE2E9 /* HeaderUpload.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FCF7C9D1D849D49006DE2E9 /* HeaderUpload.xib */; };
 		3FCF7CA01D84A1D0006DE2E9 /* HeaderUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF7C9F1D84A1D0006DE2E9 /* HeaderUploadCell.swift */; };
+		3FF50EF11D974045004A690C /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF50EF01D974045004A690C /* DateExtension.swift */; };
 		3FF5ADA51D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FF5ADA41D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist */; };
 		7B03C61C1D28991D00730FD6 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B03C61B1D28991D00730FD6 /* SettingsVC.swift */; };
 		7B03C6471CF93312005BFD9B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7B03C6461CF93311005BFD9B /* Podfile */; };
@@ -173,6 +174,7 @@
 		3F89D4831D84F2A400F01B06 /* FieldUploadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldUploadCell.swift; sourceTree = "<group>"; };
 		3FCF7C9D1D849D49006DE2E9 /* HeaderUpload.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderUpload.xib; sourceTree = "<group>"; };
 		3FCF7C9F1D84A1D0006DE2E9 /* HeaderUploadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderUploadCell.swift; sourceTree = "<group>"; };
+		3FF50EF01D974045004A690C /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		3FF5ADA41D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AnnoucementUploadCellDescriptor.plist; sourceTree = "<group>"; };
 		7B03C61B1D28991D00730FD6 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		7B03C6461CF93311005BFD9B /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -414,6 +416,7 @@
 				7BC79CC11D139E1800D88B22 /* searchCollCell.swift */,
 				7BD27B851D1B56C900705783 /* CustomCell.swift */,
 				7BD27B881D1C254200705783 /* CheckBox.swift */,
+				3FF50EF01D974045004A690C /* DateExtension.swift */,
 			);
 			path = StickerSpread;
 			sourceTree = "<group>";
@@ -566,12 +569,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Student iMac";
 				TargetAttributes = {
 					7BB652AD1CF7BC7300D1E65E = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = EFNR4VD9CP;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -753,6 +758,7 @@
 				7BB652EA1CF7CE2900D1E65E /* signInVC.swift in Sources */,
 				3F89D4841D84F2A400F01B06 /* FieldUploadCell.swift in Sources */,
 				7BB652B21CF7BC7300D1E65E /* AppDelegate.swift in Sources */,
+				3FF50EF11D974045004A690C /* DateExtension.swift in Sources */,
 				7BC79CC21D139E1900D88B22 /* searchCollCell.swift in Sources */,
 				7BA129421CFE7021009A7EBA /* followersCell.swift in Sources */,
 				7B03C61C1D28991D00730FD6 /* SettingsVC.swift in Sources */,
@@ -797,10 +803,13 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -843,10 +852,13 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -863,6 +875,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -876,18 +889,20 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = EFNR4VD9CP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = StickerSpread/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stickerspread.StickerSpread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "StickerSpread/StickerSpread-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -900,17 +915,19 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = EFNR4VD9CP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = StickerSpread/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stickerspread.StickerSpread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "StickerSpread/StickerSpread-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

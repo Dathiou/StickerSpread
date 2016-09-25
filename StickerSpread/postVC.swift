@@ -17,14 +17,14 @@ class postVC: UITableViewController {
     var refresher = UIRefreshControl()
     
     let storage = FIRStorage.storage()
-    let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
+    let storageRef = FIRStorage.storage().reference(forURL: "gs://stickerspread-4f3a9.appspot.com")
     
     // arrays to hold information from server
     //var avaArray = [PFFile]()
     var avaArray = [UIImage]()
     var usernameArray = [String]()
     var nameArray = [String]()
-    var dateArray = [NSDate?]()
+    var dateArray = [Date]()
     //var picArray = [PFFile]()
     var picArray = [UIImage]()
     var uuidArray = [String]()
@@ -48,17 +48,17 @@ class postVC: UITableViewController {
         
         
         // pull to refresh
-        refresher.addTarget(self, action: "loadPostInfo", forControlEvents: UIControlEvents.ValueChanged)
+        refresher.addTarget(self, action: "loadPostInfo", for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
         
         
         self.navigationItem.hidesBackButton = true
-        let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.Plain, target: self, action: "back:")
+        let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.plain, target: self, action: "back:")
         self.navigationItem.leftBarButtonItem = backBtn
         
         // swipe to go back
         let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
-        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
+        backSwipe.direction = UISwipeGestureRecognizerDirection.right
         self.view.addGestureRecognizer(backSwipe)
         
         
@@ -68,10 +68,10 @@ class postVC: UITableViewController {
         //        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
         //        self.view.addGestureRecognizer(backSwipe)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refresh", name: "likedFromPost", object: nil)
+        NotificationCenter.default.addObserver(self, selector: "refresh", name: NSNotification.Name(rawValue: "likedFromPost"), object: nil)
         
 
-        tableView.registerNib(UINib(nibName: "postSelected", bundle: nil), forCellReuseIdentifier: "idPostSelectedCell")
+        tableView.register(UINib(nibName: "postSelected", bundle: nil), forCellReuseIdentifier: "idPostSelectedCell")
         // dynamic cell heigth
 //        tableView.rowHeight = UITableViewAutomaticDimension
 //        tableView.estimatedRowHeight = 800
@@ -84,17 +84,17 @@ class postVC: UITableViewController {
     }
     
     func loadPostInfo(){
-        firebase.child("Posts").child(postuuid.last!).queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+        firebase.child("Posts").child(postuuid.last!).queryOrdered(byChild: "date").observe(.value, with: { snapshot in
             
             // clean up
-            self.usernameArray.removeAll(keepCapacity: false)
-            self.nameArray.removeAll(keepCapacity: false)
-            self.avaArray.removeAll(keepCapacity: false)
-            self.dateArray.removeAll(keepCapacity: false)
-            self.picArray.removeAll(keepCapacity: false)
+            self.usernameArray.removeAll(keepingCapacity: false)
+            self.nameArray.removeAll(keepingCapacity: false)
+            self.avaArray.removeAll(keepingCapacity: false)
+            self.dateArray.removeAll(keepingCapacity: false)
+            self.picArray.removeAll(keepingCapacity: false)
             //self.picArraySearch.removeAll(keepCapacity: false)
-            self.titleArray.removeAll(keepCapacity: false)
-            self.uuidArray.removeAll(keepCapacity: false)
+            self.titleArray.removeAll(keepingCapacity: false)
+            self.uuidArray.removeAll(keepingCapacity: false)
             
             if snapshot.exists() {
                 
@@ -102,37 +102,37 @@ class postVC: UITableViewController {
                 //for post in snapshot.children{
                 let k = snapshot.key
                 
-                let userID = snapshot.value!.objectForKey("userID") as! String
+                let userID = (snapshot.value! as AnyObject).value(forKey:"userID") as! String
                 //let datestring = post.value.objectForKey("date") as! String
-                if let datestring = snapshot.value!.objectForKey("date") as? String{
-                    var dateFormatter = NSDateFormatter()
+                if let datestring = (snapshot.value! as AnyObject).value(forKey:"date") as? String{
+                    var dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                    let date = dateFormatter.dateFromString(datestring)
-                    self.dateArray.append(date)
+                    let date = dateFormatter.date(from: datestring)
+                    self.dateArray.append(date! as Date)
                     //  }
                     self.usernameArray.append(userID as! String)
                     
-                    self.titleArray.append(snapshot.value!.objectForKey("title") as! String)
+                    self.titleArray.append((snapshot.value! as AnyObject).value(forKey:"title") as! String)
                     self.uuidArray.append(snapshot.key as String!)
                     
-                    firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot1 in
+                    firebase.child("Users").child(userID).observe(.value, with: { snapshot1 in
                         
                         objc_sync_enter(self.nameArray)
-                        let first = (snapshot1.value!.objectForKey("first_name") as? String)
-                        let last = (snapshot1.value!.objectForKey("last_name") as? String)
+                        let first = ((snapshot1.value! as AnyObject).value(forKey:"first_name") as? String)
+                        let last = ((snapshot1.value! as AnyObject).value(forKey:"last_name") as? String)
                         
                         let fullname = first!+" "+last!
                         self.nameArray.append(fullname)
                         
-                        let avaURL = (snapshot1.value!.objectForKey("ProfilPicUrl") as! String)
+                        let avaURL = ((snapshot1.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
                         let url = NSURL(string: avaURL)
-                        if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                            self.avaArray.append(UIImage(data: data) as UIImage!)
+                        if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+                            self.avaArray.append(UIImage(data: data as Data) as UIImage!)
                             objc_sync_exit(self.nameArray)
                             
                             // let i = snapshot.value!.objectForKey("photoUrl") as! String
                             
-                            self.storage.referenceForURL(snapshot.value!.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                            self.storage.reference(forURL:(snapshot.value!  as AnyObject).value(forKey:"photoUrl") as! String).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
                                 let image = UIImage(data: data!)
                                 
                                 objc_sync_enter(self.usernameArray)
@@ -141,12 +141,12 @@ class postVC: UITableViewController {
                                 //self.tableView.reloadData()
                                 //self.scrollToBottom()
                                 
-                                dispatch_async(dispatch_get_main_queue(), {
+                                DispatchQueue.main.async{
                                     self.tableView.reloadData()
                                     // self.collectionView.reloadData()
                                     
                                     self.refresher.endRefreshing()
-                                });
+                                }
                             })
                             
                         }
@@ -256,36 +256,36 @@ class postVC: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.view.frame.size.height
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.view.frame.size.height
     }
     
     
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return usernameArray.count
     }
     
     // cell config
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         // define cell
         //let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! postCell
-        let cell = tableView.dequeueReusableCellWithIdentifier("idPostSelectedCell", forIndexPath: indexPath) as! postCellSelected
+        let cell = tableView.dequeueReusableCell(withIdentifier: "idPostSelectedCell", for: indexPath as IndexPath) as! postCellSelected
         cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         //cell.backgroundColor = UIColor.clearColor()
         // connect objects with our information from arrays
-        cell.usernameBtn.setTitle(nameArray[indexPath.row], forState: UIControlState.Normal)
+        cell.usernameBtn.setTitle(nameArray[indexPath.row], for: UIControlState.normal)
         cell.usernameBtn.sizeToFit()
         cell.uuidLbl.text = self.uuidArray[indexPath.row]
         cell.titleLbl.text = self.titleArray[indexPath.row]
         cell.titleLbl.sizeToFit()
-        cell.usernameHidden.setTitle(usernameArray[indexPath.row], forState: UIControlState.Normal)
+        cell.usernameHidden.setTitle(usernameArray[indexPath.row], for: UIControlState.normal)
         
         //        // place profile picture
         //        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
@@ -302,32 +302,32 @@ class postVC: UITableViewController {
         // calculate post date
         let from = dateArray[indexPath.row]
         let now = NSDate()
-        let components : NSCalendarUnit = [.Second, .Minute, .Hour, .Day, .WeekOfMonth]
-        let difference = NSCalendar.currentCalendar().components(components, fromDate: from!, toDate: now, options: [])
+        let components = Set<Calendar.Component>([.second, .minute, .hour, .day, .weekOfMonth])
+        let difference = Date().offset(from: from)//NSCalendar.current.//dateComponents(components, from: from!, to: now)
         
-        // logic what to show: seconds, minuts, hours, days or weeks
-        if difference.second <= 0 {
-            cell.dateLbl.text = "now"
-        }
-        if difference.second > 0 && difference.minute == 0 {
-            cell.dateLbl.text = "\(difference.second)s."
-        }
-        if difference.minute > 0 && difference.hour == 0 {
-            cell.dateLbl.text = "\(difference.minute)m."
-        }
-        if difference.hour > 0 && difference.day == 0 {
-            cell.dateLbl.text = "\(difference.hour)h."
-        }
-        if difference.day > 0 && difference.weekOfMonth == 0 {
-            cell.dateLbl.text = "\(difference.day)d."
-        }
-        if difference.weekOfMonth > 0 {
-            cell.dateLbl.text = "\(difference.weekOfMonth)w."
-        }
+//        // logic what to show: seconds, minuts, hours, days or weeks
+//        if difference.second <= 0 {
+//            cell.dateLbl.text = "now"
+//        }
+//        if difference.second > 0 && difference.minute == 0 {
+//            cell.dateLbl.text = "\(difference.second)s."
+//        }
+//        if difference.minute > 0 && difference.hour == 0 {
+//            cell.dateLbl.text = "\(difference.minute)m."
+//        }
+//        if difference.hour > 0 && difference.day == 0 {
+//            cell.dateLbl.text = "\(difference.hour)h."
+//        }
+//        if difference.day > 0 && difference.weekOfMonth == 0 {
+//            cell.dateLbl.text = "\(difference.day)d."
+//        }
+//        if difference.weekOfMonth > 0 {
+//            cell.dateLbl.text = "\(difference.weekOfMonth)w."
+//        }
     
         
-        getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
-        getLikeCount(cell.uuidLbl.text! , Lbl : cell.LikeLbl)
+        getLikeState(string: cell.uuidLbl.text! , Btn: cell.likeBtn)
+        getLikeCount(string: cell.uuidLbl.text! , Lbl : cell.LikeLbl)
         
         
         // asign index
@@ -342,16 +342,17 @@ class postVC: UITableViewController {
     
     @IBAction func usernameBtn_click(sender: AnyObject) {
         // call index of button
-        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        let i = sender.layer.value(forKey: "index") as! NSIndexPath
         
         // call cell to call further cell data
-        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+        let cell = tableView.cellForRow(at: i as IndexPath) as! postCell
         
         // if user tapped on himself go home, else go guest
         
         
-        if cell.usernameHidden.titleLabel?.text == (FIRAuth.auth()?.currentUser!.uid)!{
-            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC1
+        if cell
+            .usernameHidden.titleLabel?.text == (FIRAuth.auth()?.currentUser!.uid)!{
+            let home = self.storyboard?.instantiateViewController(withIdentifier: "homeVC") as! homeVC1
             self.navigationController?.pushViewController(home, animated: true)
         } else {
 //            guestname.append(cell.usernameHidden.titleLabel!.text!)
@@ -362,129 +363,129 @@ class postVC: UITableViewController {
     }
     
     
-    @IBAction func moreBtn_click(sender: AnyObject) {
-        
-        // call index of button
-        let i = sender.layer.valueForKey("index") as! NSIndexPath
-        
-        // call cell to call further cell date
-        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
-        
-        
-        // DELET ACTION
-        let delete = UIAlertAction(title: "Delete", style: .Default) { (UIAlertAction) -> Void in
-            
-            // STEP 1. Delete row from tableView
-            self.usernameArray.removeAtIndex(i.row)
-            self.avaArray.removeAtIndex(i.row)
-            self.dateArray.removeAtIndex(i.row)
-            self.picArray.removeAtIndex(i.row)
-            self.titleArray.removeAtIndex(i.row)
-            self.uuidArray.removeAtIndex(i.row)
-            
-            // STEP 2. Delete post from server
-            let postQuery = PFQuery(className: "posts")
-            postQuery.whereKey("uuid", equalTo: cell.uuidLbl.text!)
-            postQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                            if success {
-                                
-                                // send notification to rootViewController to update shown posts
-                                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
-                                
-                                // push back
-                                self.navigationController?.popViewControllerAnimated(true)
-                            } else {
-                                print(error!.localizedDescription)
-                            }
-                        })
-                    }
-                } else {
-                    print(error?.localizedDescription)
-                }
-            })
-            
-            // STEP 2. Delete likes of post from server
-            let likeQuery = PFQuery(className: "likes")
-            likeQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-            likeQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-                if error == nil {
-                    for object in objects! {
-                        object.deleteEventually()
-                    }
-                }
-            })
-            //
-            //            // STEP 3. Delete comments of post from server
-            //            let commentQuery = PFQuery(className: "comments")
-            //            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-            //            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-            //                if error == nil {
-            //                    for object in objects! {
-            //                        object.deleteEventually()
-            //                    }
-            //                }
-            //            })
-            //
-            //            // STEP 4. Delete hashtags of post from server
-            //            let hashtagQuery = PFQuery(className: "hashtags")
-            //            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
-            //            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-            //                if error == nil {
-            //                    for object in objects! {
-            //                        object.deleteEventually()
-            //                    }
-            //                }
-            //            })
-        }
-        
-        
-        // COMPLAIN ACTION
-        let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in
-            
-            // send complain to server
-            let complainObj = PFObject(className: "complain")
-            complainObj["by"] = PFUser.currentUser()?.username
-            complainObj["to"] = cell.uuidLbl.text
-            complainObj["owner"] = cell.usernameBtn.titleLabel?.text
-            complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                if success {
-                    self.alert("Complain has been made successfully", message: "Thank You! We will consider your complain")
-                } else {
-                    self.alert("ERROR", message: error!.localizedDescription)
-                }
-            })
-        }
-        
-        // CANCEL ACTION
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        
-        // create menu controller
-        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .ActionSheet)
-        
-        
-        // if post belongs to user, he can delete post, else he can't
-        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
-            menu.addAction(delete)
-            menu.addAction(cancel)
-        } else {
-            menu.addAction(complain)
-            menu.addAction(cancel)
-        }
-        
-        // show menu
-        self.presentViewController(menu, animated: true, completion: nil)
-    }
+//    @IBAction func moreBtn_click(sender: AnyObject) {
+//        
+//        // call index of button
+//        let i = sender.layer.value(forKey: "index") as! NSIndexPath
+//        
+//        // call cell to call further cell date
+//        let cell = tableView.cellForRow(at: i as IndexPath) as! postCell
+//        
+//        
+//        // DELET ACTION
+//        let delete = UIAlertAction(title: "Delete", style: .default) { (UIAlertAction) -> Void in
+//            
+//            // STEP 1. Delete row from tableView
+//            self.usernameArray.removeAtIndex(i.row)
+//            self.avaArray.remove(at: i.row)
+//            self.dateArray.remove(at: i.row)
+//            self.picArray.remove(at: i.row)
+//            self.titleArray.remove(at: i.row)
+//            self.uuidArray.remove(at: i.row)
+//            
+//            // STEP 2. Delete post from server
+//            let postQuery = PFQuery(className: "posts")
+//            postQuery.whereKey("uuid", equalTo: cell.uuidLbl.text!)
+//            postQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                            if success {
+//                                
+//                                // send notification to rootViewController to update shown posts
+//                                NSNotificationCenter.defaultCenter().postNotificationName("uploaded", object: nil)
+//                                
+//                                // push back
+//                                self.navigationController?.popViewControllerAnimated(true)
+//                            } else {
+//                                print(error!.localizedDescription)
+//                            }
+//                        })
+//                    }
+//                } else {
+//                    print(error?.localizedDescription)
+//                }
+//            })
+//            
+//            // STEP 2. Delete likes of post from server
+//            let likeQuery = PFQuery(className: "likes")
+//            likeQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+//            likeQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//                if error == nil {
+//                    for object in objects! {
+//                        object.deleteEventually()
+//                    }
+//                }
+//            })
+//            //
+//            //            // STEP 3. Delete comments of post from server
+//            //            let commentQuery = PFQuery(className: "comments")
+//            //            commentQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+//            //            commentQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//            //                if error == nil {
+//            //                    for object in objects! {
+//            //                        object.deleteEventually()
+//            //                    }
+//            //                }
+//            //            })
+//            //
+//            //            // STEP 4. Delete hashtags of post from server
+//            //            let hashtagQuery = PFQuery(className: "hashtags")
+//            //            hashtagQuery.whereKey("to", equalTo: cell.uuidLbl.text!)
+//            //            hashtagQuery.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//            //                if error == nil {
+//            //                    for object in objects! {
+//            //                        object.deleteEventually()
+//            //                    }
+//            //                }
+//            //            })
+//        }
+//        
+//        
+//        // COMPLAIN ACTION
+//        let complain = UIAlertAction(title: "Complain", style: .Default) { (UIAlertAction) -> Void in
+//            
+//            // send complain to server
+//            let complainObj = PFObject(className: "complain")
+//            complainObj["by"] = PFUser.currentUser()?.username
+//            complainObj["to"] = cell.uuidLbl.text
+//            complainObj["owner"] = cell.usernameBtn.titleLabel?.text
+//            complainObj.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                if success {
+//                    self.alert("Complain has been made successfully", message: "Thank You! We will consider your complain")
+//                } else {
+//                    self.alert("ERROR", message: error!.localizedDescription)
+//                }
+//            })
+//        }
+//        
+//        // CANCEL ACTION
+//        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+//        
+//        
+//        // create menu controller
+//        let menu = UIAlertController(title: "Menu", message: nil, preferredStyle: .ActionSheet)
+//        
+//        
+//        // if post belongs to user, he can delete post, else he can't
+//        if cell.usernameBtn.titleLabel?.text == PFUser.currentUser()?.username {
+//            menu.addAction(delete)
+//            menu.addAction(cancel)
+//        } else {
+//            menu.addAction(complain)
+//            menu.addAction(cancel)
+//        }
+//        
+//        // show menu
+//        self.presentViewController(menu, animated: true, completion: nil)
+//    }
     
     // alert action
     func alert (title: String, message : String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        let ok = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(ok)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     
@@ -492,7 +493,7 @@ class postVC: UITableViewController {
     func back(sender: UIBarButtonItem) {
         
         // push back
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
         
         // clean post uuid from last hold
         if !postuuid.isEmpty {

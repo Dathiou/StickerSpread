@@ -18,16 +18,16 @@ class tabbarVC: UITabBarController {
         super.viewDidLoad()
 
         // color of item
-        self.tabBar.tintColor = .whiteColor()
+        self.tabBar.tintColor = .white
         
         // color of background
         self.tabBar.barTintColor = UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 0.1)
         
         // disable translucent
-        self.tabBar.translucent = true
+        self.tabBar.isTranslucent = true
     }
     
-    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if item.tag == 5 {
 //            var VC2: UIViewController = vcArray.objectAtIndex(1) as UIViewController
 //            var nextVC = VC2 as HomeVC1

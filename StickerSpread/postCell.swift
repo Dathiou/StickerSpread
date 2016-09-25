@@ -22,24 +22,24 @@ protocol segueToPostFromFeed{
 func SetLike(title: String!, uuid: String! , Btn: UIButton, Lbl:UIButton, CellPos : Int, Origin: String){
     if title == "unlike" {
         let date = NSDate()
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        let dateString = dateFormatter.stringFromDate(date)
+        let dateString = dateFormatter.string(from: date as Date)
         
         firebase.child("Likes").child(uuid).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(["Date" : dateString])
         firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuid).setValue(["Date" : dateString])
         print("liked")
         
         if Origin == "Feed" {
-            NSNotificationCenter.defaultCenter().postNotificationName("likedFromFeed", object: CellPos)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "likedFromFeed"), object: CellPos)
         } else if Origin == "Home" {
-            NSNotificationCenter.defaultCenter().postNotificationName("likedFromHome", object: CellPos)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "likedFromHome"), object: CellPos)
         } else if Origin == "Post" {
-            NSNotificationCenter.defaultCenter().postNotificationName("likedFromPost", object: CellPos)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "likedFromPost"), object: CellPos)
         }
         
-        Btn.setTitle("like", forState: .Normal)
-        Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
+        Btn.setTitle("like", for: .normal)
+        Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), for: .normal)
         print(Lbl.currentTitle)
         //Lbl.setTitle("\(Int(Lbl.currentTitle!)! + 1)", forState: .Normal)
         
@@ -49,14 +49,14 @@ func SetLike(title: String!, uuid: String! , Btn: UIButton, Lbl:UIButton, CellPo
         firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuid).removeValue()
         print("disliked")
         if Origin == "Feed" {
-            NSNotificationCenter.defaultCenter().postNotificationName("likedFromFeed", object: CellPos)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "likedFromFeed"), object: CellPos)
         } else if Origin == "Home" {
-            NSNotificationCenter.defaultCenter().postNotificationName("likedFromHome", object: CellPos)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "likedFromHome"), object: CellPos)
         } else if Origin == "Post" {
-            NSNotificationCenter.defaultCenter().postNotificationName("likedFromPost", object: CellPos)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "likedFromPost"), object: CellPos)
         }
-        Btn.setTitle("unlike", forState: .Normal)
-        Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
+        Btn.setTitle("unlike", for: .normal)
+        Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), for: .normal)
         
         //Lbl.setTitle("\(Int(Lbl.currentTitle!)! + 1)", forState: .Normal)
         
@@ -99,16 +99,16 @@ class postCell: UITableViewCell {
         super.awakeFromNib()
         
         // clear like button title color
-        likeBtn.setTitleColor(UIColor.clearColor(), forState: .Normal)
+        likeBtn.setTitleColor(UIColor.clear, for: .normal)
         // double tap to like
-        let likeTap = UITapGestureRecognizer(target: self, action: "likeTap")
+        let likeTap = UITapGestureRecognizer(target: self, action: #selector(postCell.likeTap))
         likeTap.numberOfTapsRequired = 2
-        picImg.userInteractionEnabled = true
+        picImg.isUserInteractionEnabled = true
         picImg.addGestureRecognizer(likeTap)
         
-        let selectTap = UITapGestureRecognizer(target: self, action: "selectTap")
+        let selectTap = UITapGestureRecognizer(target: self, action: #selector(postCell.selectTap))
         //selectTap.numberOfTapsRequired = 2
-        picImg.userInteractionEnabled = true
+        picImg.isUserInteractionEnabled = true
         picImg.addGestureRecognizer(selectTap)
         
         
@@ -192,7 +192,7 @@ class postCell: UITableViewCell {
 //        avaImg.clipsToBounds = true
         
         // alignment
-        let width = UIScreen.mainScreen().bounds.width
+        let width = UIScreen.main.bounds.width
         
         
 //       LayoutLbl.translatesAutoresizingMaskIntoConstraints = false
@@ -276,7 +276,7 @@ class postCell: UITableViewCell {
         // round ava
         avaImg.layer.cornerRadius = 4.0
         avaImg.clipsToBounds = true
-        avaImg.layer.borderColor = UIColor.whiteColor().CGColor
+        avaImg.layer.borderColor = UIColor.white.cgColor
         avaImg.layer.borderWidth = 0.5
 
         
@@ -294,44 +294,44 @@ class postCell: UITableViewCell {
         self.addSubview(likePic)
         
         // hide likePic with animation and transform to be smaller
-        UIView.animateWithDuration(0.4) { () -> Void in
+        UIView.animate(withDuration: 0.4) { () -> Void in
             likePic.alpha = 0
-            likePic.transform = CGAffineTransformMakeScale(0.1, 0.1)
+            likePic.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         }
         
         // declare title of button
-        let title = likeBtn.titleForState(.Normal)
+        let title = likeBtn.title(for: .normal)
         
         if title == "unlike" {
             
-            let object = PFObject(className: "likes")
-            object["by"] = PFUser.currentUser()?.username
-            object["to"] = uuidLbl.text
-            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-                if success {
-                    print("liked")
-                    self.likeBtn.setTitle("like", forState: .Normal)
-                    self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
-                    
-                    // send notification if we liked to refresh TableView
-                    NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
-                    
-                    
-//                    // send notification as like
-//                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
-//                        let newsObj = PFObject(className: "news")
-//                        newsObj["by"] = PFUser.currentUser()?.username
-//                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
-//                        newsObj["to"] = self.usernameBtn.titleLabel!.text
-//                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
-//                        newsObj["uuid"] = self.uuidLbl.text
-//                        newsObj["type"] = "like"
-//                        newsObj["checked"] = "no"
-//                        newsObj.saveEventually()
-//                    }
-                    
-                }
-            })
+//            let object = PFObject(className: "likes")
+//            object["by"] = PFUser.current()?.username
+//            object["to"] = uuidLbl.text
+//            object.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
+//                if success {
+//                    print("liked")
+//                    self.likeBtn.setTitle("like", forState: .Normal)
+//                    self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+//                    
+//                    // send notification if we liked to refresh TableView
+//                    NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+//                    
+//                    
+////                    // send notification as like
+////                    if self.usernameBtn.titleLabel?.text != PFUser.currentUser()?.username {
+////                        let newsObj = PFObject(className: "news")
+////                        newsObj["by"] = PFUser.currentUser()?.username
+////                        newsObj["ava"] = PFUser.currentUser()?.objectForKey("ava") as! PFFile
+////                        newsObj["to"] = self.usernameBtn.titleLabel!.text
+////                        newsObj["owner"] = self.usernameBtn.titleLabel!.text
+////                        newsObj["uuid"] = self.uuidLbl.text
+////                        newsObj["type"] = "like"
+////                        newsObj["checked"] = "no"
+////                        newsObj.saveEventually()
+////                    }
+//                    
+//                }
+//            })
             
         }
         
@@ -342,32 +342,32 @@ class postCell: UITableViewCell {
 
     func selectTap(){
         if let st = uuidLbl.text as String! {
-            segueDelegate.goToPost(st)
+            segueDelegate.goToPost(uuid: st)
             //segueDelegateUser.goToProfile("aa")
         }
     }
     
     @IBAction func usernameBtn_click() {
         if let id = self.usernameHidden.titleLabel!.text as String!{
-            segueDelegate.goToProfile(id)
+            segueDelegate.goToProfile(id: id)
         }
         
     }
     
     @IBAction func likeLblBtn_click() {
         if let id = self.uuidLbl.text as String!{
-            segueDelegate.displayLikes(id)
+            segueDelegate.displayLikes(uuid: id)
         }
         
     }
     
     
     
-    @IBAction func likeBtn_clicked(sender: AnyObject) {
+    @IBAction func likeBtn_clicked(sender: UIButton) {
         // declare title of button
-        let title = sender.titleForState(.Normal)
+        let title = sender.title(for: .normal)
         let buttonRow = sender.tag
-        SetLike(title,uuid: uuidLbl.text!,Btn: self.likeBtn, Lbl: self.LikeLbl, CellPos : buttonRow, Origin: self.origin)
+        SetLike(title: title,uuid: uuidLbl.text!,Btn: self.likeBtn, Lbl: self.LikeLbl, CellPos : buttonRow, Origin: self.origin)
 
     }
     

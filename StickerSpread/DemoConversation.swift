@@ -36,7 +36,7 @@ let message4 = JSQMessage(senderId: AvatarIdJobs, displayName: DisplayNameJobs, 
 let message5 = JSQMessage(senderId: AvatarIDLeonard, displayName: DisplayNameLeonard, text: "It is unit-tested, free, open-source, and documented.")
 
 func makeConversation()->[JSQMessage]{
-    conversation = [message, message2,message3, message4, message5]
+    conversation = [message!, message2!,message3!, message4!, message5!]
     return conversation
 }
 

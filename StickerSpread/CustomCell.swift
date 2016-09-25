@@ -49,9 +49,9 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
     
     let smallFont = UIFont(name: "Avenir-Light", size: 17.0)
     
-    let primaryColor = UIColor.blackColor()
+    let primaryColor = UIColor.black
     
-    let secondaryColor = UIColor.lightGrayColor()
+    let secondaryColor = UIColor.lightGray
     
     
     // MARK: Variables
@@ -91,7 +91,7 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
     
     
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

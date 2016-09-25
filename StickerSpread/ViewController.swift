@@ -28,10 +28,10 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         return button
     }()
     
-    override func viewDidAppear(animated: Bool) {
-        if (FBSDKAccessToken.currentAccessToken() != nil || fbLoginSuccess == true)
+    override func viewDidAppear(_ animated: Bool) {
+        if (FBSDKAccessToken.current() != nil || fbLoginSuccess == true)
         {
-            let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
             appDelegate.login()
         }
     }
@@ -89,134 +89,136 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         
     }
     
-    func fetchProfile(){
-        print("fetch profile")
-        let parameters = ["fields":"id, email, first_name, last_name, picture.type(large),birthday"]
-        FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection,result,error) -> Void in
-            if error != nil{
-                print(error)
-                return
-            }
-            
-            
-            
-            if let dict = result as? [String:AnyObject]{
-                let userId:String = dict["id"] as! String
-                let userFirstName:String? = dict["first_name"] as? String
-                let userLastName:String? = dict["last_name"] as? String
-                let userEmail:String? = dict["email"] as? String
-                if let picture = dict["picture"] as? NSDictionary{
-                    
-                    if let data = picture["data"] as? NSDictionary{
-                        let url = data["url"] as? String
-                        print(url)
-                    }
-                }
-                
-                //        if let email = result["email"] as? String {
-                //            print(email)
-                //        }
-                //
-                //        if let picture = result["picture"] as? NSDictionary, data = picture["data"] as? NSDictionary,
-                //            url = data["url"] as? String{
-                //                print(url)
-                //            }
-                //        print(result)
-                
-                
-                
-                
-                /*
-                 if let facebookID : NSString = result.valueForKey("id") as? NSString {
-                 println("User FbId is: \(facebookID)")
-                 } else {println("No facebookID fetched")}
-                 
-                 if let name : NSString = result.valueForKey("first_name") as? NSString {
-                 println("User's Name is: \(name)")
-                 } else {println("No name fetched")}
-                 
-                 if let gender : NSString = result.valueForKey("gender") as? NSString {
-                 println("User's gender is: \(gender)")
-                 } else {println("No gender fetched")}
-                 
-                 if let name : NSString = result.valueForKey("first_name") as? NSString {
-                 println("User's Name is: \(name)")
-                 } else {println("No name fetched")}
-                 
-                 if let birthday : NSString = result.valueForKey("birthday") as? NSString {
-                 println("User's birthday is: \(birthday)")
-                 } else {println("No birthday fetched")}
-                 */
-                
-                var facebookID: AnyObject? = dict["id"]
-                PFUser.currentUser()!.setObject(facebookID!, forKey: "fbid")
-                
-                var name: AnyObject? = dict["first_name"]
-                PFUser.currentUser()!.setObject(name!, forKey: "username")
-                
-                var gender: AnyObject? = dict["gender"]
-                PFUser.currentUser()!.setObject(gender!, forKey: "gender")
-                
-                var birthday: AnyObject? = dict["birthday"]
-                PFUser.currentUser()!.setObject(birthday!, forKey: "birthday")
-                
-                //var pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=large&return_ssl_resources=1"
-                var pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=square"
-                
-                var URLRequest = NSURL(string: pictureURL)
-                var URLRequestNeeded = NSURLRequest(URL: URLRequest!)
-                
-                
-                //        NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!, error: NSError!) -> Void in
-                //            if error == nil {
-                //                var picture = PFFile(data: data)
-                //                PFUser.currentUser()!.setObject(picture, forKey: "picture")
-                //                PFUser.currentUser()!.saveInBackground()
-                //            }
-                //            else {
-                //                println("Error: \(error.localizedDescription)")
-                //            }
-                //            })
-                
-                let task = NSURLSession.sharedSession().dataTaskWithURL(URLRequest!) { (data, response, error) -> Void in
-                    
-                    if error != nil {
-                        print("thers an error in the log")
-                    } else {
-                        
-                        var picture = PFFile(data: data!)
-                        PFUser.currentUser()!.setObject(picture!, forKey: "picture")
-                        PFUser.currentUser()!.saveInBackground()
-                        
-                    }
-                }
-                
-                
-                
-                task.resume()
-                
-                
-                
-            }
-            
-            
-            
-            
-        })
-    }
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!){
+//    func fetchProfile(){
+//        print("fetch profile")
+//        let parameters = ["fields":"id, email, first_name, last_name, picture.type(large),birthday"]
+//        FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection,result,error) -> Void in
+//            if error != nil{
+//                print(error)
+//                return
+//            }
+//            
+//            
+//            
+//            if let dict = result as? [String:AnyObject]{
+//                let userId:String = dict["id"] as! String
+//                let userFirstName:String? = dict["first_name"] as? String
+//                let userLastName:String? = dict["last_name"] as? String
+//                let userEmail:String? = dict["email"] as? String
+//                if let picture = dict["picture"] as? NSDictionary{
+//                    
+//                    if let data = picture["data"] as? NSDictionary{
+//                        let url = data["url"] as? String
+//                        print(url)
+//                    }
+//                }
+//                
+//                //        if let email = result["email"] as? String {
+//                //            print(email)
+//                //        }
+//                //
+//                //        if let picture = result["picture"] as? NSDictionary, data = picture["data"] as? NSDictionary,
+//                //            url = data["url"] as? String{
+//                //                print(url)
+//                //            }
+//                //        print(result)
+//                
+//                
+//                
+//                
+//                /*
+//                 if let facebookID : NSString = result.valueForKey("id") as? NSString {
+//                 println("User FbId is: \(facebookID)")
+//                 } else {println("No facebookID fetched")}
+//                 
+//                 if let name : NSString = result.valueForKey("first_name") as? NSString {
+//                 println("User's Name is: \(name)")
+//                 } else {println("No name fetched")}
+//                 
+//                 if let gender : NSString = result.valueForKey("gender") as? NSString {
+//                 println("User's gender is: \(gender)")
+//                 } else {println("No gender fetched")}
+//                 
+//                 if let name : NSString = result.valueForKey("first_name") as? NSString {
+//                 println("User's Name is: \(name)")
+//                 } else {println("No name fetched")}
+//                 
+//                 if let birthday : NSString = result.valueForKey("birthday") as? NSString {
+//                 println("User's birthday is: \(birthday)")
+//                 } else {println("No birthday fetched")}
+//                 */
+//                
+//                var facebookID: AnyObject? = dict["id"]
+//                PFUser.currentUser()!.setObject(facebookID!, forKey: "fbid")
+//                
+//                var name: AnyObject? = dict["first_name"]
+//                PFUser.current()!.setObject(name!, forKey: "username")
+//                
+//                var gender: AnyObject? = dict["gender"]
+//                PFUser.currentUser()!.setObject(gender!, forKey: "gender")
+//                
+//                var birthday: AnyObject? = dict["birthday"]
+//                PFUser.currentUser()!.setObject(birthday!, forKey: "birthday")
+//                
+//                //var pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=large&return_ssl_resources=1"
+//                var pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=square"
+//                
+//                var URLRequest = NSURL(string: pictureURL)
+//                var URLRequestNeeded = NSURLRequest(URL: URLRequest!)
+//                
+//                
+//                //        NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!, error: NSError!) -> Void in
+//                //            if error == nil {
+//                //                var picture = PFFile(data: data)
+//                //                PFUser.currentUser()!.setObject(picture, forKey: "picture")
+//                //                PFUser.currentUser()!.saveInBackground()
+//                //            }
+//                //            else {
+//                //                println("Error: \(error.localizedDescription)")
+//                //            }
+//                //            })
+//                
+//                let task = URLSession.sharedSession().dataTaskWithURL(URLRequest!) { (data, response, error) -> Void in
+//                    
+//                    if error != nil {
+//                        print("thers an error in the log")
+//                    } else {
+//                        
+//                        var picture = PFFile(data: data!)
+//                        PFUser.currentUser()!.setObject(picture!, forKey: "picture")
+//                        PFUser.currentUser()!.saveInBackground()
+//                        
+//                    }
+//                }
+//                
+//                
+//                
+//                task.resume()
+//                
+//                
+//                
+//            }
+//            
+//            
+//            
+//            
+//        })
+//    }
+    func loginButtonDidLogOut(_ LoginButton : FBSDKLoginButton!){
         print("User Logged Out")
     }
     
     //when login with facebook clicked
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result:FBSDKLoginManagerLoginResult!, error: NSError!){
+    func loginButton(_ LoginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!){
         print("starting function singup done")
         
         if ((error) != nil) {
             // Process error
+            let t = 0
         }
         else if result.isCancelled {
             // Handle cancellations
+            let t = 0
         }
         else {
             
@@ -229,26 +231,42 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
                 SVProgressHUD.show()
                 
-                let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-                let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-                dispatch_async(backgroundQueue, {
+                //let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+                
+                let backgroundQueue = DispatchQueue(label: "com.app.queue",
+                                                    qos: .background,
+                                                    target: nil)
+                //let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+                backgroundQueue.async {
+            
                     print("This is run on the background queue")
                     self.signUp()
                     
                     print("function singup done")
                     
+                    let deadlineTime = DispatchTime.now() + .seconds(1)
+//                    DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+//                        print("test")
+//                    }
+//                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+//                    dispatch_after(delayTime, dispatch_get_main_queue()) {
+//                        print("test")
+//                    }
                     
                     //dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 1 * Int64(NSEC_PER_SEC))
-                    dispatch_after(time, dispatch_get_main_queue()) {
-                        
+                    //let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 1 * Int64(NSEC_PER_SEC))
+                    //dispatch_after(time, DispatchQueue.main) {
+                    
+                    
+                    
+                    DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
                         print("This is run on the main queue, after the previous code in outer block")
                         SVProgressHUD.dismiss()
                         self.fbLoginSuccess = true
-                        let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                        let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
                         appDelegate.login()
                     }
-                })
+                }
             }
         }
         
@@ -287,16 +305,16 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         // other fields can be set just like with PFObject
         
         let parameters = ["fields":"id, email, first_name, last_name, picture.type(large),birthday"]
-        dispatch_async(dispatch_get_main_queue(),{
-            FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection,result,error) -> Void in
+        DispatchQueue.main.async {
+            FBSDKGraphRequest(graphPath: "me", parameters: parameters).start(completionHandler: {(connection, result, error) -> Void in
                 if error != nil{
                     print(error)
                     return
                 }
                 
-                
-                
-                if let dict = result as? [String:AnyObject]{
+        
+        
+                    let dict = result as! NSDictionary
                     
                     //get id from fb
                     let userId:String = dict["id"] as! String
@@ -354,16 +372,16 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                     
                     var myUser = ["email": userEmail]
                     
-                    let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
-                    FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+                    let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                    FIRAuth.auth()?.signIn(with: credential) { (user, error) in
                         if error != nil {
                             print ("error firebase auth")
                         }
                         else {
                             print ("user logged in firebase")
                             
-                            firebase.childByAppendingPath("Users").queryEqualToValue("\(user!.uid)")
-                                .observeSingleEventOfType(.Value, withBlock: { snapshot in
+                            firebase.child(byAppendingPath: "Users").queryEqual(toValue: "\(user!.uid)")
+                                .observeSingleEvent(of: .value, with: { snapshot in
                                     
                                     if ( snapshot.value is NSNull ) {
                                         print("not found)") //didnt find it, ok to proceed
@@ -371,9 +389,9 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                                         //firebase.childByAppendingPath("Users").childByAppendingPath("\(user!.uid)").setValue("\(user!.uid)")
                                         
                                         let date = NSDate()
-                                        var dateFormatter = NSDateFormatter()
+                                        var dateFormatter = DateFormatter()
                                         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                                        var dateString = dateFormatter.stringFromDate(date)
+                                        var dateString = dateFormatter.string(from: date as Date)
                                         
                                         
                                         if let user = FIRAuth.auth()?.currentUser {
@@ -383,17 +401,17 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                                             let uid = user.uid;
                                             //print(downloadURL()!.path!)
                                             let userDict : [String : AnyObject] =
-                                                [ "userID" : uid,
-                                                    "email" : userEmail,
-                                                    "first_name"    : userFirstName ,
-                                                    "last_name"   : userLastName,
-                                                    "date" : dateString,
-                                                    "birthday": userBirthday,
-                                                    "ProfilPicUrl"  : pictureURL,
-                                                    "youtubeURL" : "",
-                                                    "instagramURL": "",
-                                                    "etsyURL": "",
-                                                    "emailDisplay":""
+                                                [ "userID" : uid as AnyObject,
+                                                    "email" : userEmail as AnyObject,
+                                                    "first_name"    : userFirstName as AnyObject ,
+                                                    "last_name"   : userLastName as AnyObject,
+                                                    "date" : dateString as AnyObject,
+                                                    "birthday": userBirthday as AnyObject,
+                                                    "ProfilPicUrl"  : pictureURL as AnyObject,
+                                                    "youtubeURL" : "" as AnyObject,
+                                                    "instagramURL": "" as AnyObject,
+                                                    "etsyURL": "" as AnyObject,
+                                                    "emailDisplay":"" as AnyObject
                                                     
                                             ]
                                             
@@ -427,92 +445,92 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                     //                })
                     
                     
-                    //try sign up user
-                    user.signUpInBackgroundWithBlock {
-                        (succeeded: Bool, error: NSError?) -> Void in
-                        if let error = error {
-                            let errorString = error.userInfo["error"] as! NSString
-                            print(errorString)
-                            print("try log in")
-                            //test log in
-                            PFUser.logInWithUsernameInBackground(userId, password:"0000") {
-                                (user: PFUser?, error: NSError?) -> Void in
-                                if user != nil {
-                                    // Do stuff after successful login.
-                                    
-                                    
-                                    print("login successful")
-                                }
-                            }
-                        } else {
-                            
-                            let userFirstName:String = dict["first_name"] as! String
-                            user.setObject(userFirstName, forKey: "first_name")
-                            
-                            let userLastName:String = dict["last_name"] as! String
-                            user.setObject(userLastName, forKey: "last_name")
-                            
-                            
-                            
-                            
-                            
-                            //print(userLastName)
-                            // user["last_name"] = "aaa"
-                            
-                            
-                            let userBirthday:String = dict["birthday"] as! String
-                            user.setObject(userBirthday, forKey: "birthday")
-                            
-                            if let picture = dict["picture"] as? NSDictionary{
-                                
-                                if let data = picture["data"] as? NSDictionary{
-                                    let url = data["url"] as! String
-                                    user.setObject(url, forKey: "picture")
-                                    print("pic uploaded url")
-                                }
-                            }
-                            
-                            //var pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=large&return_ssl_resources=1"
-                            var pictureURL = "https://graph.facebook.com/\(userId)/picture?width=150&height=150"
-                            print(pictureURL)
-                            var URLRequest = NSURL(string: pictureURL)
-                            var URLRequestNeeded = NSURLRequest(URL: URLRequest!)
-                            
-                            
-                            //        NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!, error: NSError!) -> Void in
-                            //            if error == nil {
-                            //                var picture = PFFile(data: data)
-                            //                PFUser.currentUser()!.setObject(picture, forKey: "picture")
-                            //                PFUser.currentUser()!.saveInBackground()
-                            //            }
-                            //            else {
-                            //                println("Error: \(error.localizedDescription)")
-                            //            }
-                            //            })
-                            
-                            let task = NSURLSession.sharedSession().dataTaskWithURL(URLRequest!) { (data, response, error) -> Void in
-                                
-                                if error != nil {
-                                    print("thers an error in the log")
-                                } else {
-                                    
-                                    var picture = PFFile(data: data!)
-                                    user.setObject(picture!, forKey: "picture_file")
-                                    user.saveInBackground()
-                                    print("pic uploaded2")
-                                    
-                                }
-                            }
-                            
-                            
-                            
-                            task.resume()
-                            user.saveInBackground()
-                            
-                            print ("signed up")
-                        }
-                    }
-                }
+//                    //try sign up user
+//                    user.signUpInBackgroundWithBlock {
+//                        (succeeded: Bool, error: NSError?) -> Void in
+//                        if let error = error {
+//                            let errorString = error.userInfo["error"] as! NSString
+//                            print(errorString)
+//                            print("try log in")
+//                            //test log in
+//                            PFUser.logInWithUsernameInBackground(userId, password:"0000") {
+//                                (user: PFUser?, error: NSError?) -> Void in
+//                                if user != nil {
+//                                    // Do stuff after successful login.
+//                                    
+//                                    
+//                                    print("login successful")
+//                                }
+//                            }
+//                        } else {
+//                            
+//                            let userFirstName:String = dict["first_name"] as! String
+//                            user.setObject(userFirstName, forKey: "first_name")
+//                            
+//                            let userLastName:String = dict["last_name"] as! String
+//                            user.setObject(userLastName, forKey: "last_name")
+//                            
+//                            
+//                            
+//                            
+//                            
+//                            //print(userLastName)
+//                            // user["last_name"] = "aaa"
+//                            
+//                            
+//                            let userBirthday:String = dict["birthday"] as! String
+//                            user.setObject(userBirthday, forKey: "birthday")
+//                            
+//                            if let picture = dict["picture"] as? NSDictionary{
+//                                
+//                                if let data = picture["data"] as? NSDictionary{
+//                                    let url = data["url"] as! String
+//                                    user.setObject(url, forKey: "picture")
+//                                    print("pic uploaded url")
+//                                }
+//                            }
+//                            
+//                            //var pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=large&return_ssl_resources=1"
+//                            var pictureURL = "https://graph.facebook.com/\(userId)/picture?width=150&height=150"
+//                            print(pictureURL)
+//                            var URLRequest = NSURL(string: pictureURL)
+//                            var URLRequestNeeded = NSURLRequest(URL: URLRequest!)
+//                            
+//                            
+//                            //        NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!, error: NSError!) -> Void in
+//                            //            if error == nil {
+//                            //                var picture = PFFile(data: data)
+//                            //                PFUser.currentUser()!.setObject(picture, forKey: "picture")
+//                            //                PFUser.currentUser()!.saveInBackground()
+//                            //            }
+//                            //            else {
+//                            //                println("Error: \(error.localizedDescription)")
+//                            //            }
+//                            //            })
+//                            
+//                            let task = NSURLSession.sharedSession().dataTaskWithURL(URLRequest!) { (data, response, error) -> Void in
+//                                
+//                                if error != nil {
+//                                    print("thers an error in the log")
+//                                } else {
+//                                    
+//                                    var picture = PFFile(data: data!)
+//                                    user.setObject(picture!, forKey: "picture_file")
+//                                    user.saveInBackground()
+//                                    print("pic uploaded2")
+//                                    
+//                                }
+//                            }
+//                            
+//                            
+//                            
+//                            task.resume()
+//                            user.saveInBackground()
+//                            
+//                            print ("signed up")
+//                        }
+//                    }
+                
                 
                 
                 //
@@ -599,7 +617,7 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                 
                 
             })
-        })
+        }
         
         
     }

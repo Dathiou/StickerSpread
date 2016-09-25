@@ -73,7 +73,7 @@ class headerView: UICollectionReusableView{
         // round ava
         avaImg.layer.cornerRadius = 4.0
         avaImg.clipsToBounds = true
-        avaImg.layer.borderColor = UIColor.whiteColor().CGColor
+        avaImg.layer.borderColor = UIColor.white.cgColor
         avaImg.layer.borderWidth = 0.5
         
         
@@ -104,19 +104,19 @@ class headerView: UICollectionReusableView{
     
     @IBAction func followBtn_click(sender: AnyObject) {
         //let title = followBtn.titleForState(.Normal)
-        let title = followButton.titleForState(.Normal)
+        let title = followButton.title(for: .normal)
         
         // to follow
         if title == "FOLLOW" {
             
             let date = NSDate()
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-            let dateString = dateFormatter.stringFromDate(date)
+            let dateString = dateFormatter.string(from: date as Date)
 
             
-            self.followButton.setTitle("FOLLOWING", forState: UIControlState.Normal)
-            self.followButton.backgroundColor = .greenColor()
+            self.followButton.setTitle("FOLLOWING", for: UIControlState.normal)
+            self.followButton.backgroundColor = .green
             firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(username).setValue(["date": dateString])
             firebase.child("Followers").child(username).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(["date": dateString])
 //            let object = PFObject(className: "follow")
@@ -134,8 +134,8 @@ class headerView: UICollectionReusableView{
             // unfollow
         } else {
             
-            self.followButton.setTitle("FOLLOW", forState: UIControlState.Normal)
-            self.followButton.backgroundColor = .lightGrayColor()
+            self.followButton.setTitle("FOLLOW", for: UIControlState.normal)
+            self.followButton.backgroundColor = .lightGray
             firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(username).removeValue()
             firebase.child("Followers").child(username).child((FIRAuth.auth()?.currentUser!.uid)!).removeValue()
 //            let query = PFQuery(className: "follow")

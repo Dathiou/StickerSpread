@@ -56,14 +56,14 @@ class postCellSelected: UITableViewCell {
         
         //self.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         // clear like button title color
-        likeBtn.setTitleColor(UIColor.clearColor(), forState: .Normal)
+        likeBtn.setTitleColor(UIColor.clear, for: .normal)
         // double tap to like
-        let likeTap = UITapGestureRecognizer(target: self, action: "likeTap")
+        let likeTap = UITapGestureRecognizer(target: self, action: #selector(postCellSelected.likeTap))
         likeTap.numberOfTapsRequired = 2
-        picImg.userInteractionEnabled = true
+        picImg.isUserInteractionEnabled = true
         picImg.addGestureRecognizer(likeTap)
         
-               let width = UIScreen.mainScreen().bounds.width
+               let width = UIScreen.main.bounds.width
 
         
         //picImg.frame = CGRectMake(0, 10, width, width)
@@ -92,7 +92,7 @@ class postCellSelected: UITableViewCell {
 //        titleLbl.translatesAutoresizingMaskIntoConstraints = false
 //        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
         
-        let pictureWidth = width
+        _ = width
         
         // constraints
 //        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
@@ -162,7 +162,7 @@ class postCellSelected: UITableViewCell {
         // round ava
         avaImg.layer.cornerRadius = 4.0
         avaImg.clipsToBounds = true
-        avaImg.layer.borderColor = UIColor.whiteColor().CGColor
+        avaImg.layer.borderColor = UIColor.white.cgColor
         avaImg.layer.borderWidth = 0.5
         
         
@@ -180,24 +180,24 @@ class postCellSelected: UITableViewCell {
         self.addSubview(likePic)
         
         // hide likePic with animation and transform to be smaller
-        UIView.animateWithDuration(0.4) { () -> Void in
+        UIView.animate(withDuration: 0.4) { () -> Void in
             likePic.alpha = 0
-            likePic.transform = CGAffineTransformMakeScale(0.1, 0.1)
+            likePic.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         }
         
         // declare title of button
-        let title = likeBtn.titleForState(.Normal)
+        let title = likeBtn.title(for: .normal)
         
         if title == "unlike" {
             
             
             firebase.child("Likes").child(uuidLbl.text!).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(true)
             print("liked")
-            self.likeBtn.setTitle("like", forState: .Normal)
-            self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), forState: .Normal)
+            self.likeBtn.setTitle("like", for: .normal)
+            self.likeBtn.setBackgroundImage(UIImage(named: "like.png"), for: .normal)
             
             // send notification if we liked to refresh TableView
-            NSNotificationCenter.defaultCenter().postNotificationName("liked", object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "liked"), object: nil)
         }
 //            let object = PFObject(className: "likes")
 //            object["by"] = PFUser.currentUser()?.username
@@ -234,18 +234,18 @@ class postCellSelected: UITableViewCell {
     
     @IBAction func likeLblBtn_click() {
         if let id = self.uuidLbl.text as String!{
-            segueDelegate.displayLikes(id)
+            segueDelegate.displayLikes(uuid: id)
         }
         
     }
     
     
-    @IBAction func likeBtn_clicked(sender: AnyObject) {
+    @IBAction func likeBtn_clicked(sender: UIButton) {
         // declare title of button
-        let title = sender.titleForState(.Normal)
+        let title = sender.title(for: .normal)
         let buttonRow = sender.tag
         
-        SetLike(title,uuid: uuidLbl.text!,Btn: self.likeBtn, Lbl: self.LikeLbl, CellPos : buttonRow, Origin: "Post")
+        SetLike(title: title,uuid: uuidLbl.text!,Btn: self.likeBtn, Lbl: self.LikeLbl, CellPos : buttonRow, Origin: "Post")
 //        
 //        // to like
 //        if title == "unlike" {

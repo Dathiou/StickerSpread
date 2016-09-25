@@ -24,7 +24,7 @@ class RecentTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -42,7 +42,7 @@ class RecentTableViewCell: UITableViewCell {
         
         //self.avatarImageView.image = UIImage(named: "avatarPlaceholder")
         
-        let withUserId = (recent.objectForKey("withUserUserId") as? String)!
+        let withUserId = (recent.object(forKey: "withUserUserId") as? String)!
         
         //get the backendless user and download avatar
         
@@ -68,32 +68,32 @@ class RecentTableViewCell: UITableViewCell {
 //        }
         
         
-        let query = PFQuery(className: "_User")
-        query.whereKey("username", equalTo: withUserId)
-        query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-            if error == nil {
-                
-
-                
-                // find related objects in "User" class of Parse
-                for object in objects! {
-                    let first = (object.objectForKey("first_name") as? String)
-                    let last = (object.objectForKey("last_name") as? String)
-
-                    self.nameLable.text = first!+" "+last!
-                    
-                    let avaQuery = object.objectForKey("picture_file") as! PFFile
-                    avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
-                        self.avatarImageView.image = UIImage(data:data!)
-                    }
-                    
-                   // self.avatarImageView = object.objectForKey("picture_file") as! PFFile
-                    
-                }
-            } else {
-                print(error!.localizedDescription)
-            }
-            })
+//        let query = PFQuery(className: "_User")
+//        query.whereKey("username", equalTo: withUserId)
+//        query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
+//            if error == nil {
+//                
+//
+//                
+//                // find related objects in "User" class of Parse
+//                for object in objects! {
+//                    let first = (object.objectForKey("first_name") as? String)
+//                    let last = (object.objectForKey("last_name") as? String)
+//
+//                    self.nameLable.text = first!+" "+last!
+//                    
+//                    let avaQuery = object.objectForKey("picture_file") as! PFFile
+//                    avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
+//                        self.avatarImageView.image = UIImage(data:data!)
+//                    }
+//                    
+//                   // self.avatarImageView = object.objectForKey("picture_file") as! PFFile
+//                    
+//                }
+//            } else {
+//                print(error!.localizedDescription)
+//            }
+//            })
         
         
         //nameLable.text = recent["withUserUsername"] as? String
@@ -104,12 +104,12 @@ class RecentTableViewCell: UITableViewCell {
             self.counterLabel.text = "\(recent["counter"]!) New"
         }
         
-        let date = dateFormatter().dateFromString((recent["date"] as? String)!)
-        let seconds = NSDate().timeIntervalSinceDate(date!)
-        dateLabel.text = TimeElapsed(seconds)
+        let date = dateFormatter().date(from: (recent["date"] as? String)!)
+        let seconds = NSDate().timeIntervalSince(date!)
+        dateLabel.text = TimeElapsed(seconds: seconds)
     }
     
-    func TimeElapsed(seconds: NSTimeInterval) -> String {
+    func TimeElapsed(seconds: TimeInterval) -> String {
         let elapsed: String?
         
         if (seconds < 60) {

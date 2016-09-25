@@ -17,7 +17,7 @@ class pictureCell: UICollectionViewCell {
         super.awakeFromNib()
         
         // alignment
-        let width = UIScreen.mainScreen().bounds.width
-        picImg.frame = CGRectMake(0, 0, width / 3, width / 3)
+        let width = UIScreen.main.bounds.width
+        picImg.frame = CGRect(x:0, y:0, width: width / 3,height: width / 3)
     }
 }

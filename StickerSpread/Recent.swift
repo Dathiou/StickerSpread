@@ -37,16 +37,16 @@ func startChat(user1: PFUser, user2: PFUser) -> String {
     let value = userId1.compare(userId2).rawValue
     
     if value < 0 {
-        chatRoomId = userId1.stringByAppendingString(userId2)
+        chatRoomId = userId1.appendingFormat(userId2)
     } else {
-        chatRoomId = userId2.stringByAppendingString(userId1)
+        chatRoomId = userId2.appendingFormat(userId1)
     }
     
     let members = [userId1, userId2]
     
     //create recent
-    CreateRecent(userId1, chatRoomID: chatRoomId, members: members, withUserUsername: user2.username!, withUseruserId: userId2)
-    CreateRecent(userId2, chatRoomID: chatRoomId, members: members, withUserUsername: user1.username!, withUseruserId: userId1)
+    CreateRecent(userId: userId1, chatRoomID: chatRoomId, members: members, withUserUsername: user2.username!, withUseruserId: userId2)
+    CreateRecent(userId: userId2, chatRoomID: chatRoomId, members: members, withUserUsername: user1.username!, withUseruserId: userId1)
     
     return chatRoomId
 }
@@ -56,20 +56,20 @@ func startChat(user1: PFUser, user2: PFUser) -> String {
 func CreateRecent(userId: String, chatRoomID: String, members: [String], withUserUsername: String, withUseruserId: String) {
     
     //change
-    firebase.child("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(chatRoomID).observeSingleEventOfType(.Value, withBlock:{
+    firebase.child("Recent").queryOrdered(byChild: "chatRoomID").queryEqual(toValue: chatRoomID).observeSingleEvent(of: .value, with:{
         snapshot in
         
         var createRecent = true
         
         //check if we have a result
         if snapshot.exists() {
-            for recent in snapshot.value!.allValues {
+            for recent in (snapshot.value! as AnyObject).allValues {
                 
               //  print (recent["userId"])
                 //if we already have recent with passed userId, we dont create a new one
                 //let a = recent.objectForKey(["userId"]) as? String
                // if a == userId {
-               if recent["userId"]! as! String == userId {
+                if (recent as AnyObject).value(forKey:"userId")! as! String == userId {
                     createRecent = false
                 }
             }
@@ -77,7 +77,7 @@ func CreateRecent(userId: String, chatRoomID: String, members: [String], withUse
         
         if createRecent {
             
-            CreateRecentItem(userId, chatRoomID: chatRoomID, members: members, withUserUsername: withUserUsername, withUserUserId: withUseruserId)
+            CreateRecentItem(userId: userId, chatRoomID: chatRoomID, members: members, withUserUsername: withUserUsername, withUserUserId: withUseruserId)
         }
     })
 }
@@ -88,9 +88,9 @@ func CreateRecentItem(userId: String, chatRoomID: String, members: [String], wit
     let ref = firebase.child("Recent").childByAutoId()
     
     let recentId = ref.key
-    let date = dateFormatter().stringFromDate(NSDate())
+    let date = dateFormatter().string(from: NSDate() as Date)
     
-    let recent = ["recentId" : recentId, "userId" : userId, "chatRoomID" : chatRoomID, "members" : members, "withUserUsername" : withUserUsername, "lastMessage" : "", "counter" : 0, "date" : date, "withUserUserId" : withUserUserId]
+    let recent = ["recentId" : recentId, "userId" : userId, "chatRoomID" : chatRoomID, "members" : members, "withUserUsername" : withUserUsername, "lastMessage" : "", "counter" : 0, "date" : date, "withUserUserId" : withUserUserId] as [String : Any]
     
     //save to firebase
     ref.setValue(recent) { (error, ref) -> Void in
@@ -104,27 +104,27 @@ func CreateRecentItem(userId: String, chatRoomID: String, members: [String], wit
 
 func UpdateRecents(chatRoomID: String, lastMessage: String) {
     
-    firebase.child("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(chatRoomID).observeSingleEventOfType(.Value, withBlock: {
+    firebase.child("Recent").queryOrdered(byChild: "chatRoomID").queryEqual(toValue: chatRoomID).observeSingleEvent(of: .value, with: {
         snapshot in
         
         if snapshot.exists() {
             
-            for recent in snapshot.value!.allValues {
-                UpdateRecentItem(recent as! NSDictionary, lastMessage: lastMessage)
+            for recent in (snapshot.value! as AnyObject).allValues {
+                UpdateRecentItem(recent: recent as! NSDictionary, lastMessage: lastMessage)
             }
         }
     })
 }
 
 func UpdateRecentItem(recent: NSDictionary, lastMessage: String) {
-    let date = dateFormatter().stringFromDate(NSDate())
+    let date = dateFormatter().string(from: NSDate() as Date)
     
     var counter = recent["counter"] as! Int
     
-    if recent["userId"] as? String != PFUser.currentUser()!.username {        counter += 1
+    if recent["userId"] as? String != PFUser.current()!.username {        counter += 1
     }
     
-    let values = ["lastMessage" : lastMessage, "counter" : counter, "date" : date]
+    let values = ["lastMessage" : lastMessage, "counter" : counter, "date" : date] as [String : Any]
     
     //change
     firebase.child("Recent").child((recent["recentId"] as? String)!).updateChildValues(values as [NSObject : AnyObject], withCompletionBlock: {
@@ -142,9 +142,9 @@ func RestartRecentChat(recent: NSDictionary) {
     
     for userId in recent["members"] as! [String] {
         
-        if userId != PFUser.currentUser()!.username {
+        if userId != PFUser.current()!.username {
             
-            CreateRecent(userId, chatRoomID: (recent["chatRoomID"] as? String)!, members: recent["members"] as! [String], withUserUsername: PFUser.currentUser()!.username! , withUseruserId: PFUser.currentUser()!.username! )
+            CreateRecent(userId: userId, chatRoomID: (recent["chatRoomID"] as? String)!, members: recent["members"] as! [String], withUserUsername: PFUser.current()!.username! , withUseruserId: PFUser.current()!.username! )
         }
     }
 }
@@ -153,7 +153,7 @@ func RestartRecentChat(recent: NSDictionary) {
 //MARK: Delete Recent functions
 
 func DeleteRecentItem(recent: NSDictionary) {
-    firebase.child("Recent").child((recent["recentId"] as? String)!).removeValueWithCompletionBlock { (error, ref) -> Void in
+    firebase.child("Recent").child((recent["recentId"] as? String)!).removeValue { (error, ref) -> Void in
         if error != nil {
             print("Error deleting recent item: \(error)")
         }
@@ -190,8 +190,8 @@ func DeleteRecentItem(recent: NSDictionary) {
 
 private let dateFormat = "yyyyMMddHHmmss"
 
-func dateFormatter() -> NSDateFormatter {
-    let dateFormatter = NSDateFormatter()
+func dateFormatter() -> DateFormatter {
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = dateFormat
     
     return dateFormatter

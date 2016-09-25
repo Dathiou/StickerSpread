@@ -1,3 +1,5 @@
+
+
 //
 //  feedVC.swift
 //  StickerSpread
@@ -17,17 +19,17 @@ import Firebase
 
 func getLikeState(string: String , Btn :UIButton){
     
-    firebase.child("Likes").child(string).child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEventOfType(.Value, withBlock: { snapshot in//observeEventType(.Value, withBlock: { snapshot in
+    firebase.child("Likes").child(string).child((FIRAuth.auth()?.currentUser!.uid)!).observeSingleEvent(of: .value, with: { snapshot in//observeEventType(.Value, withBlock: { snapshot in
         //print(snapshot.value)
         if snapshot.exists() {
             
-            Btn.setTitle("like", forState: .Normal)
-            Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), forState: .Normal)
+            Btn.setTitle("like", for: .normal)
+            Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), for: .normal)
         } else {
             
-            var exists = false
-            Btn.setTitle("unlike", forState: .Normal)
-            Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), forState: .Normal)
+            _ = false
+            Btn.setTitle("unlike", for: .normal)
+            Btn.setBackgroundImage(UIImage(named: "Heart 1.png"), for: .normal)
         }
     })
     
@@ -45,17 +47,17 @@ func getLikeState(string: String , Btn :UIButton){
 func getLikeCount(string: String , Lbl :UIButton){
     
     var num = "r"
-    firebase.child("Likes").child(string).observeSingleEventOfType(.Value, withBlock: { snapshot in
+    firebase.child("Likes").child(string).observeSingleEvent(of: .value, with: { snapshot in
         if snapshot.exists() {
             num = "\(snapshot.childrenCount)"
             //Lbl.setTitle("\(snapshot.childrenCount)", forState: UIControlState.Normal)
             //Lbl.text =  "\(snapshot.childrenCount)"
-            Lbl.setTitle(num, forState: .Normal)
+            Lbl.setTitle(num, for: .normal)
             
         } else {
             num = "0"
             //Lbl.setTitle("0", forState: .Normal)
-            Lbl.setTitle(num, forState: .Normal)
+            Lbl.setTitle(num, for: .normal)
         }
     })
     
@@ -73,7 +75,7 @@ func getLikeCount(string: String , Lbl :UIButton){
 class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate ,UICollectionViewDelegate , UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout, SegueColl, segueToPostFromFeed{
     var modeSelf = false
     let storage = FIRStorage.storage()
-    let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
+    let storageRef = FIRStorage.storage().reference(forURL: "gs://stickerspread-4f3a9.appspot.com")
     
     @IBOutlet weak var filterViewHeightConstraints: NSLayoutConstraint!
     
@@ -103,8 +105,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //var postpicArraySearch = [PFFile]()
     var nameArray = [String]()
     var nameArraySearch = [String]()
-    var dateArray = [NSDate?]()
-    var dateArraySearch = [NSDate?]()
+    var dateArray = [Date]()
+    var dateArraySearch = [Date]()
     //var picArray = [PFFile]()
     var picArray = [UIImage]()
     var picArrayURL = [String]()
@@ -182,7 +184,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         //view.backgroundColor = UIColor.redColor()//UIColor(patternImage: UIImage(named: "background.jpg")!)
         //        let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
         
-        let adjustForTabbarInsets = UIEdgeInsetsMake(0, 0, CGRectGetHeight(self.tabBarController!.tabBar.frame) + 3, 0);
+        let adjustForTabbarInsets = UIEdgeInsetsMake(0, 0, self.tabBarController!.tabBar.frame.height + 3, 0);
         self.tableView.contentInset = adjustForTabbarInsets
         self.tableView.scrollIndicatorInsets = adjustForTabbarInsets
         self.collectionView.contentInset = adjustForTabbarInsets
@@ -197,26 +199,26 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         //self.tableView.backgroundView = nil
         
         
-        btn1.setImage(UIImage(named: "View Changer 1-1.png"), forState: .Normal)
+        btn1.setImage(UIImage(named: "View Changer 1-1.png"), for: .normal)
         //btn1.setImage(UIImage(named: "like.png"), forState: .Highlighted)
-        btn1.frame = CGRectMake(0, 0, 20, 20)
-        btn1.addTarget(self, action: Selector("switchView"), forControlEvents: .TouchUpInside)
+        btn1.frame = CGRect(x:0, y:0, width:20, height:20)
+        btn1.addTarget(self, action: #selector(feed1VC.switchView), for: .touchUpInside)
         let item1 = UIBarButtonItem()
         item1.customView = btn1
         
         
-        btn2.setImage(UIImage(named: "Down Arrow 1.png"), forState: .Normal)
-        btn2.frame = CGRectMake(0, 0, 20, 20)
-        btn2.addTarget(self, action: Selector("filterView"), forControlEvents: .TouchUpInside)
+        btn2.setImage(UIImage(named: "Down Arrow 1.png"), for: .normal)
+        btn2.frame = CGRect(x:0,y: 0,width: 20,height: 20)
+        btn2.addTarget(self, action: #selector(feed1VC.filterView), for: .touchUpInside)
         let item2 = UIBarButtonItem()
         item2.customView = btn2
         
         self.navigationItem.leftBarButtonItems = [item1,item2]
         
         let btnMore = UIButton()
-        btnMore.setImage(UIImage(named: "Dots.png"), forState: .Normal)
-        btnMore.frame = CGRectMake(0, 0, 5, 15)
-        btnMore.addTarget(self, action: Selector("action2"), forControlEvents: .TouchUpInside)
+        btnMore.setImage(UIImage(named: "Dots.png"), for: .normal)
+        btnMore.frame = CGRect(x:0, y:0, width:5, height:15)
+        btnMore.addTarget(self, action: Selector("action2"), for: .touchUpInside)
         let item3 = UIBarButtonItem()
         item3.customView = btnMore
         
@@ -227,20 +229,20 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         searchBar.sizeToFit()
         //searchBar.showsCancelButton = false
         searchBar.placeholder = "Search Shops         "//\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}\u{200B}"
-        searchBar.searchBarStyle = UISearchBarStyle.Minimal
-        searchBar.tintColor = UIColor.groupTableViewBackgroundColor()
-        searchBar.frame.size.width = UIScreen.mainScreen().bounds.width - btn1.frame.width - btn2.frame.width - 60
+        searchBar.searchBarStyle = UISearchBarStyle.minimal
+        searchBar.tintColor = UIColor.groupTableViewBackground
+        searchBar.frame.size.width = UIScreen.main.bounds.width - btn1.frame.width - btn2.frame.width - 60
         let searchItem = UIBarButtonItem(customView: searchBar)
         
-        var negativeSpace:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+        var negativeSpace:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
         negativeSpace.width = -10.0
         
         self.navigationItem.rightBarButtonItems = [negativeSpace,item3 , searchItem]
-        self.edgesForExtendedLayout = UIRectEdge.None
+        self.edgesForExtendedLayout = []
         
         
         // pull to refresh
-        refresher.addTarget(self, action: "loadPosts", forControlEvents: UIControlEvents.ValueChanged)
+        refresher.addTarget(self, action: "loadPosts", for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -250,10 +252,10 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         indicator.center.x = tableView.center.x
         
         // receive notification from postsCell if picture is liked, to update tableView
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshLikes:", name: "likedFromFeed", object: nil)
+        NotificationCenter.default.addObserver(self, selector: "refreshLikes:", name: NSNotification.Name(rawValue: "likedFromFeed"), object: nil)
         
         // receive notification from uploadVC
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
+        NotificationCenter.default.addObserver(self, selector: "uploaded:", name: NSNotification.Name(rawValue: "uploaded"), object: nil)
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -289,14 +291,14 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         //self.tableView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!) //UIColor.redColor()
         collectionViewLaunch()
-        self.collectionView.frame = UIScreen.mainScreen().bounds
+        self.collectionView.frame = UIScreen.main.bounds
         //self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!) //UIColor.redColor()
         
         //firebase.child("Posts").removeValue()
         
         loadPosts()
         
-        collectionView.registerNib(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
+        collectionView.register(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
         //
         //        dispatch_async(dispatch_get_main_queue(), {
         //            self.tableView.reloadData()
@@ -304,7 +306,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         //
         //            self.refresher.endRefreshing()
         //        });
-        collectionView.hidden = true
+        collectionView.isHidden = true
         //tableView.reloadData()
         //collectionView.reloadData()
         
@@ -312,7 +314,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         configureTableView()
         
-        loadCellDescriptors("FilterCellDescriptor")
+        loadCellDescriptors(fileName: "FilterCellDescriptor")
         
     }
     
@@ -323,7 +325,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             modeSelf = true
         }
         
-        let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC1") as! homeVC1
+        let home = self.storyboard?.instantiateViewController(withIdentifier: "homeVC1") as! homeVC1
         home.userIdToDisplay = id
         home.goHome = modeSelf
         self.navigationController?.pushViewController(home, animated: true)
@@ -348,7 +350,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         postuuid.append(uuid)
         
         // present postVC programmaticaly
-        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+        let post = self.storyboard?.instantiateViewController(withIdentifier: "postVC") as! postVC
         self.navigationController?.pushViewController(post, animated: true)
         
         
@@ -358,10 +360,10 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     func displayLikes(uuid: String!){
         
         user = uuid
-        show = "Likes"
+        show1 = "Likes"
         
         // make references to followersVC
-        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        let followers = self.storyboard?.instantiateViewController(withIdentifier: "followersVC") as! followersVC
         
         // present
         self.navigationController?.pushViewController(followers, animated: true)
@@ -377,12 +379,12 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     func filterView(){
         
-        if  ExpListFilters.hidden == true {
-            btn2.setImage(UIImage(named: "Down Arrow 2.png"), forState: .Normal)
-            ExpListFilters.hidden = false
+        if  ExpListFilters.isHidden == true {
+            btn2.setImage(UIImage(named: "Down Arrow 2.png"), for: .normal)
+            ExpListFilters.isHidden = false
         } else {
-            ExpListFilters.hidden = true
-            btn2.setImage(UIImage(named: "Down Arrow 1.png"), forState: .Normal)
+            ExpListFilters.isHidden = true
+            btn2.setImage(UIImage(named: "Down Arrow 1.png"), for: .normal)
         }
         
     }
@@ -391,18 +393,18 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     func configureTableView() {
         ExpListFilters.delegate = self
         ExpListFilters.dataSource = self
-        ExpListFilters.tableFooterView = UIView(frame: CGRectZero)
+        ExpListFilters.tableFooterView = UIView(frame: CGRect.zero)
         ExpListFilters.sizeToFit()
-        ExpListFilters.superview!.bringSubviewToFront(ExpListFilters)
+        ExpListFilters.superview!.bringSubview(toFront: ExpListFilters)
         ExpListFilters.bounces = false
         
-        ExpListFilters.registerNib(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "idCellNormal")
-        ExpListFilters.registerNib(UINib(nibName: "childCell", bundle: nil), forCellReuseIdentifier: "idChildCell")
-        ExpListFilters.registerNib(UINib(nibName: "filterButtonCell", bundle: nil), forCellReuseIdentifier: "idFilterButtonCell")
+        ExpListFilters.register(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "idCellNormal")
+        ExpListFilters.register(UINib(nibName: "childCell", bundle: nil), forCellReuseIdentifier: "idChildCell")
+        ExpListFilters.register(UINib(nibName: "filterButtonCell", bundle: nil), forCellReuseIdentifier: "idFilterButtonCell")
         //        ExpListFilters.registerNib(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "idCellSwitch")
         //        ExpListFilters.registerNib(UINib(nibName: "ValuePickerCell", bundle: nil), forCellReuseIdentifier: "idCellValuePicker")
         //        ExpListFilters.registerNib(UINib(nibName: "SliderCell", bundle: nil), forCellReuseIdentifier: "idCellSlider")
-        ExpListFilters.hidden = true
+        ExpListFilters.isHidden = true
     }
     
     // MARK: UITableView Delegate and Datasource Functions
@@ -422,17 +424,17 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             
             let indexOfTappedRow = visibleRows[indexPath.row]
             
-            if cellDescriptors[indexOfTappedRow].objectForKey("isExpandable") as! Bool == true {
+            if (cellDescriptors[indexOfTappedRow] as AnyObject)["isExpandable"] as! Bool == true {
                 var shouldExpandAndShowSubRows = false
-                if cellDescriptors[indexOfTappedRow].objectForKey("isExpanded") as! Bool == false {
+                if (cellDescriptors[indexOfTappedRow] as AnyObject)["isExpandable"]  as! Bool == false {
                     // In this case the cell should expand.
                     shouldExpandAndShowSubRows = true
                 }
                 
-                cellDescriptors[indexOfTappedRow].setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
+                (cellDescriptors[indexOfTappedRow] as AnyObject).setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
                 
-                for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (cellDescriptors[indexOfTappedRow].objectForKey("additionalRows") as! Int)) {
-                    cellDescriptors[i].setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
+                for i in (indexOfTappedRow + 1)...(indexOfTappedRow + ((cellDescriptors[indexOfTappedRow] as AnyObject)["additionalRows"] as! Int)) {
+                    (cellDescriptors[i] as AnyObject).setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
                 }
             }
             else {
@@ -477,7 +479,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         //        let frame : CGRect = self.ExpListFilters.frame;
         //        frame.size.height = height;
         //        self.ExpListFilters.frame = frame;
-        UIView.animateWithDuration(0.9, animations: {
+        UIView.animate(withDuration: 0.9, animations: {
             self.filterViewHeightConstraints.constant = height
             self.ExpListFilters.setNeedsUpdateConstraints()
         })
@@ -486,7 +488,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     func loadCellDescriptors(fileName : String!) {
-        if let path = NSBundle.mainBundle().pathForResource(fileName, ofType: "plist") {
+        if let path = Bundle.main.path(forResource: fileName, ofType: "plist") {
             cellDescriptors = NSMutableArray(contentsOfFile: path)
             getIndicesOfVisibleRows()
             
@@ -506,7 +508,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         for row in 0...((cellDescriptors as! [[String: AnyObject]]).count - 1) {
             
             
-            if cellDescriptors[row].objectForKey("isVisible") as! Bool == true {
+            if (cellDescriptors[row] as AnyObject)["isVisible"]  as! Bool == true {
                 visibleRows.append(row)
                 //print (cellDescriptors[row])
             }
@@ -519,19 +521,19 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     func switchView() {
         if showColl {
-            btn1.setImage(UIImage(named: "View Changer 1-1.png"), forState: .Normal)
+            btn1.setImage(UIImage(named: "View Changer 1-1.png"), for: .normal)
             showColl = false
             showList = true
-            collectionView.hidden = true
-            tableView.hidden = false
+            collectionView.isHidden = true
+            tableView.isHidden = false
             print("show list")
             
         } else if showList {
-            btn1.setImage(UIImage(named: "View Changer 2-2.png"), forState: .Normal)
+            btn1.setImage(UIImage(named: "View Changer 2-2.png"), for: .normal)
             showColl = true
             showList = false
-            collectionView.hidden = false
-            tableView.hidden = true
+            collectionView.isHidden = false
+            tableView.isHidden = true
             print("show Coll")
         }
         
@@ -687,7 +689,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //
     
     // tapped on the searchBar
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         
         if showColl == true {
             alreadyInColl = true
@@ -695,8 +697,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         showColl = true
         showList = false
-        tableView.hidden = true
-        collectionView.hidden = false
+        tableView.isHidden = true
+        collectionView.isHidden = false
         
         
         // show cancel button
@@ -708,7 +710,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     // clicked cancel button
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         //        // unhide collectionView when tapped cancel button
         //        collectionView.hidden = false
@@ -723,17 +725,17 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         if alreadyInColl == true {
             showColl = true
             showList = false
-            collectionView.hidden = false
-            tableView.hidden = true
-            btn1.setImage(UIImage(named: "View Changer 2-2.png"), forState: .Normal)
+            collectionView.isHidden = false
+            tableView.isHidden = true
+            btn1.setImage(UIImage(named: "View Changer 2-2.png"), for: .normal)
             
             
         } else {
             showColl = false
             showList = true
-            collectionView.hidden = true
-            tableView.hidden = false
-            btn1.setImage(UIImage(named: "View Changer 1-1.png"), forState: .Normal)
+            collectionView.isHidden = true
+            tableView.isHidden = false
+            btn1.setImage(UIImage(named: "View Changer 1-1.png"), for: .normal)
             
         }
         alreadyInColl = false
@@ -926,9 +928,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             if let row = notification.object as? Int {
 
                 
-                let indexPath = NSIndexPath(forRow: row, inSection: 0)
-                self.collectionView.reloadItemsAtIndexPaths([indexPath])
-                self.tableView.reloadRowsAtIndexPaths([indexPath],withRowAnimation: .None)
+                let indexPath = NSIndexPath(row: row, section: 0)
+                self.collectionView.reloadItems(at: [indexPath as IndexPath])
+                self.tableView.reloadRows(at: [indexPath as IndexPath],with: .none)
             }
         
         
@@ -961,21 +963,21 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     // load posts
     func loadPosts() {
         
-        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-        let picturesGroup = dispatch_group_create()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        let picturesGroup = DispatchGroup()
         //getLikesArrayWO()
-        firebase.child("Posts").queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+        firebase.child("Posts").queryOrdered(byChild: "date").observe(.value, with: { snapshot in
             
             // clean up
-            self.usernameArray.removeAll(keepCapacity: false)
-            self.nameArray.removeAll(keepCapacity: false)
-            self.avaArray.removeAll(keepCapacity: false)
-            self.dateArray.removeAll(keepCapacity: false)
-            self.picArrayURL.removeAll(keepCapacity: false)
-            self.picArray.removeAll(keepCapacity: false)
+            self.usernameArray.removeAll(keepingCapacity: false)
+            self.nameArray.removeAll(keepingCapacity: false)
+            self.avaArray.removeAll(keepingCapacity: false)
+            self.dateArray.removeAll(keepingCapacity: false)
+            self.picArrayURL.removeAll(keepingCapacity: false)
+            self.picArray.removeAll(keepingCapacity: false)
             //self.picArraySearch.removeAll(keepCapacity: false)
-            self.titleArray.removeAll(keepCapacity: false)
-            self.uuidArray.removeAll(keepCapacity: false)
+            self.titleArray.removeAll(keepingCapacity: false)
+            self.uuidArray.removeAll(keepingCapacity: false)
             
             if snapshot.exists() {
                 
@@ -986,9 +988,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 
                 for post in snapshot.children{
                     // let k = post.key!
-                    dispatch_group_enter(picturesGroup)
+                    picturesGroup.enter()
                     
-                    let userID = post.value.objectForKey("userID") as! String
+                    let userID = (post as AnyObject)["userID"] as! String
                     
                     
                     //                    self.storage.referenceForURL(post.value.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
@@ -1007,15 +1009,15 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     //                    })
                     
                     //self.DLImages()
-                    self.picArrayURL.append(post.value.objectForKey("photoUrl") as! String)
-                    let url = post.value.objectForKey("photoUrl") as! String
+                    self.picArrayURL.append((post as AnyObject)["photoUrl"] as! String)
+                    let url = (post as AnyObject)["photoUrl"] as! String
                     //var d = self.myDictionaryURL
                     self.myDictionaryURL.updateValue(url, forKey: i)
                     i = i + 1
                     
                     
                     
-                    let uuid = post.key as String!
+                    let uuid = (post as AnyObject).key as String!
                     
 //                    firebase.child("Likes").child(uuid).observeSingleEventOfType(.Value, withBlock: { snapshot in
 //                        if snapshot.exists() {
@@ -1040,20 +1042,20 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     
                     
                     
-                    firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot in
+                    firebase.child("Users").child(userID).observe(.value, with: { snapshot in
                         
-                        let first = (snapshot.value!.objectForKey("first_name") as? String)
-                        let last = (snapshot.value!.objectForKey("last_name") as? String)
+                        let first = ((snapshot.value! as AnyObject)["first_name"] as? String)
+                        let last = (snapshot.value! as AnyObject)["last_name"] as? String
                         
                         let fullname = first!+" "+last!
                         self.nameArray.append(fullname)
                         
                         //                        self.tableView.reloadData()
                         //                        self.collectionView.reloadData()
-                        let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
+                        let avaURL = (snapshot.value! as AnyObject)["ProfilPicUrl"] as! String
                         let url = NSURL(string: avaURL)
-                        if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                            self.avaArray.append(UIImage(data: data) as UIImage!)
+                        if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+                            self.avaArray.append(UIImage(data: data as Data) as UIImage!)
                             
                         }
                         
@@ -1071,16 +1073,16 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     
                     
                     //let datestring = post.value.objectForKey("date") as! String
-                    if let datestring = post.value.objectForKey("date") as? String{
-                        var dateFormatter = NSDateFormatter()
+                    if let datestring = (post as! AnyObject)["date"] as? String{
+                        var dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                        let date = dateFormatter.dateFromString(datestring)
-                        self.dateArray.append(date)
+                        let date = dateFormatter.date(from: datestring)
+                        self.dateArray.append((date as Date?)!)
                     }
-                    self.usernameArray.append(userID as! String)
+                    self.usernameArray.append(userID )
                     
-                    self.titleArray.append(post.value.objectForKey("title") as! String)
-                    self.uuidArray.append(post.key! as String!)
+                    self.titleArray.append((post as AnyObject)["title"] as! String)
+                    self.uuidArray.append((post as AnyObject).key! as String!)
                     
                     
                     
@@ -1100,21 +1102,21 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             
             for (bookid, title) in self.myDictionaryURL {
                 //println("Book ID: \(bookid) Title: \(title)")
-                self.storage.referenceForURL(title).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                self.storage.reference(forURL: title).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
                     let image = UIImage(data: data!)
                     self.myDictionaryImage[bookid] = image!
-                    self.avaArray = self.avaArray.reverse()
-                    self.nameArray = self.nameArray.reverse()
-                    self.picArrayURL = self.picArrayURL.reverse()
-                    self.dateArray = self.dateArray.reverse()
-                    self.usernameArray = self.usernameArray.reverse()
-                    self.uuidArray = self.uuidArray.reverse()
+                    self.avaArray = self.avaArray.reversed()
+                    self.nameArray = self.nameArray.reversed()
+                    self.picArrayURL = self.picArrayURL.reversed()
+                    self.dateArray = self.dateArray.reversed()
+                    self.usernameArray = self.usernameArray.reversed()
+                    self.uuidArray = self.uuidArray.reversed()
                     
                     
-                    self.titleArray = self.titleArray.reverse()
+                    self.titleArray = self.titleArray.reversed()
                     //self.picArray.append(image! as! UIImage)
                     
-                    dispatch_group_leave(picturesGroup)
+                    picturesGroup.leave()
                 })
             }
             
@@ -1132,13 +1134,14 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             //            }
             
             
-            
-            dispatch_group_notify(picturesGroup, dispatch_get_main_queue()) {
-                let imagesSorted = Array(self.myDictionaryImage.keys).sort(>)
+            //picturesGroup.notify(queue: DispatchQueue)
+            //DispatchGroup.notify(picturesGroup)
+            DispatchQueue.main.async {
+                let imagesSorted = Array(self.myDictionaryImage.keys).sorted(by: >)
                 //print(imagesSorted)
                 // let y = sort(imagesSorted)  //{self.myDictionaryImage[$0] < self.myDictionaryImage[$1]}) //self.myDictionaryImage.sorted() { $0.0 < $1.0 }
                 
-                for a in imagesSorted as! [Int] {
+                for a in imagesSorted {
                     self.picArray.append(self.myDictionaryImage[a]!)
                 }
                 //self.picArray.reverse()
@@ -1155,7 +1158,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         
         
-        UIApplication.sharedApplication().endIgnoringInteractionEvents()
+        UIApplication.shared.endIgnoringInteractionEvents()
         
         
     }
@@ -1164,16 +1167,16 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         //        let picturesGroup = dispatch_group_create()
         
-        self.picArray.removeAll(keepCapacity: false)
+        self.picArray.removeAll(keepingCapacity: false)
         //objc_sync_enter(self.nameArray)
         for url in self.picArrayURL{
             //   dispatch_group_enter(picturesGroup)
-            self.storage.referenceForURL(url).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+            self.storage.reference(forURL: url).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
                 let image = UIImage(data: data!)
                 
                 // objc_sync_enter(self.nameArray)
                 
-                self.picArray.append(image! as! UIImage)
+                self.picArray.append(image! )
                 //cell.picImg1.image = image
                 //objc_sync_exit(self.nameArray)
                 //self.tableView.reloadData()
@@ -1308,7 +1311,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //    }
     
     // cell numb
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == ExpListFilters {
             //print(visibleRows.count)
             return visibleRows.count
@@ -1338,12 +1341,12 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     // cell config
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if  (tableView == self.ExpListFilters){
             
             
-            let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath)
-            let cell = tableView.dequeueReusableCellWithIdentifier(currentCellDescriptor["cellIdentifier"] as! String, forIndexPath: indexPath) as! CustomCell
+            let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath: indexPath as NSIndexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: currentCellDescriptor["cellIdentifier"] as! String, for: indexPath) as! CustomCell
             
             if currentCellDescriptor["cellIdentifier"] as! String == "idCellNormal" {
                 if let primaryTitle = currentCellDescriptor["primaryTitle"] {
@@ -1361,7 +1364,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 cell.TxtCell.text = currentCellDescriptor["primaryTitle"] as? String
             } else if currentCellDescriptor["cellIdentifier"] as! String == "idFilterButtonCell" {
                 //cell.textField.placeholder = currentCellDescriptor["primaryTitle"] as? String
-                cell.LastButton.setTitle(currentCellDescriptor["Title"] as? String, forState: .Normal) 
+                cell.LastButton.setTitle(currentCellDescriptor["Title"] as? String, for: .normal) 
                 cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width)
             }
             
@@ -1373,7 +1376,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             
         } else {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("idPostFeedCell", forIndexPath: indexPath) as! postCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "idPostFeedCell", for: indexPath) as! postCell
             cell.origin = "Feed"
             //cell.backgroundColor = UIColor.clearColor()
             
@@ -1411,13 +1414,13 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 //                let from = dateArraySearch[indexPath.row]
             } else {
                 let u = indexPath.row
-                cell.usernameBtn.setTitle(nameArray[indexPath.row], forState: UIControlState.Normal)
+                cell.usernameBtn.setTitle(nameArray[indexPath.row], for: UIControlState.normal)
                 cell.usernameBtn.sizeToFit()
                 //objc_sync_exit(self.nameArray)
                 cell.uuidLbl.text = self.uuidArray[indexPath.row]
                 cell.titleLbl.text = self.titleArray[indexPath.row]
                 cell.titleLbl.sizeToFit()
-                cell.usernameHidden.setTitle(usernameArray[indexPath.row], forState: UIControlState.Normal)
+                cell.usernameHidden.setTitle(usernameArray[indexPath.row], for: UIControlState.normal)
                 
                 //                // place profile picture
                 //                avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
@@ -1455,29 +1458,32 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             }
             
             
-            let now = NSDate()
-            let components : NSCalendarUnit = [.Second, .Minute, .Hour, .Day, .WeekOfMonth]
-            let difference = NSCalendar.currentCalendar().components(components, fromDate: from!, toDate: now, options: [])
-            
+            let now = Date()
+            let components = Set<Calendar.Component>([.second, .minute, .hour, .day, .weekOfMonth])
+            let dayCalendarUnit: NSCalendar.Unit = [.second, .minute, .hour, .day, .weekOfMonth]
+            //let difference = NSCalendar.current.compare(from, to: now , toGranularity: .second)
+            let difference = from.timeIntervalSinceNow
+            //let difference1 = NSCalendar.current.dateComponents.dateComponents(dayCalendarUnit, from: from, to: now)
+            cell.dateLbl.text = Date().offset(from: from)
             // logic what to show: seconds, minuts, hours, days or weeks
-            if difference.second <= 0 {
-                cell.dateLbl.text = "now"
-            }
-            if difference.second > 0 && difference.minute == 0 {
-                cell.dateLbl.text = "\(difference.second)s"
-            }
-            if difference.minute > 0 && difference.hour == 0 {
-                cell.dateLbl.text = "\(difference.minute)m"
-            }
-            if difference.hour > 0 && difference.day == 0 {
-                cell.dateLbl.text = "\(difference.hour)h"
-            }
-            if difference.day > 0 && difference.weekOfMonth == 0 {
-                cell.dateLbl.text = "\(difference.day)d"
-            }
-            if difference.weekOfMonth > 0 {
-                cell.dateLbl.text = "\(difference.weekOfMonth)w"
-            }
+//            if difference.second! <= 0 {
+//                cell.dateLbl.text = "now"
+//            }
+//            if difference.second > 0 && difference.minute == 0 {
+//                cell.dateLbl.text = "\(difference.second)s"
+//            }
+//            if difference.minute > 0 && difference.hour == 0 {
+//                cell.dateLbl.text = "\(difference.minute)m"
+//            }
+//            if difference.hour > 0 && difference.day == 0 {
+//                cell.dateLbl.text = "\(difference.hour)h"
+//            }
+//            if difference.day > 0 && difference.weekOfMonth == 0 {
+//                cell.dateLbl.text = "\(difference.day)d"
+//            }
+//            if difference.weekOfMonth > 0 {
+//                cell.dateLbl.text = "\(difference.weekOfMonth)w"
+//            }
             
             
             //            // manipulate like button depending on did user like it or not
@@ -1525,8 +1531,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             //                }
             //            })
             
-            getLikeCount(cell.uuidLbl.text! , Lbl : cell.LikeLbl)
-            getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
+            getLikeCount(string: cell.uuidLbl.text! , Lbl : cell.LikeLbl)
+            getLikeState(string: cell.uuidLbl.text! , Btn: cell.likeBtn)
             
             
             // asign index
@@ -1543,16 +1549,16 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     func usernameBtn_click(sender: AnyObject) {
         // call index of button
-        let i = sender.layer.valueForKey("index") as! NSIndexPath
+        let i = sender.layer.value(forKey: "index") as! NSIndexPath
         
         // call cell to call further cell data
-        let cell = tableView.cellForRowAtIndexPath(i) as! postCell
+        let cell = tableView.cellForRow(at: i as IndexPath) as! postCell
         
         // if user tapped on himself go home, else go guest
         
         
         if cell.usernameHidden.titleLabel?.text == (FIRAuth.auth()?.currentUser!.uid)! {
-            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC1
+            let home = self.storyboard?.instantiateViewController(withIdentifier: "homeVC") as! homeVC1
             self.navigationController?.pushViewController(home, animated: true)
         } else {
             //            guestname.append(cell.usernameHidden.titleLabel!.text!)
@@ -1685,10 +1691,10 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     // alert action
     func alert (title: String, message : String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        let ok = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(ok)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     
@@ -1717,7 +1723,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
-        collectionView.backgroundColor = .whiteColor()
+        collectionView.backgroundColor = .white
         //collectionView.frame = CGRectMake(0, 0, 320, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
         //collectionView.la
         //collectionView.contentSize = CGSizeMake(self.view.frame.size.width / 2, self.view.frame.size.width / 2+25)
@@ -1733,17 +1739,17 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     // cell line spasing
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
     // cell inter spasing
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
     // cell numb
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if shouldShowSearchResults {
             objc_sync_enter(self)
             return uuidArraySearch.count
@@ -1759,10 +1765,10 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //    }
     
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //print(UIScreen.mainScreen().bounds.width)
         //print (self.view.frame.width)
-        return CGSize(width: UIScreen.mainScreen().bounds.width/2, height: self.view.frame.width/2 + 25);
+        return CGSize(width: UIScreen.main.bounds.width/2, height: self.view.frame.width/2 + 25);
         
     }
     //
@@ -1773,9 +1779,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath)->UICollectionViewCell{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:IndexPath)->UICollectionViewCell{
         
-        var  cell = collectionView.dequeueReusableCellWithReuseIdentifier("idCollectionCell", forIndexPath: indexPath) as! testsearchcell
+        let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "idCollectionCell", for: indexPath) as! testsearchcell
         //cell.uuidLbl.text = self.uuidArray[indexPath.row]
         // cell.titleShop.text="cellText"
         cell.likeBtn.tag = indexPath.row
@@ -1869,8 +1875,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             //                }
             //            })
             
-            getLikeState(cell.uuidLbl.text! , Btn: cell.likeBtn)
-            getLikeCount(cell.uuidLbl.text! , Lbl : cell.LikeLbl)
+            getLikeState(string: cell.uuidLbl.text! , Btn: cell.likeBtn)
+            getLikeCount(string: cell.uuidLbl.text! , Lbl : cell.LikeLbl)
             
             //cell.LikeLbl.setTitle(self.likeArray[indexPath.row], forState: .Normal)
             
@@ -2010,7 +2016,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     //    }
     
     // scrolled down
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // scroll down for paging
         if scrollView.contentOffset.y >= scrollView.contentSize.height / 6 {
             // self.loadMore()
@@ -2195,9 +2201,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         tableView.delegate = self
         tableView.dataSource = self
         tableView.alwaysBounceVertical = true
-        tableView.backgroundColor = .whiteColor()
+        tableView.backgroundColor = UIColor.white
         //tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.registerNib(UINib(nibName: "postFeed", bundle: nil), forCellReuseIdentifier: "idPostFeedCell")
+        tableView.register(UINib(nibName: "postFeed", bundle: nil), forCellReuseIdentifier: "idPostFeedCell")
         //tableView.frame = UIScreen.mainScreen().bounds
         self.view.addSubview(tableView)
         

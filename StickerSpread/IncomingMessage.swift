@@ -27,7 +27,7 @@ class IncomingMessage {
         
         if type == "text" {
             //create text message
-            message = createTextMessage(dictionary)
+            message = createTextMessage(item: dictionary)
         }
 //        if type == "location" {
 //            //create loacation message
@@ -35,7 +35,7 @@ class IncomingMessage {
 //        }
         if type == "picture" {
             //create picture message
-            message = createPictureMessage(dictionary)
+            message = createPictureMessage(item: dictionary)
         }
         
         if let mes = message {
@@ -50,7 +50,7 @@ class IncomingMessage {
         let name = item["senderName"] as? String
         let userId = item["senderId"] as? String
         
-        let date = dateFormatter().dateFromString((item["date"] as? String)!)
+        let date = dateFormatter().date(from: (item["date"] as? String)!)
         let text = item["message"] as? String
         
         
@@ -84,7 +84,7 @@ class IncomingMessage {
     
     func returneOutgoingStatusFromUser(senderId: String) -> Bool {
         
-        if senderId == PFUser.currentUser()!.username {
+        if senderId == PFUser.current()!.username {
             //outgoing
             return true
         } else {
@@ -97,28 +97,28 @@ class IncomingMessage {
         let name = item["senderName"] as? String
         let userId = item["senderId"] as? String
         
-        let date = dateFormatter().dateFromString((item["date"] as? String)!)
+        let date = dateFormatter().date(from: (item["date"] as? String)!)
 
         let mediaItem = JSQPhotoMediaItem(image: nil)
-        mediaItem.appliesMediaViewMaskAsOutgoing = returneOutgoingStatusFromUser(userId!)
+        mediaItem?.appliesMediaViewMaskAsOutgoing = returneOutgoingStatusFromUser(senderId: userId!)
         
-        imageFromData(item) { (image: UIImage?) -> Void in
-            mediaItem.image = image
+        imageFromData(item: item) { (image: UIImage?) -> Void in
+            mediaItem?.image = image
             self.collectionView.reloadData()
         }
         
         return JSQMessage(senderId: userId!, senderDisplayName: name!, date: date, media: mediaItem)
     }
     
-    func imageFromData(item: NSDictionary, result : (image: UIImage?) ->Void) {
+    func imageFromData(item: NSDictionary, result : (_ image: UIImage?) ->Void) {
         
         var image: UIImage?
         
-        let decodedData = NSData(base64EncodedString: (item["picture"] as? String)!, options: NSDataBase64DecodingOptions(rawValue: 0))
+        let decodedData = NSData(base64Encoded: (item["picture"] as? String)!, options: NSData.Base64DecodingOptions(rawValue: 0))
         
-        image = UIImage(data: decodedData!)
+        image = UIImage(data: decodedData! as Data)
         
-        result(image: image)
+        result(image)
     }
     
     

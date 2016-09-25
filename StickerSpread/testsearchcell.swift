@@ -53,11 +53,11 @@ class testsearchcell: UICollectionViewCell {
         //avaImg.clipsToBounds = true
         
         // clear like button title color
-        likeBtn.setTitleColor(UIColor.clearColor(), forState: .Normal)
+        likeBtn.setTitleColor(UIColor.clear, for: .normal)
         // double tap to like
-        let selectTap = UITapGestureRecognizer(target: self, action: "selectTap")
+        let selectTap = UITapGestureRecognizer(target: self, action: #selector(testsearchcell.selectTap))
         //selectTap.numberOfTapsRequired = 2
-        picImg1.userInteractionEnabled = true
+        picImg1.isUserInteractionEnabled = true
         picImg1.addGestureRecognizer(selectTap)
         
         //picImg.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
@@ -92,7 +92,7 @@ class testsearchcell: UICollectionViewCell {
         //self.addSubview(likeLabel)
         // picImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)
         // self.addSubview(picImg)
-        let width = UIScreen.mainScreen().bounds.width/2 - 10
+        _ = UIScreen.main.bounds.width/2 - 10
         //print(width)
                // self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pic(\(width))]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pic": picImg1]))
 //        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[pic(wid)]-0-|", options: NSLayoutFormatOptions(), metrics: ["wid": width], views: ["pic": picImg1]))
@@ -226,25 +226,25 @@ class testsearchcell: UICollectionViewCell {
         print(uuidLbl.text!)
         if let st = uuidLbl.text as String! {
             print(st)
-        mySeg.goToPost(st)
+        mySeg.goToPost(uuid: st)
         }
     }
     
     @IBAction func likeLblBtn_click() {
         if let id = self.uuidLbl.text as String!{
             print(id)
-            mySeg.displayLikes(id)
+            mySeg.displayLikes(uuid: id)
         }
         
     }
     
     
     
-    @IBAction func likeBtn_clicked(sender: AnyObject) {
+    @IBAction func likeBtn_clicked(sender: UIButton) {
         // declare title of button
         let buttonRow = sender.tag
-        let title = sender.titleForState(.Normal)
-        SetLike(title,uuid: uuidLbl.text!,Btn: self.likeBtn, Lbl: self.LikeLbl, CellPos : buttonRow, Origin:  self.origin)
+        let title = sender.title(for: .normal)
+        SetLike(title: title,uuid: uuidLbl.text!,Btn: self.likeBtn, Lbl: self.LikeLbl, CellPos : buttonRow, Origin:  self.origin)
         
 //        // to like
 //        if title == "unlike" {

@@ -43,14 +43,14 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     
     var listShop = [String]()
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
        // self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         
         // Add a background view to the table view
         let backgroundImage = UIImage(named: "Background_Blue_Joint.jpg")
         let imageView = UIImageView(image: backgroundImage)
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         self.tableView.backgroundView = imageView
     }
     
@@ -60,17 +60,17 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         //
         self.tableView.estimatedRowHeight = 88
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.registerNib(UINib(nibName: "HeaderUpload", bundle: nil), forCellReuseIdentifier: "idHeaderUpload")
-        tableView.registerNib(UINib(nibName: "FieldUpload", bundle: nil), forCellReuseIdentifier: "idFieldUpload")
+        tableView.register(UINib(nibName: "HeaderUpload", bundle: nil), forCellReuseIdentifier: "idHeaderUpload")
+        tableView.register(UINib(nibName: "FieldUpload", bundle: nil), forCellReuseIdentifier: "idFieldUpload")
         
-        tableView.registerNib(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "idCellNormal")
-        tableView.registerNib(UINib(nibName: "childCell", bundle: nil), forCellReuseIdentifier: "idChildCell")
-        tableView.registerNib(UINib(nibName: "filterButtonCell", bundle: nil), forCellReuseIdentifier: "idFilterButtonCell")
+        tableView.register(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "idCellNormal")
+        tableView.register(UINib(nibName: "childCell", bundle: nil), forCellReuseIdentifier: "idChildCell")
+        tableView.register(UINib(nibName: "filterButtonCell", bundle: nil), forCellReuseIdentifier: "idFilterButtonCell")
         
-        zoomTap = UITapGestureRecognizer(target: self, action: "zoomImg:")
+        zoomTap = UITapGestureRecognizer(target: self, action: Selector("zoomImg:"))
         zoomTap.numberOfTapsRequired = 1
-        cellDescriptorsAnnouncement = loadcellDescriptors("AnnoucementUploadCellDescriptor")
-        cellDescriptorsStickers = loadcellDescriptors("StickersUploadCellDescriptor")
+        cellDescriptorsAnnouncement = loadcellDescriptors(fileName: "AnnoucementUploadCellDescriptor")
+        cellDescriptorsStickers = loadcellDescriptors(fileName: "StickersUploadCellDescriptor")
         
         cellDescriptors = cellDescriptorsStickers
         //tableView.reloadData()
@@ -83,9 +83,9 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         imagePicker.allowsEditing = false
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true, completion: nil)
     }
     
     
@@ -105,7 +105,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         // define frame of zoomed image
         //let zoomed = CGRectMake(0, self.view.center.y - self.view.center.x, self.view.frame.size.width, self.view.frame.size.width)
         // let zoomed = CGRectMake(0, self.view.center.y - self.view.center.x - self.tabBarController!.tabBar.frame.size.height * 1.5, self.view.frame.size.width, self.view.frame.size.width)
-        let zoomed = CGRectMake(0, UIScreen.mainScreen().bounds.height/2-UIScreen.mainScreen().bounds.width/2, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.width)
+        let zoomed = CGRect(x:0, y:UIScreen.main.bounds.height/2-UIScreen.main.bounds.width/2,width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
         
         // frame of unzoomed (small) image
         //let unzoomed = CGRectMake(15, self.tabBarController!.tabBar.frame.size.height + 35 , self.view.frame.size.width / 4.5, self.view.frame.size.width / 4.5)
@@ -116,7 +116,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         if myBigImage.frame == unzoomed {
             
             // with animation
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 // resize image frame
                 //self.parentView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
                 
@@ -125,7 +125,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
                 
                 
                 // hide objects from background
-                self.tableView.hidden = true
+                self.tableView.isHidden = true
                 self.navigationController?.navigationBar.alpha = 0
                 self.navigationController?.tabBarController?.tabBar.alpha = 0
                 //self.titleTxt.alpha = 0
@@ -137,11 +137,11 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         } else {
             
             // with animation
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 // resize image frame
                 
                 myBigImage.removeFromSuperview()
-                self.tableView.hidden = false
+                self.tableView.isHidden = false
                 self.navigationController?.navigationBar.alpha = 1
                 self.navigationController?.tabBarController?.tabBar.alpha = 1
                 myBigImage.frame = unzoomed
@@ -164,7 +164,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         tableView.reloadData()
         
         self.tempImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
         //        // enable publish btn
         //        publishBtn.enabled = true
@@ -176,8 +176,8 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         
         
     }
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -194,70 +194,72 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     //    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     //        return UITableViewAutomaticDimension
     //    }
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         
         
         let indexOfTappedRow = visibleRowsPerSection[indexPath.section][indexPath.row]
         
         
-        if cellDescriptors[indexPath.section][indexOfTappedRow].objectForKey("isExpandable") as! Bool == true {
+        if ((cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfTappedRow) as AnyObject).value(forKey:"isExpandable") as! Bool == true {
             var shouldExpandAndShowSubRows = false
-            if cellDescriptors[indexPath.section][indexOfTappedRow].objectForKey("isExpanded") as! Bool == false {
+            if ((cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfTappedRow) as AnyObject).value(forKey:"isExpanded") as! Bool == false {
                 // In this case the cell should expand.
                 shouldExpandAndShowSubRows = true
             }
             
-            cellDescriptors[indexPath.section][indexOfTappedRow].setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
+            ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
             
-            for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (cellDescriptors[indexPath.section][indexOfTappedRow].objectForKey("additionalRows") as! Int)) {
-                cellDescriptors[indexPath.section][i].setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
+            for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).object(forKey: "additionalRows") as! Int)) {
+                ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: i) as! NSDictionary).setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
             }
         } else {
-            if cellDescriptors[indexPath.section][indexOfTappedRow].objectForKey("cellIdentifier") as! String == "idChildCell"  {
+            if ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).object(forKey: "cellIdentifier") as! String == "idChildCell"  {
                 var indexOfParentCell: Int!
                 
-                for var i=indexOfTappedRow - 1; i>=0; i -= 1 {
-                    if cellDescriptors[indexPath.section][i]["isExpandable"] as! Bool == true {
+                for i in (1...indexOfTappedRow-1).reversed() {
+                
+                    if ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: i) as! NSDictionary).value(forKey:"isExpandable") as! Bool == true {
                         indexOfParentCell = i
                         break
                     }
                 }
                 
-                if cellDescriptors[indexPath.section][indexOfTappedRow]["isChecked"] as! Bool == false {
-                    var t = cellDescriptors[indexPath.section][indexOfParentCell]["oneCheck"] as? Bool
+                if ((cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfTappedRow) as AnyObject).value(forKey:"isChecked") as! Bool == false {
+                    var t = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary).value(forKey:"oneChecked") as? Bool
                     if t != nil {
                         if t == true {
-                            var additionalRows = cellDescriptors[indexPath.section][indexOfParentCell]["additionalRows"] as! Int
+                            var additionalRows = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary)["additionalRows"] as! Int
                             //cell.SelectedOverview.text = primaryTitle as? String
-                            for var n = 1; n <= additionalRows; n += 1{
-                                cellDescriptors[indexPath.section][n].setValue(false,forKey: "isChecked")
-                                let prop = cellDescriptors[indexPath.section][n]["propertyForParent"] as! String
-                                cellDescriptors[indexPath.section][indexOfParentCell].setValue(false, forKey: prop)
+                            for n in (1...additionalRows) {
+                            
+                                ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: n) as! NSDictionary).setValue(false,forKey: "isChecked")
+                                let prop = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: n) as! NSDictionary).value(forKey: "propertyForParent") as! String
+                                ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary).setValue(false, forKey: prop)
                                 //let indexPath1 = NSIndexPath(forRow: n, inSection: indexPath.section)
                                 //let myCell = tableView.cellForRowAtIndexPath(indexPath1) as! CustomCell
                                 //myCell.checkBoxButton.isChecked = false
                                 
                             }
-                            tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
-                            cellDescriptors[indexPath.section][indexOfParentCell].setValue("", forKey: "primaryTitle")
+                            tableView.reloadSections(NSIndexSet(index: indexPath.section) as IndexSet, with: .none)
+                            ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary).setValue("", forKey: "primaryTitle")
                         }
                         
                     }
                 }
                 
                 
-                let property = cellDescriptors[indexPath.section][indexOfTappedRow]["propertyForParent"] as! String
+                let property = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).value(forKey: "propertyForParent") as! String
                 
-                let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! CustomCell
+                let cell = self.tableView.cellForRow(at: indexPath as IndexPath) as! CustomCell
                 cell.checkBoxButton.isChecked = !cell.checkBoxButton.isChecked
-                cellDescriptors[indexPath.section][indexOfParentCell].setValue(cell.checkBoxButton.isChecked, forKey: property)
+                ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary).setValue(cell.checkBoxButton.isChecked, forKey: property)
                 
                 
-                cellDescriptors[indexPath.section][indexOfTappedRow].setValue(cell.checkBoxButton.isChecked, forKey: "isChecked")
+                ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).setValue(cell.checkBoxButton.isChecked, forKey: "isChecked")
                 
-                let typeSelected = cellDescriptors[indexPath.section][indexOfParentCell]["type"] as! String
-                var myList = []
+                let typeSelected = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary)["type"] as! String
+                var myList = [String]()
                 
                 if  typeSelected == "Layout" {
                     myList = ["Vertical","Horizontal"]
@@ -277,15 +279,15 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
                 
                 var toBeDisplayed = ""
                 for i in myList {
-                    if cellDescriptors[indexPath.section][indexOfParentCell][i as! String] as! Bool == true {
+                    if ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary).value(forKey: i ) as! Bool == true {
                         if toBeDisplayed != "" {
                             toBeDisplayed += ", "
                         }
-                        toBeDisplayed += i as! String
+                        toBeDisplayed += i 
                         
                         
                     }
-                    cellDescriptors[indexPath.section][indexOfParentCell].setValue(toBeDisplayed, forKey: "primaryTitle")
+                    ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary).setValue(toBeDisplayed, forKey: "primaryTitle")
                     
                 }
                 //tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.None)
@@ -294,36 +296,36 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             
             
         }
-        getIndicesOfVisibleRows(cellDescriptors)
+        getIndicesOfVisibleRows(cellDescriptors: cellDescriptors)
         //ExpListFilters.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Fade)
         tableView.reloadData()
         //adjustHeightOfTableview()
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         
-        let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath)
+        let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath: indexPath)
         if currentCellDescriptor["cellIdentifier"] as! String == "idHeaderUpload" {
             if self.picked == false {
-                let cell = tableView.dequeueReusableCellWithIdentifier("idHeaderUpload", forIndexPath: indexPath) as! HeaderUploadCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "idHeaderUpload", for: indexPath as IndexPath) as! HeaderUploadCell
                 //cell.backgroundColor = UIColor.clearColor()
                 cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
                 cell.delegate = self
-                cell.removeBtn.hidden = true
+                cell.removeBtn.isHidden = true
                 
                 return cell
                 
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier("idHeaderUpload", forIndexPath: indexPath) as! HeaderUploadCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "idHeaderUpload", for: indexPath as IndexPath) as! HeaderUploadCell
                 //cell.backgroundColor = UIColor.clearColor()
                 
                 
                 cell.delegate = self
                 cell.picImg.image = self.tempImage
                 // unhide remove button
-                cell.removeBtn.hidden = false
-                cell.picImg.userInteractionEnabled = true
+                cell.removeBtn.isHidden = false
+                cell.picImg.isUserInteractionEnabled = true
                 cell.picImg.addGestureRecognizer(zoomTap)
                 //self.picked = false
                 return cell
@@ -332,33 +334,33 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             
             
         } else if currentCellDescriptor["cellIdentifier"] as! String == "idFieldUpload" {
-            let cell = tableView.dequeueReusableCellWithIdentifier("idField", forIndexPath: indexPath) as! FieldUploadCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "idField", for: indexPath as IndexPath) as! FieldUploadCell
             //cell.backgroundColor = UIColor.clearColor()
             cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
             
             //            if(indexPath.row > tableView.numberOfRowsInSection(1)){
             //                cell.Field.text = "Add Row";
             //            }
-            cell.addBtn.hidden = true
+            cell.addBtn.isHidden = true
             if currentCellDescriptor["primaryTitle"] as? String == "Shop*:" {
-                cell.addBtn.hidden = false
+                cell.addBtn.isHidden = false
                 if visibleRowsPerSection[indexPath.section].count == indexPath.row + 1 {
                     //cell.addBtn.hidden = false
                     cell.isLast = true
                     
-                    cell.addBtn.setBackgroundImage(UIImage(named: "Plus.png")! as UIImage, forState: .Normal)
+                    cell.addBtn.setBackgroundImage(UIImage(named: "Plus.png")! as UIImage, for: .normal)
                     
                 } else {
                     //cell.addBtn.hidden = true
                     cell.isLast = false
-                    cell.addBtn.setBackgroundImage(UIImage(named: "Back Arrow.png")! as UIImage, forState: .Normal)
+                    cell.addBtn.setBackgroundImage(UIImage(named: "Back Arrow.png")! as UIImage, for: .normal)
                     
                 }
                 cell.pos = indexPath.row
                 print(cell.pos)
             } else if currentCellDescriptor["primaryTitle"] as? String == "Title*:"{
                 
-                cell.addBtn.hidden = true
+                cell.addBtn.isHidden = true
             }
             
             
@@ -370,7 +372,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             
         } else  {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier(currentCellDescriptor["cellIdentifier"] as! String, forIndexPath: indexPath) as! CustomCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: currentCellDescriptor["cellIdentifier"] as! String, for: indexPath as IndexPath) as! CustomCell
             //cell.backgroundColor = UIColor.clearColor()
             cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
             if currentCellDescriptor["cellIdentifier"] as! String == "idCellNormal" {
@@ -392,7 +394,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
                 cell.checkBoxButton.isChecked = (currentCellDescriptor["isChecked"] as? Bool)!
             } else if currentCellDescriptor["cellIdentifier"] as! String == "idFilterButtonCell" {
                 //cell.textField.placeholder = currentCellDescriptor["primaryTitle"] as? String
-                cell.LastButton.setTitle(currentCellDescriptor["Title"] as? String, forState: .Normal)
+                cell.LastButton.setTitle(currentCellDescriptor["Title"] as? String, for: .normal)
                 cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width)
             }
             cell.delegate = self
@@ -404,7 +406,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     
     func getCellDescriptorForIndexPath(indexPath: NSIndexPath) -> [String: AnyObject] {
         let indexOfVisibleRow = visibleRowsPerSection[indexPath.section][indexPath.row]
-        let cellDescriptor = cellDescriptors[indexPath.section].objectAtIndex(indexOfVisibleRow) as! [String: AnyObject]
+        let cellDescriptor = (cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfVisibleRow) as! [String: AnyObject]
         return cellDescriptor
     }
     func adjustHeightOfTableview(){
@@ -416,13 +418,13 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         //        let frame : CGRect = self.ExpListFilters.frame;
         //        frame.size.height = height;
         //        self.ExpListFilters.frame = frame;
-        UIView.animateWithDuration(0.9, animations: {
+        UIView.animate(withDuration: 0.9, animations: {
             //self.filterViewHeightConstraints.constant = height
             self.tableView.setNeedsUpdateConstraints()
         })
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if cellDescriptors != nil {
             return cellDescriptors.count
         }
@@ -430,16 +432,16 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             return 0
         }
     }
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return visibleRowsPerSection[section].count
     }
     
     
     func loadcellDescriptors(fileName : String!) -> NSMutableArray  {
         var cellDescriptors = NSMutableArray()
-        if let path = NSBundle.mainBundle().pathForResource(fileName, ofType: "plist") {
+        if let path = Bundle.main.path(forResource: fileName, ofType: "plist") {
             cellDescriptors = NSMutableArray(contentsOfFile: path)!
-            getIndicesOfVisibleRows(cellDescriptors)
+            getIndicesOfVisibleRows(cellDescriptors: cellDescriptors)
             
             tableView.reloadData()
             //adjustHeightOfTableview()
@@ -473,7 +475,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             for row in 0...((currentSectionCells as! [[String: AnyObject]]).count - 1) {
                 
                 
-                if currentSectionCells[row].objectForKey("isVisible") as! Bool == true {
+                if ((currentSectionCells as! NSMutableArray).object(at: row) as! NSDictionary).value(forKey:"isVisible") as! Bool == true {
                     visibleRows.append(row)
                     //print (cellDescriptors[row])
                 }
@@ -496,9 +498,11 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         //
         
         tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([
-            NSIndexPath(forRow: visibleRowsPerSection[0].count-1, inSection: 0)
-            ], withRowAnimation: .Automatic)
+        let a = visibleRowsPerSection[0]
+        tableView.insertRows(at: [
+            
+            NSIndexPath(row: a.count-1, section: 0) as IndexPath
+            ], with: .automatic)
         tableView.endUpdates()
     }
     
@@ -510,15 +514,16 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     func AddShop(isLast : Bool, pos : Int ){
         if isLast {
             visibleRowsPerSection[1].append(visibleRowsPerSection[1].last!)
-            let indexPath = NSIndexPath(forRow: visibleRowsPerSection[1].count-1, inSection: 1)
+            let a = visibleRowsPerSection[1]
+            let indexPath = NSIndexPath(row: a.count-1, section: 1)
             
-            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            tableView.insertRows(at: [indexPath as IndexPath], with: .none)
         } else {
-            visibleRowsPerSection[1].removeAtIndex(pos )
+            visibleRowsPerSection[1].remove(at: pos )
             
-            let indexPath = NSIndexPath(forRow: pos , inSection: 1)
+            let indexPath = NSIndexPath(row: pos , section: 1)
             
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            tableView.deleteRows(at: [indexPath as IndexPath], with: .none)
             
             //we want to update the pos of the cells after
             //
@@ -545,7 +550,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     
     func loadStickerForm(){
         cellDescriptors = cellDescriptorsStickers
-        getIndicesOfVisibleRows(cellDescriptors)
+        getIndicesOfVisibleRows(cellDescriptors: cellDescriptors)
         //        tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
         //        tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .None)
         tableView.reloadData()
@@ -553,7 +558,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     }
     func loadAnnoucementForm(){
         cellDescriptors = cellDescriptorsAnnouncement
-        getIndicesOfVisibleRows(cellDescriptors)
+        getIndicesOfVisibleRows(cellDescriptors: cellDescriptors)
         //        tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
         //        tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .None)
         tableView.reloadData()

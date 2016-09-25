@@ -33,17 +33,17 @@ class FieldUploadCell: UITableViewCell {
 //        }
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
     
     @IBAction func AddShop(sender: AnyObject) {
-        delegate.AddShop(isLast, pos: pos)
+        delegate.AddShop(isLast: isLast, pos: pos)
         if self.isLast == true {
             self.isLast = false
-            addBtn.setBackgroundImage(UIImage(named: "Back Arrow.png")! as UIImage, forState: .Normal)
+            addBtn.setBackgroundImage(UIImage(named: "Back Arrow.png")! as UIImage, for: .normal)
         }
         //self.isLast = self.isLast!
         

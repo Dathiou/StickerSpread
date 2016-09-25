@@ -19,20 +19,20 @@ class OutgoingMessage {
     
     init (message: String, senderId: String, senderName: String, date: NSDate, status: String, type: String) {
         
-        messageDictionary = NSMutableDictionary(objects: [message, senderId, senderName, dateFormatter().stringFromDate(date), status, type], forKeys: ["message", "senderId", "senderName", "date", "status", "type"])
+        messageDictionary = NSMutableDictionary(objects: [message, senderId, senderName, dateFormatter().string(from: date as Date), status, type], forKeys: ["message" as NSCopying, "senderId" as NSCopying, "senderName" as NSCopying, "date" as NSCopying, "status" as NSCopying, "type" as NSCopying])
     }
     
     init(message: String, latitude: NSNumber, longitude: NSNumber, senderId: String, senderName: String, date: NSDate, status: String, type: String) {
         
-        messageDictionary = NSMutableDictionary(objects: [message, latitude, longitude, senderId, senderName, dateFormatter().stringFromDate(date), status, type], forKeys: ["message", "latitude", "longitude", "senderId", "senderName", "date", "status", "type"])
+        messageDictionary = NSMutableDictionary(objects: [message, latitude, longitude, senderId, senderName, dateFormatter().string(from: date as Date), status, type], forKeys: ["message" as NSCopying, "latitude" as NSCopying, "longitude" as NSCopying, "senderId" as NSCopying, "senderName" as NSCopying, "date" as NSCopying, "status" as NSCopying, "type" as NSCopying])
     }
     
     init (message: String, pictureData: NSData, senderId: String, senderName: String, date: NSDate, status: String, type: String) {
         
-        let pic = pictureData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let pic = pictureData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
         
-        messageDictionary = NSMutableDictionary(objects: [message, pic, senderId, senderName, dateFormatter().stringFromDate(date), status, type], forKeys: ["message", "picture", "senderId", "senderName", "date", "status", "type"])
+        messageDictionary = NSMutableDictionary(objects: [message, pic, senderId, senderName, dateFormatter().string(from: date as Date), status, type], forKeys: ["message" as NSCopying, "picture" as NSCopying, "senderId" as NSCopying, "senderName" as NSCopying, "date" as NSCopying, "status" as NSCopying, "type" as NSCopying])
     }
     
     func sendMessage(chatRoomID: String, item: NSMutableDictionary) {
@@ -48,7 +48,7 @@ class OutgoingMessage {
         }
         
        // SendPushNotification(chatRoomID, message: (item["message"] as? String)!)
-        UpdateRecents(chatRoomID, lastMessage: (item["message"] as? String)!)
+        UpdateRecents(chatRoomID: chatRoomID, lastMessage: (item["message"] as? String)!)
     }
 
     

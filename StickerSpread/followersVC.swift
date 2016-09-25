@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-var show = String()
+var show1 = String()
 var user = String()
 
 
@@ -30,10 +30,10 @@ class followersVC: UITableViewController {
         super.viewDidLoad()
         
         // title at the top
-        self.navigationItem.title = show.uppercaseString
+        self.navigationItem.title = show1.uppercased()
         
         // load followers if tapped on followers label
-        loadFollowers(show)
+        loadFollowers(type: show1)
         
         tableView.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         
@@ -43,22 +43,22 @@ class followersVC: UITableViewController {
     // loading followers
     func loadFollowers(type: String) {
         
-        let picturesGroup = dispatch_group_create()
+        let picturesGroup = DispatchGroup()
         //.queryOrderedByChild("date")
-        firebase.child(type).child(user).queryOrderedByChild("Date").observeEventType(.Value, withBlock: { snapshot in
+        firebase.child(type).child(user).queryOrdered(byChild: "Date").observe(.value, with: { snapshot in
             if snapshot.exists() {
                 //sorted = (snapshot.value!.allValues as NSArray).sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: false)])
-                self.usernameArray.removeAll(keepCapacity: false)
-                self.nameArray.removeAll(keepCapacity: false)
-                self.avaArray.removeAll(keepCapacity: false)
+                self.usernameArray.removeAll(keepingCapacity: false)
+                self.nameArray.removeAll(keepingCapacity: false)
+                self.avaArray.removeAll(keepingCapacity: false)
 
                 for post1 in snapshot.children{
-                     dispatch_group_enter(picturesGroup)
+                     picturesGroup.enter()
                     // let k = post.key!
                     //dispatch_group_enter(picturesGroup)
                     let post = post1 as! FIRDataSnapshot
                     //print(post.key)
-                    let userID = post.key as! String
+                    let userID = post.key 
                     
                     
                     //                    self.storage.referenceForURL(post.value.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
@@ -84,26 +84,26 @@ class followersVC: UITableViewController {
                     //                    i = i + 1
                     
                     
-                    firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot in
+                    firebase.child("Users").child(userID).observe(.value, with: { snapshot in
                         
-                        let first = (snapshot.value!.objectForKey("first_name") as? String)
-                        let last = (snapshot.value!.objectForKey("last_name") as? String)
+                        let first = post.value(forKey: "first_name") as! String
+                        let last = post.value(forKey: "last_name") as! String
                         
-                        let fullname = first!+" "+last!
+                        let fullname = first+" "+last
                         self.nameArray.append(fullname)
                         
                         //                        self.tableView.reloadData()
                         //                        self.collectionView.reloadData()
-                        let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
+                        let avaURL = post.value(forKey: "ProfilPicUrl") as! String
                         let url = NSURL(string: avaURL)
-                        if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                            self.avaArray.append(UIImage(data: data) as UIImage!)
-                            self.avaArray = self.avaArray.reverse()
-                            self.nameArray = self.nameArray.reverse()
+                        if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+                            self.avaArray.append(UIImage(data: data as Data) as UIImage!)
+                            self.avaArray = self.avaArray.reversed()
+                            self.nameArray = self.nameArray.reversed()
                             
                             //self.tableView.reloadData()
                         }
-                        dispatch_group_leave(picturesGroup)
+                        picturesGroup.leave()
                         }
                         
                         
@@ -122,12 +122,12 @@ class followersVC: UITableViewController {
                     //                        self.dateArray.append(date)
                     //                    }
                     
+                    picturesGroup.notify(queue:  DispatchQueue.main){
                     
-                    dispatch_group_notify(picturesGroup, dispatch_get_main_queue()) {
-                        self.usernameArray.append(userID as! String)
-                        self.usernameArray = self.usernameArray.reverse()
+                        self.usernameArray.append(userID )
+                        self.usernameArray = self.usernameArray.reversed()
                         
-                                                self.tableView.reloadData()
+                        self.tableView.reloadData()
 
                     }
                     
@@ -272,28 +272,28 @@ class followersVC: UITableViewController {
     
     
     // cell numb
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return usernameArray.count
     }
     
     
     // cell height
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.view.frame.size.width / 4
     }
     
     
     
     // cell config
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         // define cell
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! followersCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! followersCell
         cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         cell.username = usernameArray[indexPath.row]
         //cell.userShown =
         if usernameArray[indexPath.row] == (FIRAuth.auth()?.currentUser!.uid)! {
-            cell.followBtn.hidden = true
+            cell.followBtn.isHidden = true
         }
         // STEP 1. Connect data from serv to objects
         cell.usernameLbl.text = nameArray[indexPath.row]
@@ -306,13 +306,13 @@ class followersVC: UITableViewController {
         //            }
         //        }
         
-        firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)! ).child(usernameArray[indexPath.row]).observeSingleEventOfType(.Value, withBlock: { snapshot in
+        firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)! ).child(usernameArray[indexPath.row]).observeSingleEvent(of: .value, with: { snapshot in
             if snapshot.exists() {
-                cell.followBtn.setTitle("FOLLOWING", forState: UIControlState.Normal)
-                cell.followBtn.backgroundColor = UIColor.greenColor()
+                cell.followBtn.setTitle("FOLLOWING", for: UIControlState.normal)
+                cell.followBtn.backgroundColor = UIColor.green
             } else {
-                cell.followBtn.setTitle("FOLLOW", forState: UIControlState.Normal)
-                cell.followBtn.backgroundColor = .lightGrayColor()
+                cell.followBtn.setTitle("FOLLOW", for: UIControlState.normal)
+                cell.followBtn.backgroundColor = .lightGray
             }
         })
         
@@ -321,13 +321,13 @@ class followersVC: UITableViewController {
     
     
     // selected some user
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if self.usernameArray[indexPath.row] == (FIRAuth.auth()?.currentUser!.uid)! {
             modeSelf = true
         }
         
-        let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC1") as! homeVC1
+        let home = self.storyboard?.instantiateViewController(withIdentifier: "homeVC1") as! homeVC1
         home.userIdToDisplay = self.usernameArray[indexPath.row]
         home.goHome = modeSelf
         self.navigationController?.pushViewController(home, animated: true)

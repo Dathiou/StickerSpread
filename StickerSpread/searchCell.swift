@@ -40,11 +40,11 @@ class searchCell: UITableViewCell {
         super.awakeFromNib()
         
         // alignment
-        let width = UIScreen.mainScreen().bounds.width
+        let width = UIScreen.main.bounds.width
         
-        avaImg.frame = CGRectMake(10, 10, width / 5.3, width / 5.3)
-        usernameLbl.frame = CGRectMake(avaImg.frame.size.width + 20, 28, width / 3.2, 30)
-        followBtn.frame = CGRectMake(width - width / 3.5 - 10, 30, width / 3.5, 30)
+        avaImg.frame = CGRect(x:10, y:10, width:width / 5.3,height: width / 5.3)
+        usernameLbl.frame = CGRect(x:avaImg.frame.size.width + 20,y: 28,width: width / 3.2, height: 30)
+        followBtn.frame = CGRect(x:width - width / 3.5 - 10, y: 30,width: width / 3.5,height: 30)
         followBtn.layer.cornerRadius = followBtn.frame.size.width / 20
         
         // round ava
@@ -104,7 +104,7 @@ class searchCell: UITableViewCell {
     
     
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

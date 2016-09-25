@@ -34,11 +34,11 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         super.viewDidLoad()
         
         // disable publish btn
-        publishBtn.enabled = false
-        publishBtn.backgroundColor = .lightGrayColor()
+        publishBtn.isEnabled = false
+        publishBtn.backgroundColor = .lightGray
         
         // hide remove button
-        removeBtn.hidden = true
+        removeBtn.isHidden = true
         
         // standart UI containt
         picImg.image = UIImage(named: "pbg.jpg")
@@ -48,15 +48,15 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         titleTxt.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
         // hide kyeboard tap
-        let hideTap = UITapGestureRecognizer(target: self, action: "hideKeyboardTap")
+        let hideTap = UITapGestureRecognizer(target: self, action: #selector(uploadVC.hideKeyboardTap))
         hideTap.numberOfTapsRequired = 1
-        self.view.userInteractionEnabled = true
+        self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
         
         // select image tap
-        let picTap = UITapGestureRecognizer(target: self, action: "selectImg")
+        let picTap = UITapGestureRecognizer(target: self, action: #selector(uploadVC.selectImg))
         picTap.numberOfTapsRequired = 1
-        picImg.userInteractionEnabled = true
+        picImg.isUserInteractionEnabled = true
         picImg.addGestureRecognizer(picTap)
         
         hideTap.cancelsTouchesInView = false
@@ -69,14 +69,14 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func configureTableView() {
         postStickersTable.delegate = self
         postStickersTable.dataSource = self
-        postStickersTable.tableFooterView = UIView(frame: CGRectZero)
+        postStickersTable.tableFooterView = UIView(frame: CGRect.zero)
         postStickersTable.sizeToFit()
-        postStickersTable.superview!.bringSubviewToFront(postStickersTable)
+        postStickersTable.superview!.bringSubview(toFront: postStickersTable)
         postStickersTable.bounces = false
         
-        postStickersTable.registerNib(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "idCellNormal")
-        postStickersTable.registerNib(UINib(nibName: "childCell", bundle: nil), forCellReuseIdentifier: "idChildCell")
-        postStickersTable.registerNib(UINib(nibName: "filterButtonCell", bundle: nil), forCellReuseIdentifier: "idFilterButtonCell")
+        postStickersTable.register(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "idCellNormal")
+        postStickersTable.register(UINib(nibName: "childCell", bundle: nil), forCellReuseIdentifier: "idChildCell")
+        postStickersTable.register(UINib(nibName: "filterButtonCell", bundle: nil), forCellReuseIdentifier: "idFilterButtonCell")
         //        ExpListFilters.registerNib(UINib(nibName: "SwitchCell", bundle: nil), forCellReuseIdentifier: "idCellSwitch")
         //        ExpListFilters.registerNib(UINib(nibName: "ValuePickerCell", bundle: nil), forCellReuseIdentifier: "idCellValuePicker")
         //        ExpListFilters.registerNib(UINib(nibName: "SliderCell", bundle: nil), forCellReuseIdentifier: "idCellSlider")
@@ -86,7 +86,7 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     
     // preload func
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         // call alignment function
         alignment()
     }
@@ -100,28 +100,28 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     func selectImg() {
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = .PhotoLibrary
+        picker.sourceType = .photoLibrary
         picker.allowsEditing = true
-        presentViewController(picker, animated: true, completion: nil)
+        present(picker, animated: true, completion: nil)
     }
     
     
     // hold selected image in picImg object and dissmiss PickerController()
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         picImg.image = info[UIImagePickerControllerEditedImage] as? UIImage
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
         // enable publish btn
-        publishBtn.enabled = true
+        publishBtn.isEnabled = true
         publishBtn.backgroundColor = UIColor(red: 52.0/255.0, green: 169.0/255.0, blue: 255.0/255.0, alpha: 1)
         
         // unhide remove button
-        removeBtn.hidden = false
+        removeBtn.isHidden = false
         
         // implement second tap for zooming image
-        let zoomTap = UITapGestureRecognizer(target: self, action: "zoomImg")
+        let zoomTap = UITapGestureRecognizer(target: self, action: #selector(uploadVC.zoomImg))
         zoomTap.numberOfTapsRequired = 1
-        picImg.userInteractionEnabled = true
+        picImg.isUserInteractionEnabled = true
         picImg.addGestureRecognizer(zoomTap)
     }
     
@@ -130,23 +130,23 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         // define frame of zoomed image
         //let zoomed = CGRectMake(0, self.view.center.y - self.view.center.x, self.view.frame.size.width, self.view.frame.size.width)
-        let zoomed = CGRectMake(0, self.view.center.y - self.view.center.x - self.tabBarController!.tabBar.frame.size.height * 1.5, self.view.frame.size.width, self.view.frame.size.width)
+        let zoomed = CGRect(x:0,y: self.view.center.y - self.view.center.x - self.tabBarController!.tabBar.frame.size.height * 1.5, width:self.view.frame.size.width, height:self.view.frame.size.width)
 
         // frame of unzoomed (small) image
         //let unzoomed = CGRectMake(15, self.tabBarController!.tabBar.frame.size.height + 35 , self.view.frame.size.width / 4.5, self.view.frame.size.width / 4.5)
         //let unzoomed =  CGRectMake(15, self.navigationController!.navigationBar.frame.size.height + 35 , self.view.frame.size.width / 4.5, self.view.frame.size.width / 4.5)
-let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.frame.size.width / 4.5)
+        let unzoomed = CGRect(x:15, y:15, width:self.view.frame.size.width / 4.5, height:self.view.frame.size.width / 4.5)
         
         // if picture is unzoomed, zoom it
         if picImg.frame == unzoomed {
             
             // with animation
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 // resize image frame
                 self.picImg.frame = zoomed
                 
                 // hide objects from background
-                self.view.backgroundColor = .blackColor()
+                self.view.backgroundColor = .black
                 self.titleTxt.alpha = 0
                 self.publishBtn.alpha = 0
                 self.removeBtn.alpha = 0
@@ -156,12 +156,12 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
         } else {
             
             // with animation
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 // resize image frame
                 self.picImg.frame = unzoomed
                 
                 // unhide objects from background
-                self.view.backgroundColor = .whiteColor()
+                self.view.backgroundColor = .white
                 self.titleTxt.alpha = 1
                 self.publishBtn.alpha = 1
                 self.removeBtn.alpha = 1
@@ -182,10 +182,10 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
 //        publishBtn.frame = CGRectMake(0, self.tabBarController!.tabBar.frame.origin.y - width / 8, width, width / 8)
 //        removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height , picImg.frame.size.width, 30)
         
-        picImg.frame = CGRectMake(15, 15, width / 4.5, width / 4.5)
-        titleTxt.frame = CGRectMake(picImg.frame.size.width + 25, picImg.frame.origin.y, width / 1.488, picImg.frame.size.height)
-        publishBtn.frame = CGRectMake(0, height / 1.09, width, width / 8)
-        removeBtn.frame = CGRectMake(picImg.frame.origin.x, picImg.frame.origin.y + picImg.frame.size.height, picImg.frame.size.width, 20)
+        picImg.frame = CGRect(x:15, y:15,width: width / 4.5, height:width / 4.5)
+        titleTxt.frame = CGRect(x: picImg.frame.size.width + 25, y: picImg.frame.origin.y, width:width / 1.488, height:picImg.frame.size.height)
+        publishBtn.frame = CGRect(x:0, y:height / 1.09, width: width, height: width / 8)
+        removeBtn.frame = CGRect(x: picImg.frame.origin.x, y:picImg.frame.origin.y + picImg.frame.size.height, width: picImg.frame.size.width,height: 20)
 
     }
     
@@ -200,7 +200,7 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
         // Get a reference to the storage service, using the default Firebase App
         let storage = FIRStorage.storage()
         // Create a storage reference from our storage service
-        let storageRef = storage.referenceForURL("gs://stickerspread-4f3a9.appspot.com")
+        let storageRef = storage.reference(forURL: "gs://stickerspread-4f3a9.appspot.com")
         
         
 //        
@@ -222,7 +222,7 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
         
 //        object["ava"] = PFUser.currentUser()!.valueForKey("picture_file") as! PFFile
 //        
-        let uuid = NSUUID().UUIDString
+        let uuid = NSUUID().uuidString
 //        object["uuid"] = "\(PFUser.currentUser()!.username!) \(uuid)"
 //        
 //        if titleTxt.text.isEmpty {
@@ -233,7 +233,7 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
         
         
         // send pic to server after converting to FILE and comprassion
-        let imageData : NSData = UIImageJPEGRepresentation(picImg.image!, 0.5)!
+        let imageData : NSData = UIImageJPEGRepresentation(picImg.image!, 0.5)! as NSData
         
         
 //        
@@ -251,7 +251,7 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
         let riversRef = storageRef.child("posts/\(userID) \(uuid).jpg")
         
         // Upload the file to the path "images/rivers.jpg"
-        let uploadTask = riversRef.putData(imageData, metadata: nil) { metadata, error in
+        let uploadTask = riversRef.put(imageData as Data, metadata: nil) { metadata, error in
             if (error != nil) {
                 // Uh-oh, an error occurred!
             } else {
@@ -259,9 +259,9 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
                 let downloadURL = metadata?.downloadURL()?.absoluteURL
                 
                 let date = NSDate()
-                var dateFormatter = NSDateFormatter()
+                var dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                var dateString = dateFormatter.stringFromDate(date)
+                var dateString = dateFormatter.string(from: date as Date)
                 
                 
                     let name = user.displayName
@@ -269,11 +269,11 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
                     let photoUrl = user.photoURL
                     let uid = user.uid;
                     print(downloadURL)
-                    let userDict : [String : AnyObject] = [ "userID" : uid,
-                                     "title"    : "Day Dream Kit" ,
-                                     "layout"   : "vertical",
-                                     "date" : dateString,
-                                     "photoUrl"    : (downloadURL?.absoluteString)!]
+                    let userDict : [String : AnyObject] = [ "userID" : uid as AnyObject,
+                                     "title"    : "Day Dream Kit" as AnyObject ,
+                                     "layout"   : "vertical" as AnyObject,
+                                     "date" : dateString as AnyObject,
+                                     "photoUrl"    : (downloadURL?.absoluteString)! as AnyObject]
                     let postID = "\(userID) \(uuid)"
                     firebase.child("Posts").child(postID).setValue(userDict)
                     firebase.child("PostPerUser").child("\(userID)").child(postID).setValue(true)
@@ -311,17 +311,17 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
 //        })
         
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
             print(visibleRows.count)
             return visibleRows.count
         }
     
     // cell config
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-            let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath)
-            let cell = tableView.dequeueReusableCellWithIdentifier(currentCellDescriptor["cellIdentifier"] as! String, forIndexPath: indexPath) as! CustomCell
+            let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath: indexPath as NSIndexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: currentCellDescriptor["cellIdentifier"] as! String, for: indexPath as IndexPath) as! CustomCell
             
             if currentCellDescriptor["cellIdentifier"] as! String == "idCellNormal" {
                 if let primaryTitle = currentCellDescriptor["primaryTitle"] {
@@ -354,17 +354,17 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
             
             let indexOfTappedRow = visibleRows[indexPath.row]
             
-            if cellDescriptors[indexOfTappedRow].objectForKey("isExpandable") as! Bool == true {
+        if (cellDescriptors[indexOfTappedRow] as AnyObject).value(forKey:"isExpandable") as! Bool == true {
                 var shouldExpandAndShowSubRows = false
-                if cellDescriptors[indexOfTappedRow].objectForKey("isExpanded") as! Bool == false {
+                if (cellDescriptors[indexOfTappedRow] as AnyObject).value(forKey:"isExpanded") as! Bool == false {
                     // In this case the cell should expand.
                     shouldExpandAndShowSubRows = true
                 }
                 
-                cellDescriptors[indexOfTappedRow].setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
+                (cellDescriptors[indexOfTappedRow] as AnyObject).setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
                 
-                for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (cellDescriptors[indexOfTappedRow].objectForKey("additionalRows") as! Int)) {
-                    cellDescriptors[i].setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
+            for i in (indexOfTappedRow + 1)...(indexOfTappedRow + ((cellDescriptors[indexOfTappedRow] as AnyObject).value(forKey:"additionalRows") as! Int)) {
+                    (cellDescriptors[i] as AnyObject).setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
                 }
             }
         getIndicesOfVisibleRows()
@@ -380,7 +380,7 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
     }
     
     func loadCellDescriptors() {
-        if let path = NSBundle.mainBundle().pathForResource("StickersUploadCellDescriptor", ofType: "plist") {
+        if let path = Bundle.main.path(forResource: "StickersUploadCellDescriptor", ofType: "plist") {
             cellDescriptors = NSMutableArray(contentsOfFile: path)
             getIndicesOfVisibleRows()
             
@@ -399,7 +399,7 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
         //        let frame : CGRect = self.ExpListFilters.frame;
         //        frame.size.height = height;
         //        self.ExpListFilters.frame = frame;
-        UIView.animateWithDuration(0.9, animations: {
+        UIView.animate(withDuration: 0.9, animations: {
             self.filterViewHeightConstraints.constant = height
             self.postStickersTable.setNeedsUpdateConstraints()
         })
@@ -415,7 +415,7 @@ let unzoomed = CGRectMake(15, 15, self.view.frame.size.width / 4.5, self.view.fr
         for row in 0...((cellDescriptors as! [[String: AnyObject]]).count - 1) {
             
             
-            if cellDescriptors[row].objectForKey("isVisible") as! Bool == true {
+            if (cellDescriptors[row] as AnyObject).value(forKey:"isVisible") as! Bool == true {
                 visibleRows.append(row)
                 print (cellDescriptors[row])
             }

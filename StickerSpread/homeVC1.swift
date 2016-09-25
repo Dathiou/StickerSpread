@@ -18,7 +18,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     var userIdToDisplay = "a"
 
     let storage = FIRStorage.storage()
-    let storageRef = FIRStorage.storage().referenceForURL("gs://stickerspread-4f3a9.appspot.com")
+    let storageRef = FIRStorage.storage().reference(forURL: "gs://stickerspread-4f3a9.appspot.com")
     
     var youtube = false
     var email = false
@@ -70,19 +70,19 @@ class homeVC1: UICollectionViewController,SegueColl {
         // always vertical scroll
         self.collectionView?.alwaysBounceVertical = true
         //background
-        collectionView?.backgroundColor = .whiteColor()
+        collectionView?.backgroundColor = .white
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshLikes:", name: "likedFromHome", object: nil)
+        NotificationCenter.default.addObserver(self, selector: "refreshLikes:", name: NSNotification.Name(rawValue: "likedFromHome"), object: nil)
         
         // pull to refresh
         refresher = UIRefreshControl()
-        refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+        refresher.addTarget(self, action: #selector(homeVC1.refresh), for: UIControlEvents.valueChanged)
         collectionView?.addSubview(refresher)
         
         //receive notification from uploadVC
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "uploaded:", name: "uploaded", object: nil)
+        NotificationCenter.default.addObserver(self, selector: "uploaded:", name: NSNotification.Name(rawValue: "uploaded"), object: nil)
         
-        collectionView!.registerNib(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
+        collectionView!.register(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
         
         //        self.collectionView.header.setNeedsUpdateConstraints()
         //        self.collectionView.updateConstraintsIfNeeded()
@@ -105,8 +105,8 @@ class homeVC1: UICollectionViewController,SegueColl {
 
         if let row = notification.object as? Int {
             
-            let indexPath = NSIndexPath(forRow: row, inSection: 0)
-            self.collectionView!.reloadItemsAtIndexPaths([indexPath])
+            let indexPath = NSIndexPath(row: row, section: 0)
+            self.collectionView!.reloadItems(at: [indexPath as IndexPath])
         }
         
     }
@@ -134,7 +134,7 @@ class homeVC1: UICollectionViewController,SegueColl {
         postuuid.append(uuid)
         
         // present postVC programmaticaly
-        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+        let post = self.storyboard?.instantiateViewController(withIdentifier: "postVC") as! postVC
         self.navigationController?.pushViewController(post, animated: true)
         
         
@@ -144,10 +144,10 @@ class homeVC1: UICollectionViewController,SegueColl {
     func displayLikes(uuid: String!){
         
         user = uuid
-        show = "Likes"
+        show1 = "Likes"
         
         // make references to followersVC
-        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        let followers = self.storyboard?.instantiateViewController(withIdentifier: "followersVC") as! followersVC
         
         // present
         self.navigationController?.pushViewController(followers, animated: true)
@@ -156,7 +156,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     
     
     // load more while scrolling down
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y >= scrollView.contentSize.height - self.view.frame.size.height {
             //loadMore()
         }
@@ -165,7 +165,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     
     
     // cell numb
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return picArray.count
     }
     
@@ -177,15 +177,15 @@ class homeVC1: UICollectionViewController,SegueColl {
     
     
     // cell config
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         // define cell
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("idCollectionCell", forIndexPath: indexPath) as! testsearchcell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "idCollectionCell", for: indexPath as IndexPath) as! testsearchcell
         cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         cell.origin = "Home"
         cell.uuid = uuidArray[indexPath.row]
-        getLikeState(uuidArray[indexPath.row] , Btn: cell.likeBtn)
-        getLikeCount(uuidArray[indexPath.row] , Lbl : cell.LikeLbl)
+        getLikeState(string: uuidArray[indexPath.row] , Btn: cell.likeBtn)
+        getLikeCount(string: uuidArray[indexPath.row] , Lbl : cell.LikeLbl)
         
         cell.uuidLbl.text = uuidArray[indexPath.row]
         cell.picImg1.image = picArray[indexPath.row]
@@ -199,27 +199,27 @@ class homeVC1: UICollectionViewController,SegueColl {
         return CGSize(width: collectionView.frame.width, height: max(20,bottomheader + 5))//self.bottomheader)
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         //define header
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", forIndexPath: indexPath) as! headerView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath as IndexPath) as! headerView
         //header.frame.size.height = 100
         // get users data with connections to columns of PFUser class
         
-        firebase.child("Users").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
+        firebase.child("Users").child(userIdToDisplay).observe(.value, with: { snapshot in
             
-            let first = (snapshot.value!.objectForKey("first_name") as? String)
-            let last = (snapshot.value!.objectForKey("last_name") as? String)
+            let first = (snapshot as AnyObject).value(forKey:"first_name") as! String
+            let last = (snapshot as AnyObject).value(forKey:"last_name") as! String
             print ( snapshot.key)
             self.username = snapshot.key
             //title at the top
-            self.navigationItem.title = first!+" "+last!
-            let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
+            self.navigationItem.title = first+" "+last
+            let avaURL = ((snapshot.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
             let url = NSURL(string: avaURL)
-            if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                header.avaImg.image = UIImage(data: data)
+            if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+                header.avaImg.image = UIImage(data: data as Data)
                 header.avaImg.layer.cornerRadius = 4.0
                 header.avaImg.clipsToBounds = true
-                header.avaImg.layer.borderColor = UIColor.whiteColor().CGColor
+                header.avaImg.layer.borderColor = UIColor.white.cgColor
                 header.avaImg.layer.borderWidth = 0.5
                 
             }
@@ -227,10 +227,10 @@ class homeVC1: UICollectionViewController,SegueColl {
 //            header.followButton.hidden = true
 //            }
             
-            let q = snapshot.value!.objectForKey("youtubeURL") as? String
-            let w = snapshot.value!.objectForKey("instagramURL") as? String
-            let e = snapshot.value!.objectForKey("etsyURL") as? String
-            let r = snapshot.value!.objectForKey("emailDisplay") as? String
+            let q = (snapshot.value! as AnyObject).value(forKey:"youtubeURL") as? String
+            let w = (snapshot.value! as AnyObject).value(forKey:"instagramURL") as? String
+            let e = (snapshot.value! as AnyObject).value(forKey:"etsyURL") as? String
+            let r = (snapshot.value! as AnyObject).value(forKey:"emailDisplay") as? String
             var display = 0
             self.urls.removeAll()
             if q != "" {
@@ -305,17 +305,17 @@ class homeVC1: UICollectionViewController,SegueColl {
         //self.button.setTitle("edit profile", forState: UIControlState.Normal)
         
         if self.goHome == false {
-            header.Settingsbutton.hidden = true
-            header.followButton.hidden = false
+            header.Settingsbutton.isHidden = true
+            header.followButton.isHidden = false
             // STEP 2. Show do current user follow guest or do not
-            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(self.userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
+            firebase.child("Followings").child((FIRAuth.auth()?.currentUser!.uid)!).child(self.userIdToDisplay).observe(.value, with: { snapshot in
                 if snapshot.exists() {
-                    header.followButton.setTitle("FOLLOWING", forState: UIControlState.Normal)
-                    header.followButton.backgroundColor = .greenColor()
+                    header.followButton.setTitle("FOLLOWING", for: UIControlState.normal)
+                    header.followButton.backgroundColor = .green
                 }
                 else {
-                    header.followButton.setTitle("FOLLOW", forState: .Normal)
-                    header.followButton.backgroundColor = .lightGrayColor()
+                    header.followButton.setTitle("FOLLOW", for: .normal)
+                    header.followButton.backgroundColor = .lightGray
                 }
                 
                 
@@ -323,11 +323,11 @@ class homeVC1: UICollectionViewController,SegueColl {
             })
             
         } else if self.goHome == true {
-            header.followButton.hidden = true
-            header.Settingsbutton.hidden = false
+            header.followButton.isHidden = true
+            header.Settingsbutton.isHidden = false
         }
         
-        firebase.child("PostPerUser").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
+        firebase.child("PostPerUser").child(userIdToDisplay).observe(.value, with: { snapshot in
             if snapshot.exists() {
                 
                 header.posts.text =  "\(snapshot.childrenCount)"
@@ -335,7 +335,7 @@ class homeVC1: UICollectionViewController,SegueColl {
             }
         })
         
-        firebase.child("Followers").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
+        firebase.child("Followers").child(userIdToDisplay).observe(.value, with: { snapshot in
             if snapshot.exists() {
                 header.followers.text =  "\(snapshot.childrenCount)"
             } else {
@@ -343,7 +343,7 @@ class homeVC1: UICollectionViewController,SegueColl {
             }
         })
         
-        firebase.child("Followings").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot in
+        firebase.child("Followings").child(userIdToDisplay).observe(.value, with: { snapshot in
             if snapshot.exists() {
                 header.followings.text =  "\(snapshot.childrenCount)"
             } else {
@@ -353,21 +353,21 @@ class homeVC1: UICollectionViewController,SegueColl {
         
         // STEP 3. Implement tap gestures
         // tap posts
-        let postsTap = UITapGestureRecognizer(target: self, action: "postsTap")
+        let postsTap = UITapGestureRecognizer(target: self, action: #selector(homeVC1.postsTap))
         postsTap.numberOfTapsRequired = 1
-        header.posts!.userInteractionEnabled = true
+        header.posts!.isUserInteractionEnabled = true
         header.posts!.addGestureRecognizer(postsTap)
         
         // tap followers
-        let followersTap = UITapGestureRecognizer(target: self, action: "followersTap")
+        let followersTap = UITapGestureRecognizer(target: self, action: #selector(homeVC1.followersTap))
         followersTap.numberOfTapsRequired = 1
-        header.followers.userInteractionEnabled = true
+        header.followers.isUserInteractionEnabled = true
         header.followers.addGestureRecognizer(followersTap)
         
         // tap followings
-        let followingsTap = UITapGestureRecognizer(target: self, action: "followingsTap")
+        let followingsTap = UITapGestureRecognizer(target: self, action: #selector(homeVC1.followingsTap))
         followingsTap.numberOfTapsRequired = 1
-        header.followings.userInteractionEnabled = true
+        header.followings.isUserInteractionEnabled = true
         header.followings.addGestureRecognizer(followingsTap)
         
         header.sizeToFit()
@@ -388,10 +388,10 @@ class homeVC1: UICollectionViewController,SegueColl {
     // tapped followers label
     func followersTap() {
         user = userIdToDisplay
-        show = "Followers"
+        show1 = "Followers"
         
         // make references to followersVC
-        let followers = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        let followers = self.storyboard?.instantiateViewController(withIdentifier: "followersVC") as! followersVC
         
         // present
         self.navigationController?.pushViewController(followers, animated: true)
@@ -401,10 +401,10 @@ class homeVC1: UICollectionViewController,SegueColl {
     func followingsTap() {
         
         user = userIdToDisplay
-        show = "Followings"
+        show1 = "Followings"
         
         // make reference to followersVC
-        let followings = self.storyboard?.instantiateViewControllerWithIdentifier("followersVC") as! followersVC
+        let followings = self.storyboard?.instantiateViewController(withIdentifier: "followersVC") as! followersVC
         
         // present
         self.navigationController?.pushViewController(followings, animated: true)
@@ -418,8 +418,8 @@ class homeVC1: UICollectionViewController,SegueColl {
         print("logged out from FB")
         try! FIRAuth.auth()!.signOut()
         PFUser.logOut()
-        let signin = self.storyboard?.instantiateViewControllerWithIdentifier("ViewController") as! ViewController
-        let appDelegate : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let signin = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = signin
         
         //        PFUser.logOutInBackgroundWithBlock { (error:NSError?) -> Void in
@@ -443,13 +443,13 @@ class homeVC1: UICollectionViewController,SegueColl {
     
     
     // go post
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         // send post uuid to "postuuid" variable
         postuuid.append(uuidArray[indexPath.row])
         
         // navigate to post view controller
-        let post = self.storyboard?.instantiateViewControllerWithIdentifier("postVC") as! postVC
+        let post = self.storyboard?.instantiateViewController(withIdentifier: "postVC") as! postVC
         self.navigationController?.pushViewController(post, animated: true)
     }
     
@@ -458,7 +458,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     // load posts
     func loadPosts() {
         
-        firebase.child("PostPerUser").child(userIdToDisplay).observeEventType(.Value, withBlock: { snapshot1 in
+        firebase.child("PostPerUser").child(userIdToDisplay).observe(.value, with: { snapshot1 in
             print(snapshot1)
             if snapshot1.exists() {
                 print(snapshot1)
@@ -466,34 +466,34 @@ class homeVC1: UICollectionViewController,SegueColl {
                     let postperUser = postperUser1 as! FIRDataSnapshot
                     let postID = postperUser.key
                     print (postID)
-                    firebase.child("Posts").child(postID as! String).queryOrderedByChild("date").observeEventType(.Value, withBlock: { snapshot in
+                    firebase.child("Posts").child(postID as! String).queryOrdered(byChild: "date").observe(.value, with: { snapshot in
                         
                         // clean up
-                        self.usernameArray.removeAll(keepCapacity: false)
-                        self.nameArray.removeAll(keepCapacity: false)
-                        self.avaArray.removeAll(keepCapacity: false)
-                        self.dateArray.removeAll(keepCapacity: false)
-                        self.picArray.removeAll(keepCapacity: false)
+                        self.usernameArray.removeAll(keepingCapacity: false)
+                        self.nameArray.removeAll(keepingCapacity: false)
+                        self.avaArray.removeAll(keepingCapacity: false)
+                        self.dateArray.removeAll(keepingCapacity: false)
+                        self.picArray.removeAll(keepingCapacity: false)
                         //self.picArraySearch.removeAll(keepCapacity: false)
-                        self.titleArray.removeAll(keepCapacity: false)
-                        self.uuidArray.removeAll(keepCapacity: false)
+                        self.titleArray.removeAll(keepingCapacity: false)
+                        self.uuidArray.removeAll(keepingCapacity: false)
                         
                         if snapshot.exists() {
                             let post = snapshot
                             print(post)
                             
                             print(post)
-                            let userID = post.value!.objectForKey("userID") as! String
-                            self.storage.referenceForURL(post.value!.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
+                            let userID = post.value(forKey: "userID") as! String
+                            self.storage.reference(forURL: post.value(forKey: "photoUrl") as! String).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
                                 let image = UIImage(data: data!)
                                 
-                                self.picArray.append(image! as! UIImage)
+                                self.picArray.append(image! )
                                 self.uuidArray.append(post.key as String!)
                                 
                                 //objc_sync_exit(self.nameArray)
                                 //self.tableView.reloadData()
                                 //self.scrollToBottom()
-                                firebase.child("Users").child(userID).observeEventType(.Value, withBlock: { snapshot in
+                                firebase.child("Users").child(userID).observe(.value, with: { snapshot in
                                     
 //                                    let first = (snapshot.value!.objectForKey("first_name") as? String)
 //                                    let last = (snapshot.value!.objectForKey("last_name") as? String)
@@ -502,10 +502,10 @@ class homeVC1: UICollectionViewController,SegueColl {
 //                                    self.nameArray.append(fullname)
                                     //self.tableView.reloadData()
                                     self.collectionView!.reloadData()
-                                    let avaURL = (snapshot.value!.objectForKey("ProfilPicUrl") as! String)
+                                    let avaURL = ((snapshot.value! as AnyObject).value(forKey: "ProfilPicUrl") as! String)
                                     let url = NSURL(string: avaURL)
-                                    if let data = NSData(contentsOfURL: url!){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                                        self.avaArray.append(UIImage(data: data) as UIImage!)
+                                    if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+                                        self.avaArray.append(UIImage(data: data as Data) as UIImage!)
                                         
                                     }
                                     
@@ -523,15 +523,15 @@ class homeVC1: UICollectionViewController,SegueColl {
                             })
                             
                             //let datestring = post.value.objectForKey("date") as! String
-                            if let datestring = post.value!.objectForKey("date") as? String{
-                                var dateFormatter = NSDateFormatter()
+                            if let datestring = post.value(forKey: "date") as? String{
+                                var dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                                let date = dateFormatter.dateFromString(datestring)
-                                self.dateArray.append(date)
+                                let date = dateFormatter.date(from: datestring)
+                                self.dateArray.append(date as NSDate?)
                             }
-                            self.usernameArray.append(userID as! String)
+                            self.usernameArray.append(userID )
                             
-                            self.titleArray.append(post.value!.objectForKey("title") as! String)
+                            self.titleArray.append(post.value(forKey: "title") as! String)
                             
                             
                             
