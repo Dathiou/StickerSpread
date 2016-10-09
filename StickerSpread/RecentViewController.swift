@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import FirebaseAuth
 
 class RecentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{ //ChooseUserDelegate {
 
@@ -129,7 +130,7 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
     //MARK: Load Recents from firebase
     
     func loadRecents() {
-        let userparse = PFUser.current()!.username!
+        let userparse = FIRAuth.auth()?.currentUser?.uid
         firebase.child("Recent").queryOrdered(byChild: "userId").queryEqual(toValue: userparse).observe(.value, with: { snapshot in
            
             self.recents.removeAll()

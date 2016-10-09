@@ -209,12 +209,12 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     //when login with facebook clicked
-    func loginButton(_ LoginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!){
+    func loginButton(_ LoginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Swift.Error!){
         print("starting function singup done")
         
         if ((error) != nil) {
             // Process error
-            let t = 0
+            print(error.localizedDescription)
         }
         else if result.isCancelled {
             // Handle cancellations

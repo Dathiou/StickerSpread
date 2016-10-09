@@ -137,6 +137,7 @@
 
 /* Begin PBXFileReference section */
 		354B28545CCBF3EAD29FC81E /* Pods_StickerSpread.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StickerSpread.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F30A2A11D9788E000A04874 /* StickerSpread.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StickerSpread.entitlements; sourceTree = "<group>"; };
 		3F7B44B01D8498C800E6019A /* uploadVC1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uploadVC1.swift; sourceTree = "<group>"; };
 		3F89D4411D84CFA100F01B06 /* Back Arrow 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow 2.png"; sourceTree = "<group>"; };
 		3F89D4421D84CFA100F01B06 /* Back Arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow.png"; sourceTree = "<group>"; };
@@ -364,6 +365,7 @@
 		7BB652B01CF7BC7300D1E65E /* StickerSpread */ = {
 			isa = PBXGroup;
 			children = (
+				3F30A2A11D9788E000A04874 /* StickerSpread.entitlements */,
 				7BA124861CFB817D007727CC /* Parse.framework */,
 				7BA124851CFB817D007727CC /* Bolts.framework */,
 				7BD326D21D01259400FA91E4 /* SVProgressHUD */,
@@ -577,6 +579,11 @@
 						DevelopmentTeam = EFNR4VD9CP;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -887,6 +894,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = StickerSpread/StickerSpread.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = EFNR4VD9CP;
@@ -913,6 +921,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = StickerSpread/StickerSpread.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = EFNR4VD9CP;

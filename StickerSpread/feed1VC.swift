@@ -154,6 +154,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     
     let btn2 = UIButton()
     
+    var initialized = 0
+    
     //var likeArray = [String]()
     
     //var customSearchController: CustomSearchController!
@@ -183,7 +185,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         //self.tableView.backgroundView = UIImage(named: "View Changer 1-1.png")
         //view.backgroundColor = UIColor.redColor()//UIColor(patternImage: UIImage(named: "background.jpg")!)
         //        let frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.tabBarController!.tabBar.frame.size.height - self.navigationController!.navigationBar.frame.size.height - 20)
-        
+
         let adjustForTabbarInsets = UIEdgeInsetsMake(0, 0, self.tabBarController!.tabBar.frame.height + 3, 0);
         self.tableView.contentInset = adjustForTabbarInsets
         self.tableView.scrollIndicatorInsets = adjustForTabbarInsets
@@ -281,7 +283,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         // usersVC().collectionViewLaunch()
         
         
-        tableViewLaunch()
+        
         //tableView.frame = frame
         //        let newView = UIImageView(image: UIImage(named: "background.jpg"))
         //        newView.frame = UIScreen.mainScreen().bounds
@@ -290,13 +292,18 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         
         //self.tableView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!) //UIColor.redColor()
-        collectionViewLaunch()
+        
         self.collectionView.frame = UIScreen.main.bounds
         //self.collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!) //UIColor.redColor()
         
         //firebase.child("Posts").removeValue()
+
+        self.tableViewLaunch()
+        self.collectionViewLaunch()
+            self.loadPosts()
+
         
-        loadPosts()
+
         
         collectionView.register(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
         //
@@ -315,6 +322,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         configureTableView()
         
         loadCellDescriptors(fileName: "FilterCellDescriptor")
+
+
         
     }
     
@@ -965,6 +974,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         let picturesGroup = DispatchGroup()
+        let queue = DispatchQueue.global(qos: .default)
+        
         //getLikesArrayWO()
         firebase.child("Posts").queryOrdered(byChild: "date").observe(.value, with: { snapshot in
             
@@ -987,10 +998,10 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 var i = 0
                 
                 for post in snapshot.children{
-                    // let k = post.key!
-                    picturesGroup.enter()
+                    // let k = post.key!F
+                    //picturesGroup.enter()
                     
-                    let userID = (post as AnyObject)["userID"] as! String
+                    let userID = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["userID"] as! String
                     
                     
                     //                    self.storage.referenceForURL(post.value.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
@@ -1009,13 +1020,13 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     //                    })
                     
                     //self.DLImages()
-                    self.picArrayURL.append((post as AnyObject)["photoUrl"] as! String)
-                    let url = (post as AnyObject)["photoUrl"] as! String
-                    //var d = self.myDictionaryURL
+                    let url = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["photoUrl"] as! String
+                    self.picArrayURL.append(url)
+                    var d = self.myDictionaryURL
                     self.myDictionaryURL.updateValue(url, forKey: i)
+                    //d[i]=url
+                    //print (self.myDictionaryURL)
                     i = i + 1
-                    
-                    
                     
                     let uuid = (post as AnyObject).key as String!
                     
@@ -1041,7 +1052,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
 //                    }
                     
                     
-                    
+                    picturesGroup.enter()
+                    queue.async(execute: {
                     firebase.child("Users").child(userID).observe(.value, with: { snapshot in
                         
                         let first = ((snapshot.value! as AnyObject)["first_name"] as? String)
@@ -1060,7 +1072,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                         }
                         
                         
-                        
+                        picturesGroup.leave()
                         
                         //self.comments.append(snapshot)
                         //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -1070,18 +1082,19 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     ){ (error) in
                         print(error.localizedDescription)
                     }
+                    })
                     
                     
                     //let datestring = post.value.objectForKey("date") as! String
-                    if let datestring = (post as! AnyObject)["date"] as? String{
-                        var dateFormatter = DateFormatter()
+                    if let datestring = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["date"]{
+                        let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                        let date = dateFormatter.date(from: datestring)
+                        let date = dateFormatter.date(from: datestring as! String)
                         self.dateArray.append((date as Date?)!)
                     }
                     self.usernameArray.append(userID )
                     
-                    self.titleArray.append((post as AnyObject)["title"] as! String)
+                    self.titleArray.append(((post as! FIRDataSnapshot).value as? [String:AnyObject])?["title"] as! String)
                     self.uuidArray.append((post as AnyObject).key! as String!)
                     
                     
@@ -1102,21 +1115,17 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             
             for (bookid, title) in self.myDictionaryURL {
                 //println("Book ID: \(bookid) Title: \(title)")
+                print(title)
+                picturesGroup.enter()
+                queue.async(execute: {
                 self.storage.reference(forURL: title).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
                     let image = UIImage(data: data!)
                     self.myDictionaryImage[bookid] = image!
-                    self.avaArray = self.avaArray.reversed()
-                    self.nameArray = self.nameArray.reversed()
-                    self.picArrayURL = self.picArrayURL.reversed()
-                    self.dateArray = self.dateArray.reversed()
-                    self.usernameArray = self.usernameArray.reversed()
-                    self.uuidArray = self.uuidArray.reversed()
-                    
-                    
-                    self.titleArray = self.titleArray.reversed()
+
                     //self.picArray.append(image! as! UIImage)
                     
                     picturesGroup.leave()
+                })
                 })
             }
             
@@ -1134,20 +1143,43 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             //            }
             
             
-            //picturesGroup.notify(queue: DispatchQueue)
             //DispatchGroup.notify(picturesGroup)
-            DispatchQueue.main.async {
+            //DispatchQueue.main.async {
+                picturesGroup.notify(queue: DispatchQueue.main, execute:{
+            //picturesGroup.notify(qos: DispatchQoS.background, flags: DispatchWorkItemFlags.assignCurrentContext, queue: queue) {
                 let imagesSorted = Array(self.myDictionaryImage.keys).sorted(by: >)
                 //print(imagesSorted)
                 // let y = sort(imagesSorted)  //{self.myDictionaryImage[$0] < self.myDictionaryImage[$1]}) //self.myDictionaryImage.sorted() { $0.0 < $1.0 }
+                
+                
+                self.avaArray = self.avaArray.reversed()
+                self.nameArray = self.nameArray.reversed()
+                self.picArrayURL = self.picArrayURL.reversed()
+                self.dateArray = self.dateArray.reversed()
+                self.usernameArray = self.usernameArray.reversed()
+                self.uuidArray = self.uuidArray.reversed()
+                
+                
+                self.titleArray = self.titleArray.reversed()
+                
                 
                 for a in imagesSorted {
                     self.picArray.append(self.myDictionaryImage[a]!)
                 }
                 //self.picArray.reverse()
+                //DispatchQueue.main.async {
+                
+                if self.initialized == 0 {
+                    self.tableViewLaunch()
+                    //self.view.addSubview(self.tableView)
+                    self.collectionViewLaunch()
+                    self.initialized = 1
+                }
+
                 self.tableView.reloadData()
                 self.collectionView.reloadData()
-            }
+               // }
+            })
             
             
             //self.comments.append(snapshot)
@@ -1155,6 +1187,9 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
         }){ (error) in
             print(error.localizedDescription)
         }
+        
+
+
         
         
         
@@ -1317,11 +1352,12 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             return visibleRows.count
         } else {
             if shouldShowSearchResults {
-                objc_sync_enter(self)
+                //objc_sync_enter(self)
                 return uuidArraySearch.count
             }
             else {
-                objc_sync_enter(self.avaArray)
+                //objc_sync_enter(self.avaArray)
+                print (nameArray.count)
                 return nameArray.count
             }
         }

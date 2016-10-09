@@ -169,15 +169,16 @@ class homeVC1: UICollectionViewController,SegueColl {
         return picArray.count
     }
     
+    
     // cell size
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         let size = CGSize(width: self.view.frame.size.width / 2, height: self.view.frame.size.width / 2 + 30)
         return size
     }
     
     
     // cell config
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:IndexPath)->UICollectionViewCell{
         
         // define cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "idCollectionCell", for: indexPath as IndexPath) as! testsearchcell
@@ -194,12 +195,12 @@ class homeVC1: UICollectionViewController,SegueColl {
     }
     
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
         return CGSize(width: collectionView.frame.width, height: max(20,bottomheader + 5))//self.bottomheader)
     }
-    
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         //define header
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath as IndexPath) as! headerView
         //header.frame.size.height = 100
@@ -207,8 +208,8 @@ class homeVC1: UICollectionViewController,SegueColl {
         
         firebase.child("Users").child(userIdToDisplay).observe(.value, with: { snapshot in
             
-            let first = (snapshot as AnyObject).value(forKey:"first_name") as! String
-            let last = (snapshot as AnyObject).value(forKey:"last_name") as! String
+            let first = (snapshot.value as? [String:AnyObject])?["first_name"] as! String
+            let last = (snapshot .value as? [String:AnyObject])?["last_name"] as! String
             print ( snapshot.key)
             self.username = snapshot.key
             //title at the top
@@ -227,10 +228,10 @@ class homeVC1: UICollectionViewController,SegueColl {
 //            header.followButton.hidden = true
 //            }
             
-            let q = (snapshot.value! as AnyObject).value(forKey:"youtubeURL") as? String
-            let w = (snapshot.value! as AnyObject).value(forKey:"instagramURL") as? String
-            let e = (snapshot.value! as AnyObject).value(forKey:"etsyURL") as? String
-            let r = (snapshot.value! as AnyObject).value(forKey:"emailDisplay") as? String
+            let q = (snapshot.value as? [String:AnyObject])?["youtubeURL"] as? String
+            let w = (snapshot.value as? [String:AnyObject])?["instagramURL"] as? String
+            let e = (snapshot.value as? [String:AnyObject])?["etsyURL"] as? String
+            let r = (snapshot.value as? [String:AnyObject])?["emailDisplay"] as? String
             var display = 0
             self.urls.removeAll()
             if q != "" {
@@ -483,8 +484,9 @@ class homeVC1: UICollectionViewController,SegueColl {
                             print(post)
                             
                             print(post)
-                            let userID = post.value(forKey: "userID") as! String
-                            self.storage.reference(forURL: post.value(forKey: "photoUrl") as! String).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
+                            let userID = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["userID"]
+                            let url = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["photoUrl"]
+                            self.storage.reference(forURL: url as! String).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
                                 let image = UIImage(data: data!)
                                 
                                 self.picArray.append(image! )
@@ -493,7 +495,7 @@ class homeVC1: UICollectionViewController,SegueColl {
                                 //objc_sync_exit(self.nameArray)
                                 //self.tableView.reloadData()
                                 //self.scrollToBottom()
-                                firebase.child("Users").child(userID).observe(.value, with: { snapshot in
+                                firebase.child("Users").child(userID as! String).observe(.value, with: { snapshot in
                                     
 //                                    let first = (snapshot.value!.objectForKey("first_name") as? String)
 //                                    let last = (snapshot.value!.objectForKey("last_name") as? String)
@@ -523,15 +525,15 @@ class homeVC1: UICollectionViewController,SegueColl {
                             })
                             
                             //let datestring = post.value.objectForKey("date") as! String
-                            if let datestring = post.value(forKey: "date") as? String{
+                            if let datestring = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["date"]{
                                 var dateFormatter = DateFormatter()
                                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                                let date = dateFormatter.date(from: datestring)
+                                let date = dateFormatter.date(from: datestring as! String)
                                 self.dateArray.append(date as NSDate?)
                             }
-                            self.usernameArray.append(userID )
+                            self.usernameArray.append(userID as! String )
                             
-                            self.titleArray.append(post.value(forKey: "title") as! String)
+                            self.titleArray.append((((post as! FIRDataSnapshot).value as? [String:AnyObject])?["title"])! as! String)
                             
                             
                             

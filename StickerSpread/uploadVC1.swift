@@ -194,7 +194,9 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     //    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     //        return UITableViewAutomaticDimension
     //    }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
         
@@ -302,7 +304,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         //adjustHeightOfTableview()
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
         let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath: indexPath)
@@ -404,7 +406,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         }
     }
     
-    func getCellDescriptorForIndexPath(indexPath: NSIndexPath) -> [String: AnyObject] {
+    func getCellDescriptorForIndexPath(indexPath: IndexPath) -> [String: AnyObject] {
         let indexOfVisibleRow = visibleRowsPerSection[indexPath.section][indexPath.row]
         let cellDescriptor = (cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfVisibleRow) as! [String: AnyObject]
         return cellDescriptor

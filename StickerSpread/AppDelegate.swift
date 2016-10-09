@@ -18,15 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     var locationManager: CLLocationManager?
     var coordinate: CLLocationCoordinate2D?
-    let APP_ID = "BADDD42C-3E07-A223-FF5F-20C0E7934700"
-    let SECRET_KEY = "601848B1-12F3-7D05-FF31-770C359B0800"
-    let VERSION_NUM = "v1"
+    //let APP_ID = "BADDD42C-3E07-A223-FF5F-20C0E7934700"
+    //let SECRET_KEY = "601848B1-12F3-7D05-FF31-770C359B0800"
+    //let VERSION_NUM = "v1"
 
     var window: UIWindow?
     
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+    //func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
        
@@ -93,12 +93,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func login(){
         // remember user's login
-        let username : String? = PFUser.current()?.username
+       // let username : String? = PFUser.current()?.username
             //NSUserDefaults.standardUserDefaults().stringForKey("username")
         
     
         // if loged in
-        if let us = PFUser.current() {
+        if let user = FIRAuth.auth()?.currentUser {
             
             
 //            let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
