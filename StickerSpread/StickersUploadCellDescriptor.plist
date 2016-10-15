@@ -227,6 +227,8 @@
 			<key>additionalRows</key>
 			<integer>0</integer>
 		</dict>
+        </array>
+        <array>
 		<dict>
 			<key>oneCheck</key>
 			<false/>

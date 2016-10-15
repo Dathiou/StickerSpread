@@ -1041,6 +1041,38 @@
             endingLineNumber = "176"
             landmarkName = "zoomImg(sender:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.uploadVC1.zoomImg (sender : __ObjC.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/uploadVC1.swift"
+                  timestampString = "498255242.123127"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "2521">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.uploadVC1.(zoomImg (sender : __ObjC.UITapGestureRecognizer) -&gt; ()).(closure #2)"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/uploadVC1.swift"
+                  timestampString = "498255242.126658"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "176"
+                  endingLineNumber = "176"
+                  offsetFromSymbolStart = "1028">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1393,38 +1425,6 @@
             endingLineNumber = "150"
             landmarkName = "zoomImg(sender:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.uploadVC1.zoomImg (sender : __ObjC.UITapGestureRecognizer) -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/uploadVC1.swift"
-                  timestampString = "498249073.431932"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "150"
-                  endingLineNumber = "150"
-                  offsetFromSymbolStart = "2195">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.uploadVC1.(zoomImg (sender : __ObjC.UITapGestureRecognizer) -&gt; ()).(closure #2)"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/uploadVC1.swift"
-                  timestampString = "498249073.436164"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "153"
-                  endingLineNumber = "153"
-                  offsetFromSymbolStart = "72">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3122,7 +3122,7 @@
                   moduleName = "StickerSpread"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/postVC.swift"
-                  timestampString = "498249073.497336"
+                  timestampString = "498255242.201255"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "355"
@@ -3137,7 +3137,7 @@
                   moduleName = "StickerSpread"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/postVC.swift"
-                  timestampString = "498249073.499739"
+                  timestampString = "498255242.204187"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "355"
@@ -4274,7 +4274,7 @@
                   moduleName = "StickerSpread"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/homeVC1.swift"
-                  timestampString = "498249073.566775"
+                  timestampString = "498255242.270258"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "536"
@@ -4289,7 +4289,7 @@
                   moduleName = "StickerSpread"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/homeVC1.swift"
-                  timestampString = "498249073.570356"
+                  timestampString = "498255242.273289"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "536"
@@ -4526,7 +4526,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/CheckBox.swift"
@@ -4558,7 +4558,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
@@ -4606,7 +4606,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
@@ -4622,7 +4622,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
@@ -4638,7 +4638,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
@@ -4654,15 +4654,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
-            timestampString = "498249071.936174"
+            timestampString = "498254047.194741"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "682"
-            endingLineNumber = "682"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
             landmarkName = "shareCLick()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4670,7 +4670,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
@@ -4686,7 +4686,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
@@ -4702,7 +4702,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
@@ -4713,38 +4713,6 @@
             endingLineNumber = "646"
             landmarkName = "shareCLick()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.uploadVC1.shareCLick () -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/uploadVC1.swift"
-                  timestampString = "498249073.631007"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "646"
-                  endingLineNumber = "646"
-                  offsetFromSymbolStart = "4488">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "StickerSpread.uploadVC1.shareCLick () -&gt; ()"
-                  moduleName = "StickerSpread"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/uploadVC1.swift"
-                  timestampString = "498249073.635095"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "646"
-                  endingLineNumber = "646"
-                  offsetFromSymbolStart = "4799">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4782,7 +4750,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
@@ -4798,15 +4766,127 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC1.swift"
+            timestampString = "498254047.194741"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "687"
+            endingLineNumber = "687"
+            landmarkName = "shareCLick()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC1.swift"
+            timestampString = "498254047.194741"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "694"
+            endingLineNumber = "694"
+            landmarkName = "shareCLick()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.uploadVC1.shareCLick () -&gt; ()"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/uploadVC1.swift"
+                  timestampString = "498253882.406534"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "693"
+                  endingLineNumber = "693"
+                  offsetFromSymbolStart = "13302">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StickerSpread.uploadVC1.shareCLick () -&gt; ()"
+                  moduleName = "StickerSpread"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/student/Documents/SwiftApp/StickerSpread/uploadVC1.swift"
+                  timestampString = "498253882.409372"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "693"
+                  endingLineNumber = "693"
+                  offsetFromSymbolStart = "13613">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerSpread/uploadVC1.swift"
-            timestampString = "498252978.489028"
+            timestampString = "498254047.194741"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "685"
-            endingLineNumber = "685"
+            startingLineNumber = "700"
+            endingLineNumber = "700"
+            landmarkName = "shareCLick()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC1.swift"
+            timestampString = "498254047.194741"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "686"
+            endingLineNumber = "686"
+            landmarkName = "shareCLick()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC1.swift"
+            timestampString = "498254215.826513"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "684"
+            endingLineNumber = "684"
+            landmarkName = "shareCLick()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StickerSpread/uploadVC1.swift"
+            timestampString = "498254286.382482"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "656"
+            endingLineNumber = "656"
             landmarkName = "shareCLick()"
             landmarkType = "7">
          </BreakpointContent>

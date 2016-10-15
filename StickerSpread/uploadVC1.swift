@@ -649,11 +649,11 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         
         let cell1 = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! FieldUploadCell
         let title = cell1.Field.text! as String
-        myDictionaryUpload.updateValue("title", forKey: title)
+        myDictionaryUpload.updateValue(title, forKey: "title")
         
+        let l = cellDescriptors.count-1
         
-        
-        for n in (2...cellDescriptors.count){
+        for n in (2...cellDescriptors.count-2){
             let typeSelected = ((cellDescriptors[n] as! NSMutableArray).object(at: 0) as! NSDictionary)["type"] as! String
             var myList = [String]()
             
@@ -681,13 +681,14 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
                         toBeDisplayed += ","
                     }
                     toBeDisplayed += attribute
+                    myDictionaryUpload.updateValue(toBeDisplayed, forKey: typeSelected)
                 }
-                myDictionaryUpload.updateValue(attribute, forKey: toBeDisplayed)
+                
             }
             
 
         }
-        
+        print(myDictionaryUpload)
 
         
         if let user = FIRAuth.auth()?.currentUser {
