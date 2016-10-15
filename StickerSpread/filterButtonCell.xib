@@ -32,7 +32,7 @@
                             </mask>
                         </variation>
                         <connections>
-                            <action selector="FilterClick:" destination="48e-9n-bSa" eventType="touchUpInside" id="lAq-UE-m3y"/>
+                            <action selector="ButtonClick:" destination="48e-9n-bSa" eventType="touchUpInside" id="dAD-ws-PDS"/>
                         </connections>
                     </button>
                 </subviews>

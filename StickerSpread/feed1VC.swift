@@ -1022,7 +1022,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     //self.DLImages()
                     let url = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["photoUrl"] as! String
                     self.picArrayURL.append(url)
-                    var d = self.myDictionaryURL
+                    
                     self.myDictionaryURL.updateValue(url, forKey: i)
                     //d[i]=url
                     //print (self.myDictionaryURL)

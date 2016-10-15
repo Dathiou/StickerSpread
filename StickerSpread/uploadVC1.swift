@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseStorage
+
+
+var stickers = Bool()
 
 protocol ImagePickerDelegate {
     
@@ -14,6 +19,10 @@ protocol ImagePickerDelegate {
     func loadStickerForm()
     func loadAnnoucementForm()
     // func zoomImg(picImg : UIImageView, removeBtn : UIButton)
+    
+}
+protocol uploadProtocol {
+    func shareCLick()
     
 }
 
@@ -25,7 +34,8 @@ protocol AddShop1{
     func AddShop(isLast : Bool, pos : Int)
 }
 
-class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop1,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop1,uploadProtocol,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    
     var cellDescriptorsStickers: NSMutableArray!
     var cellDescriptorsAnnouncement: NSMutableArray!
     
@@ -34,10 +44,22 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     //var visibleRows = [Int]()
     var visibleRowsPerSection = [[Int]]()
     
-    let ItemsStickers = ["Title*:","Shop*:","Layout*","Color*:","Months*:","Finish*:","UFG - Up For Grabs?*:"]
+    //let ItemsStickers = ["Title*:","Shop*:","Layout*","Color*:","Months*:","Finish*:","UFG - Up For Grabs?*:"]
+    
+    let ListAttributeCheckStickers = ["Layout","Month","Color","Finish","Grab"]
+    
+
+    let myListMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+    
+    let myListColor = ["Blue","Pink","Yellow"]
+    let myListFinish = ["Matte","Glossy","Vinyl"]
+    let myListUFG = ["Available","Not Available"]
+    let myListZone = ["PST","MST","CST" , "EST"]
+    let myListLayout = ["Vertical","Horizontal"]
     var picked = false
     var tempImage : UIImage!
     var zoomTap = UITapGestureRecognizer()
+    var myDictionaryUpload = [String: String]()
     
     var myBigImage : UIImageView!
     
@@ -58,6 +80,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     override func viewDidLoad() {
         super.viewDidLoad()
         //
+        stickers = true
         self.tableView.estimatedRowHeight = 88
         self.tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(UINib(nibName: "HeaderUpload", bundle: nil), forCellReuseIdentifier: "idHeaderUpload")
@@ -81,14 +104,12 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     }
     
     func pickImage() {
-        
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         imagePicker.allowsEditing = false
         self.present(imagePicker, animated: true, completion: nil)
     }
-    
     
     // zooming in / out function
     func zoomImg(sender: UITapGestureRecognizer){//picImg : UIImageView,removeBtn: UIButton) {
@@ -160,7 +181,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     
     
     // hold selected image in picImg object and dissmiss PickerController()
-    func imagePickerController(imagePicker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         self.picked = true
         tableView.reloadData()
         
@@ -265,19 +286,19 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
                 var myList = [String]()
                 
                 if  typeSelected == "Layout" {
-                    myList = ["Vertical","Horizontal"]
+                    myList = myListLayout
                 } else if  typeSelected == "Month" {
-                    myList = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+                    myList = myListMonths
                 } else if typeSelected == "Color" {
-                    myList = ["Blue","Pink","Yellow"]
+                    myList = myListColor
                 } else if typeSelected == "Finish" {
-                    myList = ["Matte","Glossy","Vinyl"]
+                    myList = myListFinish
                 } else if typeSelected == "Grab" {
                     
-                    myList = ["Available","Not Available"]
+                    myList = myListUFG
                 } else if typeSelected == "TimeZone" {
                     
-                    myList = ["PST","MST","CST" , "EST"]
+                    myList = myListZone
                 }
                 
                 var toBeDisplayed = ""
@@ -307,10 +328,10 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print(indexPath.row)
-        print(indexPath.section)
+        //print(indexPath.row)
+        //print(indexPath.section)
         let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath: indexPath)
-        print(currentCellDescriptor)
+        //print(currentCellDescriptor)
         if currentCellDescriptor["cellIdentifier"] as! String == "idHeaderUpload" {
             if self.picked == false {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "idHeaderUpload", for: indexPath as IndexPath) as! HeaderUploadCell
@@ -401,6 +422,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
                 //cell.textField.placeholder = currentCellDescriptor["primaryTitle"] as? String
                 cell.LastButton.setTitle(currentCellDescriptor["Title"] as? String, for: .normal)
                 cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width)
+                cell.mydelegate = self
             }
             cell.delegate = self
             return cell
@@ -564,6 +586,8 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     
     
     func loadStickerForm(){
+        stickers = true
+    
         cellDescriptors = cellDescriptorsStickers
         getIndicesOfVisibleRows(cellDescriptors: cellDescriptors)
         //        tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
@@ -572,6 +596,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         
     }
     func loadAnnoucementForm(){
+        stickers = false
         cellDescriptors = cellDescriptorsAnnouncement
         getIndicesOfVisibleRows(cellDescriptors: cellDescriptors)
         //        tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
@@ -579,6 +604,139 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         tableView.reloadData()
     }
     
+    func shareCLick(){
+        // dissmiss keyboard
+        self.view.endEditing(true)
+        
+        
+        // Get a reference to the storage service, using the default Firebase App
+        let storage = FIRStorage.storage()
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference(forURL: "gs://stickerspread-4f3a9.appspot.com")
+        
+
+        //        // send data to server to "posts" class in Parse
+        //        let object = PFObject(className: "posts")
+        //        object["username"] = PFUser.currentUser()!.username
+        
+        
+
+        //        let first = (object1.objectForKey("first_name") as? String)
+        //        let last = (object1.objectForKey("last_name") as? String)
+        //
+        //        let fullname = first!+" "+last!
+        //        self.nameArray.append(fullname)
+        //        object["fullname"] = PFUser.currentUser()!.username
+        //
+        
+        //        object["ava"] = PFUser.currentUser()!.valueForKey("picture_file") as! PFFile
+        //
+        let uuid = NSUUID().uuidString
+        //        object["uuid"] = "\(PFUser.currentUser()!.username!) \(uuid)"
+        //
+        //        if titleTxt.text.isEmpty {
+        //            object["title"] = ""
+        //        } else {
+        //            object["title"] = titleTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        //        }
+        
+        
+        // send pic to server after converting to FILE and comprassion
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = self.tableView.cellForRow(at: indexPath) as! HeaderUploadCell
+        //let yuo = tableView.cellForRow(at: IndexPath)//tableView(tableView, cellForRowAt: <#T##IndexPath#>)
+        let imageData : NSData = UIImageJPEGRepresentation(cell.picImg.image!, 0.5)! as NSData
+        
+        let cell1 = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! FieldUploadCell
+        let title = cell1.Field.text! as String
+        myDictionaryUpload.updateValue("title", forKey: title)
+        
+        
+        
+        for n in (2...cellDescriptors.count){
+            let typeSelected = ((cellDescriptors[n] as! NSMutableArray).object(at: 0) as! NSDictionary)["type"] as! String
+            var myList = [String]()
+            
+            if  typeSelected == "Layout" {
+                myList = myListLayout
+            } else if  typeSelected == "Month" {
+                myList = myListMonths
+            } else if typeSelected == "Color" {
+                myList = myListColor
+            } else if typeSelected == "Finish" {
+                myList = myListFinish
+            } else if typeSelected == "Grab" {
+                
+                myList = myListUFG
+            } else if typeSelected == "TimeZone" {
+                
+                myList = myListZone
+            }
+            var toBeDisplayed = ""
+            for attribute in myList {
+                
+                let valueAttribute = ((cellDescriptors[n] as! NSMutableArray).object(at: 0) as! NSDictionary)[attribute] as! Bool
+                if valueAttribute == true {
+                    if toBeDisplayed != "" {
+                        toBeDisplayed += ","
+                    }
+                    toBeDisplayed += attribute
+                }
+                myDictionaryUpload.updateValue(attribute, forKey: toBeDisplayed)
+            }
+            
+
+        }
+        
+
+        
+        if let user = FIRAuth.auth()?.currentUser {
+            let userID = user.uid;
+            print(userID)
+            
+            
+            // Create a reference to the file you want to upload
+            let riversRef = storageRef.child("posts/\(userID) \(uuid).jpg")
+            if stickers == true {
+                // Upload the file to the path "images/rivers.jpg"
+                let uploadTask = riversRef.put(imageData as Data, metadata: nil)
+                { metadata, error in
+                    if (error != nil) {
+                        // Uh-oh, an error occurred!
+                    } else {
+                        // Metadata contains file metadata such as size, content-type, and download URL.
+                        let downloadURL = metadata?.downloadURL()?.absoluteURL
+                        
+                        let date = NSDate()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+                        let dateString = dateFormatter.string(from: date as Date)
+
+                        let uid = user.uid;
+                        
+                        self.myDictionaryUpload["userID"] = uid
+                        self.myDictionaryUpload["date"] = dateString
+                        
+                        self.myDictionaryUpload["photoUrl"] = (downloadURL?.absoluteString)!
+//                        let userDict : [String : AnyObject] = [ "userID" : uid as AnyObject,
+//                                                                "title"    : title as AnyObject ,
+//                                                                "layout"   : "vertical" as AnyObject,
+//                                                                "date" : dateString as AnyObject,
+//                                                                "UFG": "NO" as AnyObject,
+//                                                                
+//                                                                "photoUrl"    : (downloadURL?.absoluteString)! as AnyObject]
+                        let postID = "\(userID) \(uuid)"
+                        firebase.child("Posts").child(postID).setValue(self.myDictionaryUpload)
+                        firebase.child("PostPerUser").child("\(userID)").child(postID).setValue(true)
+                    }
+                }
+            } else {
+                // No user is signed in.
+            }
+            
+        }
+        
+    }
     
     
 }

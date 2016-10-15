@@ -65,5 +65,7 @@
 	<string>StickerSpread</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>QuickChat needs to use your location.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>StickerSpread would like to access your pictures.</string>
 </dict>
 </plist>

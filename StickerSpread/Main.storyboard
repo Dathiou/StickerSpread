@@ -2482,7 +2482,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="idField" selectionStyle="default" indentationWidth="10" reuseIdentifier="idField" rowHeight="43" id="qpH-au-eei" customClass="FieldUploadCell" customModule="StickerSpread" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="375" height="43"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qpH-au-eei" id="ySN-PS-t2n">
                                     <frame key="frameInset" width="375" height="43"/>

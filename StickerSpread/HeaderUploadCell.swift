@@ -8,11 +8,14 @@
 
 import UIKit
 
+
+
 class HeaderUploadCell: UITableViewCell {
 
     
     @IBOutlet weak var removeBtn: UIButton!
     @IBOutlet weak var picImg: UIImageView!
+    var a = 1
     
     var delegate : ImagePickerDelegate?
     
@@ -24,7 +27,7 @@ class HeaderUploadCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-                picImg.image = UIImage(named: "pbg.jpg")
+        picImg.image = UIImage(named: "pbg.jpg")
         
         
 //        // hide kyeboard tap
@@ -43,19 +46,20 @@ class HeaderUploadCell: UITableViewCell {
 //        hideTap.cancelsTouchesInView = false
         picTap.cancelsTouchesInView = false
         
-        
-        
-        // Initialization code
+
     }
 
 
     
     @IBAction func StickersClick(_ sender: AnyObject) {
         delegate?.loadStickerForm()
+        
     }
     @IBAction func AnoucementClick(_ sender: AnyObject) {
-    delegate?.loadAnnoucementForm()
+        delegate?.loadAnnoucementForm()
     }
+    
+    
 
 
 
