@@ -228,6 +228,8 @@
 			<integer>0</integer>
 		</dict>
 		<dict>
+			<key>oneCheck</key>
+			<false/>
 			<key>type</key>
 			<string>Month</string>
 			<key>December</key>

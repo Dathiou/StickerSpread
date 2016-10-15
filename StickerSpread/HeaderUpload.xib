@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,22 +15,20 @@
             <rect key="frame" x="0.0" y="0.0" width="379" height="140"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2GJ-rC-vUp" id="wqc-FW-cVa">
-                <rect key="frame" x="0.0" y="0.0" width="379" height="139"/>
+                <frame key="frameInset" width="379" height="139"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXP-Vm-EE9">
-                        <rect key="frame" x="29" y="61" width="96" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="pIj-J8-YUD"/>
                         </constraints>
                         <state key="normal" title="Annoucement"/>
                         <connections>
-                            <action selector="AnoucementClick:" destination="2GJ-rC-vUp" eventType="touchUpInside" id="MNB-bS-IH1"/>
+                            <action selector="AnoucementClick:" destination="2GJ-rC-vUp" eventType="touchUpInside" id="S3H-aH-94Y"/>
                         </connections>
                     </button>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="950" verticalHuggingPriority="900" verticalCompressionResistancePriority="100" scrollEnabled="NO" editable="NO" text="What are you posting?" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aqk-D3-uBJ">
-                        <rect key="frame" x="0.0" y="5" width="155" height="27"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="Rm2-I3-TcJ"/>
                         </constraints>
@@ -37,17 +36,15 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wY0-Yw-24N">
-                        <rect key="frame" x="50" y="35" width="55" height="31"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="31" id="HQ1-UR-oGv"/>
                         </constraints>
                         <state key="normal" title="Stickers"/>
                         <connections>
-                            <action selector="StickersClick:" destination="2GJ-rC-vUp" eventType="touchUpInside" id="6wC-55-ApC"/>
+                            <action selector="StickersClick:" destination="2GJ-rC-vUp" eventType="touchUpInside" id="yzX-uU-pQC"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1N8-iy-XwW">
-                        <rect key="frame" x="304" y="84" width="45" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="Yvn-Zo-gT0"/>
                         </constraints>
@@ -55,8 +52,7 @@
                         <state key="normal" title="remove"/>
                     </button>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="990" verticalCompressionResistancePriority="100" preservesSuperviewLayoutMargins="YES" scrollEnabled="NO" editable="NO" text="Perfect for sharing new releases, reopenings, giveaways and sales!" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGU-KH-wrQ">
-                        <rect key="frame" x="0.0" y="86" width="379" height="50"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="9zd-zf-3yh"/>
                         </constraints>
@@ -64,7 +60,6 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pbg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="C3T-pC-yL6">
-                        <rect key="frame" x="288" y="8" width="76" height="76"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="C3T-pC-yL6" secondAttribute="height" multiplier="1:1" id="SCc-hT-83K"/>
                         </constraints>

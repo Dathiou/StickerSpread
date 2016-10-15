@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+
 
 //protocol CustomCellDelegate {
 //    func dateWasSelected(selectedDateString: String)
@@ -31,6 +33,7 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var LastButton: UIButton!
     
+
     
     @IBOutlet weak var textField: UITextField!
     
@@ -96,9 +99,108 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
 
         // Configure the view for the selected state
     }
+    
+    @IBAction func ButtonClick(_ sender: AnyObject) {
+        // dissmiss keyboard
+        self.view.endEditing(true)
+        
+        
+        // Get a reference to the storage service, using the default Firebase App
+        let storage = FIRStorage.storage()
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference(forURL: "gs://stickerspread-4f3a9.appspot.com")
+        
+        
+        //
+        //
+        //        // send data to server to "posts" class in Parse
+        //        let object = PFObject(className: "posts")
+        //        object["username"] = PFUser.currentUser()!.username
+        
+        
+        
+        //
+        //        let first = (object1.objectForKey("first_name") as? String)
+        //        let last = (object1.objectForKey("last_name") as? String)
+        //
+        //        let fullname = first!+" "+last!
+        //        self.nameArray.append(fullname)
+        //        object["fullname"] = PFUser.currentUser()!.username
+        //
+        
+        //        object["ava"] = PFUser.currentUser()!.valueForKey("picture_file") as! PFFile
+        //
+        let uuid = NSUUID().uuidString
+        //        object["uuid"] = "\(PFUser.currentUser()!.username!) \(uuid)"
+        //
+        //        if titleTxt.text.isEmpty {
+        //            object["title"] = ""
+        //        } else {
+        //            object["title"] = titleTxt.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        //        }
+        
+        
+        // send pic to server after converting to FILE and comprassion
+        let imageData : NSData = UIImageJPEGRepresentation(picImg.image!, 0.5)! as NSData
+        
+        
+        //
+        //
+        //        let imageFile = PFFile(name: "post.jpg", data: imageData)
+        //        object["pic"] = imageFile
+        
+        
+        if let user = FIRAuth.auth()?.currentUser {
+            let userID = user.uid;
+            print(userID)
+            
+            
+            // Create a reference to the file you want to upload
+            let riversRef = storageRef.child("posts/\(userID) \(uuid).jpg")
+            
+            // Upload the file to the path "images/rivers.jpg"
+            let uploadTask = riversRef.put(imageData as Data, metadata: nil) { metadata, error in
+                if (error != nil) {
+                    // Uh-oh, an error occurred!
+                } else {
+                    // Metadata contains file metadata such as size, content-type, and download URL.
+                    let downloadURL = metadata?.downloadURL()?.absoluteURL
+                    
+                    let date = NSDate()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+                    let dateString = dateFormatter.string(from: date as Date)
+                    
+                    
+                    //                    let name = user.displayName
+                    //                    let email = user.email
+                    //                    let photoUrl = user.photoURL
+                    let uid = user.uid;
+                    print(downloadURL)
+                    let userDict : [String : AnyObject] = [ "userID" : uid as AnyObject,
+                                                            "title"    : "Day Dream Kit" as AnyObject ,
+                                                            "layout"   : "vertical" as AnyObject,
+                                                            "date" : dateString as AnyObject,
+                                                            "photoUrl"    : (downloadURL?.absoluteString)! as AnyObject]
+                    let postID = "\(userID) \(uuid)"
+                    firebase.child("Posts").child(postID).setValue(userDict)
+                    firebase.child("PostPerUser").child("\(userID)").child(postID).setValue(true)
+                    
+                    
+                }
+                
+            }
+        } else {
+            // No user is signed in.
+        }
+        
+        
+
+    }
+    
 
 //    @IBAction func CheckBoxClicked(sender: AnyObject) {
-//    
+//
 //        delegate.checkBoxClicked()
 //    }
     
@@ -108,19 +210,19 @@ class CustomCell: UITableViewCell, UITextFieldDelegate {
 //        let dateFormatter = NSDateFormatter()
 //        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
 //        let dateString = dateFormatter.stringFromDate(datePicker.date)
-//        
+//
 //        if delegate != nil {
 //            delegate.dateWasSelected(dateString)
 //        }
 //    }
-//    
+//
 //    @IBAction func handleSwitchStateChange(sender: AnyObject) {
 //        if delegate != nil {
 //            delegate.maritalStatusSwitchChangedState(swMaritalStatus.on)
 //        }
 //    }
-//    
-//    
+//
+//
 //    @IBAction func handleSliderValueChange(sender: AnyObject) {
 //        if delegate != nil {
 //            delegate.sliderDidChangeValue("\(Int(slExperienceLevel.value))")

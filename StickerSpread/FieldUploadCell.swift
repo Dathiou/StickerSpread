@@ -39,7 +39,7 @@ class FieldUploadCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func AddShop(sender: AnyObject) {
+    @IBAction func AddShop(_ sender: AnyObject) {
         delegate.AddShop(isLast: isLast, pos: pos)
         if self.isLast == true {
             self.isLast = false

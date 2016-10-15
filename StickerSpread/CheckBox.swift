@@ -28,11 +28,11 @@
         }
         
         override func awakeFromNib() {
-            self.addTarget(self, action: "buttonClicked:", for: UIControlEvents.touchUpInside)
+            self.addTarget(self, action: #selector(buttonClicked(_:)), for: UIControlEvents.touchUpInside)
             self.isChecked = false
         }
         
-        func buttonClicked(sender: UIButton) {
+        func buttonClicked(_ sender: UIButton) {
             if sender == self {
                 isChecked = !isChecked
             }

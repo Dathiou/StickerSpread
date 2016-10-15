@@ -71,6 +71,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         zoomTap.numberOfTapsRequired = 1
         cellDescriptorsAnnouncement = loadcellDescriptors(fileName: "AnnoucementUploadCellDescriptor")
         cellDescriptorsStickers = loadcellDescriptors(fileName: "StickersUploadCellDescriptor")
+        //print(cellDescriptorsAnnouncement)
         
         cellDescriptors = cellDescriptorsStickers
         //tableView.reloadData()
@@ -219,7 +220,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             if ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).object(forKey: "cellIdentifier") as! String == "idChildCell"  {
                 var indexOfParentCell: Int!
                 
-                for i in (1...indexOfTappedRow-1).reversed() {
+                for i in (0...indexOfTappedRow-1).reversed() {
                 
                     if ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: i) as! NSDictionary).value(forKey:"isExpandable") as! Bool == true {
                         indexOfParentCell = i
@@ -228,10 +229,10 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
                 }
                 
                 if ((cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfTappedRow) as AnyObject).value(forKey:"isChecked") as! Bool == false {
-                    var t = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary).value(forKey:"oneChecked") as? Bool
+                    let t = ((cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfParentCell) as AnyObject).value(forKey:"oneCheck") as? Bool
                     if t != nil {
                         if t == true {
-                            var additionalRows = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary)["additionalRows"] as! Int
+                            let additionalRows = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary)["additionalRows"] as! Int
                             //cell.SelectedOverview.text = primaryTitle as? String
                             for n in (1...additionalRows) {
                             
@@ -306,8 +307,10 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
+        print(indexPath.row)
+        print(indexPath.section)
         let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath: indexPath)
+        print(currentCellDescriptor)
         if currentCellDescriptor["cellIdentifier"] as! String == "idHeaderUpload" {
             if self.picked == false {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "idHeaderUpload", for: indexPath as IndexPath) as! HeaderUploadCell
@@ -407,8 +410,10 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     }
     
     func getCellDescriptorForIndexPath(indexPath: IndexPath) -> [String: AnyObject] {
+        //print(indexPath.section)
         let indexOfVisibleRow = visibleRowsPerSection[indexPath.section][indexPath.row]
         let cellDescriptor = (cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfVisibleRow) as! [String: AnyObject]
+        print(cellDescriptor)
         return cellDescriptor
     }
     func adjustHeightOfTableview(){
@@ -425,8 +430,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             self.tableView.setNeedsUpdateConstraints()
         })
     }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if cellDescriptors != nil {
             return cellDescriptors.count
         }
@@ -434,6 +438,15 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             return 0
         }
     }
+    
+//    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int {
+//        if cellDescriptors != nil {
+//            return cellDescriptors.count
+//        }
+//        else {
+//            return 0
+//        }
+//    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return visibleRowsPerSection[section].count
     }

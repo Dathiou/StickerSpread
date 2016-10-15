@@ -50,14 +50,15 @@ class HeaderUploadCell: UITableViewCell {
 
 
     
-    @IBAction func AnoucementClick(sender: AnyObject) {
+    @IBAction func StickersClick(_ sender: AnyObject) {
+        delegate?.loadStickerForm()
+    }
+    @IBAction func AnoucementClick(_ sender: AnyObject) {
     delegate?.loadAnnoucementForm()
     }
 
 
-    @IBAction func StickersClick(sender: AnyObject) {
-    delegate?.loadStickerForm()
-    }
+
 
     
     

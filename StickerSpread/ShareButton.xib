@@ -9,49 +9,47 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="1" reuseIdentifier="idFilterButtonCell" rowHeight="60" id="48e-9n-bSa" customClass="CustomCell" customModule="StickerSpread" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="1" reuseIdentifier="idShareButtonCell" rowHeight="60" id="nFU-Et-4HJ" customClass="CustomCell" customModule="StickerSpread" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="48e-9n-bSa" id="NuO-v5-3qf">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nFU-Et-4HJ" id="7MY-TD-xCO">
                 <frame key="frameInset" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imn-dB-pTy">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSg-Oq-GYr">
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="1Ma-fb-0Z1"/>
-                            <constraint firstAttribute="width" constant="86" id="uvn-Gx-Vo3"/>
+                            <constraint firstAttribute="width" constant="86" id="8fF-Xt-xd4"/>
+                            <constraint firstAttribute="height" constant="30" id="sfv-6Q-sEY"/>
                         </constraints>
-                        <state key="normal" title="Filter">
+                        <state key="normal" title="Share!">
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="1Ma-fb-0Z1"/>
-                                <exclude reference="uvn-Gx-Vo3"/>
+                                <exclude reference="sfv-6Q-sEY"/>
+                                <exclude reference="8fF-Xt-xd4"/>
                             </mask>
                         </variation>
                         <connections>
-                            <action selector="FilterClick:" destination="48e-9n-bSa" eventType="touchUpInside" id="lAq-UE-m3y"/>
+                            <action selector="FilterClick:" destination="nFU-Et-4HJ" eventType="touchUpInside" id="JUf-nI-e0m"/>
+                            <action selector="ShareClick:" destination="nFU-Et-4HJ" eventType="touchUpInside" id="qJQ-U7-FSZ"/>
                         </connections>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="imn-dB-pTy" secondAttribute="trailing" constant="109" id="YRd-QG-tfz"/>
-                    <constraint firstItem="imn-dB-pTy" firstAttribute="top" secondItem="NuO-v5-3qf" secondAttribute="topMargin" constant="7" id="dSb-re-Jt7"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="imn-dB-pTy" secondAttribute="bottom" constant="6" id="jWB-yE-NMy"/>
-                    <constraint firstItem="imn-dB-pTy" firstAttribute="centerX" secondItem="NuO-v5-3qf" secondAttribute="centerX" id="jma-C2-ard"/>
-                    <constraint firstItem="imn-dB-pTy" firstAttribute="leading" secondItem="NuO-v5-3qf" secondAttribute="leadingMargin" constant="109" id="oMY-r5-2W7"/>
+                    <constraint firstItem="SSg-Oq-GYr" firstAttribute="leading" secondItem="7MY-TD-xCO" secondAttribute="leadingMargin" constant="109" id="71r-7V-gEc"/>
+                    <constraint firstItem="SSg-Oq-GYr" firstAttribute="centerX" secondItem="7MY-TD-xCO" secondAttribute="centerX" id="7H6-TW-7Fp"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="SSg-Oq-GYr" secondAttribute="bottom" constant="6" id="BBN-1U-GQW"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="SSg-Oq-GYr" secondAttribute="trailing" constant="109" id="J5D-w5-4Nw"/>
+                    <constraint firstItem="SSg-Oq-GYr" firstAttribute="top" secondItem="7MY-TD-xCO" secondAttribute="topMargin" constant="7" id="bXn-f9-Nf0"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
-                        <exclude reference="jma-C2-ard"/>
+                        <exclude reference="7H6-TW-7Fp"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
-            <connections>
-                <outlet property="LastButton" destination="imn-dB-pTy" id="mtI-Ss-C72"/>
-            </connections>
             <point key="canvasLocation" x="209" y="241.5"/>
         </tableViewCell>
     </objects>

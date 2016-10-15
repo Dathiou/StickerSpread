@@ -259,14 +259,14 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 let downloadURL = metadata?.downloadURL()?.absoluteURL
                 
                 let date = NSDate()
-                var dateFormatter = DateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                var dateString = dateFormatter.string(from: date as Date)
+                let dateString = dateFormatter.string(from: date as Date)
                 
                 
-                    let name = user.displayName
-                    let email = user.email
-                    let photoUrl = user.photoURL
+//                    let name = user.displayName
+//                    let email = user.email
+//                    let photoUrl = user.photoURL
                     let uid = user.uid;
                     print(downloadURL)
                     let userDict : [String : AnyObject] = [ "userID" : uid as AnyObject,
