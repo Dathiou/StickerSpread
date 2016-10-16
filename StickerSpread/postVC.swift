@@ -12,13 +12,14 @@ import Firebase
 
 var postuuid = [String]()
 
-class postVC: UITableViewController {
+
+class postVC: UITableViewController, segueTo {
     
     var refresher = UIRefreshControl()
     
     let storage = FIRStorage.storage()
     let storageRef = FIRStorage.storage().reference(forURL: "gs://stickerspread-4f3a9.appspot.com")
-    
+    var modeSelf = false
     // arrays to hold information from server
     //var avaArray = [PFFile]()
     var avaArray = [UIImage]()
@@ -29,6 +30,11 @@ class postVC: UITableViewController {
     var picArray = [UIImage]()
     var uuidArray = [String]()
     var titleArray = [String]()
+    var finish = String()
+    var Month = String()
+    var Color = [String]()
+    var Layout = String()
+    var UFG = String()
     
     
     // default func
@@ -48,16 +54,16 @@ class postVC: UITableViewController {
         
         
         // pull to refresh
-        refresher.addTarget(self, action: "loadPostInfo", for: UIControlEvents.valueChanged)
+        refresher.addTarget(self, action: #selector(postVC.loadPostInfo), for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
         
         
         self.navigationItem.hidesBackButton = true
-        let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.plain, target: self, action: "back:")
+        let backBtn = UIBarButtonItem(title: "back", style: UIBarButtonItemStyle.plain, target: self, action: Selector(("back")))
         self.navigationItem.leftBarButtonItem = backBtn
         
         // swipe to go back
-        let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
+        let backSwipe = UISwipeGestureRecognizer(target: self, action: Selector(("back")))
         backSwipe.direction = UISwipeGestureRecognizerDirection.right
         self.view.addGestureRecognizer(backSwipe)
         
@@ -68,7 +74,7 @@ class postVC: UITableViewController {
         //        backSwipe.direction = UISwipeGestureRecognizerDirection.Right
         //        self.view.addGestureRecognizer(backSwipe)
         
-        NotificationCenter.default.addObserver(self, selector: "refresh", name: NSNotification.Name(rawValue: "likedFromPost"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(postVC.refresh), name: NSNotification.Name(rawValue: "likedFromPost"), object: nil)
         
 
         tableView.register(UINib(nibName: "postSelected", bundle: nil), forCellReuseIdentifier: "idPostSelectedCell")
@@ -110,10 +116,16 @@ class postVC: UITableViewController {
                     let date = dateFormatter.date(from: datestring)
                     self.dateArray.append(date! as Date)
                     //  }
-                    self.usernameArray.append(userID as! String)
+                    self.usernameArray.append(userID )
                     
                     self.titleArray.append((snapshot.value! as AnyObject).value(forKey:"title") as! String)
                     self.uuidArray.append(snapshot.key as String!)
+                    
+                    self.Layout = ((snapshot.value! as AnyObject).value(forKey:"Layout") as? String)!
+                    self.finish = ((snapshot.value! as AnyObject).value(forKey:"Finish") as? String)!
+                    self.Month = ((snapshot.value! as AnyObject).value(forKey:"Month") as? String)!
+                    self.UFG = ((snapshot.value! as AnyObject).value(forKey:"Grab") as? String)!
+                    self.Color = ((snapshot.value! as AnyObject).value(forKey:"Color") as? String)!.components(separatedBy: ",")
                     
                     firebase.child("Users").child(userID).observe(.value, with: { snapshot1 in
                         
@@ -123,6 +135,8 @@ class postVC: UITableViewController {
                         
                         let fullname = first!+" "+last!
                         self.nameArray.append(fullname)
+                        
+
                         
                         let avaURL = ((snapshot1.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
                         let url = NSURL(string: avaURL)
@@ -256,13 +270,14 @@ class postVC: UITableViewController {
     }
     
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.size.height
     }
-    
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.size.height
     }
+
     
     
     
@@ -271,21 +286,43 @@ class postVC: UITableViewController {
         return usernameArray.count
     }
     
-    // cell config
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // define cell
         //let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! postCell
         let cell = tableView.dequeueReusableCell(withIdentifier: "idPostSelectedCell", for: indexPath as IndexPath) as! postCellSelected
         cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
+        //cell.segueDelegate = self
         //cell.backgroundColor = UIColor.clearColor()
         // connect objects with our information from arrays
         cell.usernameBtn.setTitle(nameArray[indexPath.row], for: UIControlState.normal)
+        cell.postAuthorID = usernameArray[indexPath.row]
+        cell.segueDelegate = self
         cell.usernameBtn.sizeToFit()
         cell.uuidLbl.text = self.uuidArray[indexPath.row]
         cell.titleLbl.text = self.titleArray[indexPath.row]
         cell.titleLbl.sizeToFit()
         cell.usernameHidden.setTitle(usernameArray[indexPath.row], for: UIControlState.normal)
+        cell.LayoutLbl.text = Layout
+        cell.FinishLbl.text = finish
+        cell.monthLbl.text = Month
+        cell.colorLbl1.text = Color[0]
+        
+        if self.Color.count == 2 {
+            cell.colorLbl2.text = Color[1]
+        } else if self.Color.count == 3 {
+            cell.colorLbl2.text = Color[1]
+            cell.colorLbl3.text = Color[2]
+        }
+        
+        if self.UFG == "Not Available"{
+            cell.Flag.isHidden = true
+            cell.UFG.isHidden = true
+        }
+        
+        
+        
         
         //        // place profile picture
         //        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
@@ -490,7 +527,8 @@ class postVC: UITableViewController {
     
     
     // go back function
-    func back(sender: UIBarButtonItem) {
+    //func back(sender: UIBarButtonItem) {
+    func back() {
         
         // push back
         self.navigationController?.popViewController(animated: true)
@@ -500,6 +538,57 @@ class postVC: UITableViewController {
             postuuid.removeLast()
         }
         
+    }
+    
+    func goToProfile(id : String!){
+        print(id)
+        modeSelf = false
+        if id == (FIRAuth.auth()?.currentUser!.uid)! {
+            modeSelf = true
+        }
+        
+        let home = self.storyboard?.instantiateViewController(withIdentifier: "homeVC1") as! homeVC1
+        home.userIdToDisplay = id
+        home.goHome = modeSelf
+        self.navigationController?.pushViewController(home, animated: true)
+        
+        //        if id == (FIRAuth.auth()?.currentUser!.uid)! {
+        //            //if id == "aa" {
+        //            let home = self.storyboard?.instantiateViewControllerWithIdentifier("homeVC") as! homeVC
+        //
+        //            self.navigationController?.pushViewController(home, animated: true)
+        //        } else {
+        //            guestname.append(id)
+        //            goHome = true
+        //            let guest = self.storyboard?.instantiateViewControllerWithIdentifier("guestVC") as! guestVC
+        //            self.navigationController?.pushViewController(guest, animated: true)
+        //        }
+    }
+    
+    func goToPost(uuid : String!){
+        // take relevant unique id of post to load post in postVC
+        
+        //print (uuid)
+        postuuid.append(uuid)
+        
+        // present postVC programmaticaly
+        let post = self.storyboard?.instantiateViewController(withIdentifier: "postVC") as! postVC
+        self.navigationController?.pushViewController(post, animated: true)
+        
+        
+        
+    }
+    
+    func displayLikes(uuid: String!){
+        
+        user = uuid
+        show1 = "Likes"
+        
+        // make references to followersVC
+        let followers = self.storyboard?.instantiateViewController(withIdentifier: "followersVC") as! followersVC
+        
+        // present
+        self.navigationController?.pushViewController(followers, animated: true)
     }
     
     

@@ -78,16 +78,31 @@
                             <constraint firstAttribute="width" secondItem="IRx-3j-50v" secondAttribute="height" multiplier="1:1" id="ig8-z7-w1f"/>
                         </constraints>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gold Flag 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="JJx-LT-ztZ">
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="JJx-LT-ztZ" secondAttribute="height" multiplier="110:43" id="Nby-Dq-Idu"/>
+                        </constraints>
+                    </imageView>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="UFG" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5VO-oW-TXM">
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="6MA-eW-Q78" secondAttribute="bottom" constant="-4" id="7Ab-Gs-SlU"/>
+                    <constraint firstItem="JJx-LT-ztZ" firstAttribute="trailing" secondItem="IRx-3j-50v" secondAttribute="trailing" id="7Pk-Ve-2qY"/>
                     <constraint firstItem="6MA-eW-Q78" firstAttribute="top" secondItem="IRx-3j-50v" secondAttribute="bottom" constant="6" id="8mq-ur-7Jq"/>
                     <constraint firstItem="b3g-kR-rYb" firstAttribute="leading" secondItem="8T8-tB-M2r" secondAttribute="trailing" constant="8" id="BTM-2c-o73"/>
+                    <constraint firstItem="5VO-oW-TXM" firstAttribute="centerY" secondItem="JJx-LT-ztZ" secondAttribute="centerY" id="E9K-oT-gXE"/>
+                    <constraint firstItem="JJx-LT-ztZ" firstAttribute="trailing" secondItem="5VO-oW-TXM" secondAttribute="trailing" id="Hkf-TS-I4S"/>
                     <constraint firstAttribute="bottomMargin" secondItem="EgT-gb-uHd" secondAttribute="bottom" constant="1" id="IqY-Fb-Kkc"/>
                     <constraint firstItem="IRx-3j-50v" firstAttribute="centerX" secondItem="K0j-bQ-Mc0" secondAttribute="centerX" id="Lrx-ri-BY0"/>
                     <constraint firstItem="EgT-gb-uHd" firstAttribute="leading" secondItem="JVN-c2-vMv" secondAttribute="trailing" constant="8" id="Ohu-vr-RoG"/>
+                    <constraint firstItem="JJx-LT-ztZ" firstAttribute="bottom" secondItem="IRx-3j-50v" secondAttribute="bottom" constant="-50" id="RR3-Vt-A45"/>
                     <constraint firstItem="b3g-kR-rYb" firstAttribute="centerY" secondItem="8T8-tB-M2r" secondAttribute="centerY" id="Vm5-w4-8zo"/>
                     <constraint firstItem="JVN-c2-vMv" firstAttribute="leading" secondItem="6MA-eW-Q78" secondAttribute="trailing" constant="3" id="WqE-nU-qPh"/>
+                    <constraint firstItem="JJx-LT-ztZ" firstAttribute="height" secondItem="IRx-3j-50v" secondAttribute="height" multiplier="0.1" id="XW3-8m-TL3"/>
                     <constraint firstItem="JVN-c2-vMv" firstAttribute="centerY" secondItem="6MA-eW-Q78" secondAttribute="centerY" id="dCp-G2-jv5"/>
                     <constraint firstAttribute="leadingMargin" secondItem="6MA-eW-Q78" secondAttribute="leading" constant="2" id="geQ-N8-16n"/>
                     <constraint firstItem="EgT-gb-uHd" firstAttribute="centerY" secondItem="JVN-c2-vMv" secondAttribute="centerY" id="gqE-Bi-ou8"/>
@@ -111,8 +126,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="LikeLbl" destination="JVN-c2-vMv" id="SZw-ZU-3w6"/>
+                <outlet property="UFG" destination="5VO-oW-TXM" id="UgE-Fs-nUp"/>
                 <outlet property="avaImg" destination="8T8-tB-M2r" id="KA3-jj-3gp"/>
                 <outlet property="dateLbl" destination="I0x-Cg-cT5" id="vFO-Gz-VJR"/>
+                <outlet property="flag" destination="JJx-LT-ztZ" id="i5K-zw-1ED"/>
                 <outlet property="likeBtn" destination="6MA-eW-Q78" id="8nY-Tf-mwt"/>
                 <outlet property="picImg" destination="IRx-3j-50v" id="PaP-zo-rkS"/>
                 <outlet property="titleLbl" destination="EgT-gb-uHd" id="Rrr-y7-NIA"/>
@@ -124,6 +141,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="Gold Flag 1.png" width="765" height="379"/>
         <image name="Heart 1.png" width="800" height="800"/>
         <image name="pbg.jpg" width="200" height="200"/>
         <image name="pp.jpg" width="96" height="96"/>

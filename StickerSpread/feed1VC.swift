@@ -119,6 +119,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
     var myDictionaryURL = [Int: String]()
     var myDictionaryImage = [Int: UIImage]()
     
+    var UFGArray = [String]()
+    
     
     //var tableViewSearch : UITableView!
     
@@ -989,6 +991,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
             //self.picArraySearch.removeAll(keepCapacity: false)
             self.titleArray.removeAll(keepingCapacity: false)
             self.uuidArray.removeAll(keepingCapacity: false)
+            self.UFGArray.removeAll(keepingCapacity: false)
             
             if snapshot.exists() {
                 
@@ -1003,6 +1006,8 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                     
                     let userID = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["userID"] as! String
                     
+                    let UFG = ((snapshot.value! as AnyObject).value(forKey:"Grab") as? String)!
+                    self.UFGArray.append(UFG)
                     
                     //                    self.storage.referenceForURL(post.value.objectForKey("photoUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
                     //                        let image = UIImage(data: data!)
@@ -1158,6 +1163,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 self.dateArray = self.dateArray.reversed()
                 self.usernameArray = self.usernameArray.reversed()
                 self.uuidArray = self.uuidArray.reversed()
+                    self.UFGArray = self.UFGArray.reversed()
                 
                 
                 self.titleArray = self.titleArray.reversed()
@@ -1469,6 +1475,11 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
                 //                }
                 cell.avaImg.image = avaArray[indexPath.row]
                 cell.picImg.image = picArray[indexPath.row]
+                
+                if self.UFGArray[indexPath.row] == "Not Available"{
+                    cell.flag.isHidden = true
+                    cell.UFG.isHidden = true
+                }
                 
                 //                self.storage.referenceForURL(picArray[indexPath.row]).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
                 //                    let image = UIImage(data: data!)

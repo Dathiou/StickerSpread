@@ -95,6 +95,10 @@ class postCell: UITableViewCell {
     @IBOutlet weak var uuidLbl: UILabel!
     var origin = String()
     
+    
+    @IBOutlet weak var UFG: UITextField!
+    
+    @IBOutlet weak var flag: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         

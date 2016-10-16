@@ -11,17 +11,24 @@ import Parse
 import Firebase
 
 protocol segueTo{
+    
+    func goToProfile(id : String!)
     func displayLikes(uuid : String!)
 }
 
+
 class postCellSelected: UITableViewCell {
     
+    @IBOutlet weak var Flag: UIImageView!
+    @IBOutlet weak var UFG: UITextField!
     @IBOutlet weak var LayoutLbl: UILabel!
     @IBOutlet weak var monthLbl: UILabel!
     @IBOutlet weak var FinishLbl: UILabel!
     @IBOutlet weak var colorLbl1: UILabel!
     @IBOutlet weak var colorLbl2: UILabel!
     @IBOutlet weak var colorLbl3: UILabel!
+    
+    var postAuthorID = String()
     
     @IBOutlet weak var connectBtn: UIButton!
     @IBAction func connect_click(sender: AnyObject) {
@@ -232,6 +239,12 @@ class postCellSelected: UITableViewCell {
         
     }
     
+    
+    @IBAction func UsernameClick(_ sender: AnyObject) {
+        
+        segueDelegate.goToProfile(id: postAuthorID)
+    }
+    
     @IBAction func likeLblBtn_click() {
         if let id = self.uuidLbl.text as String!{
             segueDelegate.displayLikes(uuid: id)
@@ -239,8 +252,9 @@ class postCellSelected: UITableViewCell {
         
     }
     
+
     
-    @IBAction func likeBtn_clicked(sender: UIButton) {
+    @IBAction func likeBtn_clicked(_ sender: UIButton) {
         // declare title of button
         let title = sender.title(for: .normal)
         let buttonRow = sender.tag

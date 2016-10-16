@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -26,6 +27,9 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fje-wX-0pt">
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <state key="normal" title="usernameBtn"/>
+                        <connections>
+                            <action selector="UsernameClick:" destination="6Md-nK-lns" eventType="touchUpInside" id="cN9-3T-A1W"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ol-i5-Ec9">
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -106,7 +110,7 @@
                             </mask>
                         </variation>
                         <connections>
-                            <action selector="likeBtn_clicked:" destination="6Md-nK-lns" eventType="touchUpInside" id="jr5-4k-BXY"/>
+                            <action selector="likeBtn_clicked:" destination="6Md-nK-lns" eventType="touchUpInside" id="euf-xj-UaU"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Matte" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odj-IB-vpO">
@@ -126,6 +130,16 @@
                             <action selector="likeLblBtn_click" destination="6Md-nK-lns" eventType="touchUpInside" id="ifu-EK-2yG"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gold Flag 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="SpP-m5-lxx">
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="SpP-m5-lxx" secondAttribute="height" multiplier="110:43" id="RX8-KR-m9A"/>
+                        </constraints>
+                    </imageView>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="UFG" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="crl-QH-cti">
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="rhe-MC-uN5" secondAttribute="trailing" constant="102" id="06o-jp-uWo"/>
@@ -133,6 +147,7 @@
                     <constraint firstItem="Doq-bf-HRP" firstAttribute="width" secondItem="U45-fg-Uw3" secondAttribute="width" multiplier="0.1" id="1MD-0t-mXC"/>
                     <constraint firstItem="Doq-bf-HRP" firstAttribute="leading" secondItem="U45-fg-Uw3" secondAttribute="leadingMargin" constant="2" id="1R4-Tw-ZvZ"/>
                     <constraint firstItem="Doq-bf-HRP" firstAttribute="top" secondItem="U45-fg-Uw3" secondAttribute="topMargin" constant="2" id="2Vk-us-hNH"/>
+                    <constraint firstItem="SpP-m5-lxx" firstAttribute="trailing" secondItem="qet-Sg-Ocb" secondAttribute="trailing" id="39D-Cx-B3Y"/>
                     <constraint firstItem="ZxI-Yz-5ZI" firstAttribute="centerY" secondItem="eKR-Uq-36z" secondAttribute="centerY" id="6bB-5q-teP"/>
                     <constraint firstItem="Fje-wX-0pt" firstAttribute="centerY" secondItem="Doq-bf-HRP" secondAttribute="centerY" id="72l-Sg-pfl"/>
                     <constraint firstItem="eKR-Uq-36z" firstAttribute="centerY" secondItem="J57-Us-Zzt" secondAttribute="centerY" id="83q-8j-IkI"/>
@@ -147,10 +162,13 @@
                     <constraint firstAttribute="trailingMargin" secondItem="GhN-2S-J5R" secondAttribute="trailing" constant="2" id="L41-Ax-asU"/>
                     <constraint firstItem="z2J-ZT-5dZ" firstAttribute="centerY" secondItem="odj-IB-vpO" secondAttribute="centerY" id="MQR-hH-z6f"/>
                     <constraint firstItem="2ol-i5-Ec9" firstAttribute="centerY" secondItem="Fje-wX-0pt" secondAttribute="centerY" id="Mgo-ZW-Vqv"/>
+                    <constraint firstItem="crl-QH-cti" firstAttribute="centerY" secondItem="SpP-m5-lxx" secondAttribute="centerY" id="NN1-LK-JNl"/>
                     <constraint firstItem="CEB-R6-aRJ" firstAttribute="centerY" secondItem="mQS-ce-Ub8" secondAttribute="centerY" id="O4E-gh-RPu"/>
                     <constraint firstItem="rhe-MC-uN5" firstAttribute="centerY" secondItem="mEN-5P-k7L" secondAttribute="centerY" id="P9j-RG-p6m"/>
+                    <constraint firstItem="SpP-m5-lxx" firstAttribute="trailing" secondItem="crl-QH-cti" secondAttribute="trailing" id="PWP-Ih-GX7"/>
                     <constraint firstItem="odj-IB-vpO" firstAttribute="leading" secondItem="mEN-5P-k7L" secondAttribute="leading" id="PWV-E2-vve"/>
                     <constraint firstItem="mEN-5P-k7L" firstAttribute="centerX" secondItem="U45-fg-Uw3" secondAttribute="centerX" id="Pxp-QE-KHW"/>
+                    <constraint firstItem="SpP-m5-lxx" firstAttribute="bottom" secondItem="qet-Sg-Ocb" secondAttribute="bottomMargin" constant="-50" id="VAF-f8-IPZ"/>
                     <constraint firstItem="Fje-wX-0pt" firstAttribute="top" secondItem="U45-fg-Uw3" secondAttribute="topMargin" constant="2" id="Y2l-cg-sWt"/>
                     <constraint firstItem="mEN-5P-k7L" firstAttribute="top" secondItem="mQS-ce-Ub8" secondAttribute="bottom" constant="3" id="YaL-uc-VxB"/>
                     <constraint firstItem="qet-Sg-Ocb" firstAttribute="width" secondItem="U45-fg-Uw3" secondAttribute="width" id="Yvf-Qb-A2b"/>
@@ -176,6 +194,7 @@
                     <constraint firstItem="mEN-5P-k7L" firstAttribute="top" secondItem="mQS-ce-Ub8" secondAttribute="bottom" constant="2" id="mxu-up-USs"/>
                     <constraint firstItem="J57-Us-Zzt" firstAttribute="top" secondItem="qet-Sg-Ocb" secondAttribute="bottom" constant="6" id="piB-JR-WW0"/>
                     <constraint firstAttribute="trailingMargin" secondItem="z2J-ZT-5dZ" secondAttribute="trailing" constant="102" id="qI7-yI-wRn"/>
+                    <constraint firstItem="SpP-m5-lxx" firstAttribute="height" secondItem="qet-Sg-Ocb" secondAttribute="height" multiplier="0.1" id="rdH-U5-rDo"/>
                     <constraint firstItem="rhe-MC-uN5" firstAttribute="leading" secondItem="mEN-5P-k7L" secondAttribute="trailing" constant="55" id="rk3-0t-mc1"/>
                     <constraint firstAttribute="leadingMargin" secondItem="J57-Us-Zzt" secondAttribute="leading" constant="2" id="rxI-8k-iw6"/>
                     <constraint firstItem="odj-IB-vpO" firstAttribute="leading" secondItem="mEN-5P-k7L" secondAttribute="leading" id="sUR-82-RKt"/>
@@ -209,8 +228,10 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="FinishLbl" destination="odj-IB-vpO" id="K94-nM-lCC"/>
+                <outlet property="Flag" destination="SpP-m5-lxx" id="pWN-gN-rn0"/>
                 <outlet property="LayoutLbl" destination="mQS-ce-Ub8" id="jWO-1M-mP8"/>
                 <outlet property="LikeLbl" destination="eKR-Uq-36z" id="hhx-C1-tUV"/>
+                <outlet property="UFG" destination="crl-QH-cti" id="NRY-xe-PxN"/>
                 <outlet property="avaImg" destination="Doq-bf-HRP" id="XHD-lc-fLJ"/>
                 <outlet property="colorLbl1" destination="CEB-R6-aRJ" id="mWs-d4-01N"/>
                 <outlet property="colorLbl2" destination="rhe-MC-uN5" id="Gf4-ko-Hcz"/>
@@ -226,11 +247,12 @@
                 <outlet property="usernameHidden" destination="eJe-Fu-kDp" id="edl-wx-JKA"/>
                 <outlet property="uuidLbl" destination="onc-lN-Opz" id="dL3-fl-E0N"/>
             </connections>
-            <point key="canvasLocation" x="334" y="78"/>
+            <point key="canvasLocation" x="533" y="118"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="Dots_hor.png" width="800" height="800"/>
+        <image name="Gold Flag 1.png" width="765" height="379"/>
         <image name="Heart 1.png" width="800" height="800"/>
         <image name="pbg.jpg" width="200" height="200"/>
         <image name="pp.jpg" width="96" height="96"/>

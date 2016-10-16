@@ -41,13 +41,31 @@
 		</dict>
 	</array>
 	<array>
+        <dict>
+            <key>isExpandable</key>
+            <true/>
+            <key>isExpanded</key>
+            <false/>
+            <key>isVisible</key>
+            <true/>
+            <key>value</key>
+            <string></string>
+            <key>primaryTitle</key>
+            <string></string>
+            <key>secondaryTitle</key>
+            <string>Shop*:</string>
+            <key>cellIdentifier</key>
+            <string>idCellNormal</string>
+            <key>additionalRows</key>
+            <integer>1</integer>
+        </dict>
 		<dict>
 			<key>isExpandable</key>
 			<false/>
 			<key>isExpanded</key>
 			<false/>
 			<key>isVisible</key>
-			<true/>
+			<false/>
 			<key>value</key>
 			<string></string>
 			<key>primaryTitle</key>
