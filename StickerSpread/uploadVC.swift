@@ -185,7 +185,8 @@ class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         picImg.frame = CGRect(x:15, y:15,width: width / 4.5, height:width / 4.5)
         titleTxt.frame = CGRect(x: picImg.frame.size.width + 25, y: picImg.frame.origin.y, width:width / 1.488, height:picImg.frame.size.height)
         publishBtn.frame = CGRect(x:0, y:height / 1.09, width: width, height: width / 8)
-        removeBtn.frame = CGRect(x: picImg.frame.origin.x, y:picImg.frame.origin.y + picImg.frame.size.height, width: picImg.frame.size.width,height: 20)
+        removeBtn.frame = CGRect(x: picImg.frame.origin.x, y:picImg.frame.origin.y + picImg.frame.size.height, width:
+            picImg.frame.size.width,height: 20)
 
     }
     

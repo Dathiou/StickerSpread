@@ -8,7 +8,8 @@
 
 import UIKit
 import JSQMessagesViewController
-import Parse
+import FirebaseAuth
+import FirebaseStorage
 import IDMPhotoBrowser
 
 class ChatViewController: JSQMessagesViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -19,64 +20,112 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     //chaged
     //let ref = Firebase(url: "https://quickchataplication.firebaseio.com/Message")
     let ref = firebase.child("Message")
+    
+    let storage = FIRStorage.storage()
+    let storageRef = FIRStorage.storage().reference(forURL: "gs://stickerspread-4f3a9.appspot.com")
 
     var messages: [JSQMessage] = []
     var objects: [NSDictionary] = []
     var loaded: [NSDictionary] = []
     
-    var avatarImagesDictionary: NSMutableDictionary?
+    var avatarUrlDictionary: NSMutableDictionary?
     var avatarDictionary: NSMutableDictionary?
+    
+    var avatars = [String: JSQMessagesAvatarImage]()
 
-    var showAvatars: Bool = false
+    var showAvatars: Bool = true
     var firstLoad: Bool?
+    
+    var withUserIDProfPicUrl = String()
 
     
-    var withUser: PFUser?
+    var withUserID = String()
+    var WithName = String()
     var recent: NSDictionary?
     
     var chatRoomId: String!
+    var recentId: String!
     
     var initialLoadComlete: Bool = false
+    var from = String()
     
     
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.white)
     
-    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
+    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.white)
 
     override func viewWillAppear(_ animated: Bool) {
         loadUserDefaults()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        //ClearRecentCounter(chatRoomId)
+        ClearRecentCounter(chatRoomID: chatRoomId)
+//        ClearRecentCounter(chatRoomID: String)
+//firebase.child("Recent").child(recentId).updateChildValues(["counter": 0])
+//
+
         ref.removeAllObservers()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
+        //self.navigationController?.navigationBar.barStyle = UIBarStyle.
+        //UIApplication.shared.statusBarStyle = .lightContent
+        self.senderId = FIRAuth.auth()?.currentUser?.uid
+        firebase.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.value, with: { snapshot in
+            
+            let first = (snapshot.value as? [String:AnyObject])?["first_name"] as! String
+            let last = (snapshot .value as? [String:AnyObject])?["last_name"] as! String
+
+
+            self.senderDisplayName = first+" "+last
+            
+            let avaURL = ((snapshot.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
+            //self.createAvatar(senderId: (FIRAuth.auth()?.currentUser?.uid)!,photoUrl: avaURL)
+            //self.avatarUrlDictionary?[self.senderId] = avaURL
+            self.loadmessages()
+            })
+  
         
-        self.senderId = PFUser.current()?.username //backendless.userService.currentUser.objectId
-        self.senderDisplayName = PFUser.current()?.username //backendless.userService.currentUser.name
+        //collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
+        //collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
+        collectionView.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         
-        collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
-        collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
-//        
-//        if withUser?.objectId == nil {
-//            getWithUserFromRecent(recent!, result: { (withUser) in
-//                self.withUser = withUser
+//        if withUserID == nil {
+//            getWithUserFromRecent(recent!, result: { (withUserID) in
+//                self.withUserID = withUserID
 //                self.title = withUser.name
 //                self.getAvatars()
 //            })
 //        } else {
-//            self.title = withUser!.name
+//            self.title = withUserID!.name
 //            self.getAvatars()
 //        }
-        
+        self.title = WithName
+        self.createAvatar(senderId: self.withUserID,photoUrl: self.withUserIDProfPicUrl)
+        //self.CreateAvatarDictUrl()
+        //collectionView?.collectionViewLayout.incomingAvatarViewSize = CGSize(width:30, height:30)
+        collectionView?.collectionViewLayout.outgoingAvatarViewSize = .zero
         //load firebase messages
-        loadmessages()
         
+        self.edgesForExtendedLayout = []
         self.inputToolbar?.contentView?.textView?.placeHolder = "New Message"
+
+        
+        firebase.child("Recent").queryOrdered(byChild: "chatRoomId").queryEqual(toValue: chatRoomId).observe(.value, with: { snapshot in
+
+            if snapshot.exists() {
+                self.recentId = snapshot.value as! String!
+            }
+        })
+
+        
+        
 
     }
 
@@ -86,66 +135,76 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     }
     
 //    //MARK: JSQMessages dataSource functions
-//    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-//        
-//        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
-//        
-//        let data = messages[indexPath.row]
-//        
-//        if data.senderId == PFUser.current()!.username {
-//            cell.textView?.textColor = UIColor.whiteColor()
-//        } else {
-//            cell.textView?.textColor = UIColor.blackColor()
-//        }
-//        
-//        return cell
-//    }
+
     
-    func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         
         let data = messages[indexPath.row]
         
-       return data
+        if data.senderId == FIRAuth.auth()?.currentUser?.uid {
+            cell.textView?.textColor = UIColor.black
+        } else {
+            cell.textView?.textColor = UIColor.black
+        }
+        cell.avatarImageView.layer.cornerRadius = 4.0
+        cell.avatarImageView.clipsToBounds = true
+        cell.avatarImageView.layer.borderColor = UIColor.white.cgColor
+        cell.avatarImageView.layer.borderWidth = 0.5
+        
+        return cell
+    
     }
+    
+    
+
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        let data = messages[indexPath.row]
+        
+        return data
+
+    }
+
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return messages.count
     }
     
-    func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         
         let data = messages[indexPath.row]
         
-        if data.senderId == PFUser.current()?.username {
-            return outgoingBubble
+        if data.senderId == FIRAuth.auth()?.currentUser?.uid {
+            return self.outgoingBubble
         } else {
-            return incomingBubble
+            return self.incomingBubble
         }
     }
     
-    func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
-        
-        if indexPath.item % 3 == 0 {
-            
-            let message = messages[indexPath.item]
-            
-            return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: message.date)
-        }
-        return nil
+
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+    if indexPath.item % 3 == 0 {
+    
+    let message = messages[indexPath.item]
+    
+    return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: message.date)
+    }
+    return nil
     }
     
-    func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
         if indexPath.item % 3 == 0 {
             return kJSQMessagesCollectionViewCellLabelHeightDefault
         }
         return 0.0
     }
-    
-    
-    func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForCellBottomLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
-        
+   
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellBottomLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = objects[indexPath.row]
         
         let status = message["status"] as! String
@@ -157,32 +216,38 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         }
     }
     
-    func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellBottomLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        
+
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellBottomLabelAt indexPath: IndexPath!) -> CGFloat {
         if outgoing(item: objects[indexPath.row]) {
-            return kJSQMessagesCollectionViewCellLabelHeightDefault
+            //return kJSQMessagesCollectionViewCellLabelHeightDefault
+            return 0.0
         } else {
             return 0.0
         }
     }
+
     
-    func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
-        
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
+//        let message = messages[indexPath.row]
+//        print(avatarDictionary)
+//        let avatar = avatarDictionary!.object(forKey: message.senderId) as! JSQMessageAvatarImageDataSource
+//        //let avatar =
+//        return avatar
+
         let message = messages[indexPath.row]
-        let avatar = avatarDictionary!.object(forKey: message.senderId) as! JSQMessageAvatarImageDataSource
-     
-        return avatar
+        return avatars[message.senderId]
+        
     }
 
     
     //MARK: JSQMessages Delegate function
+
     
-    func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-        
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         if text != "" {
-            sendMessage(text: text, date: date, picture: nil, location: nil)
+            sendMessage(text: text, date: date as NSDate, picture: nil, location: nil)
         }
-        
     }
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
@@ -227,7 +292,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
      
         //if text message
         if let text = text {
-            var outgoingMessage = OutgoingMessage(message: text, senderId: (PFUser.current()?.username!)!, senderName: (PFUser.current()?.username!)!, date: date, status: "Delivered", type: "text")
+            var outgoingMessage = OutgoingMessage(message: text, senderId: (FIRAuth.auth()?.currentUser?.uid)! , senderName: senderDisplayName, date: date, status: "Delivered", type: "text")
             outgoingMessage.sendMessage(chatRoomID: chatRoomId, item: outgoingMessage.messageDictionary)
         }
         
@@ -236,7 +301,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
             
             let imageData = UIImageJPEGRepresentation(pic, 1.0)
             
-            var outgoingMessage = OutgoingMessage(message: "Picture", pictureData: imageData! as NSData, senderId: (PFUser.current()?.username!)!, senderName: (PFUser.current()?.username!)!, date: date, status: "Delivered", type: "picture")
+            var outgoingMessage = OutgoingMessage(message: "Picture", pictureData: imageData! as NSData, senderId: senderDisplayName, senderName: (FIRAuth.auth()?.currentUser?.uid)! , date: date, status: "Delivered", type: "picture")
             outgoingMessage.sendMessage(chatRoomID: chatRoomId, item: outgoingMessage.messageDictionary)
         }
         
@@ -329,7 +394,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     
     func incoming(item: NSDictionary) -> Bool {
         
-        if PFUser.current()!.username == item["senderId"] as! String {
+        if FIRAuth.auth()?.currentUser?.uid == item["senderId"] as! String {
             print("have location")
             return false
         } else {
@@ -339,7 +404,7 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
     
     func outgoing(item: NSDictionary) -> Bool {
 
-        if PFUser.current()!.username == item["senderId"] as! String {
+        if FIRAuth.auth()?.currentUser?.uid == item["senderId"] as! String {
             return true
         } else {
             return false
@@ -358,20 +423,113 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
         }
     }
     
-//    func getAvatars() {
+    
+    func createAvatar(senderId: String,photoUrl: String)
+    {
+        if self.avatars[senderId] == nil
+        {
+            //as you can see, I use cache
+            let img = imageCache.object(forKey:photoUrl as AnyObject) as? UIImage
+            
+            if img != nil
+            {
+                self.avatars[senderId] = JSQMessagesAvatarImage.init(avatarImage: img, highlightedImage: img, placeholderImage: img)
+                
+                // print("from cache")
+            }
+            else if photoUrl != "" {
+                // the images are very small, so the following methods work just fine, no need for Alamofire here
+                
+                if photoUrl.contains("https://firebasestorage.googleapis.com"){
+                    self.storage.reference(forURL: photoUrl).data(withMaxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+                        if (error != nil)
+                        {
+                            //deal with error
+                        }
+                        else
+                        {
+                            let newImage = UIImage(data: data!)
+                            
+                            self.avatars[senderId] = JSQMessagesAvatarImage.init(avatarImage: newImage, highlightedImage: newImage, placeholderImage: newImage)//JSQMessagesAvatarImageFactory.avatarImage(with: newImage,diameter: 1000)
+                            
+                            imageCache.setObject(newImage!, forKey: senderId as AnyObject)
+                        }
+                    }.resume()
+                }
+                else if let data = NSData(contentsOf: NSURL(string:photoUrl)! as URL)
+                {
+                    let newImage = UIImage(data: data as Data)!
+                    
+                    //self.avatars[senderId] = JSQMessagesAvatarImageFactory.avatarImage(with: newImage,diameter: 1000)
+                    self.avatars[senderId] = JSQMessagesAvatarImage.init(avatarImage: newImage, highlightedImage: newImage, placeholderImage: newImage)
+                    imageCache.setObject(newImage, forKey: senderId as AnyObject)
+                }
+                else
+                {
+                    //etc. blank image or image with initials
+                }
+            }
+        }
+        else
+        {
+            //etc. blank image or image with initials
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+//    func CreateAvatarDictUrl() {
 //        
 //        if showAvatars {
 //            
-//            print("showAvatar")
-//            collectionView?.collectionViewLayout.incomingAvatarViewSize = CGSizeMake(30, 30)
-//            collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSizeMake(30, 30)
+//            //print("showAvatar")
+//            collectionView?.collectionViewLayout.incomingAvatarViewSize = CGSize(width:30, height:30)
+//            collectionView?.collectionViewLayout.outgoingAvatarViewSize = CGSize(width:30,height: 30)
+//            
+//            //self.avatarUrlDictionary?[withUserID] = recent?["ProfilPicURL"]
+//            
+////                    firebase.child("Users").child((FIRAuth.auth()?.currentUser?.uid)!).observe(.value, with: { snapshot1 in
+////            
+////                        //objc_sync_enter(self.nameArray)
+//////                        let first = ((snapshot1.value! as AnyObject).value(forKey:"first_name") as? String)
+//////                        let last = ((snapshot1.value! as AnyObject).value(forKey:"last_name") as? String)
+//////            
+//////                        let fullname = first!+" "+last!
+//////                        //self.nameArray.append(fullname)
+////            
+////            
+////                        
+////                        let avaURL = ((snapshot1.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
+////                        self.avatarUrlDictionary?[FIRAuth.auth()?.currentUser?.uid] = avaURL
+////                        //self.createAvatars(avatars: avatarUrlDictionary)
+////                        })
+//            firebase.child("Users").child(self.senderId).observe(.value, with: { snapshot1 in
+//                
+//                //objc_sync_enter(self.nameArray)
+//                //                        let first = ((snapshot1.value! as AnyObject).value(forKey:"first_name") as? String)
+//                //                        let last = ((snapshot1.value! as AnyObject).value(forKey:"last_name") as? String)
+//                //
+//                //                        let fullname = first!+" "+last!
+//                //                        //self.nameArray.append(fullname)
+//                
+//                
+//                
+//                let avaURL = ((snapshot1.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
+//                self.avatarUrlDictionary?[self.senderId] = avaURL
+//                self.avatarUrlDictionary?[self.withUserID] = self.withUserIDProfPicUrl
+//                self.createAvatars(avatars: self.avatarUrlDictionary)
+//            })
 //            
 //            //download avatars
-//            avatarImageFromBackendlessUser(backendless.userService.currentUser)
-//            avatarImageFromBackendlessUser(withUser!)
+//            //avatarImageFromFireBase(userID: (FIRAuth.auth()?.currentUser?.uid)!)
+//            //avatarImageFromFireBase(userID: withUserID)
 //            
 //            //create avatars
-//            createAvatars(avatarImagesDictionary)
+//            //createAvatars(avatars: avatarUrlDictionary)
 //        }
 //    }
     
@@ -433,51 +591,82 @@ class ChatViewController: JSQMessagesViewController, UINavigationControllerDeleg
 //        
 //        
 //    }
-//
+
+
+
+
 //    func createAvatars(avatars: NSMutableDictionary?) {
-//        
-//        var currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(named: "avatarPlaceholder"), diameter: 70)
-//        var withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(named: "avatarPlaceholder"), diameter: 70)
-//        
-//        
-//        if let avat = avatars {
-//            if let currentUserAvatarImage = avat.objectForKey(backendless.userService.currentUser.objectId) {
-//                
-//                currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(data: currentUserAvatarImage as! NSData), diameter: 70)
-//                self.collectionView?.reloadData()
-//            }
-//        }
+//        let cutt = JSQMessagesAvatarImage()
+//        let currentUserAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatarPlaceholder"), diameter: 70)
+//        let withUserAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatarPlaceholder"), diameter: 70)
+//        cutt = currentUserAvatar
 //        
 //        if let avat = avatars {
-//            if let withUserAvatarImage = avat.objectForKey(withUser!.objectId!) {
-//                
-//                withUserAvatar = JSQMessagesAvatarImageFactory.avatarImageWithImage(UIImage(data: withUserAvatarImage as! NSData), diameter: 70)
-//                self.collectionView?.reloadData()
+//            if let currentUserAvatarURL = avat.object(forKey: FIRAuth.auth()?.currentUser?.uid) {
+//                //let uiimagev = UIImageView(image: UIImage(named: "avatarPlaceholder"))
+//                //let uiCache = uiimagev.loadImageUsingCacheWithUrlString(urlString: currentUserAvatarURL as! String)
+//                currentUserAvatar?.loadImageUsingCacheWithUrlString(urlString: currentUserAvatarURL as! String)
+//                //let currentUserAvatar = currentUserAvatar.//JSQMessagesAvatarImageFactory//.avatarImage(with: uiCache.image, diameter: 70)
+//                //self.collectionView?.reloadData()
+//            } else if let withUserAvatarURL = avat.object(forKey: withUserID) {
+//                //let uiimagev = UIImageView(image: (UIImage(named: "avatarPlaceholder"))
+//                //let uiCache = uiimagev.loadImageUsingCacheWithUrlString(urlString: currentUserAvatar)
+//                //withUserAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: uiCache.image, diameter: 70)
+//                withUserAvatar?.loadImageUsingCacheWithUrlString(urlString: withUserAvatarURL as! String)
+//               // self.collectionView?.reloadData()
 //            }
+//            
 //        }
 //        
-//        avatarDictionary = [backendless.userService.currentUser.objectId! : currentUserAvatar, withUser!.objectId! : withUserAvatar] 
+//            
+//        
+//        
+//        avatarDictionary = [FIRAuth.auth()?.currentUser?.uid : currentUserAvatar, withUserID : withUserAvatar]
 //    }
     
-//    func avatarImageFromBackendlessUser(user: BackendlessUser) {
+//    func avatarImageFromFireBase(userID: String) {
 //        
-//        if let imageLink = user.getProperty("Avatar") {
+//        firebase.child("Users").child(userID).observe(.value, with: { snapshot1 in
 //            
-//            getImageFromURL(imageLink as! String, result: { (image) -> Void in
+//            //objc_sync_enter(self.nameArray)
+//            let first = ((snapshot1.value! as AnyObject).value(forKey:"first_name") as? String)
+//            let last = ((snapshot1.value! as AnyObject).value(forKey:"last_name") as? String)
+//            
+//            let fullname = first!+" "+last!
+//            //self.nameArray.append(fullname)
+//            
+//            
+//            
+//            let avaURL = ((snapshot1.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
+//            let url = NSURL(string: avaURL)
+//            if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+//
 //                
-//                let imageData = UIImageJPEGRepresentation(image!, 1.0)
+//                // let i = snapshot.value!.objectForKey("photoUrl") as! String
 //                
-//                if self.avatarImagesDictionary != nil {
-//                    
-//                    self.avatarImagesDictionary!.removeObjectForKey(user.objectId)
-//                    self.avatarImagesDictionary!.setObject(imageData!, forKey: user.objectId!)
-//                } else {
-//                    self.avatarImagesDictionary = [user.objectId! : imageData!]
-//                }
-//                self.createAvatars(self.avatarImagesDictionary)
+//                self.storage.reference(forURL:avaURL).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
+//                    let image = UIImage(data: data!)
+//
+//                    if self.avatarUrlDictionary != nil {
+//                        
+//                        self.avatarUrlDictionary!.removeObject(forKey: userID)
+//                        self.avatarUrlDictionary!.setObject(image!, forKey: userID as NSCopying)
+//                    } else {
+//                        self.avatarUrlDictionary = [userID : image!]
+//                    }
+//                    self.createAvatars(avatars: self.avatarUrlDictionary)
+//
+//                })
 //                
-//            })
+//            }
+//            
+//
+//            }
+//            
+//        ){ (error) in
+//            print(error.localizedDescription)
 //        }
+//
 //    }
     
     //MARK: JSQDelegate functions

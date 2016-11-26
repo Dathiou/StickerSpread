@@ -54,7 +54,7 @@
                         </constraints>
                         <state key="normal" backgroundImage="Heart 1.png"/>
                         <connections>
-                            <action selector="likeBtn_clicked:" destination="Ryd-og-mOp" eventType="touchUpInside" id="uBZ-Oj-3hf"/>
+                            <action selector="likeBtn_clicked:" destination="Ryd-og-mOp" eventType="touchUpInside" id="BNh-ik-y9f"/>
                         </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pp.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="8T8-tB-M2r">

@@ -7,7 +7,7 @@
 #import "SVProgressHUD/SVProgressHUD.h"
 #import <JSQMessagesViewController/JSQMessages.h>
 //#import "JSQMessagesViewController.h"
-#import <Parse/Parse.h>
+//#import <Parse/Parse.h>
 
 #import <IDMPhotoBrowser/IDMPhotoBrowser.h>
 

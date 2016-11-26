@@ -14,7 +14,7 @@ import Firebase
 //    func goToProfile(id : String!)
 //}
 protocol segueToPostFromFeed{
-    func goToPost(uuid : String!)
+    func goToPost(thisPost : Post!)
     func goToProfile(id : String!)
     func displayLikes(uuid : String!)
 }
@@ -25,7 +25,8 @@ func SetLike(title: String!, uuid: String! , Btn: UIButton, Lbl:UIButton, CellPo
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         let dateString = dateFormatter.string(from: date as Date)
-        
+        print((FIRAuth.auth()?.currentUser!.uid)!)
+        print(uuid)
         firebase.child("Likes").child(uuid).child((FIRAuth.auth()?.currentUser!.uid)!).setValue(["Date" : dateString])
         firebase.child("LikesPerUser").child((FIRAuth.auth()?.currentUser!.uid)!).child(uuid).setValue(["Date" : dateString])
         print("liked")
@@ -40,7 +41,7 @@ func SetLike(title: String!, uuid: String! , Btn: UIButton, Lbl:UIButton, CellPo
         
         Btn.setTitle("like", for: .normal)
         Btn.setBackgroundImage(UIImage(named: "Heart 2.png"), for: .normal)
-        print(Lbl.currentTitle)
+        //print(Lbl.currentTitle)
         //Lbl.setTitle("\(Int(Lbl.currentTitle!)! + 1)", forState: .Normal)
         
     } else {
@@ -69,7 +70,7 @@ func SetLike(title: String!, uuid: String! , Btn: UIButton, Lbl:UIButton, CellPo
 
 class postCell: UITableViewCell {
 
-
+var thisPost = Post()
     
     
     @IBOutlet weak var avaImg: UIImageView!
@@ -115,167 +116,13 @@ class postCell: UITableViewCell {
         picImg.isUserInteractionEnabled = true
         picImg.addGestureRecognizer(selectTap)
         
-        
-//        // alignment
-//        let width = UIScreen.mainScreen().bounds.width
-//        
-//        // allow constraints
-//        avaImg.translatesAutoresizingMaskIntoConstraints = false
-//        usernameBtn.translatesAutoresizingMaskIntoConstraints = false
-//        dateLbl.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        picImg.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        likeBtn.translatesAutoresizingMaskIntoConstraints = false
-//        commentBtn.translatesAutoresizingMaskIntoConstraints = false
-//        moreBtn.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        likeLbl.translatesAutoresizingMaskIntoConstraints = false
-//        titleLbl.translatesAutoresizingMaskIntoConstraints = false
-//        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        let pictureWidth = width - 20
-//        
-//        // constraints
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-5-[ava(30)]-10-[pic(\(pictureWidth))]-5-[like(30)]",
-//            options: [], metrics: nil, views: ["ava":avaImg, "pic":picImg, "like":likeBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-10-[username]",
-//            options: [], metrics: nil, views: ["username":usernameBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-10-[comment]",
-//            options: [], metrics: nil, views: ["pic":picImg, "comment":commentBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-10-[date]",
-//            options: [], metrics: nil, views: ["date":dateLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[like]-5-[title]-5-|",
-//            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-5-[more]",
-//            options: [], metrics: nil, views: ["pic":picImg, "more":moreBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-10-[likes]",
-//            options: [], metrics: nil, views: ["pic":picImg, "likes":likeLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-10-[ava(30)]-10-[username]-10-|",
-//            options: [], metrics: nil, views: ["ava":avaImg, "username":usernameBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-10-[pic]-10-|",
-//            options: [], metrics: nil, views: ["pic":picImg]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-15-[like(30)]-10-[likes]-20-[comment]",
-//            options: [], metrics: nil, views: ["like":likeBtn, "likes":likeLbl, "comment":commentBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:[more]-15-|",
-//            options: [], metrics: nil, views: ["more":moreBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-15-[title]-15-|",
-//            options: [], metrics: nil, views: ["title":titleLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|[date]-10-|",
-//            options: [], metrics: nil, views: ["date":dateLbl]))
-//        
-//    
-//        
-//        // round ava
-//        avaImg.layer.cornerRadius = avaImg.frame.size.width / 2
-//        avaImg.clipsToBounds = true
-        
-        // alignment
-        let width = UIScreen.main.bounds.width
+
         
         
-//       LayoutLbl.translatesAutoresizingMaskIntoConstraints = false
-//        monthLbl.translatesAutoresizingMaskIntoConstraints = false
-//        FinishLbl.translatesAutoresizingMaskIntoConstraints = false
-//       colorLbl1.translatesAutoresizingMaskIntoConstraints = false
-//       colorLbl2.translatesAutoresizingMaskIntoConstraints = false
-//      colorLbl3.translatesAutoresizingMaskIntoConstraints = false
-//        connectBtn.translatesAutoresizingMaskIntoConstraints = false
         
-//        // allow constraints
-//        avaImg.translatesAutoresizingMaskIntoConstraints = false
-//        usernameBtn.translatesAutoresizingMaskIntoConstraints = false
-//        dateLbl.translatesAutoresizingMaskIntoConstraints = false
-//        
-//    picImg.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        likeBtn.translatesAutoresizingMaskIntoConstraints = false
-//        //commentBtn.translatesAutoresizingMaskIntoConstraints = false
-//        moreBtn.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        likeLbl.translatesAutoresizingMaskIntoConstraints = false
-//        titleLbl.translatesAutoresizingMaskIntoConstraints = false
-//        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        let pictureWidth = width
-//        
-//        // constraints
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-10-[ava(30)]-10-[pic(\(pictureWidth))]-5-[like(30)]",
-//            options: [], metrics: nil, views: ["ava":avaImg, "pic":picImg, "like":likeBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-10-[username]",
-//            options: [], metrics: nil, views: ["username":usernameBtn]))
-//        
-////        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-////            "V:[pic]-5-[comment(30)]",
-////            options: [], metrics: nil, views: ["pic":picImg, "comment":commentBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-15-[date]",
-//            options: [], metrics: nil, views: ["date":dateLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[like]-5-[title]-5-|",
-//            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-5-[more(30)]",
-//            options: [], metrics: nil, views: ["pic":picImg, "more":moreBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-10-[likes]",
-//            options: [], metrics: nil, views: ["pic":picImg, "likes":likeLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-10-[ava(30)]-10-[username]",
-//            options: [], metrics: nil, views: ["ava":avaImg, "username":usernameBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-0-[pic]-0-|",
-//            options: [], metrics: nil, views: ["pic":picImg]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-15-[like(30)]-10-[likes]",
-//            options: [], metrics: nil, views: ["like":likeBtn, "likes":likeLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:[more(30)]-15-|",
-//            options: [], metrics: nil, views: ["more":moreBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-15-[title]-15-|",
-//            options: [], metrics: nil, views: ["title":titleLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|[date]-10-|",
-//            options: [], metrics: nil, views: ["date":dateLbl]))
+        //let self = tableView.dequeueReusableselfWithIdentifier("self", forIndexPath:         
+        
+
         
         // round ava
         avaImg.layer.cornerRadius = 4.0
@@ -346,7 +193,7 @@ class postCell: UITableViewCell {
 
     func selectTap(){
         if let st = uuidLbl.text as String! {
-            segueDelegate.goToPost(uuid: st)
+            segueDelegate.goToPost(thisPost: thisPost)
             //segueDelegateUser.goToProfile("aa")
         }
     }
@@ -367,7 +214,7 @@ class postCell: UITableViewCell {
     
     
     
-    @IBAction func likeBtn_clicked(sender: UIButton) {
+    @IBAction func likeBtn_clicked(_ sender: UIButton) {
         // declare title of button
         let title = sender.title(for: .normal)
         let buttonRow = sender.tag

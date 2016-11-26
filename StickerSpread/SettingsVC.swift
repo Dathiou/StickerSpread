@@ -43,6 +43,8 @@ class SettingsVC: UIViewController {
         hideTap.numberOfTapsRequired = 1
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
 
     }
     

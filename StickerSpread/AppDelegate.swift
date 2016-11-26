@@ -18,9 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     var locationManager: CLLocationManager?
     var coordinate: CLLocationCoordinate2D?
-    //let APP_ID = "BADDD42C-3E07-A223-FF5F-20C0E7934700"
-    //let SECRET_KEY = "601848B1-12F3-7D05-FF31-770C359B0800"
-    //let VERSION_NUM = "v1"
 
     var window: UIWindow?
     
@@ -29,35 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-       
-        // If you plan to use Backendless Media Service, uncomment the following line (iOS ONLY!)
-        // backendless.mediaService = MediaService()
-     
-        
-        
-        
-        
-        //let configuration = ParseClientConfiguration {
-        //    $0.applicationId = "y7yHA6fQwxhktMAkFntZdnFDvjW6HTGzKnJMEsOl"
-        //    $0.server = "http://N9xwixCfHmxgucpHvFNPUzA48XkynlRDWY8vt7aW:1337/parse"
-        //}
         Parse.enableLocalDatastore()
         Parse.setApplicationId("y7yHA6fQwxhktMAkFntZdnFDvjW6HTGzKnJMEsOl",clientKey:"N9xwixCfHmxgucpHvFNPUzA48XkynlRDWY8vt7aW")
         
         FIRApp.configure()
           FIRDatabase.database().persistenceEnabled = true
-       // Parse.initializeWithConfiguration(configuration)        // Override point for customization after application launch.
-        
-//        let testObject = PFObject(className: "TestObject")
-//        testObject["foo"] = "bar"
-//        testObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-//            print("Object has been saved.")
-//        }
+
         return true
     }
-//    private func application(application: UIApplication, openURL url: URL, sourceApplication: String?, annotation: AnyObject) -> Bool{
-//        return FBSDKApplicationDelegate.sharedInstance().application(application, open: url as URL!, sourceApplication: sourceApplication, annotation: annotation)
-//    }
+
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
         return FBSDKApplicationDelegate.sharedInstance()

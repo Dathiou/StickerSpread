@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseDatabase
 import Firebase
-import Parse
+
 
 //------Constants--------\\
 public let kAVATARSTATE = "avatarState"
@@ -25,12 +25,10 @@ var firebase = FIRDatabase.database().reference()
 
 //MARK: Create Chatroom
 
-func startChat(user1: PFUser, user2: PFUser) -> String {
+func startChat(userId1: String, userId2: String) -> String {
 
     //user 1 is current user
-    let userId1: String = user1.username!
-    let userId2: String = user2.username!
-    
+
     
     var chatRoomId: String = ""
     
@@ -45,8 +43,8 @@ func startChat(user1: PFUser, user2: PFUser) -> String {
     let members = [userId1, userId2]
     
     //create recent
-    CreateRecent(userId: userId1, chatRoomID: chatRoomId, members: members, withUserUsername: user2.username!, withUseruserId: userId2)
-    CreateRecent(userId: userId2, chatRoomID: chatRoomId, members: members, withUserUsername: user1.username!, withUseruserId: userId1)
+    CreateRecent(userId: userId1, chatRoomID: chatRoomId, members: members, withUserUsername: userId1, withUseruserId: userId2)
+    CreateRecent(userId: userId2, chatRoomID: chatRoomId, members: members, withUserUsername: userId2, withUseruserId: userId1)
     
     return chatRoomId
 }
@@ -64,7 +62,7 @@ func CreateRecent(userId: String, chatRoomID: String, members: [String], withUse
         //check if we have a result
         if snapshot.exists() {
             for recent in (snapshot.value! as AnyObject).allValues {
-                
+                print(recent)
               //  print (recent["userId"])
                 //if we already have recent with passed userId, we dont create a new one
                 //let a = recent.objectForKey(["userId"]) as? String
@@ -85,7 +83,7 @@ func CreateRecent(userId: String, chatRoomID: String, members: [String], withUse
 
 func CreateRecentItem(userId: String, chatRoomID: String, members: [String], withUserUsername: String, withUserUserId: String) {
     
-    let ref = firebase.child("Recent").childByAutoId()
+    let ref = firebase.child("Recent").child(userId).childByAutoId()
     
     let recentId = ref.key
     let date = dateFormatter().string(from: NSDate() as Date)
@@ -121,7 +119,7 @@ func UpdateRecentItem(recent: NSDictionary, lastMessage: String) {
     
     var counter = recent["counter"] as! Int
     
-    if recent["userId"] as? String != PFUser.current()!.username {        counter += 1
+    if recent["userId"] as? String != FIRAuth.auth()?.currentUser?.uid {        counter += 1
     }
     
     let values = ["lastMessage" : lastMessage, "counter" : counter, "date" : date] as [String : Any]
@@ -142,9 +140,9 @@ func RestartRecentChat(recent: NSDictionary) {
     
     for userId in recent["members"] as! [String] {
         
-        if userId != PFUser.current()!.username {
+        if userId != FIRAuth.auth()?.currentUser?.uid {
             
-            CreateRecent(userId: userId, chatRoomID: (recent["chatRoomID"] as? String)!, members: recent["members"] as! [String], withUserUsername: PFUser.current()!.username! , withUseruserId: PFUser.current()!.username! )
+            CreateRecent(userId: userId, chatRoomID: (recent["chatRoomID"] as? String)!, members: recent["members"] as! [String], withUserUsername: (FIRAuth.auth()?.currentUser?.uid)!, withUseruserId: (FIRAuth.auth()?.currentUser?.uid)! )
         }
     }
 }
@@ -160,30 +158,30 @@ func DeleteRecentItem(recent: NSDictionary) {
     }
 }
 
-////MARK: Clear recent counter function
-//
-//func ClearRecentCounter(chatRoomID: String) {
-//    firebase.child("Recent").queryOrderedByChild("chatRoomID").queryEqualToValue(chatRoomID).observeSingleEventOfType(.Value, withBlock: {
-//        snapshot in
-//      
-//        if snapshot.exists() {
-//            for recent in snapshot.value!.allValues {
-//                if recent.objectForKey("userId") as? String == backendless.userService.currentUser.objectId {
-//                    ClearRecentCounterItem(recent as! NSDictionary)
-//                }
-//            }
-//        }
-//    })
-//}
-//
-//func ClearRecentCounterItem(recent: NSDictionary) {
-//    
-//    firebase.child("Recent").child((recent["recentId"] as? String)!).updateChildValues(["counter" : 0]) { (error, ref) -> Void in
-//        if error != nil {
-//            print("Error couldnt update recents counter: \(error!.localizedDescription)")
-//        }
-//    }
-//}
+//MARK: Clear recent counter function
+
+func ClearRecentCounter(chatRoomID: String) {
+    firebase.child("Recent").queryOrdered(byChild: "chatRoomID").queryEqual(toValue: chatRoomID).observeSingleEvent(of: .value, with: {
+        snapshot in
+      
+        if snapshot.exists() {
+            for recent in (snapshot.value! as AnyObject).allValues {
+                if (recent as AnyObject).object(forKey:"userId") as? String == FIRAuth.auth()?.currentUser?.uid {
+                    ClearRecentCounterItem(recent: recent as! NSDictionary)
+                }
+            }
+        }
+    })
+}
+
+func ClearRecentCounterItem(recent: NSDictionary) {
+    
+    firebase.child("Recent").child((recent["recentId"] as? String)!).updateChildValues(["counter" : 0]) { (error, ref) -> Void in
+        if error != nil {
+            print("Error couldnt update recents counter: \(error!.localizedDescription)")
+        }
+    }
+}
 
 
 //MARK: Helper functions

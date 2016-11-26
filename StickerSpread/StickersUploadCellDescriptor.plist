@@ -35,30 +35,30 @@
 			<key>secondaryTitle</key>
 			<string></string>
 			<key>cellIdentifier</key>
-			<string>idFieldUpload</string>
+			<string>idTitleUpload</string>
 			<key>additionalRows</key>
 			<integer>0</integer>
 		</dict>
 	</array>
 	<array>
-        <dict>
-            <key>isExpandable</key>
-            <true/>
-            <key>isExpanded</key>
-            <false/>
-            <key>isVisible</key>
-            <true/>
-            <key>value</key>
-            <string></string>
-            <key>primaryTitle</key>
-            <string></string>
-            <key>secondaryTitle</key>
-            <string>Shop*:</string>
-            <key>cellIdentifier</key>
-            <string>idCellNormal</string>
-            <key>additionalRows</key>
-            <integer>1</integer>
-        </dict>
+		<dict>
+			<key>isExpandable</key>
+			<true/>
+			<key>isExpanded</key>
+			<false/>
+			<key>isVisible</key>
+			<true/>
+			<key>value</key>
+			<string></string>
+			<key>primaryTitle</key>
+			<string></string>
+			<key>secondaryTitle</key>
+			<string>Shop*:</string>
+			<key>cellIdentifier</key>
+			<string>idCellNormal</string>
+			<key>additionalRows</key>
+			<integer>1</integer>
+		</dict>
 		<dict>
 			<key>isExpandable</key>
 			<false/>
@@ -70,8 +70,6 @@
 			<string></string>
 			<key>primaryTitle</key>
 			<string>Shop*:</string>
-			<key>isLast</key>
-			<true/>
 			<key>secondaryTitle</key>
 			<string></string>
 			<key>cellIdentifier</key>
@@ -245,8 +243,8 @@
 			<key>additionalRows</key>
 			<integer>0</integer>
 		</dict>
-        </array>
-        <array>
+	</array>
+	<array>
 		<dict>
 			<key>oneCheck</key>
 			<false/>

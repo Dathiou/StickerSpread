@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,13 +36,13 @@
                         </constraints>
                         <state key="normal" image="Heart 1.png"/>
                         <connections>
-                            <action selector="likeBtn_clicked:" destination="Gbp-rJ-5cO" eventType="touchUpInside" id="uHs-Dg-aCL"/>
+                            <action selector="likeBtn_clicked:" destination="Gbp-rJ-5cO" eventType="touchUpInside" id="1z5-wn-Bjm"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBx-h7-W42">
                         <state key="normal" title="9"/>
                         <connections>
-                            <action selector="likeLblBtn_click" destination="Gbp-rJ-5cO" eventType="touchUpInside" id="vh1-uJ-lci"/>
+                            <action selector="likeLblBtn_click:" destination="Gbp-rJ-5cO" eventType="touchUpInside" id="NYY-Yq-sEY"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day Dream Kit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-cP-pwu">
@@ -49,14 +50,29 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Gold Flag 1.png" translatesAutoresizingMaskIntoConstraints="NO" id="FIr-fn-3Eg">
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="FIr-fn-3Eg" secondAttribute="height" multiplier="110:43" id="lan-3j-90R"/>
+                        </constraints>
+                    </imageView>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="UFG" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yNg-XD-OUu">
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                 </subviews>
             </view>
             <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
             <constraints>
                 <constraint firstItem="lBx-h7-W42" firstAttribute="centerY" secondItem="XzD-NS-pFr" secondAttribute="centerY" id="4Vz-Z8-elE"/>
                 <constraint firstItem="Maz-cP-pwu" firstAttribute="leading" secondItem="lBx-h7-W42" secondAttribute="trailing" constant="23" id="4qj-Rf-Fgj"/>
+                <constraint firstItem="FIr-fn-3Eg" firstAttribute="bottom" secondItem="hBO-lM-8Y5" secondAttribute="bottom" constant="-25" id="8IF-Vb-jnP"/>
+                <constraint firstItem="yNg-XD-OUu" firstAttribute="centerY" secondItem="FIr-fn-3Eg" secondAttribute="centerY" id="8bE-71-HhP"/>
                 <constraint firstItem="hBO-lM-8Y5" firstAttribute="leading" secondItem="Gbp-rJ-5cO" secondAttribute="leading" id="BaF-Ng-Mfc"/>
                 <constraint firstItem="hBO-lM-8Y5" firstAttribute="width" secondItem="Gbp-rJ-5cO" secondAttribute="width" id="FFr-Wy-Dgc"/>
+                <constraint firstItem="hBO-lM-8Y5" firstAttribute="trailing" secondItem="FIr-fn-3Eg" secondAttribute="trailing" id="O0g-kH-J5o"/>
+                <constraint firstItem="FIr-fn-3Eg" firstAttribute="height" secondItem="hBO-lM-8Y5" secondAttribute="height" multiplier="0.1" id="QS7-tZ-fMx"/>
+                <constraint firstItem="yNg-XD-OUu" firstAttribute="trailing" secondItem="FIr-fn-3Eg" secondAttribute="trailing" id="UoX-vl-GMQ"/>
                 <constraint firstAttribute="trailing" secondItem="hBO-lM-8Y5" secondAttribute="trailing" id="Uuo-rk-Wrf"/>
                 <constraint firstItem="hBO-lM-8Y5" firstAttribute="top" secondItem="Gbp-rJ-5cO" secondAttribute="top" id="XNc-iP-DaA"/>
                 <constraint firstItem="Maz-cP-pwu" firstAttribute="leading" secondItem="lBx-h7-W42" secondAttribute="trailing" constant="-16" id="ZXI-ub-Ecl"/>
@@ -72,16 +88,19 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="Flag" destination="FIr-fn-3Eg" id="rlM-5C-jlC"/>
                 <outlet property="LikeLbl" destination="lBx-h7-W42" id="ayF-41-wgz"/>
-                <outlet property="likeBtn" destination="XzD-NS-pFr" id="HJs-Nu-Elh"/>
+                <outlet property="UFG" destination="yNg-XD-OUu" id="TfO-0W-2E6"/>
+                <outlet property="likeBtn" destination="XzD-NS-pFr" id="z7g-Sf-viD"/>
                 <outlet property="picImg1" destination="hBO-lM-8Y5" id="B6H-Yu-yk8"/>
                 <outlet property="titleLbl" destination="Maz-cP-pwu" id="8nM-fC-YTY"/>
                 <outlet property="uuidLbl" destination="vQe-mL-Ig5" id="sTz-V2-Kup"/>
             </connections>
-            <point key="canvasLocation" x="467.5" y="738.5"/>
+            <point key="canvasLocation" x="113.5" y="690.5"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="Gold Flag 1.png" width="765" height="379"/>
         <image name="Heart 1.png" width="800" height="800"/>
     </resources>
 </document>

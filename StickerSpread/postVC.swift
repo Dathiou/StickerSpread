@@ -12,8 +12,12 @@ import Firebase
 
 var postuuid = [String]()
 
+protocol startChatProtocol{
+   func startChatProt(toUser: String)
+}
 
-class postVC: UITableViewController, segueTo {
+
+class postVC: UITableViewController, segueTo,startChatProtocol {
     
     var refresher = UIRefreshControl()
     
@@ -22,19 +26,21 @@ class postVC: UITableViewController, segueTo {
     var modeSelf = false
     // arrays to hold information from server
     //var avaArray = [PFFile]()
-    var avaArray = [UIImage]()
-    var usernameArray = [String]()
-    var nameArray = [String]()
-    var dateArray = [Date]()
-    //var picArray = [PFFile]()
-    var picArray = [UIImage]()
-    var uuidArray = [String]()
-    var titleArray = [String]()
-    var finish = String()
-    var Month = String()
-    var Color = [String]()
-    var Layout = String()
-    var UFG = String()
+//    var avaArray = [UIImage]()
+//    var usernameArray = [String]()
+//    var nameArray = [String]()
+//    var dateArray = [Date]()
+//    //var picArray = [PFFile]()
+//    var picArray = [UIImage]()
+//    var uuidArray = [String]()
+//    var titleArray = [String]()
+//    var finish = String()
+//    var Month = String()
+//    var Color = [String]()
+//    var Layout = String()
+//    var UFG = String()
+    
+    var myPost = Post()
     
     
     // default func
@@ -42,7 +48,7 @@ class postVC: UITableViewController, segueTo {
         super.viewDidLoad()
         
         // title label at the top
-        self.navigationItem.title = "PHOTO"
+        self.navigationItem.title = "Post"
         
         //        // new back button
         //        self.navigationItem.hidesBackButton = true
@@ -54,7 +60,7 @@ class postVC: UITableViewController, segueTo {
         
         
         // pull to refresh
-        refresher.addTarget(self, action: #selector(postVC.loadPostInfo), for: UIControlEvents.valueChanged)
+        refresher.addTarget(self, action: #selector(postVC.loadAdditionalInfo(uuid:)), for: UIControlEvents.valueChanged)
         tableView.addSubview(refresher)
         
         
@@ -67,7 +73,8 @@ class postVC: UITableViewController, segueTo {
         backSwipe.direction = UISwipeGestureRecognizerDirection.right
         self.view.addGestureRecognizer(backSwipe)
         
-        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 800
         
         // swipe to go back
         //        let backSwipe = UISwipeGestureRecognizer(target: self, action: "back:")
@@ -78,6 +85,7 @@ class postVC: UITableViewController, segueTo {
         
 
         tableView.register(UINib(nibName: "postSelected", bundle: nil), forCellReuseIdentifier: "idPostSelectedCell")
+        //tableView.reloadData()
         // dynamic cell heigth
 //        tableView.rowHeight = UITableViewAutomaticDimension
 //        tableView.estimatedRowHeight = 800
@@ -85,184 +93,30 @@ class postVC: UITableViewController, segueTo {
         
         //let r = postuuidArray.last!
         
-        loadPostInfo()
+        //loadPostInfo()
+        loadAdditionalInfo(uuid: myPost.uuid!)
         
     }
-    
-    func loadPostInfo(){
-        firebase.child("Posts").child(postuuid.last!).queryOrdered(byChild: "date").observe(.value, with: { snapshot in
-            
-            // clean up
-            self.usernameArray.removeAll(keepingCapacity: false)
-            self.nameArray.removeAll(keepingCapacity: false)
-            self.avaArray.removeAll(keepingCapacity: false)
-            self.dateArray.removeAll(keepingCapacity: false)
-            self.picArray.removeAll(keepingCapacity: false)
-            //self.picArraySearch.removeAll(keepCapacity: false)
-            self.titleArray.removeAll(keepingCapacity: false)
-            self.uuidArray.removeAll(keepingCapacity: false)
+    func loadAdditionalInfo(uuid : String){
+        firebase.child("Posts").child(uuid).queryOrdered(byChild: "date").observe(.value, with: { snapshot in
             
             if snapshot.exists() {
+        
+                    self.myPost.Layout = ((snapshot.value! as AnyObject).value(forKey:"Layout") as? String)!
+                    self.myPost.Finish = ((snapshot.value! as AnyObject).value(forKey:"Finish") as? String)!
+                    self.myPost.Month = ((snapshot.value! as AnyObject).value(forKey:"Month") as? String)!
+                    self.myPost.Grab = ((snapshot.value! as AnyObject).value(forKey:"Grab") as? String)!
+                    self.myPost.Color = ((snapshot.value! as AnyObject).value(forKey:"Color") as? String)!.components(separatedBy: ",")
+                self.tableView.reloadData()
                 
-                //sorted = (snapshot.value!.allValues as NSArray).sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: false)])
-                //for post in snapshot.children{
-                let k = snapshot.key
-                
-                let userID = (snapshot.value! as AnyObject).value(forKey:"userID") as! String
-                //let datestring = post.value.objectForKey("date") as! String
-                if let datestring = (snapshot.value! as AnyObject).value(forKey:"date") as? String{
-                    var dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-                    let date = dateFormatter.date(from: datestring)
-                    self.dateArray.append(date! as Date)
-                    //  }
-                    self.usernameArray.append(userID )
-                    
-                    self.titleArray.append((snapshot.value! as AnyObject).value(forKey:"title") as! String)
-                    self.uuidArray.append(snapshot.key as String!)
-                    
-                    self.Layout = ((snapshot.value! as AnyObject).value(forKey:"Layout") as? String)!
-                    self.finish = ((snapshot.value! as AnyObject).value(forKey:"Finish") as? String)!
-                    self.Month = ((snapshot.value! as AnyObject).value(forKey:"Month") as? String)!
-                    self.UFG = ((snapshot.value! as AnyObject).value(forKey:"Grab") as? String)!
-                    self.Color = ((snapshot.value! as AnyObject).value(forKey:"Color") as? String)!.components(separatedBy: ",")
-                    
-                    firebase.child("Users").child(userID).observe(.value, with: { snapshot1 in
-                        
-                        objc_sync_enter(self.nameArray)
-                        let first = ((snapshot1.value! as AnyObject).value(forKey:"first_name") as? String)
-                        let last = ((snapshot1.value! as AnyObject).value(forKey:"last_name") as? String)
-                        
-                        let fullname = first!+" "+last!
-                        self.nameArray.append(fullname)
-                        
+            }
 
-                        
-                        let avaURL = ((snapshot1.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
-                        let url = NSURL(string: avaURL)
-                        if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                            self.avaArray.append(UIImage(data: data as Data) as UIImage!)
-                            objc_sync_exit(self.nameArray)
-                            
-                            // let i = snapshot.value!.objectForKey("photoUrl") as! String
-                            
-                            self.storage.reference(forURL:(snapshot.value!  as AnyObject).value(forKey:"photoUrl") as! String).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
-                                let image = UIImage(data: data!)
-                                
-                                objc_sync_enter(self.usernameArray)
-                                self.picArray.append(image! as! UIImage)
-                                objc_sync_exit(self.usernameArray)
-                                //self.tableView.reloadData()
-                                //self.scrollToBottom()
-                                
-                                DispatchQueue.main.async{
-                                    self.tableView.reloadData()
-                                    // self.collectionView.reloadData()
-                                    
-                                    self.refresher.endRefreshing()
-                                }
-                            })
-                            
-                        }
-                        
-                        // self.avaArray.append(snapshot.value!.objectForKey("ava") as! String)
-                        
-                        //self.picArray.append(snapshot.value!.objectForKey("pic") as! String)
-                        //self.picArraySearch.append(object.objectForKey("pic") as! PFFile)
-                        
-                        
-                        //self.comments.append(snapshot)
-                        //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
-                        }
-                        
-                    ){ (error) in
-                        print(error.localizedDescription)
-                    }
-                    
-                    
-                }}
-            
-            
-            
-            
-            
-            
-            //self.comments.append(snapshot)
-            //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
         }){ (error) in
             print(error.localizedDescription)
         }
-        
-        
-        
-        
-        //
-        //        let postQuery = PFQuery(className: "posts")
-        //        postQuery.whereKey("uuid", equalTo: postuuid.last!)
-        //        postQuery.findObjectsInBackgroundWithBlock ({ (objects:[PFObject]?, error:NSError?) -> Void in
-        //            if error == nil {
-        //
-        //                // clean up
-        //                self.avaArray.removeAll(keepCapacity: false)
-        //                self.usernameArray.removeAll(keepCapacity: false)
-        //                self.nameArray.removeAll(keepCapacity: false)
-        //                self.dateArray.removeAll(keepCapacity: false)
-        //                self.picArray.removeAll(keepCapacity: false)
-        //                self.uuidArray.removeAll(keepCapacity: false)
-        //                self.titleArray.removeAll(keepCapacity: false)
-        //
-        //                // find related objects
-        //                for object in objects! {
-        //
-        //                    self.avaArray.append(object.valueForKey("ava") as! PFFile)
-        //                    self.usernameArray.append(object.valueForKey("username") as! String)
-        //                    self.dateArray.append(object.createdAt)
-        //                    self.picArray.append(object.valueForKey("pic") as! PFFile)
-        //                    self.uuidArray.append(object.valueForKey("uuid") as! String)
-        //                    self.titleArray.append(object.valueForKey("title") as! String)
-        //
-        //                    let usernmae = object.valueForKey("username") as! String
-        //                    let infoQuery = PFQuery(className: "_User")
-        //                    infoQuery.whereKey("username", equalTo: usernmae)
-        //                    infoQuery.findObjectsInBackgroundWithBlock ({ (objects1:[PFObject]?, error:NSError?) -> Void in
-        //                        if error == nil {
-        //
-        //                            // shown wrong user
-        //                            if objects1!.isEmpty {
-        //                                // call alert
-        //                                let alert = UIAlertController(title: "\(guestname.last!.uppercaseString)", message: "is not existing", preferredStyle: UIAlertControllerStyle.Alert)
-        //                                let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) -> Void in
-        //                                    self.navigationController?.popViewControllerAnimated(true)
-        //                                })
-        //                                alert.addAction(ok)
-        //                                self.presentViewController(alert, animated: true, completion: nil)
-        //                            }
-        //
-        //                            // find related to user information
-        //                            for object1 in objects1! {
-        //
-        //
-        //
-        //                                // get users data with connections to columns of PFUser class
-        //                                let first = (object1.objectForKey("first_name") as? String)
-        //                                let last = (object1.objectForKey("last_name") as? String)
-        //
-        //                                let fullname = first!+" "+last!
-        //                                self.nameArray.append(fullname)
-        //
-        //
-        //                            }
-        //
-        //              self.tableView.reloadData()
-        //                }
-        //                        })
-        //
-        //            }
-        //
-        //        }
-        //        })
-
     }
+    
+
     
     // refreshing function
     func refresh() {
@@ -271,19 +125,24 @@ class postVC: UITableViewController, segueTo {
     
     
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.size.height
-    }
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.view.frame.size.height
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return self.view.frame.size.height
+//    }
+//    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return self.view.frame.size.height
+//    }
 
     
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return usernameArray.count
+        if myPost.Layout != nil{
+            return 1
+        } else {
+            return 0
+        }
+        
     }
     
 
@@ -296,73 +155,58 @@ class postVC: UITableViewController, segueTo {
         //cell.segueDelegate = self
         //cell.backgroundColor = UIColor.clearColor()
         // connect objects with our information from arrays
-        cell.usernameBtn.setTitle(nameArray[indexPath.row], for: UIControlState.normal)
-        cell.postAuthorID = usernameArray[indexPath.row]
+        cell.delegate = self
         cell.segueDelegate = self
-        cell.usernameBtn.sizeToFit()
-        cell.uuidLbl.text = self.uuidArray[indexPath.row]
-        cell.titleLbl.text = self.titleArray[indexPath.row]
-        cell.titleLbl.sizeToFit()
-        cell.usernameHidden.setTitle(usernameArray[indexPath.row], for: UIControlState.normal)
-        cell.LayoutLbl.text = Layout
-        cell.FinishLbl.text = finish
-        cell.monthLbl.text = Month
-        cell.colorLbl1.text = Color[0]
         
-        if self.Color.count == 2 {
-            cell.colorLbl2.text = Color[1]
-        } else if self.Color.count == 3 {
-            cell.colorLbl2.text = Color[1]
-            cell.colorLbl3.text = Color[2]
+        cell.myPost = myPost
+        
+        
+        cell.usernameBtn.setTitle(myPost.NameAuthor, for: UIControlState.normal)
+        cell.postAuthorID = myPost.UserID!//usernameArray[indexPath.row]
+        
+        cell.usernameBtn.sizeToFit()
+        cell.uuidLbl.text = myPost.uuid//cell.uuidArray[indexPath.row]
+        cell.titleLbl.text = myPost.title//cell.titleArray[indexPath.row]
+        cell.titleLbl.sizeToFit()
+        cell.usernameHidden.setTitle(myPost.uuid, for: UIControlState.normal)
+        cell.LayoutLbl.text = myPost.Layout
+        cell.FinishLbl.text = myPost.Finish
+        cell.monthLbl.text = myPost.Month
+        cell.colorLbl1.text = myPost.Color[0]
+        
+        //cell.avaImg.loadImageUsingCacheWithUrlString(urlString: thisPost.profUrl!)
+        
+        cell.ConnectImage.loadImageUsingCacheWithUrlString(urlString: myPost.profUrl!)
+        cell.ContactName.text = myPost.NameAuthor
+        
+        if myPost.uuid == FIRAuth.auth()?.currentUser?.uid {
+            cell.ConnectView.isHidden = true
+        } else {
+            cell.ConnectView.isHidden = false
         }
         
-        if self.UFG == "Not Available"{
+        if myPost.Color.count == 2 {
+            cell.colorLbl2.text = myPost.Color[1]
+        } else if myPost.Color.count == 3 {
+            cell.colorLbl2.text = myPost.Color[1]
+            cell.colorLbl3.text = myPost.Color[2]
+        }
+        
+        if myPost.Grab == "Not Available"{
             cell.Flag.isHidden = true
             cell.UFG.isHidden = true
         }
-        
-        
-        
-        
-        //        // place profile picture
-        //        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-        //            cell.avaImg.image = UIImage(data: data!)
-        //        }
-        cell.avaImg.image = avaArray[indexPath.row]
-        //        // place post picture
-        //        picArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
-        //            cell.picImg.image = UIImage(data: data!)
-        //        }
-        cell.picImg.image = picArray[indexPath.row]
+
+        cell.avaImg.loadImageUsingCacheWithUrlString(urlString: myPost.profUrl!)
+        cell.picImg.loadImageUsingCacheWithUrlString(urlString: myPost.photoURL!)
         
         
         // calculate post date
-        let from = dateArray[indexPath.row]
+        let from = myPost.date
         let now = NSDate()
         let components = Set<Calendar.Component>([.second, .minute, .hour, .day, .weekOfMonth])
-        let difference = Date().offset(from: from)//NSCalendar.current.//dateComponents(components, from: from!, to: now)
-        
-//        // logic what to show: seconds, minuts, hours, days or weeks
-//        if difference.second <= 0 {
-//            cell.dateLbl.text = "now"
-//        }
-//        if difference.second > 0 && difference.minute == 0 {
-//            cell.dateLbl.text = "\(difference.second)s."
-//        }
-//        if difference.minute > 0 && difference.hour == 0 {
-//            cell.dateLbl.text = "\(difference.minute)m."
-//        }
-//        if difference.hour > 0 && difference.day == 0 {
-//            cell.dateLbl.text = "\(difference.hour)h."
-//        }
-//        if difference.day > 0 && difference.weekOfMonth == 0 {
-//            cell.dateLbl.text = "\(difference.day)d."
-//        }
-//        if difference.weekOfMonth > 0 {
-//            cell.dateLbl.text = "\(difference.weekOfMonth)w."
-//        }
-    
-        
+        let difference = Date().offset(from: from!)//NSCalendar.current.//dateComponents(components, from: from!, to: now)
+
         getLikeState(string: cell.uuidLbl.text! , Btn: cell.likeBtn)
         getLikeCount(string: cell.uuidLbl.text! , Lbl : cell.LikeLbl)
         
@@ -373,6 +217,18 @@ class postVC: UITableViewController, segueTo {
         cell.moreBtn.layer.setValue(indexPath, forKey: "index")
         
         return cell
+    }
+    
+    func startChatProt(toUser: String){
+        let chatVC = ChatViewController()
+        //chatVC.hidesBottomBarWhenPushed = true
+        self.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(chatVC, animated: true)
+        //chatVC.withUserIDProfPicUrl =
+        chatVC.withUserID = toUser
+        chatVC.from = "FeedVC"
+        chatVC.chatRoomId = startChat(userId1: (FIRAuth.auth()?.currentUser?.uid)!, userId2: toUser)
+        //chreatChatroom(withUser: toUser)
     }
     
     
@@ -565,14 +421,15 @@ class postVC: UITableViewController, segueTo {
         //        }
     }
     
-    func goToPost(uuid : String!){
+    func goToPost(thisPost : Post!){
         // take relevant unique id of post to load post in postVC
         
         //print (uuid)
-        postuuid.append(uuid)
+        //postuuid.append(uuid)
         
         // present postVC programmaticaly
         let post = self.storyboard?.instantiateViewController(withIdentifier: "postVC") as! postVC
+        post.myPost = thisPost
         self.navigationController?.pushViewController(post, animated: true)
         
         

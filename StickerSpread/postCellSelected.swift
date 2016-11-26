@@ -15,10 +15,15 @@ protocol segueTo{
     func goToProfile(id : String!)
     func displayLikes(uuid : String!)
 }
-
+protocol ChooseUserDelegate {
+    func chreatChatroom(withUser: String)
+}
 
 class postCellSelected: UITableViewCell {
     
+    var delegate: startChatProtocol!
+    
+    @IBOutlet weak var ContactName: UITextView!
     @IBOutlet weak var Flag: UIImageView!
     @IBOutlet weak var UFG: UITextField!
     @IBOutlet weak var LayoutLbl: UILabel!
@@ -28,13 +33,14 @@ class postCellSelected: UITableViewCell {
     @IBOutlet weak var colorLbl2: UILabel!
     @IBOutlet weak var colorLbl3: UILabel!
     
+    @IBOutlet weak var ConnectImage: UIImageView!
+    @IBOutlet weak var ConnectView: UIView!
+
     var postAuthorID = String()
     
     @IBOutlet weak var connectBtn: UIButton!
-    @IBAction func connect_click(sender: AnyObject) {
-        print("connnect click")
-    }
-    
+
+    var myPost = Post()
     var segueDelegate : segueTo!
     
     
@@ -58,6 +64,11 @@ class postCellSelected: UITableViewCell {
     //@IBOutlet weak var titleLbl: KILabel!
     @IBOutlet weak var uuidLbl: UILabel!
     
+    func connectClick(){
+        delegate.startChatProt(toUser: postAuthorID)
+
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -73,104 +84,32 @@ class postCellSelected: UITableViewCell {
                let width = UIScreen.main.bounds.width
 
         
-        //picImg.frame = CGRectMake(0, 10, width, width)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(postCellSelected.connectClick))
+        tap.delegate = self
+        ConnectView.addGestureRecognizer(tap)
+
+        ConnectImage.layer.cornerRadius = 4.0
+        ConnectImage.clipsToBounds = true
+        ConnectImage.layer.borderColor = UIColor.white.cgColor
+        ConnectImage.layer.borderWidth = 0.5
         
+
+               
         
-//               LayoutLbl.translatesAutoresizingMaskIntoConstraints = false
-//                monthLbl.translatesAutoresizingMaskIntoConstraints = false
-//                FinishLbl.translatesAutoresizingMaskIntoConstraints = false
-//               colorLbl1.translatesAutoresizingMaskIntoConstraints = false
-//               colorLbl2.translatesAutoresizingMaskIntoConstraints = false
-//              colorLbl3.translatesAutoresizingMaskIntoConstraints = false
-//                connectBtn.translatesAutoresizingMaskIntoConstraints = false
-        
-        // allow constraints
-//        avaImg.translatesAutoresizingMaskIntoConstraints = false
-//        usernameBtn.translatesAutoresizingMaskIntoConstraints = false
-//        dateLbl.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        //picImg.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        likeBtn.translatesAutoresizingMaskIntoConstraints = false
-        //commentBtn.translatesAutoresizingMaskIntoConstraints = false
-//        moreBtn.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        likeLbl.translatesAutoresizingMaskIntoConstraints = false
-//        titleLbl.translatesAutoresizingMaskIntoConstraints = false
-//        uuidLbl.translatesAutoresizingMaskIntoConstraints = false
-        
-        _ = width
-        
-        // constraints
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-10-[ava(30)]-10-[pic(\(pictureWidth))]",
-//            options: [], metrics: nil, views: ["ava":avaImg, "pic":picImg, "like":likeBtn]))
-        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-10-[username]",
-//            options: [], metrics: nil, views: ["username":usernameBtn]))
-//        
-//  
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:|-15-[date]",
-//            options: [], metrics: nil, views: ["date":dateLbl]))
-        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[like]-5-[layout]-5-[month]-5-[finish]-5-[connect]|",
-//            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl, "layout":LayoutLbl, "month": monthLbl, "finish":FinishLbl, "connect": connectBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[like]-5-[colorLbl1]-5-[colorLbl2]-5-[colorLbl3]-5-[connect]|",
-//            options: [], metrics: nil, views: ["like":likeBtn, "title":titleLbl, "colorLbl1":colorLbl1, "colorLbl2": colorLbl2, "colorLbl3":colorLbl3, "connect": connectBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-30-[layout]-20-[colorLbl1]",
-//            options: [], metrics: nil, views: [ "layout":LayoutLbl, "colorLbl1":colorLbl1]))
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-30-[month]-20-[colorLbl2]",
-//            options: [], metrics: nil, views: [ "month": monthLbl, "colorLbl2":colorLbl1]))
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-30-[finish]-20-[colorLbl3]",
-//            options: [], metrics: nil, views: [ "finish":FinishLbl, "colorLbl3":colorLbl1]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-5-[more(30)]",
-//            options: [], metrics: nil, views: ["pic":picImg, "more":moreBtn]))
-//
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "V:[pic]-10-[likes(30)]",
-//            options: [], metrics: nil, views: ["pic":picImg, "likes":likeBtn]))
-//
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-10-[ava(30)]-10-[username]",
-//            options: [], metrics: nil, views: ["ava":avaImg, "username":usernameBtn]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-0-[pic]-0-|",
-//            options: [], metrics: nil, views: ["pic":picImg]))
-        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-15-[like(30)]-10-[likes]",
-//            options: [], metrics: nil, views: ["like":likeBtn, "likes":likeLbl]))
-        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:[more(30)]-15-|",
-//            options: [], metrics: nil, views: ["more":moreBtn]))
-        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|-15-[title]-15-|",
-//            options: [], metrics: nil, views: ["title":titleLbl]))
-//        
-//        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-//            "H:|[date]-10-|",
-//            options: [], metrics: nil, views: ["date":dateLbl]))
-        
-        // round ava
+                // round ava
         avaImg.layer.cornerRadius = 4.0
         avaImg.clipsToBounds = true
         avaImg.layer.borderColor = UIColor.white.cgColor
         avaImg.layer.borderWidth = 0.5
+        
+        
+//        let bgImage = avaImg
+//        
+//        bgImage?.frame = CGRect(x:0,y:0,width:10,height:10)
+//    
+//        let btn: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+//        btn.addSubview(bgImage!)
+//        //self.addSubview(btn)
         
         
     }

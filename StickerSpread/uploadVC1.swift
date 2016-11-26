@@ -31,7 +31,8 @@ protocol UploadInput{
 }
 
 protocol AddShop1{
-    func AddShop(isFirst : Bool, pos : Int)
+    func RemoveShop( pos : Int)
+    func AddShopButton(entry: String)
 }
 protocol CustomCellDelegate {
     func didEditTextField(test : String, atIndex : Int)
@@ -46,7 +47,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     
     //var visibleRows = [Int]()
     var visibleRowsPerSection = [[Int]]()
-    var myEntries = ["",""]
+    var myEntries = [""]
     
     //let ItemsStickers = ["Title*:","Shop*:","Layout*","Color*:","Months*:","Finish*:","UFG - Up For Grabs?*:"]
     
@@ -91,10 +92,12 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
         self.tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(UINib(nibName: "HeaderUpload", bundle: nil), forCellReuseIdentifier: "idHeaderUpload")
         tableView.register(UINib(nibName: "FieldUpload", bundle: nil), forCellReuseIdentifier: "idFieldUpload")
+        tableView.register(UINib(nibName: "titleUploadCell", bundle: nil), forCellReuseIdentifier: "idTitleUpload")
         
         tableView.register(UINib(nibName: "NormalCell", bundle: nil), forCellReuseIdentifier: "idCellNormal")
         tableView.register(UINib(nibName: "childCell", bundle: nil), forCellReuseIdentifier: "idChildCell")
         tableView.register(UINib(nibName: "filterButtonCell", bundle: nil), forCellReuseIdentifier: "idFilterButtonCell")
+        tableView.register(UINib(nibName: "ShopAdded", bundle: nil), forCellReuseIdentifier: "idShopAdded")
         
         zoomTap = UITapGestureRecognizer(target: self, action: Selector("zoomImg:"))
         zoomTap.numberOfTapsRequired = 1
@@ -240,8 +243,16 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             
             ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
             
-            for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).object(forKey: "additionalRows") as! Int)) {
+            for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (((cellDescriptors[indexPath.section] as! NSMutableArray).count-1))) {//object(at: indexOfTappedRow) as! NSDictionary).object(forKey: "additionalRows") as! Int)) {
+                
+                if let donotshow = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: i) as! NSDictionary).object(forKey: "DoNotShow") {
+                    if donotshow as! Bool == false {
+                        ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: i) as! NSDictionary).setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
+                    }
+                    
+                } else {
                 ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: i) as! NSDictionary).setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
+                }
             }
         } else {
             if ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfTappedRow) as! NSDictionary).object(forKey: "cellIdentifier") as! String == "idChildCell"  {
@@ -259,7 +270,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
                     let t = ((cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfParentCell) as AnyObject).value(forKey:"oneCheck") as? Bool
                     if t != nil {
                         if t == true {
-                            let additionalRows = ((cellDescriptors[indexPath.section] as! NSMutableArray).object(at: indexOfParentCell) as! NSDictionary)["additionalRows"] as! Int
+                            let additionalRows = ((cellDescriptors[indexPath.section] as! NSMutableArray).count - 1) //object(at: indexOfParentCell) as! NSDictionary)["additionalRows"] as! Int
                             //cell.SelectedOverview.text = primaryTitle as? String
                             for n in (1...additionalRows) {
                             
@@ -333,11 +344,11 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        //print(indexPath.row)
-        //print(indexPath.section)
+
         let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath: indexPath)
-        //print(currentCellDescriptor)
+        //let test = currentCellDescriptor["cellIdentifier"] as! String
+
+        
         if currentCellDescriptor["cellIdentifier"] as! String == "idHeaderUpload" {
             if self.picked == false {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "idHeaderUpload", for: indexPath as IndexPath) as! HeaderUploadCell
@@ -365,23 +376,29 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             }
             
             
-        } else if currentCellDescriptor["cellIdentifier"] as! String == "idFieldUpload" {
+        } else if currentCellDescriptor["primaryTitle"] as? String == "Shop*:" {
+            
+             if currentCellDescriptor["cellIdentifier"] as! String == "idFieldUpload" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "idFieldUpload", for: indexPath as IndexPath) as! FieldUploadCell
             //cell.backgroundColor = UIColor.clearColor()
             cell.backgroundColor = UIColor(white: 1, alpha: 0.5)
-            
+            cell.pos = indexPath.row
             //            if(indexPath.row > tableView.numberOfRowsInSection(1)){
             //                cell.Field.text = "Add Row";
             //            }
-            cell.addBtn.isHidden = true
-            if currentCellDescriptor["primaryTitle"] as? String == "Shop*:" {
+            cell.AddBtn.isHidden = true
+            cell.AddBtn.setTitleColor(UIColor.gray, for: .disabled)
+                
+                //cell.AddBtn.titleColor(for: .disabled) =
+            
                 //cell.addBtn.isHidden = false
-                cell.pos = indexPath.row
-                if indexPath.row+2 > myEntries.count {
+                
                 cell.Field.text = ""
-                } else {
-                    cell.Field.text = myEntries[indexPath.row+1]
-                }
+//                if indexPath.row+2 > myEntries.count {
+//                
+//                } else {
+//                    cell.Field.text = myEntries[indexPath.row+1]
+//                }
 //                if visibleRowsPerSection[indexPath.section].count == indexPath.row + 1 {
 //                    //cell.addBtn.hidden = false
 //                    cell.isLast = true
@@ -399,34 +416,51 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
 //                   
 //                }
                 
-                if indexPath.row == 1{
-                    cell.isFirst = true
-                    
-                    cell.addBtn.setBackgroundImage(UIImage(named: "Plus.png")! as UIImage, for: .normal)
-                    if cell.Field.text != "" {
-                        cell.addBtn.isHidden = false
-                    }
-                } else {
+//                if indexPath.row == 1{
+//                    cell.isFirst = true
+//                    
+//                    cell.addBtn.setBackgroundImage(UIImage(named: "Plus.png")! as UIImage, for: .normal)
+//                    if cell.Field.text != "" {
+//                        cell.addBtn.isHidden = false
+//                    }
+//                } else {
                     //cell.addBtn.hidden = true
-                    cell.isFirst = false
-                    cell.addBtn.isHidden = false
-                    cell.addBtn.setBackgroundImage(UIImage(named: "Back Arrow.png")! as UIImage, for: .normal)
+                    //cell.isFirst = false
+                    //cell.AddBtn.isHidden = false
+                    //cell.removeBtn.setBackgroundImage(UIImage(named: "Back Arrow.png")! as UIImage, for: .normal)
                     
-                }
+                    //}
                 
-                print(cell.pos)
-            } else if currentCellDescriptor["primaryTitle"] as? String == "Title*:"{
-                //cell.pos = indexPath.row
-                cell.addBtn.isHidden = true
-                cell.Field.text = myEntries[0]
+                //print(cell.pos)
+                cell.delegateField = self
+                
+                
+                cell.Field.attributedPlaceholder = NSAttributedString(string: "Type New Shop", attributes: [NSForegroundColorAttributeName : UIColor(white: 0.6, alpha: 0.5)])
+                
+                cell.delegate = self
+                return cell
+                
+             } else {
+//                if currentCellDescriptor["cellIdentifier"] as! String == "idAddShop" {
+//
+//                    //return cell
+//                }
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "idShopAdded", for: indexPath as IndexPath) as! ShopAddedCell
+                    //cell.Shopname.text = myEntries[indexPath.row]
+                cell.pos = indexPath.row
+                cell.Shopname.text = myEntries[indexPath.row]
+                cell.delegate = self
+                return cell
             }
-            cell.delegateField = self
             
+
+        }else if currentCellDescriptor["primaryTitle"] as? String == "Title*:"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "idTitleUpload", for: indexPath as IndexPath) as! TitleUploadCell
+                //cell.pos = indexPath.row
             
-            cell.Field.attributedPlaceholder = NSAttributedString(string: (currentCellDescriptor["primaryTitle"] as? String)!, attributes: [NSForegroundColorAttributeName : UIColor(white: 0.6, alpha: 0.5)])
-            //cell.Field.delegate = self
-            //cell.addBtn.hidden = true
-            cell.delegate = self
+                cell.Field.text = myEntries[0]
+            
             return cell
             
         } else  {
@@ -462,13 +496,14 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             
             
         }
+        
     }
     
     func getCellDescriptorForIndexPath(indexPath: IndexPath) -> [String: AnyObject] {
         //print(indexPath.section)
         let indexOfVisibleRow = visibleRowsPerSection[indexPath.section][indexPath.row]
         let cellDescriptor = (cellDescriptors[indexPath.section] as AnyObject).object(at: indexOfVisibleRow) as! [String: AnyObject]
-        print(cellDescriptor)
+        //print(cellDescriptor)
         return cellDescriptor
     }
     func adjustHeightOfTableview(){
@@ -584,21 +619,45 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
     //        let cell = tableView.cellForRowAtIndexPath(indexPath) as YourCustomCellClass
     //
     //    }
+    func AddShopButton(entry: String){
+        
+        
+        print(cellDescriptors[1])
+        var myArray = ((cellDescriptors[1] as AnyObject).object(at: 1) as! NSDictionary).mutableCopy()// as! [String: AnyObject]
+        (myArray as AnyObject).setValue("idShopAdded",forKey:"cellIdentifier")
+        (myArray as AnyObject).setValue(true,forKey:"isVisible")
+        //print(myArray)
+        print(cellDescriptors[1])
+        
+        (cellDescriptorsStickers[1] as! NSMutableArray).insert(myArray, at:1)
+        print(cellDescriptors[1])
+        //visibleRowsPerSection[1].insert((cellDescriptorsStickers[1] as AnyObject).count - 1,at:1 )
+        getIndicesOfVisibleRows(cellDescriptors: cellDescriptors)
+        let a = visibleRowsPerSection[1]
+        //let indexPath = NSIndexPath(row: a.count-1, section: 1)
+        let indexPath = NSIndexPath(row: a.count-2, section: 1)
+        myEntries.append(entry)
+        tableView.insertRows(at: [indexPath as IndexPath], with: .none)
+        tableView.reloadSections([1], with: .fade)
+        
+    }
     
-    func AddShop(isFirst : Bool, pos : Int ){
-        if isFirst {
-            visibleRowsPerSection[1].append(visibleRowsPerSection[1].first!)
-            let a = visibleRowsPerSection[1]
-            //let indexPath = NSIndexPath(row: a.count-1, section: 1)
-            let indexPath = NSIndexPath(row: 1, section: 1)
-            tableView.insertRows(at: [indexPath as IndexPath], with: .none)
+    func RemoveShop(pos : Int ){
+//        if isFirst {
+//            visibleRowsPerSection[1].append(visibleRowsPerSection[1].first!)
+//            let a = visibleRowsPerSection[1]
+//            //let indexPath = NSIndexPath(row: a.count-1, section: 1)
+//            let indexPath = NSIndexPath(row: 1, section: 1)
+//            tableView.insertRows(at: [indexPath as IndexPath], with: .none)
+//            
+//        } else {
+        (cellDescriptorsStickers[1] as! NSMutableArray).removeObject(at:  visibleRowsPerSection[1][pos])
+            //visibleRowsPerSection[1].remove(at: pos   )
+        getIndicesOfVisibleRows(cellDescriptors: cellDescriptors)
+        
+            let indexPath = NSIndexPath(row: pos , section: 1)
             
-        } else {
-            visibleRowsPerSection[1].remove(at: pos + 1  )
-            
-            let indexPath = NSIndexPath(row: pos + 1 , section: 1)
-            
-            myEntries.remove(at: pos + 1)
+            myEntries.remove(at: pos)
             tableView.deleteRows(at: [indexPath as IndexPath], with: .fade)
             tableView.reloadSections([1], with: .fade)
             
@@ -611,7 +670,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
             //            self.tableView.reloadRowsAtIndexPaths([indexPath1],withRowAnimation: .None)
             
             
-        }
+     //   }
         //tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
         
         // print (visibleRowsPerSection[1].count)
@@ -769,7 +828,7 @@ class uploadVC1: UITableViewController,ImagePickerDelegate, UploadInput, AddShop
 //                                                                "photoUrl"    : (downloadURL?.absoluteString)! as AnyObject]
                         let postID = "\(userID) \(uuid)"
                         firebase.child("Posts").child(postID).setValue(self.myDictionaryUpload)
-                        firebase.child("PostPerUser").child("\(userID)").child(postID).setValue(true)
+                        firebase.child("PostPerUser").child("\(userID)").child(postID).setValue(["date":dateString])
                     }
                 }
             } else {

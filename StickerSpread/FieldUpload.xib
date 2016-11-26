@@ -12,29 +12,35 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NQX-IM-lM2" id="kpQ-XV-Rsw">
-                <frame key="frameInset" width="320" height="44"/>
+                <frame key="frameInset" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hII-kt-Sy8">
-                        <frame key="frameInset" minX="272" minY="10" width="22" height="22"/>
+                        <frame key="frameInset" minX="268" minY="4" width="40" height="34"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="Add">
+                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
                         <connections>
-                            <action selector="AddShop:" destination="NQX-IM-lM2" eventType="touchUpInside" id="elm-bI-yg0"/>
+                            <action selector="AddShop:" destination="NQX-IM-lM2" eventType="touchUpInside" id="A57-F8-004"/>
                         </connections>
                     </button>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title*" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Atd-dm-xje">
-                        <frame key="frameInset" minX="27" minY="6" width="144" height="30"/>
+                        <frame key="frameInset" minX="112" minY="6" width="144" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no"/>
+                        <connections>
+                            <action selector="editingChanged:" destination="NQX-IM-lM2" eventType="editingChanged" id="VfE-LR-4Z7"/>
+                        </connections>
                     </textField>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="AddBtn" destination="hII-kt-Sy8" id="Ahz-dv-Zqi"/>
                 <outlet property="Field" destination="Atd-dm-xje" id="sKV-0D-TFs"/>
-                <outlet property="addBtn" destination="hII-kt-Sy8" id="scu-O7-O83"/>
             </connections>
-            <point key="canvasLocation" x="-173" y="31"/>
+            <point key="canvasLocation" x="-903" y="-34"/>
         </tableViewCell>
     </objects>
 </document>

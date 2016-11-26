@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Parse
+
 
 class RecentTableViewCell: UITableViewCell {
     
@@ -22,6 +22,10 @@ class RecentTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        avatarImageView.layer.cornerRadius = 4.0
+        avatarImageView.clipsToBounds = true
+        avatarImageView.layer.borderColor = UIColor.white.cgColor
+        avatarImageView.layer.borderWidth = 0.5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,70 +36,10 @@ class RecentTableViewCell: UITableViewCell {
 
     func bindData(recent: NSDictionary) {
         
-        avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width/2
-        avatarImageView.layer.masksToBounds = true
+
         
-//        let avaQuery = PFUser.currentUser()?.objectForKey("picture_file") as! PFFile
-//        avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
-//            self.avatarImageView.image = UIImage(data:data!)
-//        }
-        
-        //self.avatarImageView.image = UIImage(named: "avatarPlaceholder")
         
         let withUserId = (recent.object(forKey: "withUserUserId") as? String)!
-        
-        //get the backendless user and download avatar
-        
-//        let whereClause = "objectId = '\(withUserId)'"
-//        
-//        let dataQuery = BackendlessDataQuery()
-//        dataQuery.whereClause = whereClause
-//        
-//        let dataStore = backendless.persistenceService.of(BackendlessUser.ofClass())
-//        
-//        dataStore.find(dataQuery, response: { (users : BackendlessCollection!) -> Void in
-//            
-//            let withUser = users.data.first as! PFUser
-//            
-////            if let avatarURL = withUser.getProperty("Avatar") {
-////                getImageFromURL(avatarURL as! String, result: { (image) -> Void in
-////                    self.avatarImageView.image = image
-////                })
-////            }
-//            
-//            }) { (fault: Fault!) -> Void in
-//                print("error, couldnt get user avatar: \(fault)")
-//        }
-        
-        
-//        let query = PFQuery(className: "_User")
-//        query.whereKey("username", equalTo: withUserId)
-//        query.findObjectsInBackgroundWithBlock({ (objects:[PFObject]?, error:NSError?) -> Void in
-//            if error == nil {
-//                
-//
-//                
-//                // find related objects in "User" class of Parse
-//                for object in objects! {
-//                    let first = (object.objectForKey("first_name") as? String)
-//                    let last = (object.objectForKey("last_name") as? String)
-//
-//                    self.nameLable.text = first!+" "+last!
-//                    
-//                    let avaQuery = object.objectForKey("picture_file") as! PFFile
-//                    avaQuery.getDataInBackgroundWithBlock {(data:NSData?, error:NSError?) -> Void in
-//                        self.avatarImageView.image = UIImage(data:data!)
-//                    }
-//                    
-//                   // self.avatarImageView = object.objectForKey("picture_file") as! PFFile
-//                    
-//                }
-//            } else {
-//                print(error!.localizedDescription)
-//            }
-//            })
-        
-        
         //nameLable.text = recent["withUserUsername"] as? String
         lastMessageLable.text = recent["lastMessage"] as? String
         counterLabel.text = ""

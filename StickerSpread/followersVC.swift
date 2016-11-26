@@ -22,6 +22,7 @@ class followersVC: UITableViewController {
     var usernameArray = [String]()
     var firstnameArray = [String]()
     var avaArray = [UIImage]()
+    var profilPicURL = [String]()
     
     // array showing who do we follow or who followings us
     var followArray = [String]()
@@ -51,6 +52,7 @@ class followersVC: UITableViewController {
                 self.usernameArray.removeAll(keepingCapacity: false)
                 self.nameArray.removeAll(keepingCapacity: false)
                 self.avaArray.removeAll(keepingCapacity: false)
+                self.profilPicURL.removeAll(keepingCapacity: false)
 
                 for post1 in snapshot.children{
                      picturesGroup.enter()
@@ -85,24 +87,23 @@ class followersVC: UITableViewController {
                     
                     
                     firebase.child("Users").child(userID).observe(.value, with: { snapshot in
-                        
-                        let first = post.value(forKey: "first_name") as! String
-                        let last = post.value(forKey: "last_name") as! String
+                        print(snapshot)
+                        let first = (snapshot.value! as AnyObject).value(forKey: "first_name") as! String
+                        let last = (snapshot.value! as AnyObject).value(forKey: "last_name") as! String
                         
                         let fullname = first+" "+last
                         self.nameArray.append(fullname)
-                        
-                        //                        self.tableView.reloadData()
-                        //                        self.collectionView.reloadData()
-                        let avaURL = post.value(forKey: "ProfilPicUrl") as! String
-                        let url = NSURL(string: avaURL)
-                        if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                            self.avaArray.append(UIImage(data: data as Data) as UIImage!)
-                            self.avaArray = self.avaArray.reversed()
-                            self.nameArray = self.nameArray.reversed()
-                            
-                            //self.tableView.reloadData()
-                        }
+ 
+                        let avaURL = (snapshot.value! as AnyObject).value(forKey: "ProfilPicUrl") as! String
+                        self.profilPicURL.append(avaURL)
+//                        let url = NSURL(string: avaURL)
+//                        if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+//                            self.avaArray.append(UIImage(data: data as Data) as UIImage!)
+//                            self.avaArray = self.avaArray.reversed()
+//                            self.nameArray = self.nameArray.reversed()
+//                            
+//                            //self.tableView.reloadData()
+//                        }
                         picturesGroup.leave()
                         }
                         
@@ -149,52 +150,7 @@ class followersVC: UITableViewController {
             
             //self.picArray = self.picArray.reverse()
             
-            //
-            //            for (bookid, title) in self.myDictionaryURL {
-            //                //println("Book ID: \(bookid) Title: \(title)")
-            //                self.storage.referenceForURL(title).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
-            //                    let image = UIImage(data: data!)
-            //                    self.myDictionaryImage[bookid] = image!
-            //
-            //
-            //
-            //
-            //                    self.titleArray = self.titleArray.reverse()
-            //                    //self.picArray.append(image! as! UIImage)
-            //
-            //                    dispatch_group_leave(picturesGroup)
-            //                })
-            //            }
-            
-            
-            
-            //            for url in self.picArrayURL{
-            //                self.storage.referenceForURL(url).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in
-            //                    let image = UIImage(data: data!)
-            //
-            //
-            //                    self.picArray.append(image! as! UIImage)
-            //
-            //                    dispatch_group_leave(picturesGroup)
-            //                })
-            //            }
-            
-            
-            //
-            //            dispatch_group_notify(picturesGroup, dispatch_get_main_queue()) {
-            //                let imagesSorted = Array(self.myDictionaryImage.keys).sort(>)
-            //                print(imagesSorted)
-            //                // let y = sort(imagesSorted)  //{self.myDictionaryImage[$0] < self.myDictionaryImage[$1]}) //self.myDictionaryImage.sorted() { $0.0 < $1.0 }
-            //
-            //                for a in imagesSorted as! [Int] {
-            //                    self.picArray.append(self.myDictionaryImage[a]!)
-            //                }
-            //                //self.picArray.reverse()
-            //                self.tableView.reloadData()
-            //
-            //            }
-            
-            
+                     
             //self.comments.append(snapshot)
             //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
         }){ (error) in
@@ -278,14 +234,14 @@ class followersVC: UITableViewController {
     
     
     // cell height
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.frame.size.width / 4
     }
     
     
     
     // cell config
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // define cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! followersCell
@@ -297,7 +253,7 @@ class followersVC: UITableViewController {
         }
         // STEP 1. Connect data from serv to objects
         cell.usernameLbl.text = nameArray[indexPath.row]
-        cell.avaImg.image = avaArray[indexPath.row]
+        cell.avaImg.loadImageUsingCacheWithUrlString(urlString: profilPicURL[indexPath.row])//.image = avaArray[indexPath.row]
         //        avaArray[indexPath.row].getDataInBackgroundWithBlock { (data:NSData?, error:NSError?) -> Void in
         //            if error == nil {
         //                cell.avaImg.image = UIImage(data: data!)
@@ -321,7 +277,7 @@ class followersVC: UITableViewController {
     
     
     // selected some user
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if self.usernameArray[indexPath.row] == (FIRAuth.auth()?.currentUser!.uid)! {
             modeSelf = true

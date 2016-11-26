@@ -24,7 +24,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     var email = false
     var instagram = false
     var etsy = false
-    
+    var posts = [Post]()
     // refresher variable
     var refresher : UIRefreshControl!
     
@@ -53,8 +53,16 @@ class homeVC1: UICollectionViewController,SegueColl {
     var urls = [String]()
     //var uuidArray = [String]()
     var bottomheader = CGFloat()
-    
+    var UFGArray = [String]()
+    var URLarray = [String]()
     var username = String()
+    
+    var avaUrl = String()
+    var fullname = String()
+    
+    
+    var myDictionaryURL = [Int: String]()
+    var myDictionaryImage = [Int: UIImage]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +80,7 @@ class homeVC1: UICollectionViewController,SegueColl {
         //background
         collectionView?.backgroundColor = .white
 
-        NotificationCenter.default.addObserver(self, selector: "refreshLikes:", name: NSNotification.Name(rawValue: "likedFromHome"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(homeVC1.refreshLikes(_:)), name: NSNotification.Name(rawValue: "likedFromHome"), object: nil)
         
         // pull to refresh
         refresher = UIRefreshControl()
@@ -96,17 +104,19 @@ class homeVC1: UICollectionViewController,SegueColl {
         
         
         // load posts func
-        loadPosts()
+        //loadPosts()
+        loadpostsNew()
     }
     
     
     
-    func refreshLikes(notification: NSNotification) {
+    func refreshLikes(_ notification: NSNotification) {
 
         if let row = notification.object as? Int {
             
             let indexPath = NSIndexPath(row: row, section: 0)
             self.collectionView!.reloadItems(at: [indexPath as IndexPath])
+            
         }
         
     }
@@ -127,14 +137,15 @@ class homeVC1: UICollectionViewController,SegueColl {
         loadPosts()
     }
     
-    func goToPost(uuid : String!){
+    func goToPost(thisPost : Post!){
         // take relevant unique id of post to load post in postVC
         
         //print (uuid)
-        postuuid.append(uuid)
+        //postuuid.append(uuid)
         
         // present postVC programmaticaly
         let post = self.storyboard?.instantiateViewController(withIdentifier: "postVC") as! postVC
+        post.myPost = thisPost
         self.navigationController?.pushViewController(post, animated: true)
         
         
@@ -166,7 +177,8 @@ class homeVC1: UICollectionViewController,SegueColl {
     
     // cell numb
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return picArray.count
+        
+        return posts.count
     }
     
     
@@ -176,21 +188,32 @@ class homeVC1: UICollectionViewController,SegueColl {
         return size
     }
     
-    
-    // cell config
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:IndexPath)->UICollectionViewCell{
         
         // define cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "idCollectionCell", for: indexPath as IndexPath) as! testsearchcell
+        
+        let post = posts[indexPath.row]
+        cell.cellpos = indexPath.row
+        cell.thisPost = post
         cell.backgroundColor = UIColor(patternImage: UIImage(named: "Background_Blue_Joint.jpg")!)
         cell.origin = "Home"
-        cell.uuid = uuidArray[indexPath.row]
-        getLikeState(string: uuidArray[indexPath.row] , Btn: cell.likeBtn)
-        getLikeCount(string: uuidArray[indexPath.row] , Lbl : cell.LikeLbl)
-        
-        cell.uuidLbl.text = uuidArray[indexPath.row]
-        cell.picImg1.image = picArray[indexPath.row]
-        
+        cell.titleLbl.text = post.title
+        getLikeState(string: post.uuid! , Btn: cell.likeBtn)
+        getLikeCount(string: post.uuid!, Lbl : cell.LikeLbl)
+        cell.mySeg = self
+        //cell.uuidLbl.text = uuidArray[indexPath.row]
+        //cell.picImg1.image = picArray[indexPath.row]
+        cell.picImg1.loadImageUsingCacheWithUrlString(urlString: post.photoURL!)
+        if post.Grab == "Not Available"{
+            cell.Flag.isHidden = true
+            cell.UFG.isHidden = true
+        } else {
+            cell.Flag.isHidden = false
+            cell.UFG.isHidden = false
+        }
+
         return cell
     }
     
@@ -213,17 +236,11 @@ class homeVC1: UICollectionViewController,SegueColl {
             print ( snapshot.key)
             self.username = snapshot.key
             //title at the top
-            self.navigationItem.title = first+" "+last
-            let avaURL = ((snapshot.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
-            let url = NSURL(string: avaURL)
-            if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                header.avaImg.image = UIImage(data: data as Data)
-                header.avaImg.layer.cornerRadius = 4.0
-                header.avaImg.clipsToBounds = true
-                header.avaImg.layer.borderColor = UIColor.white.cgColor
-                header.avaImg.layer.borderWidth = 0.5
-                
-            }
+            self.fullname = first+" "+last
+            self.navigationItem.title = self.fullname
+            self.avaUrl = ((snapshot.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
+            header.avaImg.loadImageUsingCacheWithUrlString(urlString: self.avaUrl)
+
 //            if self.goHome == true {
 //            header.followButton.hidden = true
 //            }
@@ -412,13 +429,13 @@ class homeVC1: UICollectionViewController,SegueColl {
     }
     
     //clicked logout
-    @IBAction func logout(sender: AnyObject) {
+    @IBAction func logout(_ sender: AnyObject) {
         // implement log out
         let loginManager = FBSDKLoginManager()
         loginManager.logOut() // this is an instance function
         print("logged out from FB")
         try! FIRAuth.auth()!.signOut()
-        PFUser.logOut()
+        //PFUser.logOut()
         let signin = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = signin
@@ -444,7 +461,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     
     
     // go post
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: NSIndexPath) {
         
         // send post uuid to "postuuid" variable
         postuuid.append(uuidArray[indexPath.row])
@@ -454,75 +471,144 @@ class homeVC1: UICollectionViewController,SegueColl {
         self.navigationController?.pushViewController(post, animated: true)
     }
     
+    func loadpostsNew(){
+        //.queryOrdered(byChild: "date")
+        
+        firebase.child("PostPerUser").child(userIdToDisplay).observe(.childAdded, with: { snapshot1 in
+            if snapshot1.exists() {
+                self.posts.removeAll(keepingCapacity: false)
+                
+                //let sorted = ((snapshot1.value! as AnyObject).allValues as NSArray).sortedArray(using: [NSSortDescriptor(key: "date", ascending: false)])
+                print(snapshot1)
+//                for postperUser1 in sorted{
+               // for postperUser1 in snapshot1.children{
+                    //let postperUser = postperUser1 as! FIRDataSnapshot
+                    let postID = snapshot1.key//postperUser.key
+
+                        firebase.child("Posts").child(postID ).observe(.value, with: { snapshot in
+                            if let dictionary = snapshot.value as? [String: AnyObject] {
+                                let post = Post()
+                                post.uuid = postID
+                                //self.uuidArray.append(post.key as String!)
+                                print(post)
+                                
+                                post.UserID = dictionary["userID"] as! String?
+
+                                if let datestring = dictionary["date"]{
+                                    let dateFormatter = DateFormatter()
+                                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+                                    let date = dateFormatter.date(from: datestring as! String)
+                                    post.date = date
+                                    
+                                }
+                                post.profUrl = self.avaUrl
+                                post.NameAuthor = self.fullname
+                                post.title = dictionary["title"] as! String?
+                                post.Grab = dictionary["Grab"] as! String?
+                                
+                                
+                                post.photoURL = dictionary["photoUrl"] as! String?
+                                
+                                self.posts.append(post)
+                                DispatchQueue.main.async(execute: {
+                                    self.posts.reverse()
+                                self.collectionView?.reloadData()
+                                self.refresher.endRefreshing()
+                                })
+
+                            }
+
+                        })
+                    
+                    
+                //}
+                
+                
+            }
+            
+            
+        }){ (error) in
+            print(error.localizedDescription)
+        }    }
     
     
     // load posts
     func loadPosts() {
+        let picturesGroup = DispatchGroup()
+        let lastGroup = DispatchGroup()
+        let queue = DispatchQueue.global(qos: .default)
+        let queue1 = DispatchQueue.global(qos: .default)
         
-        firebase.child("PostPerUser").child(userIdToDisplay).observe(.value, with: { snapshot1 in
+        firebase.child("PostPerUser").child(userIdToDisplay).queryOrdered(byChild: "date").observe(.value, with: { snapshot1 in
             print(snapshot1)
             if snapshot1.exists() {
-                print(snapshot1)
+                self.usernameArray.removeAll(keepingCapacity: false)
+                self.nameArray.removeAll(keepingCapacity: false)
+                self.avaArray.removeAll(keepingCapacity: false)
+                self.dateArray.removeAll(keepingCapacity: false)
+                self.picArray.removeAll(keepingCapacity: false)
+                //self.picArraySearch.removeAll(keepCapacity: false)
+                self.titleArray.removeAll(keepingCapacity: false)
+                self.uuidArray.removeAll(keepingCapacity: false)
+                self.UFGArray.removeAll(keepingCapacity: false)
+                self.URLarray.removeAll(keepingCapacity: false)
+                var i = 0
+                //print(snapshot1)
                 for postperUser1 in snapshot1.children{
                     let postperUser = postperUser1 as! FIRDataSnapshot
                     let postID = postperUser.key
-                    print (postID)
-                    firebase.child("Posts").child(postID as! String).queryOrdered(byChild: "date").observe(.value, with: { snapshot in
-                        
-                        // clean up
-                        self.usernameArray.removeAll(keepingCapacity: false)
-                        self.nameArray.removeAll(keepingCapacity: false)
-                        self.avaArray.removeAll(keepingCapacity: false)
-                        self.dateArray.removeAll(keepingCapacity: false)
-                        self.picArray.removeAll(keepingCapacity: false)
-                        //self.picArraySearch.removeAll(keepCapacity: false)
-                        self.titleArray.removeAll(keepingCapacity: false)
-                        self.uuidArray.removeAll(keepingCapacity: false)
+                    //print (postID)
+                    
+                    picturesGroup.enter()
+                    queue.async(execute: {
+                    firebase.child("Posts").child(postID ).observe(.value, with: { snapshot in
                         
                         if snapshot.exists() {
+                            
+                            
                             let post = snapshot
+                            self.uuidArray.append(post.key as String!)
                             print(post)
                             
-                            print(post)
                             let userID = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["userID"]
-                            let url = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["photoUrl"]
-                            self.storage.reference(forURL: url as! String).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
-                                let image = UIImage(data: data!)
-                                
-                                self.picArray.append(image! )
-                                self.uuidArray.append(post.key as String!)
-                                
-                                //objc_sync_exit(self.nameArray)
-                                //self.tableView.reloadData()
-                                //self.scrollToBottom()
-                                firebase.child("Users").child(userID as! String).observe(.value, with: { snapshot in
-                                    
-//                                    let first = (snapshot.value!.objectForKey("first_name") as? String)
-//                                    let last = (snapshot.value!.objectForKey("last_name") as? String)
-//                                    
-//                                    let fullname = first!+" "+last!
-//                                    self.nameArray.append(fullname)
-                                    //self.tableView.reloadData()
-                                    self.collectionView!.reloadData()
-                                    let avaURL = ((snapshot.value! as AnyObject).value(forKey: "ProfilPicUrl") as! String)
-                                    let url = NSURL(string: avaURL)
-                                    if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                                        self.avaArray.append(UIImage(data: data as Data) as UIImage!)
-                                        
-                                    }
-                                    
-                                    //self.comments.append(snapshot)
-                                    //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
-                                    }
-                                    
-                                    
-                                ){ (error) in
-                                    print(error.localizedDescription)
-                                }
-                                
-                                // objc_sync_exit(self.nameArray)
-                                
-                            })
+                            //                            self.storage.reference(forURL: url as! String).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
+//                                let image = UIImage(data: data!)
+//                                
+//                                self.picArray.append(image! )
+//                                self.uuidArray.append(post.key as String!)
+//                                
+//                                picturesGroup.leave()
+//                                //objc_sync_exit(self.nameArray)
+//                                //self.tableView.reloadData()
+//                                //self.scrollToBottom()
+////                                firebase.child("Users").child(userID as! String).observe(.value, with: { snapshot in
+////                                    
+//////                                    let first = (snapshot.value!.objectForKey("first_name") as? String)
+//////                                    let last = (snapshot.value!.objectForKey("last_name") as? String)
+//////                                    
+//////                                    let fullname = first!+" "+last!
+//////                                    self.nameArray.append(fullname)
+////                                    //self.tableView.reloadData()
+////                                    self.collectionView!.reloadData()
+////                                    let avaURL = ((snapshot.value! as AnyObject).value(forKey: "ProfilPicUrl") as! String)
+////                                    let url = NSURL(string: avaURL)
+////                                    if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+////                                        self.avaArray.append(UIImage(data: data as Data) as UIImage!)
+////                                        
+////                                    }
+////                                    
+////                                    //self.comments.append(snapshot)
+////                                    //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
+////                                    }
+////                                    
+////                                    
+////                                ){ (error) in
+////                                    print(error.localizedDescription)
+////                                }
+//                                
+//                                // objc_sync_exit(self.nameArray)
+//                                
+//                            })
                             
                             //let datestring = post.value.objectForKey("date") as! String
                             if let datestring = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["date"]{
@@ -534,30 +620,97 @@ class homeVC1: UICollectionViewController,SegueColl {
                             self.usernameArray.append(userID as! String )
                             
                             self.titleArray.append((((post as! FIRDataSnapshot).value as? [String:AnyObject])?["title"])! as! String)
-                            
-                            
-                            
-                            
+                            let UFG = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["Grab"] as! String
+                            self.UFGArray.append(UFG)
+
                             // dispatch_async(dispatch_get_main_queue(), {
                             //  self.tableView.reloadData()
                             //self.collectionView.reloadData()
-                            self.refresher.endRefreshing()
+                            
+                            let url = ((post as! FIRDataSnapshot).value as? [String:AnyObject])?["photoUrl"] as! String
+                            self.URLarray.append(url)
+                            self.myDictionaryURL.updateValue(url, forKey: i)
+//                            queue1.async(execute: {
+//                                self.storage.reference(forURL: url).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
+//                                    let image = UIImage(data: data!)
+//                                    self.myDictionaryImage[i] = image!
+//                                    
+//                                    
+//                                    //self.picArray.append(image! as! UIImage)
+//                                    
+//                                    picturesGroup.leave()
+//                                })
+//                            })
+                            i+=1
+                            
+
+                            
                             // });
-                            
-                            
-                            
-                            
+                                                     picturesGroup.leave()
                         }
-                        
-                        
+
+
+
                         //self.comments.append(snapshot)
                         //self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.comments.count-1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Automatic)
-                    })}
-            }
+                    })
+                })
+                
+                }
+             
+                
+//                picturesGroup.notify(queue: queue, execute:{
+//                for (bookid, title) in self.myDictionaryURL {
+//                    //println("Book ID: \(bookid) Title: \(title)")
+//                    //print(title)
+//                    lastGroup.enter()
+//                    queue1.async(execute: {
+//                        self.storage.reference(forURL: title).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
+//                            let image = UIImage(data: data!)
+//                            self.myDictionaryImage[bookid] = image!
+//                            
+//                            //self.picArray.append(image! as! UIImage)
+//                            
+//                            lastGroup.leave()
+//                        })
+//                    })
+//                }
+////
+////
+//                })
+                
+                
+                lastGroup.notify(queue: DispatchQueue.global(), execute:{
+                    let imagesSorted = Array(self.myDictionaryImage.keys).sorted(by: >)
+//                    self.usernameArray = self.usernameArray.reversed()
+//                    self.nameArray = self.nameArray.reversed()
+//                    self.avaArray = self.avaArray.reversed()
+//                    self.dateArray = self.dateArray.reversed()
+//                    //self.picArray = self.picArray.reversed()
+//                    //self.picArraySearch.removeAll(keepCapacity: false)
+//                    self.titleArray = self.titleArray.reversed()
+//                    self.uuidArray = self.uuidArray.reversed()
+//                    self.UFGArray = self.UFGArray.reversed()
+                    for a in imagesSorted {
+                        self.picArray.append(self.myDictionaryImage[a]!)
+                    }
+                    self.refresher.endRefreshing()
+                    self.collectionView?.reloadData()
+                })
+                
+                }
+                
+            
         }){ (error) in
             print(error.localizedDescription)
         }
+
     }
+    
+    @IBAction func SettingsClick(_ sender: AnyObject) {
+        self.hidesBottomBarWhenPushed = true
+    }
+
     
     
     
