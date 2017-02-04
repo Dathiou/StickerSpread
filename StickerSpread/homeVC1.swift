@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Parse
+//import Parse
 import FBSDKLoginKit
 import FirebaseAuth
 import Firebase
@@ -39,7 +39,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     //var avaArray = [PFFile]()
     //var avaArrayF = [UIImage]()
     var avaArray = [UIImage]()
-    var postpicArraySearch = [PFFile]()
+    //var postpicArraySearch = [PFFile]()
     var nameArray = [String]()
     var nameArraySearch = [String]()
     var dateArray = [NSDate?]()
@@ -47,7 +47,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     //var picArray = [PFFile]()
     //var picArrayF = [UIImage]()
     var picArray = [UIImage]()
-    var picArraySearch = [PFFile]()
+    //var picArraySearch = [PFFile]()
     var uuidArraySearch = [String]()
     var titleArray = [String]()
     var urls = [String]()

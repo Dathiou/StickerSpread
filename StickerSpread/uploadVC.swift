@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Parse
+//import Parse
 import Firebase
 
 class uploadVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate , UITableViewDelegate, UITableViewDataSource {

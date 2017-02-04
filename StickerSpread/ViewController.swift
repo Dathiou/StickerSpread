@@ -8,7 +8,7 @@
 //
 
 import UIKit
-import Parse
+//import Parse
 import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
@@ -323,14 +323,14 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
                     
                     
                     
-                    var user = PFUser()
-                    user.password="0000"
-                    user.username = userId
-                    print(userId)
-                    
+//                    var user = PFUser()
+//                    user.password="0000"
+//                    user.username = userId
+//                    print(userId)
+                
                     
                     let userEmail:String = dict["email"] as! String
-                    user.email = userEmail
+                    //user.email = userEmail
                     
                     let userFirstName:String = dict["first_name"] as! String
                     

@@ -97,7 +97,6 @@
 		7B82B9D11CF9481F00F99468 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B9CF1CF9481F00F99468 /* FBSDKCoreKit.framework */; };
 		7B82B9D21CF9481F00F99468 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B82B9D01CF9481F00F99468 /* FBSDKLoginKit.framework */; };
 		7BA124871CFB817D007727CC /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA124851CFB817D007727CC /* Bolts.framework */; };
-		7BA124881CFB817D007727CC /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA124861CFB817D007727CC /* Parse.framework */; };
 		7BA1293C1CFD2035009A7EBA /* followersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA1293B1CFD2035009A7EBA /* followersVC.swift */; };
 		7BA129421CFE7021009A7EBA /* followersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA129411CFE7021009A7EBA /* followersCell.swift */; };
 		7BA68CA91CFCB0890077A9CB /* pictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA68CA81CFCB0890077A9CB /* pictureCell.swift */; };
@@ -302,7 +301,6 @@
 				7BA124871CFB817D007727CC /* Bolts.framework in Frameworks */,
 				7BB652CE1CF7BD7700D1E65E /* CoreGraphics.framework in Frameworks */,
 				7BB652CC1CF7BD7000D1E65E /* CFNetwork.framework in Frameworks */,
-				7BA124881CFB817D007727CC /* Parse.framework in Frameworks */,
 				7B82B9D11CF9481F00F99468 /* FBSDKCoreKit.framework in Frameworks */,
 				7BB652CA1CF7BD6700D1E65E /* AudioToolbox.framework in Frameworks */,
 				7B82B9D21CF9481F00F99468 /* FBSDKLoginKit.framework in Frameworks */,
@@ -756,7 +754,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

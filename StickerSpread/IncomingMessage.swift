@@ -8,7 +8,7 @@
 
 import Foundation
 import JSQMessagesViewController
-import Parse
+//import Parse
 
 
 class IncomingMessage {
@@ -35,7 +35,7 @@ class IncomingMessage {
 //        }
         if type == "picture" {
             //create picture message
-            message = createPictureMessage(item: dictionary)
+           // message = createPictureMessage(item: dictionary)
         }
         
         if let mes = message {
@@ -82,33 +82,33 @@ class IncomingMessage {
 //        return JSQMessage(senderId: userId!, senderDisplayName: name!, date: date, media: mediaItem)
 //    }
     
-    func returneOutgoingStatusFromUser(senderId: String) -> Bool {
-        
-        if senderId == PFUser.current()!.username {
-            //outgoing
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func createPictureMessage(item: NSDictionary) -> JSQMessage {
-        
-        let name = item["senderName"] as? String
-        let userId = item["senderId"] as? String
-        
-        let date = dateFormatter().date(from: (item["date"] as? String)!)
-
-        let mediaItem = JSQPhotoMediaItem(image: nil)
-        mediaItem?.appliesMediaViewMaskAsOutgoing = returneOutgoingStatusFromUser(senderId: userId!)
-        
-        imageFromData(item: item) { (image: UIImage?) -> Void in
-            mediaItem?.image = image
-            self.collectionView.reloadData()
-        }
-        
-        return JSQMessage(senderId: userId!, senderDisplayName: name!, date: date, media: mediaItem)
-    }
+//    func returneOutgoingStatusFromUser(senderId: String) -> Bool {
+//        
+//        if senderId == PFUser.current()!.username {
+//            //outgoing
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
+//    
+//    func createPictureMessage(item: NSDictionary) -> JSQMessage {
+//        
+//        let name = item["senderName"] as? String
+//        let userId = item["senderId"] as? String
+//        
+//        let date = dateFormatter().date(from: (item["date"] as? String)!)
+//
+//        let mediaItem = JSQPhotoMediaItem(image: nil)
+//        mediaItem?.appliesMediaViewMaskAsOutgoing = returneOutgoingStatusFromUser(senderId: userId!)
+//        
+//        imageFromData(item: item) { (image: UIImage?) -> Void in
+//            mediaItem?.image = image
+//            self.collectionView.reloadData()
+//        }
+//        
+//        return JSQMessage(senderId: userId!, senderDisplayName: name!, date: date, media: mediaItem)
+//    }
     
     func imageFromData(item: NSDictionary, result : (_ image: UIImage?) ->Void) {
         

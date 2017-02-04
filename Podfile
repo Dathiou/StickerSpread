@@ -5,7 +5,7 @@ platform :ios, '10.0'
 #xcodeproj 'StickerSpread'
 use_frameworks!
 # do
-pod 'ParseFacebookUtilsV4'
+
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'Firebase'
