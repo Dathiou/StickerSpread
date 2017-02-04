@@ -783,7 +783,7 @@ class feed1VC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIS
 
                     picturesGroup.enter()
                     queue.async(execute: {
-                        firebase.child("Users").child(userID).observe(.value, with: { snapshot in
+                        firebase.child("Users").child(userID).observeSingleEvent(of: .value, with: { snapshot in
                             
                             let uuid = (post as AnyObject).key as String!
                             let myPost = Post()

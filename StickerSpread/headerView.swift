@@ -20,10 +20,10 @@ class headerView: UICollectionReusableView{
     @IBOutlet weak var thirdConstr: NSLayoutConstraint!
     @IBOutlet weak var fourthConstr: NSLayoutConstraint!
     
-    @IBOutlet weak var ic1: UIImageView!
-    @IBOutlet weak var ic2: UIImageView!
-    @IBOutlet weak var ic3: UIImageView!
-    @IBOutlet weak var ic4: UIImageView!
+    @IBOutlet weak var pic1: UIImageView!
+    @IBOutlet weak var pic2: UIImageView!
+    @IBOutlet weak var pic3: UIImageView!
+    @IBOutlet weak var pic4: UIImageView!
     
     @IBOutlet weak var avaImg: UIImageView!
     @IBOutlet weak var first_Lbl: UILabel!

@@ -51,6 +51,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     var uuidArraySearch = [String]()
     var titleArray = [String]()
     var urls = [String]()
+    var socialmedialist = [String]()
     //var uuidArray = [String]()
     var bottomheader = CGFloat()
     var UFGArray = [String]()
@@ -73,6 +74,7 @@ class homeVC1: UICollectionViewController,SegueColl {
             self.goHome = true
         }
 
+
        
         
         // always vertical scroll
@@ -81,6 +83,8 @@ class homeVC1: UICollectionViewController,SegueColl {
         collectionView?.backgroundColor = .white
 
         NotificationCenter.default.addObserver(self, selector: #selector(homeVC1.refreshLikes(_:)), name: NSNotification.Name(rawValue: "likedFromHome"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: "refreshAfterSettings", name: NSNotification.Name(rawValue: "UpdatedSettings"), object: nil)
         
         // pull to refresh
         refresher = UIRefreshControl()
@@ -91,6 +95,8 @@ class homeVC1: UICollectionViewController,SegueColl {
         NotificationCenter.default.addObserver(self, selector: "uploaded:", name: NSNotification.Name(rawValue: "uploaded"), object: nil)
         
         collectionView!.register(UINib(nibName: "collectionCell", bundle: nil), forCellWithReuseIdentifier: "idCollectionCell")
+        
+        
         
         //        self.collectionView.header.setNeedsUpdateConstraints()
         //        self.collectionView.updateConstraintsIfNeeded()
@@ -127,14 +133,24 @@ class homeVC1: UICollectionViewController,SegueColl {
         
         // reload posts
         //loadPosts()
+        loadpostsNew()
         collectionView!.reloadData()
         
         // stop refresher animating
         refresher.endRefreshing()
     }
     
+    func refreshAfterSettings(){
+        //loadpostsNew()
+        //let intr = IndexSet([0,1])//(NSMakeRange(0, 3))
+        //self.collectionView?.reloadSections(intr)//:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 3)]]
+        collectionView?.reloadData()
+        
+        //invalidateSupplementaryElementsOfKind(UICollectionElementKindSectionHeader, atIndexPaths: NSIndexPath(row: 0, section:0))
+        //self.collectionView?.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(row: 0, section:0))?.setNeedsDisplay()//setNeedsDisplay()
+    }
     func uploaded(notification: NSNotification){
-        loadPosts()
+        loadpostsNew()
     }
     
     func goToPost(thisPost : Post!){
@@ -229,6 +245,7 @@ class homeVC1: UICollectionViewController,SegueColl {
         //header.frame.size.height = 100
         // get users data with connections to columns of PFUser class
         
+
         firebase.child("Users").child(userIdToDisplay).observe(.value, with: { snapshot in
             
             let first = (snapshot.value as? [String:AnyObject])?["first_name"] as! String
@@ -245,60 +262,122 @@ class homeVC1: UICollectionViewController,SegueColl {
 //            header.followButton.hidden = true
 //            }
             
-            let q = (snapshot.value as? [String:AnyObject])?["youtubeURL"] as? String
+            header.pic1.isHidden = true
+            header.pic2.isHidden = true
+            header.pic3.isHidden = true
+            header.pic4.isHidden = true
+            
+            
             let w = (snapshot.value as? [String:AnyObject])?["instagramURL"] as? String
+            let q = (snapshot.value as? [String:AnyObject])?["youtubeURL"] as? String
             let e = (snapshot.value as? [String:AnyObject])?["etsyURL"] as? String
             let r = (snapshot.value as? [String:AnyObject])?["emailDisplay"] as? String
             var display = 0
             self.urls.removeAll()
-            if q != "" {
-                self.youtube = true
-                display += 1
-                self.urls.append(q!)
-            }
+            self.socialmedialist.removeAll()
             if w != "" {
                 self.instagram = true
                 display += 1
                 self.urls.append(w!)
+                self.socialmedialist.append("Insta_Icon.png")
+                //header.pic1.isHidden = false
+                
             }
+            if q != "" {
+                self.youtube = true
+                display += 1
+                self.urls.append(q!)
+                self.socialmedialist.append("Heart 1.png")
+                //header.pic2.isHidden = false
+                
+            }
+
             if e != "" {
                 self.etsy = true
                 display += 1
                 self.urls.append(e!)
+                self.socialmedialist.append("Etsy_Icon.png")
+                //header.pic3.isHidden = false
+                
             }
             if r != "" {
                 self.email = true
                 display += 1
                 self.urls.append(r!)
+                self.socialmedialist.append("Email_Icon.png")
+                //header.pic4.isHidden = false
             }
             if display == 0 {
                 header.first_Lbl.text = ""
                 
+                header.secondConstr.priority = 500
+                header.thirdConstr.priority = 500
+                header.fourthConstr.priority = 500
                 header.firstConstr.priority = 750
                 self.bottomheader =  header.avaImg.frame.maxY
-                
             } else if display == 1 {
+                
+                header.secondConstr.priority = 500
+                header.thirdConstr.priority = 500
+                header.fourthConstr.priority = 500
                 header.firstConstr.priority = 750
                 header.first_Lbl.text = self.urls[0]
-                self.bottomheader =  header.ic1.frame.maxY
+                self.bottomheader =  header.pic1.frame.maxY
+                header.pic1.isHidden = false
+                //print("loading icon")
+                header.pic1.image = UIImage(named: self.socialmedialist[0])
             } else if display == 2{
+                
+
+                header.first_Lbl.text = self.urls[0]
+                header.pic1.image = UIImage(named: self.socialmedialist[0])
+                header.second_Lbl.text = self.urls[1]
+                header.pic2.image = UIImage(named: self.socialmedialist[1])
+                self.bottomheader =  header.pic2.frame.maxY
+                header.firstConstr.priority = 500
+                header.thirdConstr.priority = 500
+                header.fourthConstr.priority = 500
                 header.secondConstr.priority = 750
-                header.first_Lbl.text = self.urls[0]
-                header.second_Lbl.text = self.urls[1]
-                self.bottomheader =  header.ic2.frame.maxY
+                header.pic1.isHidden = false
+                header.pic2.isHidden = false
             } else if display == 3{
+                
+
+                header.first_Lbl.text = self.urls[0]
+                header.pic1.image = UIImage(named: self.socialmedialist[0])
+                header.second_Lbl.text = self.urls[1]
+                header.pic2.image = UIImage(named: self.socialmedialist[1])
+                header.third_Lbl.text = self.urls[2]
+                header.pic3.image = UIImage(named: self.socialmedialist[2])
+                self.bottomheader =  header.pic3.frame.maxY
+                
+                header.firstConstr.priority = 500
+                header.secondConstr.priority = 500
+                header.fourthConstr.priority = 500
                 header.thirdConstr.priority = 750
-                header.first_Lbl.text = self.urls[0]
-                header.second_Lbl.text = self.urls[1]
-                header.third_Lbl.text = self.urls[2]
-                self.bottomheader =  header.ic3.frame.maxY
+                header.pic1.isHidden = false
+                header.pic2.isHidden = false
+                header.pic3.isHidden = false
             } else if display == 4{
-                header.fourthConstr.priority = 750
+                
+                header.firstConstr.priority = 500
+                header.secondConstr.priority = 500
+                header.thirdConstr.priority = 500
+                header.fourthConstr.priority = 900
                 header.first_Lbl.text = self.urls[0]
+                header.pic1.image = UIImage(named: self.socialmedialist[0])
                 header.second_Lbl.text = self.urls[1]
+                header.pic2.image = UIImage(named: self.socialmedialist[1])
                 header.third_Lbl.text = self.urls[2]
+                header.pic3.image = UIImage(named: self.socialmedialist[2])
                 header.fourth_Lbl.text = self.urls[3]
-                self.bottomheader =  header.ic4.frame.maxY
+                header.pic4.image = UIImage(named: self.socialmedialist[3])
+
+                self.bottomheader =  header.pic4.frame.maxY
+                header.pic1.isHidden = false
+                header.pic2.isHidden = false
+                header.pic3.isHidden = false
+                header.pic4.isHidden = false
             }
             
             
@@ -708,7 +787,7 @@ class homeVC1: UICollectionViewController,SegueColl {
     }
     
     @IBAction func SettingsClick(_ sender: AnyObject) {
-        self.hidesBottomBarWhenPushed = true
+        //self.hidesBottomBarWhenPushed = true
     }
 
     

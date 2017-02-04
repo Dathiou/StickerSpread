@@ -46,7 +46,7 @@ class followersVC: UITableViewController {
         
         let picturesGroup = DispatchGroup()
         //.queryOrderedByChild("date")
-        firebase.child(type).child(user).queryOrdered(byChild: "Date").observe(.value, with: { snapshot in
+        firebase.child(type).child(user).queryOrdered(byChild: "Date").observeSingleEvent(of: .value, with: { snapshot in
             if snapshot.exists() {
                 //sorted = (snapshot.value!.allValues as NSArray).sortedArrayUsingDescriptors([NSSortDescriptor(key: "date", ascending: false)])
                 self.usernameArray.removeAll(keepingCapacity: false)

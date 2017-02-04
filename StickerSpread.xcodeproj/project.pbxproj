@@ -49,6 +49,9 @@
 		3F97D96F1DAC998D00F4A7B4 /* ShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F97D96E1DAC998D00F4A7B4 /* ShareCell.swift */; };
 		3FCF7C9E1D849D49006DE2E9 /* HeaderUpload.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FCF7C9D1D849D49006DE2E9 /* HeaderUpload.xib */; };
 		3FCF7CA01D84A1D0006DE2E9 /* HeaderUploadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCF7C9F1D84A1D0006DE2E9 /* HeaderUploadCell.swift */; };
+		3FD0F0711E356E7D001A6B19 /* Email_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD0F06E1E356E7D001A6B19 /* Email_Icon.png */; };
+		3FD0F0721E356E7D001A6B19 /* Etsy_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD0F06F1E356E7D001A6B19 /* Etsy_Icon.png */; };
+		3FD0F0731E356E7D001A6B19 /* Insta_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD0F0701E356E7D001A6B19 /* Insta_Icon.png */; };
 		3FF50EF11D974045004A690C /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF50EF01D974045004A690C /* DateExtension.swift */; };
 		3FF5ADA51D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FF5ADA41D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist */; };
 		7B03C61C1D28991D00730FD6 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B03C61B1D28991D00730FD6 /* SettingsVC.swift */; };
@@ -108,7 +111,6 @@
 		7BB652D01CF7BD7D00D1E65E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652CF1CF7BD7D00D1E65E /* CoreLocation.framework */; };
 		7BB652D21CF7BD8900D1E65E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D11CF7BD8900D1E65E /* QuartzCore.framework */; };
 		7BB652D41CF7BD9000D1E65E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D31CF7BD9000D1E65E /* Security.framework */; };
-		7BB652D61CF7BD9700D1E65E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D51CF7BD9700D1E65E /* StoreKit.framework */; };
 		7BB652D81CF7BDCC00D1E65E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D71CF7BDCC00D1E65E /* SystemConfiguration.framework */; };
 		7BB652DA1CF7BDDF00D1E65E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652D91CF7BDDF00D1E65E /* libz.tbd */; };
 		7BB652DC1CF7BDF900D1E65E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BB652DB1CF7BDF900D1E65E /* libsqlite3.tbd */; };
@@ -184,6 +186,9 @@
 		3F97D96E1DAC998D00F4A7B4 /* ShareCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareCell.swift; sourceTree = "<group>"; };
 		3FCF7C9D1D849D49006DE2E9 /* HeaderUpload.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderUpload.xib; sourceTree = "<group>"; };
 		3FCF7C9F1D84A1D0006DE2E9 /* HeaderUploadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderUploadCell.swift; sourceTree = "<group>"; };
+		3FD0F06E1E356E7D001A6B19 /* Email_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Email_Icon.png; sourceTree = "<group>"; };
+		3FD0F06F1E356E7D001A6B19 /* Etsy_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Etsy_Icon.png; sourceTree = "<group>"; };
+		3FD0F0701E356E7D001A6B19 /* Insta_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Insta_Icon.png; sourceTree = "<group>"; };
 		3FF50EF01D974045004A690C /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		3FF5ADA41D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AnnoucementUploadCellDescriptor.plist; sourceTree = "<group>"; };
 		7B03C61B1D28991D00730FD6 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -291,7 +296,6 @@
 				7BB652DC1CF7BDF900D1E65E /* libsqlite3.tbd in Frameworks */,
 				7BB652DA1CF7BDDF00D1E65E /* libz.tbd in Frameworks */,
 				7BB652D81CF7BDCC00D1E65E /* SystemConfiguration.framework in Frameworks */,
-				7BB652D61CF7BD9700D1E65E /* StoreKit.framework in Frameworks */,
 				7BB652D41CF7BD9000D1E65E /* Security.framework in Frameworks */,
 				7BB652D21CF7BD8900D1E65E /* QuartzCore.framework in Frameworks */,
 				7BB652D01CF7BD7D00D1E65E /* CoreLocation.framework in Frameworks */,
@@ -514,6 +518,9 @@
 				3F89D44D1D84CFA100F01B06 /* Down Arrow 2.png */,
 				3F89D44E1D84CFA100F01B06 /* Flash 2.png */,
 				3F89D44F1D84CFA100F01B06 /* Flash Auto.png */,
+				3FD0F06E1E356E7D001A6B19 /* Email_Icon.png */,
+				3FD0F06F1E356E7D001A6B19 /* Etsy_Icon.png */,
+				3FD0F0701E356E7D001A6B19 /* Insta_Icon.png */,
 				3F89D4501D84CFA100F01B06 /* Flash.png */,
 				3F89D4511D84CFA100F01B06 /* Flip Cam.png */,
 				3F89D4521D84CFA100F01B06 /* Folder.png */,
@@ -647,6 +654,7 @@
 				3F89D46F1D84CFA100F01B06 /* Flash.png in Resources */,
 				3F89D4691D84CFA100F01B06 /* Down Arrow 1-1.png in Resources */,
 				3F89D4651D84CFA100F01B06 /* Dash Box 1.png in Resources */,
+				3FD0F0721E356E7D001A6B19 /* Etsy_Icon.png in Resources */,
 				7B6F89F61D03055F00D9C17C /* like.png in Resources */,
 				3F89D4801D84D21A00F01B06 /* Background_Blue_Joint.jpg in Resources */,
 				7B408C4C1D0DC8B7003725B7 /* Main.storyboard in Resources */,
@@ -672,6 +680,7 @@
 				7B3231061D35AD8C00231180 /* collectionCell.xib in Resources */,
 				7BD27B911D1DAEC100705783 /* postSelected.xib in Resources */,
 				7B6E4A301D01EDFA004FCF2A /* pbg.jpg in Resources */,
+				3FD0F0731E356E7D001A6B19 /* Insta_Icon.png in Resources */,
 				3F89D4761D84CFA100F01B06 /* Home.png in Resources */,
 				3FF5ADA51D8F478500A9E941 /* AnnoucementUploadCellDescriptor.plist in Resources */,
 				3F89D4791D84CFA100F01B06 /* Plus.png in Resources */,
@@ -696,6 +705,7 @@
 				7BEC95EA1D57B78A0036A644 /* StickersUploadCellDescriptor.plist in Resources */,
 				7B24BC5A1D038C17002BB228 /* users@3x.png in Resources */,
 				3F89D47D1D84CFA100F01B06 /* View Changer 1-1.png in Resources */,
+				3FD0F0711E356E7D001A6B19 /* Email_Icon.png in Resources */,
 				3F89D4781D84CFA100F01B06 /* Person 1.png in Resources */,
 				7B24BC4E1D036EB0002BB228 /* feed.png in Resources */,
 			);
@@ -860,7 +870,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -903,7 +913,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -927,7 +937,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = StickerSpread/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stickerspread.StickerSpread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -954,7 +964,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = StickerSpread/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stickerspread.StickerSpread;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -975,7 +985,7 @@
 				7BB652BF1CF7BC7300D1E65E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		7BB652C01CF7BC7300D1E65E /* Build configuration list for PBXNativeTarget "StickerSpread" */ = {
 			isa = XCConfigurationList;
@@ -984,7 +994,7 @@
 				7BB652C21CF7BC7300D1E65E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

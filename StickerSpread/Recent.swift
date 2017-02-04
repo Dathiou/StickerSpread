@@ -83,7 +83,7 @@ func CreateRecent(userId: String, chatRoomID: String, members: [String], withUse
 
 func CreateRecentItem(userId: String, chatRoomID: String, members: [String], withUserUsername: String, withUserUserId: String) {
     
-    let ref = firebase.child("Recent").child(userId).childByAutoId()
+    let ref = firebase.child("Recent").childByAutoId()
     
     let recentId = ref.key
     let date = dateFormatter().string(from: NSDate() as Date)
@@ -119,7 +119,8 @@ func UpdateRecentItem(recent: NSDictionary, lastMessage: String) {
     
     var counter = recent["counter"] as! Int
     
-    if recent["userId"] as? String != FIRAuth.auth()?.currentUser?.uid {        counter += 1
+    if recent["userId"] as? String != FIRAuth.auth()?.currentUser?.uid {
+        counter += 1
     }
     
     let values = ["lastMessage" : lastMessage, "counter" : counter, "date" : date] as [String : Any]

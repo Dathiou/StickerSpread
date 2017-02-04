@@ -35,11 +35,11 @@ class SettingsVC: UIViewController {
         information()
         
         // check notifications of keyboard - shown or not
-        NotificationCenter.default.addObserver(self, selector: "keyboardWillShow:", name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: "keyboardWillHide:", name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: Selector(("keyboardWillShow:")), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SettingsVC.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         // tap to hide keyboard
-        let hideTap = UITapGestureRecognizer(target: self, action: "hideKeyboard")
+        let hideTap = UITapGestureRecognizer(target: self, action: #selector(SettingsVC.hideKeyboard))
         hideTap.numberOfTapsRequired = 1
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
@@ -55,21 +55,21 @@ class SettingsVC: UIViewController {
     }
     
     
-//    // func when keyboard is shown
-//    func keyboardWillShow(notification: NSNotification) {
-//        
-//        // define keyboard frame size
-//        keyboard = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey]!.CGRectValue)!
-//        
-//        // move up with animation
-//        UIView.animate(withDuration: 0.4) { () -> Void in
-//            self.scrollView.contentSize.height = self.view.frame.size.height + self.keyboard.height / 2
-//        }
-//    }
+    // func when keyboard is shown
+    func keyboardWillShow(notification: NSNotification) {
+        
+        // define keyboard frame size
+        keyboard = ((notification.userInfo?[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue)!
+        
+        // move up with animation
+        UIView.animate(withDuration: 0.4) { () -> Void in
+            self.scrollView.contentSize.height = self.view.frame.size.height + self.keyboard.height / 2
+        }
+    }
     
     
-    // func when keyboard is hidden
-    func keyboardWillHide(notification: NSNotification) {
+     //func when keyboard is hidden
+    func keyboardWillHide() {
         
         // move down with animation
         UIView.animate(withDuration: 0.4) { () -> Void in
@@ -83,15 +83,16 @@ class SettingsVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    @IBAction func upload_click(sender: AnyObject) {
+    @IBAction func UploadSettingsClick(_ sender: AnyObject) {
         let userID = FIRAuth.auth()?.currentUser?.uid
         firebase.child("Users").child(userID!).child("youtubeURL").setValue(self.youtubeURL.text)
         firebase.child("Users").child(userID!).child("instagramURL").setValue(self.instaURL.text)
         firebase.child("Users").child(userID!).child("etsyURL").setValue(self.ETSYURL.text)
-        firebase.child("Users").child(userID!).child("emailDisplay").setValue(self.instaURL.text)
-        
-    }
+        firebase.child("Users").child(userID!).child("emailDisplay").setValue(self.emailTxt.text)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdatedSettings"), object: nil)
+        navigationController?.popViewController(animated: true)
+}
+    
     // clicked cancel button
     @IBAction func cancel_clicked(sender: AnyObject) {
         
@@ -103,24 +104,25 @@ class SettingsVC: UIViewController {
     func information() {
         
         let userID = FIRAuth.auth()?.currentUser?.uid
-        firebase.child("Users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+        firebase.child("Users").child(userID!).observe(.value, with: { (snapshot) in
             // Get user value
             let firstname = (snapshot.value! as AnyObject).value(forKey:"first_name") as! String
             let lastname = (snapshot.value! as AnyObject).value(forKey:"last_name") as! String
-            self.navigationItem.title = firstname + " " + lastname
+            //self.navigationItem.title = firstname + " " + lastname
             
-            self.youtubeURL.text = (snapshot.value! as AnyObject).value(forKey:"youtubeURL") as! String
-            self.instaURL.text = (snapshot.value! as AnyObject).value(forKey:"instagramURL") as! String
-            self.ETSYURL.text = (snapshot.value! as AnyObject).value(forKey:"etsyURL") as! String
-            self.emailTxt.text = (snapshot.value! as AnyObject).value(forKey:"emailDisplay") as! String
+            self.youtubeURL.text = (snapshot.value! as AnyObject).value(forKey:"youtubeURL") as? String
+            self.instaURL.text = (snapshot.value! as AnyObject).value(forKey:"instagramURL") as? String
+            self.ETSYURL.text = (snapshot.value! as AnyObject).value(forKey:"etsyURL") as? String
+            self.emailTxt.text = (snapshot.value! as AnyObject).value(forKey:"emailDisplay") as? String
             
             let avaURL = ((snapshot.value! as AnyObject).value(forKey:"ProfilPicUrl") as! String)
-            let url = NSURL(string: avaURL)
-            if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
-                //self.avaArray.append(UIImage(data: data) as UIImage!)
-                self.image.image = UIImage(data: data as Data) as UIImage!
-                
-            }
+            //let url = NSURL(string: avaURL)
+            self.image.loadImageUsingCacheWithUrlString(urlString: avaURL)
+//            if let data = NSData(contentsOf: url! as URL){ //make sure your image in this url does exist, otherwise unwrap in a if let check
+//                //self.avaArray.append(UIImage(data: data) as UIImage!)
+//                self.image.image = UIImage(data: data as Data) as UIImage!
+//                
+//            }
             
             
 // self.storage.referenceForURL(snapshot.value!.objectForKey("ProfilPicUrl") as! String).dataWithMaxSize(25 * 1024 * 1024, completion: { (data, error) -> Void in

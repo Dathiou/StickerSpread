@@ -166,7 +166,8 @@ class RecentViewController: UIViewController, UITableViewDataSource, UITableView
         let picturesGroup = DispatchGroup()
         let queue = DispatchQueue.global(qos: .default)
         let userID = FIRAuth.auth()?.currentUser?.uid
-        firebase.child("Recent").queryOrdered(byChild: "userId").queryEqual(toValue: userID).observe(.value, with: { snapshot in
+        firebase.child("Recent").queryOrdered(byChild: "userId").queryEqual(toValue: userID)
+            .observe(.value, with: { snapshot in
            
             self.recents.removeAll()
             self.profPicURL.removeAll()

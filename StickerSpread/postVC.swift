@@ -179,7 +179,7 @@ class postVC: UITableViewController, segueTo,startChatProtocol {
         cell.ConnectImage.loadImageUsingCacheWithUrlString(urlString: myPost.profUrl!)
         cell.ContactName.text = myPost.NameAuthor
         
-        if myPost.uuid == FIRAuth.auth()?.currentUser?.uid {
+        if myPost.UserID == FIRAuth.auth()?.currentUser?.uid {
             cell.ConnectView.isHidden = true
         } else {
             cell.ConnectView.isHidden = false

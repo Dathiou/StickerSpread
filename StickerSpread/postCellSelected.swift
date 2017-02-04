@@ -1,4 +1,4 @@
-//
+ //
 //  postCell.swift
 //  StickerSpread
 //
@@ -11,7 +11,6 @@ import Parse
 import Firebase
 
 protocol segueTo{
-    
     func goToProfile(id : String!)
     func displayLikes(uuid : String!)
 }
@@ -81,7 +80,7 @@ class postCellSelected: UITableViewCell {
         picImg.isUserInteractionEnabled = true
         picImg.addGestureRecognizer(likeTap)
         
-               let width = UIScreen.main.bounds.width
+        let width = UIScreen.main.bounds.width
 
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(postCellSelected.connectClick))
